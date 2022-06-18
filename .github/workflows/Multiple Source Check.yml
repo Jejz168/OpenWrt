@@ -117,7 +117,7 @@ jobs:
     - name: Get Commit Hash
       id: getHash
       run: |
-        git clone --depth 1 $REPO_URL_PassWall -b $REPO_BRANCH_OpenClash $REPO_PATH_OpenClash
+        git clone --depth 1 $REPO_URL_OpenClash -b $REPO_BRANCH_OpenClash $REPO_PATH_OpenClash
         cd $REPO_PATH_OpenClash
         echo "::set-output name=commitHash_OpenClash::$(git rev-parse HEAD)"
         cd  
