@@ -1,0 +1,143 @@
+#
+# Copyright (c) 2019-2021 smallprogram
+#
+# This is free software, licensed under the MIT License.
+# See /LICENSE for more information.
+#
+# https://github.com/smallprogram/OpenWrtAction
+# File: .github/workflows/Update_Checker.yml
+# Description: Source code update checker
+#
+name: Multiple Source Check
+
+
+  
+on:
+  schedule:
+    - cron: '0 */4 * * *' 
+  workflow_dispatch:
+    inputs:
+      SSH:
+        description: 'SSH connection to Actions?'
+        required: false
+        default: 'false'
+      forceupdate:
+        description: 'Forceupdate?'
+        required: false
+        default: 'false'      
+env:
+  TZ: Asia/Shanghai
+
+jobs:
+  Checka:
+    runs-on: ubuntu-20.04
+    env:
+      REPO_URL_Lede: https://github.com/coolsnowwolf/lede
+      REPO_BRANCH_Lede: master
+      REPO_PATH_Lede : "lede"
+    steps:
+
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+      
+        git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
+        cd $REPO_PATH_Lede
+        echo "::set-output name=commitHash_Lede::$(git rev-parse HEAD)"
+        cd
+        
+    - name: Show Commit Head and Combination Heads
+      id: combHeader
+      run: |
+        echo "commitHash_Lede: ${{ steps.getHash.outputs.commitHash_Lede }}"
+        echo "::set-output name=commitHash_All::\
+          ${{steps.getHash.outputs.commitHash_Lede}}"
+          
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@v2
+      with:
+        path: .commitHash_All
+        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
+   
+
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHash_Lede }} | tee .commitHash_Lede
+        echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All   
+        
+    - name: Telegram notification upload success
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          ✨Lede✨
+              ◣源码更新了◥
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍：https://github.com/coolsnowwolf/lede
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////        
+  Checkb:
+    runs-on: ubuntu-20.04
+    env:
+      REPO_URL_HelloWorld: https://github.com/fw876/helloworld
+      REPO_BRANCH_HelloWorld: master
+      REPO_PATH_HelloWorld : "helloworld"
+  steps:
+  
+   - name: Get Commit Hash
+     id: getHash
+     run: |
+      
+        git clone --depth 1 $REPO_URL_HelloWorld -b $REPO_BRANCH_HelloWorld $REPO_PATH_HelloWorld 
+        cd $REPO_PATH_HelloWorld
+        echo "::set-output name=commitHash_HelloWorld::$(git rev-parse HEAD)"
+        cd
+        
+   - name: Show Commit Head and Combination Heads
+     id: combHeader
+     run: |
+        echo "commitHash_HelloWorld: ${{ steps.getHash.outputs.commitHash_HelloWorld }}"
+        echo "::set-output name=commitHash_All::\
+          ${{steps.getHash.outputs.commitHash_HelloWorld}}"
+          
+   - name: Compare Commit Hash
+     id: cacheHash
+     uses: actions/cache@v2
+     with:
+        path: .commitHash_All
+        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
+   
+
+   - name: Save New Commit Hash
+     if: steps.cacheHash.outputs.cache-hit != 'true'
+     run: |
+         echo ${{ steps.getHash.outputs.commitHash_HelloWorld }} | tee .commitHash_HelloWorld
+         echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All   
+        
+   - name: Telegram notification upload success
+     if: steps.cacheHash.outputs.cache-hit != 'true'
+     uses: appleboy/telegram-action@master
+     with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          🚀HelloWorld🚀
+              ◣源码更新了◥
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍：https://github.com/fw876/helloworld
+    
+# //////////////////////////////////////////////////////////////////////////////////////////////
+  Cleaning:
+    if: ${{ always() }}
+    needs: [Checka,Checkb]    
+    runs-on: ubuntu-20.04
+    steps:  
+    
+    - name: Delete workflow runs
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        retain_days: 6
+        keep_minimum_runs: 6
