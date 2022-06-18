@@ -58,13 +58,7 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GH_TOKEN }}        
-                
-    - name: Delete workflow runs
-      uses: Mattraks/delete-workflow-runs@v2
-      with:
-        retain_days: 0
-        keep_minimum_runs: 6
+        github_token: ${{ secrets.GH_TOKEN }}                        
         
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
