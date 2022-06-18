@@ -115,24 +115,6 @@ jobs:
           *🔥 这是 ARMv8 简化版（带docker），集成一些日常常用插件
           当前使用版本:【编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录】
           ${{ env.useVersionInfo }}
-    
-    - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
-      with:
-        token: ${{ secrets.GH_TOKEN }}
-        repository: ${{ github.repository }}
-        retain_days: 1
-        keep_minimum_runs: 2
-
-    - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@v0.2.0
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      with:
-        keep_latest: 3
-        delete_tag_pattern: _
-        delete_tags: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
     - name: Telegram notification
       uses: appleboy/telegram-action@master
