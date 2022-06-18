@@ -1,17 +1,11 @@
-#
-# Copyright (c) 2019-2021 smallprogram
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
-# https://github.com/smallprogram/OpenWrtAction
-# File: .github/workflows/Update_Checker.yml
-# Description: Source code update checker
-#
+#===============================================
+# Description: multiple source check
+# Lisence: MIT
+# Original Author: Tao173 
+#===============================================
+
 name: Multiple Source Check
 
-
-  
 on:
   schedule:
     - cron: '0 */4 * * *' 
@@ -32,112 +26,249 @@ jobs:
   Checka:
     runs-on: ubuntu-20.04
     env:
-      REPO_URL_Lede: https://github.com/coolsnowwolf/lede
-      REPO_BRANCH_Lede: master
-      REPO_PATH_Lede : "lede"
+      REPO_URL: https://github.com/coolsnowwolf/lede
+      REPO_BRANCH: master
+    outputs:
+      output: ${{ steps.outputunifreq.outputs.unifreq }}        
     steps:
-
     - name: Get Commit Hash
       id: getHash
       run: |
-      
-        git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
-        cd $REPO_PATH_Lede
-        echo "::set-output name=commitHash_Lede::$(git rev-parse HEAD)"
-        cd
-        
-    - name: Show Commit Head and Combination Heads
-      id: combHeader
-      run: |
-        echo "commitHash_Lede: ${{ steps.getHash.outputs.commitHash_Lede }}"
-        echo "::set-output name=commitHash_All::\
-          ${{steps.getHash.outputs.commitHash_Lede}}"
-          
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH ./c
+        cd c
+        echo "::set-output name=commitHasha::$(git rev-parse HEAD)"
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
       with:
-        path: .commitHash_All
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
-   
-
+        path: .commitHasha
+        key: HEAD-${{ steps.getHash.outputs.commitHasha }}
+    - name: Set output for next job
+      id: outputunifreq
+      if: steps.cacheHash.outputs.cache-hit == 'true'
+      run: |
+        echo "::set-output name=unifreq::hello"
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash_Lede }} | tee .commitHash_Lede
-        echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All   
-        
-    - name: Telegram notification upload success
+        echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
+    - name: Trigger build
       if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.ACTIONS_TRIGGER_PAT }}
+        event-type: Lean Source Code Update     
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////        
+  Checkb:
+    runs-on: ubuntu-20.04
+    env:
+      REPO_URL: https://github.com/Lienol/openwrt
+      REPO_BRANCH: 21.02
+    outputs:
+      output: ${{ steps.outputunifreq.outputs.unifreq }}        
+    steps:
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH ./b
+        cd b
+        echo "::set-output name=commitHashb::$(git rev-parse HEAD)"
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@v2
+      with:
+        path: .commitHash
+        key: HEAD-${{ steps.getHash.outputs.commitHashb }}
+    - name: Set output for next job
+      id: outputunifreq
+      if: steps.cacheHash.outputs.cache-hit == 'true'
+      run: |
+        echo "::set-output name=unifreq::hello"
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHashb }} | tee .commitHash
+    - name: Trigger build
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.ACTIONS_TRIGGER_PAT }}
+        event-type: Lienol Source Code Update     
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////        
+  Checkc:
+    runs-on: ubuntu-20.04
+    env:
+      REPO_URL: https://github.com/immortalwrt/immortalwrt
+      REPO_BRANCH: openwrt-21.02
+    outputs:
+      output: ${{ steps.outputunifreq.outputs.unifreq }}        
+    steps:
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH ./c
+        cd c
+        echo "::set-output name=commitHashc::$(git rev-parse HEAD)"
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@v2
+      with:
+        path: .commitHash
+        key: HEAD-${{ steps.getHash.outputs.commitHashc }}
+    - name: Set output for next job
+      id: outputunifreq
+      if: steps.cacheHash.outputs.cache-hit == 'true'
+      run: |
+        echo "::set-output name=unifreq::hello"
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHashc }} | tee .commitHash
+    - name: Trigger build
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.ACTIONS_TRIGGER_PAT }}
+        event-type: Immortalwrt Source Code Update      
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////        
+  Checkd:
+    runs-on: ubuntu-20.04
+    env:
+      REPO_URL: https://github.com/unifreq/openwrt_packit
+      REPO_BRANCH: master
+    outputs:
+      output: ${{ steps.outputunifreq.outputs.unifreq }}        
+    steps:
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH ./d
+        cd d
+        echo "::set-output name=commitHashd::$(git rev-parse HEAD)"
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@v2
+      with:
+        path: .commitHash
+        key: HEAD-${{ steps.getHash.outputs.commitHashd }}
+
+    - name: Set output for next job
+      id: outputunifreq
+      if: steps.cacheHash.outputs.cache-hit == 'true'
+      run: |
+        echo "::set-output name=unifreq::hello"
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHashd }} | tee .commitHash
+    - name: Trigger build
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.ACTIONS_TRIGGER_PAT }}
+        event-type: Unifreq Source Code Update
+  Checke:
+    runs-on: ubuntu-20.04
+    env:
+      REPO_URL: https://github.com/Tao173/compile-kernel
+      REPO_BRANCH: main
+    outputs:
+      output: ${{ steps.outputunifreq.outputs.unifreq }}        
+    steps:
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH ./e
+        cd e
+        echo "::set-output name=commitHashe::$(git rev-parse HEAD)"
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@v2
+      with:
+        path: .commitHash
+        key: HEAD-${{ steps.getHash.outputs.commitHashe }}
+
+    - name: Set output for next job
+      id: outputunifreq
+      if: steps.cacheHash.outputs.cache-hit == 'true'
+      run: |
+        echo "::set-output name=unifreq::hello"
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHashe }} | tee .commitHash
+    - name: Sleep for 3h (wait for kernel bulid)
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: sleep 3h
+      shell: bash
+    - name: Trigger build
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: peter-evans/repository-dispatch@v1
+      with:
+        token: ${{ secrets.ACTIONS_TRIGGER_PAT }}
+        event-type: Mykernel Update
+
+  New-Update-Files:
+    needs: [Checka, Checkb,Checkc, Checkd]   
+    if: ${{ needs.Checkd.outputs.output != 'hello' }} && (github.event.inputs.forceupdate == 'true' && github.event.inputs.forceupdate  != 'false') 
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo timedatectl set-timezone "$TZ"
+        svn co --username ${{ secrets.MYNAME }} --password ${{ secrets.ACTIONS_TRIGGER_PAT }} https://github.com/${{ secrets.MYPRIVATEREPOSITORIES }}/trunk/files ./diy/files
+        cp ./diy/files/pull.sh ./
+        chmod +x pull.sh
+        ./pull.sh
+        rm -rf pull.sh && rm -rf ./diy/files
+    - name: Download Myself kernel
+      uses: robinraju/release-downloader@v1.3
+      with:
+        repository: "Tao173/compile-kernel"
+        latest: true
+        fileName: "*"
+        tarBall: true
+        out-file-path: ./backup/mykernel
+    - name: Release kernel tar
+      run: |
+        cd ./backup/mykernel
+        find ./ -name *compile*|xargs rm -rf
+        ls ./*.tar.gz |xargs -n1 tar xzvf
+        rm -rf ./*gz
+    - name: Commit
+      run: |
+        git config --global user.email Mr.Wanzi@outlook.com
+        git config --global user.name Tao-Another
+        git add .
+        git commit -m"action:`date`"
+        git pull --rebase
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.ACTIONS_TRIGGER_PAT }}             
+
+# //////////////////////////////////////////////////////////////////////////////////////////////
+  Cleaning:
+    if: ${{ always() }}
+    needs: [New-Update-Files,Checka,Checkb,Checkc,Checkd,Checke]    
+    runs-on: ubuntu-20.04
+    steps:
+    - name: Delete Older Workflows
+      uses: Mattraks/delete-workflow-runs@v2
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        retain_days: 0
+        keep_minimum_runs: 2
+
+    - name: Telegram notification upload success
+      if: ${{ needs.Checkd.outputs.output != 'hello' }}
       uses: appleboy/telegram-action@master
       with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ✨Lede✨
-              ◣源码更新了◥
-          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍：https://github.com/coolsnowwolf/lede
-# /////////////////////////////////////////////////////////////////////////////////////////////////////////        
-  Checkb:
-    runs-on: ubuntu-20.04
-    env:
-      REPO_URL_HelloWorld: https://github.com/fw876/helloworld
-      REPO_BRANCH_HelloWorld: master
-      REPO_PATH_HelloWorld : "helloworld"
-  steps:
-  
-   - name: Get Commit Hash
-     id: getHash
-     run: |
-      
-        git clone --depth 1 $REPO_URL_HelloWorld -b $REPO_BRANCH_HelloWorld $REPO_PATH_HelloWorld 
-        cd $REPO_PATH_HelloWorld
-        echo "::set-output name=commitHash_HelloWorld::$(git rev-parse HEAD)"
-        cd
-        
-   - name: Show Commit Head and Combination Heads
-     id: combHeader
-     run: |
-        echo "commitHash_HelloWorld: ${{ steps.getHash.outputs.commitHash_HelloWorld }}"
-        echo "::set-output name=commitHash_All::\
-          ${{steps.getHash.outputs.commitHash_HelloWorld}}"
-          
-   - name: Compare Commit Hash
-     id: cacheHash
-     uses: actions/cache@v2
-     with:
-        path: .commitHash_All
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
-   
-
-   - name: Save New Commit Hash
-     if: steps.cacheHash.outputs.cache-hit != 'true'
-     run: |
-         echo ${{ steps.getHash.outputs.commitHash_HelloWorld }} | tee .commitHash_HelloWorld
-         echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All   
-        
-   - name: Telegram notification upload success
-     if: steps.cacheHash.outputs.cache-hit != 'true'
-     uses: appleboy/telegram-action@master
-     with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: |
-          🚀HelloWorld🚀
-              ◣源码更新了◥
-          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍：https://github.com/fw876/helloworld
-    
-# //////////////////////////////////////////////////////////////////////////////////////////////
-  Cleaning:
-    if: ${{ always() }}
-    needs: [Checka,Checkb]    
-    runs-on: ubuntu-20.04
-    steps:  
-    
-    - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
-      with:
-        retain_days: 6
-        keep_minimum_runs: 6
+          源码更新成功,垃圾清理完成👏。
