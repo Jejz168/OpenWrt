@@ -59,8 +59,8 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ✨Lede✨
-              ◣源码更新了◥
+          ✨༺Lede༻✨
+                ● 源码更新了
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍：https://github.com/coolsnowwolf/lede
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////        
@@ -102,8 +102,8 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          🚀HelloWorld🚀
-              ◣源码更新了◥
+          🚀 HelloWorld
+                ● 源码更新了
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍：https://github.com/fw876/helloworld   
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////       
@@ -145,8 +145,8 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          🚀OpenClash🚀
-              ◣源码更新了◥
+         🚀 OpenClash
+                ● 源码更新了
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍：https://github.com/vernesong/OpenClash             
 # //////////////////////////////////////////////////////////////////////////////////////////////
