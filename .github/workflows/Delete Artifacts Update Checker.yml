@@ -66,4 +66,4 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ▶💐同步成功◀
+           ҉🎡同步成功҉
