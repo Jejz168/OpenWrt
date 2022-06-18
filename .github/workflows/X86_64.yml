@@ -42,8 +42,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@main
-      with:
-        fetch-depth: 0
 
     - name: Check server configuration
       run: |
