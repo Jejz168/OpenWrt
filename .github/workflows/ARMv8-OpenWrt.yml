@@ -121,14 +121,14 @@ jobs:
       with:
         token: ${{ secrets.GH_TOKEN }}
         repository: ${{ github.repository }}
-        retain_days: 6
-        keep_minimum_runs: 6
+        retain_days: 1
+        keep_minimum_runs: 2
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.2.0
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        keep_latest: 8
+        keep_latest: 3
         delete_tag_pattern: _
         delete_tags: true
       env:
