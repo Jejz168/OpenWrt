@@ -13,18 +13,10 @@ name: Multiple Source Check
 
   
 on:
-  schedule:
-    - cron: '0 */4 * * *' 
   workflow_dispatch:
-    inputs:
-      SSH:
-        description: 'SSH connection to Actions?'
-        required: false
-        default: 'false'
-      forceupdate:
-        description: 'Forceupdate?'
-        required: false
-        default: 'false'      
+  schedule:
+    - cron: '0 7-23/2 * * *' 
+     
 env:
   TZ: Asia/Shanghai
 
@@ -114,10 +106,53 @@ jobs:
               ◣源码更新了◥
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍：https://github.com/fw876/helloworld   
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////        
+  Checkc:
+    runs-on: ubuntu-20.04
+    env:
+      REPO_URL_OpenClash: https://github.com/vernesong/OpenClash
+      REPO_BRANCH_OpenClash: master
+      REPO_PATH_OpenClash : "OpenClash"
+    steps:
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone --depth 1 $REPO_URL_PassWall -b $REPO_BRANCH_OpenClash $REPO_PATH_OpenClash
+        cd $REPO_PATH_OpenClash
+        echo "::set-output name=commitHash_OpenClash::$(git rev-parse HEAD)"
+        cd  
+    - name: Show Commit Head and Combination Heads
+      id: combHeader
+      run: |
+        echo "commitHash_OpenClash: ${{ steps.getHash.outputs.commitHash_OpenClash }}"
+        echo "::set-output name=commitHash_All::\
+          ${{steps.getHash.outputs.commitHash_OpenClash}}"      
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@v2
+      with:
+        path: .commitHash_All
+        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+         echo ${{ steps.getHash.outputs.commitHash_OpenClash }} | tee .commitHash_OpenClash
+         echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All       
+    - name: Telegram notification upload success
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          🚀OpenClash🚀
+              ◣源码更新了◥
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍：https://github.com/vernesong/OpenClash             
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
-    needs: [Checka,Checkb]    
+    needs: [Checka,Checkb,Checkc]    
     runs-on: ubuntu-20.04
     steps:  
     - name: Delete workflow runs
