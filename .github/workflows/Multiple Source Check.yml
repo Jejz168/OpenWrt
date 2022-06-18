@@ -8,15 +8,25 @@
 # File: .github/workflows/Update_Checker.yml
 # Description: Source code update checker
 #
-
-name: Update_Checker
+name: Multiple Source Check
 
 
   
 on:
-  workflow_dispatch:
   schedule:
-    - cron: 0 7-23/2 * * *
+    - cron: '0 */4 * * *' 
+  workflow_dispatch:
+    inputs:
+      SSH:
+        description: 'SSH connection to Actions?'
+        required: false
+        default: 'false'
+      forceupdate:
+        description: 'Forceupdate?'
+        required: false
+        default: 'false'      
+env:
+  TZ: Asia/Shanghai
 
 jobs:
   Checka:
@@ -74,43 +84,43 @@ jobs:
     env:
       REPO_URL_HelloWorld: https://github.com/fw876/helloworld
       REPO_BRANCH_HelloWorld: master
-      REPO_PATH_HelloWorld : "helloworld
-    steps:
-
-    - name: Get Commit Hash
-      id: getHash
-      run: |
+      REPO_PATH_HelloWorld : "helloworld"
+  steps:
+  
+   - name: Get Commit Hash
+     id: getHash
+     run: |
       
         git clone --depth 1 $REPO_URL_HelloWorld -b $REPO_BRANCH_HelloWorld $REPO_PATH_HelloWorld 
         cd $REPO_PATH_HelloWorld
         echo "::set-output name=commitHash_HelloWorld::$(git rev-parse HEAD)"
         cd
         
-    - name: Show Commit Head and Combination Heads
-      id: combHeader
-      run: |
+   - name: Show Commit Head and Combination Heads
+     id: combHeader
+     run: |
         echo "commitHash_HelloWorld: ${{ steps.getHash.outputs.commitHash_HelloWorld }}"
         echo "::set-output name=commitHash_All::\
           ${{steps.getHash.outputs.commitHash_HelloWorld}}"
           
-    - name: Compare Commit Hash
-      id: cacheHash
-      uses: actions/cache@v2
-      with:
+   - name: Compare Commit Hash
+     id: cacheHash
+     uses: actions/cache@v2
+     with:
         path: .commitHash_All
         key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
    
 
-    - name: Save New Commit Hash
-      if: steps.cacheHash.outputs.cache-hit != 'true'
-      run: |
+   - name: Save New Commit Hash
+     if: steps.cacheHash.outputs.cache-hit != 'true'
+     run: |
          echo ${{ steps.getHash.outputs.commitHash_HelloWorld }} | tee .commitHash_HelloWorld
-        echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All   
+         echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All   
         
-    - name: Telegram notification upload success
-      if: steps.cacheHash.outputs.cache-hit != 'true'
-      uses: appleboy/telegram-action@master
-      with:
+   - name: Telegram notification upload success
+     if: steps.cacheHash.outputs.cache-hit != 'true'
+     uses: appleboy/telegram-action@master
+     with:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
@@ -122,7 +132,7 @@ jobs:
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
-    needs: [New-Update-Files,Checka,Checkb,Checkc,Checkd,Checke]    
+    needs: [Checka,Checkb]    
     runs-on: ubuntu-20.04
     steps:  
     
