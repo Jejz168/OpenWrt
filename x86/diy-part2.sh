@@ -34,7 +34,6 @@ rm -rf feeds/luci/applications/luci-app-serverchan
 rm -rf feeds/luci/applications/luci-app-frpc
 rm -rf feeds/luci/applications/luci-app-socat
 rm -rf feeds/luci/applications/luci-app-wrtbwmon
-rm -rf feeds/luci/applications/luci-app-unblockmusic
 
 # 添加额外软件包
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
