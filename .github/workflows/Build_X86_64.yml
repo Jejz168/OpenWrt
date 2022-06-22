@@ -92,7 +92,7 @@ jobs:
         echo "commit=$Commit" >> $GITHUB_ENV
         echo "hash=$Hash" >> $GITHUB_ENV
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
-        echo "DATE1=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
+        echo "start=$(date "%H:%M:%S")" >> $GITHUB_ENV
          
     - name: Load custom feeds
       run: |
@@ -238,7 +238,13 @@ jobs:
           - 🔥默认IP：192.168.8.3 默认密码：password
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           ${{ env.useVersionInfo }}
-          
+     
+    - name: Total time
+      run: |
+        echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "end=$(date "%H:%M:%S")" >> $GITHUB_ENV  
+        echo "time=$((end - start))" >> $GITHUB_ENV
+
     - name: Telegram notification
       uses: appleboy/telegram-action@master
       with:
@@ -246,7 +252,9 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
           ♨️${{ env.PRODUCT_NAME }}编译完成
-          编译时间：${{ env.DATE }}
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.DATE1 }}
+          编译耗时：${{ env.time }}
           更新信息：
           作者: ${{ env.author }}
           时间: ${{ env.date }}
