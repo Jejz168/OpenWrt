@@ -29,7 +29,8 @@ jobs:
         svn export https://github.com/ophub/kernel/trunk/pub/stable ./backup/kernel --force
         rm -rf ./backup/kernel/5.10.*
         rm -rf ./backup/kernel/5.4.*
-        starttime=`date +'%Y-%m-%d %H:%M:%S'`
+        echo "starttime=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+
     - name: Download kernel
       uses: robinraju/release-downloader@v1.3
       with:
@@ -62,10 +63,9 @@ jobs:
         
     - name: Total time
       run: |
-         endtime=`date +'%Y-%m-%d %H:%M:%S'`
+         echo "endtime=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
          start_seconds=$(date --date="$starttime" +%s);
          end_seconds=$(date --date="$endtime" +%s);
-
          seconds=$(( end_seconds-start_seconds ))
          Time=$(( $seconds/60 ))
          hour=$(( $seconds/3600 ))
