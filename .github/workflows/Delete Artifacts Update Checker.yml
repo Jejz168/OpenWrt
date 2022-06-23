@@ -63,14 +63,17 @@ jobs:
     - name: Total time
       run: |
          endtime=`date +'%Y-%m-%d %H:%M:%S'`
-         start_H=$(date --date="$starttime" +%h);
-         end_H=$(date --date="$endtime" +%h);
-         start_M=$(date --date="$starttime" +%m);
-         end_M=$(date --date="$endtime" +%m);
-         Time=$(( end_H-start_H ))
-         Time1=$(( end_M-start_M ))
-         echo "time=$Time" >> $GITHUB_ENV
-         echo "time1=$Time1" >> $GITHUB_ENV
+         start_seconds=$(date --date="$starttime" +%s);
+         end_seconds=$(date --date="$endtime" +%s);
+
+         Time=$(( end_seconds-start_seconds ))
+         seconds=$Time
+         hour=$(( $seconds/3600 ))
+         min=$(( ($seconds-${hour}*3600)/60 ))
+         sec=$(( $seconds-${hour}*3600-${min}*60 ))
+         HMS=`echo ${hour}:${min}:${sec}`
+         echo $HMS
+         echo "time=$HMS" >> $GITHUB_ENV
         
              
     - name: Telegram notification upload success
@@ -80,4 +83,4 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
            ҉ 🎡同步成功 ҉
-           编译耗时：${{ env.time }}.${{ env.time1 }}分
+           编译耗时：${{ env.time }}
