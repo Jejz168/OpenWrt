@@ -29,7 +29,6 @@ jobs:
         svn export https://github.com/ophub/kernel/trunk/pub/stable ./backup/kernel --force
         rm -rf ./backup/kernel/5.10.*
         rm -rf ./backup/kernel/5.4.*
-        echo "start=$(date +%s)" >> $GITHUB_ENV
 
     - name: Download kernel
       uses: robinraju/release-downloader@v1.3
@@ -60,17 +59,7 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
         github_token: ${{ secrets.GH_TOKEN }}
-        
-    - name: Total time
-      run: |
-         end=$(date +%s)
-         seconds=$(( end - start ))
-         hour=$(( $seconds/3600 ))
-         min=$(( ($seconds-${hour}*3600)/60 ))
-         sec=$(( $seconds-${hour}*3600-${min}*60 ))
-         HMS=`echo ${hour}:${min}:${sec}`
-         echo "time=$HMS" >> $GITHUB_ENV
-             
+                    
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
       with:
@@ -78,4 +67,3 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
            ҉ 🎡同步成功 ҉
-           编译耗时：${{ env.time }}
