@@ -66,15 +66,16 @@ jobs:
          start_seconds=$(date --date="$starttime" +%s);
          end_seconds=$(date --date="$endtime" +%s);
 
-         Time=$(( end_seconds-start_seconds ))
-         seconds=$Time
+         seconds=$(( end_seconds-start_seconds ))
+         Time=$(( $seconds/60 ))
          hour=$(( $seconds/3600 ))
          min=$(( ($seconds-${hour}*3600)/60 ))
          sec=$(( $seconds-${hour}*3600-${min}*60 ))
          HMS=`echo ${hour}:${min}:${sec}`
+         echo $seconds
          echo $HMS
          echo "time=$HMS" >> $GITHUB_ENV
-        
+         echo "time1=$Time" >> $GITHUB_ENV
              
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
@@ -83,4 +84,4 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
            ҉ 🎡同步成功 ҉
-           编译耗时：${{ env.time }}
+           编译耗时：${{ env.time }}时${{ env.time1 }}分
