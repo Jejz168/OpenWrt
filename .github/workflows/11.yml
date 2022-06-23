@@ -23,19 +23,22 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo timedatectl set-timezone "$TZ"
-        echo "starttime=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "start=$(date +%s)" >> $GITHUB_ENV
    
     
     - name: Total time
       run: |
-         endtime=`date +'%Y-%m-%d %H:%M:%S'`
-         start_seconds=$(date --date="$starttime" +%s)
-         end_seconds=$(date --date="$endtime" +%s)
-         seconds=$(( end_seconds-start_seconds )
+         end=$(date +%s)
+         seconds=$(( end - start ))
+         hour=$(( $seconds/3600 ))
+         min=$(( ($seconds-${hour}*3600)/60 ))
+         sec=$(( $seconds-${hour}*3600-${min}*60 ))
+         HMS=`echo ${hour}:${min}:${sec}`
+         echo $HMS
          echo $seconds
-         echo $starttime
-         echo $endtime
-         echo "time1=$seconds" >> $GITHUB_ENV
+         echo $start
+         echo $end
+         echo "time1=$HMS" >> $GITHUB_ENV
              
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
