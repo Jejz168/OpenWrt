@@ -70,12 +70,10 @@ jobs:
          hour=$(( $seconds/3600 ))
          min=$(( ($seconds-${hour}*3600)/60 ))
          sec=$(( $seconds-${hour}*3600-${min}*60 ))
-         HMS=`echo ${hour}:${min}:${sec}`
-         echo $HMS
          echo $seconds
          echo $starttime
          echo $endtime
-         echo "time1=$HMS" >> $GITHUB_ENV
+         echo "time1=${hour}:${min}:${sec}" >> $GITHUB_ENV
              
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
