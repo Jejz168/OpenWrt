@@ -63,9 +63,9 @@ jobs:
     
     - name: Total time
       run: |
-        
+        sudo timedatectl set-timezone "$TZ"
         echo "end=$(date +%s)" >> $GITHUB_ENV
-        echo "time=$[ end - start ]" >> $GITHUB_ENV
+        echo "time=$(( end - start ))" >> $GITHUB_ENV
         
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
