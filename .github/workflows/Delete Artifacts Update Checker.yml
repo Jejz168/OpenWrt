@@ -66,13 +66,17 @@ jobs:
          endtime=`date +'%Y-%m-%d %H:%M:%S'`
          start_seconds=$(date --date="$starttime" +%s);
          end_seconds=$(date --date="$endtime" +%s);
-         echo "本次运行时间： "$((end_seconds-start_seconds))"s"
-         seconds=$(( end_seconds-start_seconds ))
-         Time=$(( $seconds/60 ))
+         
+         seconds=$(( end_seconds-start_seconds )
+         hour=$(( $seconds/3600 ))
+         min=$(( ($seconds-${hour}*3600)/60 ))
+         sec=$(( $seconds-${hour}*3600-${min}*60 ))
+         HMS=`echo ${hour}:${min}:${sec}`
+         echo $HMS
          echo $seconds
          echo $starttime
          echo $endtime
-         echo "time1=$Time" >> $GITHUB_ENV
+         echo "time1=$HMS" >> $GITHUB_ENV
              
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
