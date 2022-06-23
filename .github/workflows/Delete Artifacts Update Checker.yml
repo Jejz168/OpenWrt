@@ -64,7 +64,7 @@ jobs:
       run: |
         echo "start1=$(date "+%H")" >> $GITHUB_ENV
         echo "end1=$(date "+%M")" >> $GITHUB_ENV
-        echo "time=$((start1-start))" >> $GITHUB_ENV
+        echo "time=$(($start1-$start))" >> $GITHUB_ENV
              
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
