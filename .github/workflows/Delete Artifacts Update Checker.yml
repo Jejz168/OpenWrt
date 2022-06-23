@@ -63,14 +63,14 @@ jobs:
     - name: Total time
       run: |
          endtime=`date +'%Y-%m-%d %H:%M:%S'`
-         start_H=$(date --date="$starttime" +%H);
-         end_H=$(date --date="$endtime" +%H);
-         start_M=$(date --date="$starttime" +%M);
-         end_M=$(date --date="$endtime" +%M);
-         time=$(( end_H-start_H ))
-         time1=$(( end_M-start_M ))
-         echo "$time"
-         echo "$time1"
+         start_H=$(date --date="$starttime" +%h);
+         end_H=$(date --date="$endtime" +%h);
+         start_M=$(date --date="$starttime" +%m);
+         end_M=$(date --date="$endtime" +%m);
+         Time=$(( end_H-start_H ))
+         Time1=$(( end_M-start_M ))
+         echo "time=$Time" >> $GITHUB_ENV
+         echo "time1=$Time1" >> $GITHUB_ENV
         
              
     - name: Telegram notification upload success
