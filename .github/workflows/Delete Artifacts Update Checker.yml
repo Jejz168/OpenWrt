@@ -63,10 +63,9 @@ jobs:
         
     - name: Total time
       run: |
-         endtime=`date +'%Y-%m-%d %H:%M:%S'`
-         start_seconds=$(date --date="$starttime" +%s);
-         end_seconds=$(date --date="$endtime" +%s);
-         
+         endtime=$(date "+%Y-%m-%d %H:%M:%S")
+         start_seconds=$(date --date="$starttime" +%s)
+         end_seconds=$(date --date="$endtime" +%s)
          seconds=$(( end_seconds-start_seconds )
          hour=$(( $seconds/3600 ))
          min=$(( ($seconds-${hour}*3600)/60 ))
