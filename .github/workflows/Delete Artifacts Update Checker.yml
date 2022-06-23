@@ -29,8 +29,8 @@ jobs:
         svn export https://github.com/ophub/kernel/trunk/pub/stable ./backup/kernel --force
         rm -rf ./backup/kernel/5.10.*
         rm -rf ./backup/kernel/5.4.*
-        echo "start=$(date "+%H")" >> $GITHUB_ENV
-        echo "start1=$(date "+%M")" >> $GITHUB_ENV
+        echo "start=$(date +%s)" >> $GITHUB_ENV
+
     - name: Download kernel
       uses: robinraju/release-downloader@v1.3
       with:
@@ -64,12 +64,8 @@ jobs:
     - name: Total time
       run: |
         
-        echo "end=$(date "+%H")" >> $GITHUB_ENV
-        echo "end1=$(date "+%M")" >> $GITHUB_ENV
-        time2=$(( end - start ))
-        time3=$(( end1 - start1 ))
-        echo "time=$(time2)" >> $GITHUB_ENV
-        echo "time1=$(time3)" >> $GITHUB_ENV
+        echo "end=$(date +%s)" >> $GITHUB_ENV
+        echo "time=$(( end - start ))" >> $GITHUB_ENV
         
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
