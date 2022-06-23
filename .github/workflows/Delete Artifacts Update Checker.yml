@@ -63,13 +63,15 @@ jobs:
     - name: Total time
       run: |
          endtime=`date +'%Y-%m-%d %H:%M:%S'`
-         start_seconds=$(date --date="$starttime" +%s);
-         end_seconds=$(date --date="$endtime" +%s);
-         time=$(( end_seconds-start_seconds ))
+         start_H=$(date --date="$starttime" +%H);
+         end_H=$(date --date="$endtime" +%H);
+         start_M=$(date --date="$starttime" +%M);
+         end_M=$(date --date="$endtime" +%M);
+         time=$(( end_H-start_H ))
+         time1=$(( end_M-start_M ))
          echo "$time"
-         time1=$time/60
          echo "$time1"
-         echo "time2=$time1" >> $GITHUB_ENV
+        
              
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
@@ -78,4 +80,4 @@ jobs:
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
            ҉ 🎡同步成功 ҉
-           编译耗时：${{ env.time2 }}时${{ env.time1 }}分
+           编译耗时：${{ env.time }}.${{ env.time1 }}分
