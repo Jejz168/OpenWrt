@@ -15,7 +15,7 @@ name: Multiple Source Check
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 7-23/2 * * *' 
+    - cron: 6 7-23/2 * * * 
      
 env:
   TZ: Asia/Shanghai
