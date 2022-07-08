@@ -20,7 +20,7 @@ sed -i 's/192.168.1.1/192.168.8.3/g' package/base-files/files/bin/config_generat
 # 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
 #sed -i 's@.*CYXluq4wUazHjmCDBCqXF*@#&@g' package/lean/default-settings/files/zzz-default-settings
 
-#设置ttyd免帐号登录
+# 设置ttyd免帐号登录
 sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/ttyd.config
 
 # 修改 argon 为默认主题
@@ -82,7 +82,7 @@ sed -i "s/<%=pcdata(ver.luciname)%> (<%=pcdata(ver.luciversion)%>)/ By @Jejz bui
 # 修改概览里时间显示为中文数字
 sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")) .. " " .. os.date("%X")/g' package/lean/autocore/files/x86/index.htm
 
-#修改欢迎banner
+# 修改欢迎banner
 cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
 
 #固件更新地址
