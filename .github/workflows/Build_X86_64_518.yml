@@ -113,7 +113,8 @@ jobs:
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
-        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g' ./target/linux/x86/Makefile
+        sed -i 's/CONFIG_LINUX_5_15=y/CONFIG_LINUX_5_18=y/g' .config
+        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.18/g' target/linux/x86/Makefile
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
     - name: SSH connection to Actions
