@@ -19,7 +19,6 @@ sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/tt
 # 移除重复软件包
 rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/themes/luci-theme-netgear
-#rm -rf feeds/luci/applications/luci-app-netdata
 rm -rf feeds/luci/applications/luci-app-dockerman
 rm -rf feeds/luci/applications/luci-app-serverchan
 rm -rf feeds/luci/applications/luci-app-frpc
@@ -35,7 +34,6 @@ git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikool
 git clone https://github.com/kuoruan/luci-app-frpc.git package/luci-app-frpc
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
 git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
-git clone https://github.com/siwind/luci-app-wolplus package/luci-app-wolplus
 git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 svn co https://github.com/rufengsuixing/luci-app-adguardhome/trunk package/luci-app-adguardhome
 svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
@@ -47,7 +45,6 @@ svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
 svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-smartdns package/luci-app-smartdns
-svn co https://github.com/doushang/luci-app-shortcutmenu/trunk/luci-app-shortcutmenu package/luci-app-shortcutmenu
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
 
 # 科学上网插件依赖
@@ -95,9 +92,6 @@ msgid "Compile update"
 msgstr "固件地址"
 EOF
 
-#修复编译
-#sed -i 's/HIDDEN:=1/DEPENDS:=@(LINUX_5_4||LINUX_5_10)/g' package/kernel/linux/modules/crypto.mk
-#echo 'kmod-wireguard' >> `ls staging_dir/target-*/pkginfo/linux.default.install`
 
 # 晶晨宝盒
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
@@ -105,18 +99,9 @@ sed -i "s|https.*/OpenWrt|https://github.com/Jejz168/OpenWrt|g" package/luci-app
 sed -i "s|opt/kernel|https://github.com/Jejz168/OpenWrt/tree/main/backup/kernel|g" package/luci-app-amlogic/root/etc/config/amlogic
 sed -i "s|ARMv8|ARMv8|g" package/luci-app-amlogic/root/etc/config/amlogic
 
-# 实时监控
-#svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-netdata package/luci-app-netdata
-
 # 流量监控
 svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-wrtbwmon package/luci-app-wrtbwmon
 svn co https://github.com/sirpdboy/sirpdboy-package/trunk/wrtbwmon package/wrtbwmo
-
-# 修改makefile
-find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
-find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/lang\/golang\/golang\-package\.mk/include \$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang\-package\.mk/g' {}
-find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHREPO/PKG_SOURCE_URL:=https:\/\/github\.com/g' {}
-find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload\.github\.com/g' {}
 
 # 调整V2ray服务到VPN菜单
 #sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/controller/*.lua
