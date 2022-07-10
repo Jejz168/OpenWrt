@@ -23,9 +23,16 @@ sed -i 's/192.168.1.1/192.168.8.3/g' package/base-files/files/bin/config_generat
 # 设置ttyd免帐号登录
 sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/ttyd.config
 
-# 修改 argon 为默认主题
-sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci/Makefile
+# 移除重复软件包
+rm -rf  feeds/luci/themes/luci-theme-argon  
 
+ # 替换新版argo
+git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon  
+
+# 修改 argon 为默认主题
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/Makefile  
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-nginx/Makefile  
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-ssl-nginx/Makefile   
 
 #主机名右上角符号❤
 #sed -i 's/❤/❤/g' package/lean/luci-theme-argon_armygreen/luasrc/view/themes/argon_armygreen/header.htm
@@ -48,9 +55,8 @@ cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
 #固件更新地址
 sed -i '/CPU usage/a\                <tr><td width="33%"><%:Compile update%></td><td><a target="_blank" href="https://github.com/Jejz168/OpenWrt/releases">👆查看</a></td></tr>'  package/lean/autocore/files/x86/index.htm
 cat >>feeds/luci/modules/luci-base/po/zh-cn/base.po<<- EOF
-\n
-msgid "Compile update"
-msgstr "固件地址"
+\nmsgid "Compile update"
+msgstr "固件地址"\n
 EOF
 
 # 流量监控
