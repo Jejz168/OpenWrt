@@ -93,7 +93,15 @@ jobs:
         echo "hash=$Hash" >> $GITHUB_ENV
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "start=$(date +%s)" >> $GITHUB_ENV
-         
+    
+    - name: Cache
+      uses: klever1988/cachewrtbuild@main
+      with:
+       ccache: 'true' #'true' 默认值
+       #清空缓存
+       clean:  'false'  # 'false' 默认值
+       prefix: ${{ github.workspace }}/openwrt
+ 
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
