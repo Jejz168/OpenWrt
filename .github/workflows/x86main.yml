@@ -31,8 +31,8 @@ env:
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: false
   TZ: Asia/Shanghai
-  FILE_NAME: X86_64
-  PRODUCT_NAME: x86_64
+  FILE_NAME: X86_64b
+  PRODUCT_NAME: x86_64b
   CONFIG: X86
 
 jobs:
