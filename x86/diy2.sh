@@ -55,8 +55,10 @@ cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
 #固件更新地址
 sed -i '/CPU usage/a\                <tr><td width="33%"><%:Compile update%></td><td><a target="_blank" href="https://github.com/Jejz168/OpenWrt/releases">👆查看</a></td></tr>'  package/lean/autocore/files/x86/index.htm
 cat >>feeds/luci/modules/luci-base/po/zh-cn/base.po<<- EOF
-\nmsgid "Compile update"
-msgstr "固件地址"\n
+
+msgid "Compile update"
+msgstr "固件地址"
+
 EOF
 
 # 流量监控
