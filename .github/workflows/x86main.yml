@@ -25,7 +25,7 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: x86/feeds.conf.default
-  CONFIG_FILE: x86/X86.config
+  CONFIG_FILE: x86/.config
   DIY_P1_SH: x86/diy1.sh
   DIY_P2_SH: x86/diy2.sh
   UPLOAD_BIN_DIR: false
@@ -65,8 +65,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android /opt/ghc
-        sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc 
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install $(curl -fsSL https://raw.githubusercontent.com/P3TERX/openwrt-list/master/depends-ubuntu-2004)
         sudo -E apt-get -qq autoremove --purge
@@ -74,6 +73,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
+        df -Th
         
     - name: Clone source code
       working-directory: /workdir
@@ -150,7 +150,7 @@ jobs:
       run: |
         cd openwrt
         echo -e ">>>> $(nproc) thread compile ..."
-        make -j$(nproc) || make -j1 || make -j1 V=s
+        make -j$(($(nproc)+1)) || make -j1 V=s
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
