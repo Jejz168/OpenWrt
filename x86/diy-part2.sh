@@ -33,8 +33,6 @@ rm -rf feeds/luci/applications/luci-app-serverchan
 rm -rf feeds/luci/applications/luci-app-frpc
 rm -rf feeds/luci/applications/luci-app-socat
 rm -rf feeds/luci/applications/luci-app-wrtbwmon
-rm -rf feeds/luci/applications/luci-app-vlmcsd
-rm -rf feeds/packages/net/vlmcsd
 
 # 添加额外软件包
 git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
@@ -90,10 +88,6 @@ msgid "Compile update"
 msgstr "固件地址"
 
 EOF
-
-# vlmcsd
-git clone https://github.com/siwind/openwrt-vlmcsd package/vlmcsd
-git clone https://github.com/siwind/luci-app-vlmcsd.git package/luci-app-vlmcsd
 
 # 流量监控
 svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-wrtbwmon package/luci-app-wrtbwmon
