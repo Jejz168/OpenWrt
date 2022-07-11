@@ -7,6 +7,9 @@
 # Blog: https://p3terx.com
 #===============================================
 
+#允许ROOT编译
+export FORCE_UNSAFE_CONFIGURE=1
+
 # 切换内核版本
 #sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.4/g' ./target/linux/x86/Makefile
 
