@@ -14,20 +14,40 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      ssh:
-        description: 'SSH connection to Actions'
+      url:
+        description: "URL connection to Actions"
         required: false
-        default: 'false'
+        default: "https://github.com/coolsnowwolf/lede.git"
+        type: choice
+        options:
+          - https://github.com/coolsnowwolf/lede.git
+          - https://github.com/Lienol/openwrt.git
+          - https://github.com/openwrt/openwrt.git
+      branch:
+        description: "BRANCH connection to Actions"
+        required: false
+        default: "master"
+        type: choice
+        options:
+          - master
+          - main
+          - openwrt-18.06
+          - openwrt-21.02
+          - openwrt-22.03
+      ssh:
+         description: 'SSH connection to Actions'
+         required: false
+         default: 'false'
   #schedule:
     #- cron: 15 16 * * 6
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
+  REPO_URL: ${{ github.event.inputs.url }}
+  REPO_BRANCH: ${{ github.event.inputs.branch }}
   FEEDS_CONF: x86/feeds.conf.default
   CONFIG_FILE: x86/.config
-  DIY_P1_SH: x86/diy-part1.sh
-  DIY_P2_SH: x86/diy-part2.sh
+  DIY_P1_SH: x86/diy1.sh
+  DIY_P2_SH: x86/diy2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: false
   TZ: Asia/Shanghai
@@ -98,23 +118,24 @@ jobs:
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        pwd
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
         
-    - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
-
-    - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
-
+    - name: Update feeds / Install feeds
+      run: |
+          cd openwrt 
+          ./scripts/feeds update -a && ./scripts/feeds install -a
+          ./scripts/feeds update -a && ./scripts/feeds install -a
+          
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        pwd
         chmod +x $DIY_P2_SH
         cd openwrt
-        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
         $GITHUB_WORKSPACE/$DIY_P2_SH
         make defconfig
         
