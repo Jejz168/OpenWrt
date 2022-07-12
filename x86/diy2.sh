@@ -32,9 +32,6 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci
 git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 
-# serverchan通知
-git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
-
 # 关机
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
 
