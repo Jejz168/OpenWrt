@@ -1,11 +1,10 @@
 #!/bin/bash
 
 
-pwd
-ls -l
+
 echo "开始 DIY1 配置……"
-pwd
-ls -l
+
+
 
 
 # Uncomment a feed source
@@ -50,12 +49,8 @@ svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-smartdns pack
 # SSRP
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
 
-# 科学上网插件依赖
+# openclash
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
-# 编译 po2lmo (如果有po2lmo可跳过)
-pushd package/luci-app-openclash/tools/po2lmo
-make && sudo make install
-popd
 
 # Themes
 rm -rf feeds/luci/themes/luci-theme-argon
