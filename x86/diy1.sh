@@ -1,6 +1,12 @@
 #!/bin/bash
 
+
+pwd
+ls -l
 echo "开始 DIY 配置……"
+pwd
+ls -l
+
 
 # Uncomment a feed source
 #sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
@@ -11,6 +17,8 @@ echo "开始 DIY 配置……"
 #echo 'src-git small https://github.com/kenzok8/small' >>feeds.conf.default
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
 
+
+#svn co 复制 仓库下的文件夹 git clone 复制整个仓库
 # vssr
 git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
