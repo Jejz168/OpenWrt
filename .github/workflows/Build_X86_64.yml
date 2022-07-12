@@ -54,10 +54,10 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Checkout
+    - name: Checkout 下载${{matrix.target}}源码准备完成
       uses: actions/checkout@v2
 
-    - name: Check server configuration
+    - name: Check server configuration 查看服务器
       run: |
         echo -e "-------------- ------------CPU信息------------------------------------------\n"
         echo "CPU物理数量:$(cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l)"
@@ -72,7 +72,7 @@ jobs:
         echo " 系统空间      类型   总数  已用  可用 使用率"
         df -Th
         
-    - name: Initialization environment
+    - name: Initialization environment 初始化系统环境
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
@@ -87,7 +87,7 @@ jobs:
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
         
-    - name: Clone source code
+    - name: Clone source code 下载源码
       working-directory: /workdir
       run: |
         echo " 系统空间      类型   总数  已用  可用 使用率"
@@ -107,43 +107,44 @@ jobs:
         echo "hash=$Hash" >> $GITHUB_ENV
         cd ..
         
-    - name: data time
+    - name: Start time 编译开始时间
       run: |  
         echo "编译开始时间..."
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "start=$(date +%s)" >> $GITHUB_ENV
 
-    - name: Load custom feeds
+    - name: Load custom feeds 自定义配置
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
         
-    - name: Update & Install feeds
+    - name: Update & Install feeds 更新并安装配置中的源
       working-directory: ./openwrt
       run: |
           ./scripts/feeds update -a 
           
           ./scripts/feeds install -a -f
           
-    - name: Load custom configuration
+          chmod +x $DIY_P2_SH
+          cd openwrt
+          $GITHUB_WORKSPACE/$DIY_P2_SH
+          
+    - name: Load custom configuration 加载config配置
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        chmod +x $DIY_P2_SH
-        cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
-        make defconfig
+        cd openwrt && make defconfig
         
-    - name: SSH connection to Actions
+    - name: SSH connection to Actions SSH远程连接服务器
       uses: P3TERX/ssh2actions@v1.0.0
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         
-    - name: Upload files to release
+    - name: Upload files to release 上载config
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false')     
       uses: ncipollo/release-action@v1
       with:
@@ -155,7 +156,7 @@ jobs:
         body: |
           * 修改后的config文件 📝
 
-    - name: 输出编译信息
+    - name: Output compilation information 输出编译信息
       run: |
           cd openwrt
           echo " 系统空间      类型   总数  已用  可用 使用率"
@@ -184,7 +185,7 @@ jobs:
           echo
           cat .config
 
-    - name: Download package
+    - name: Download package 下载固件包
       working-directory: ./openwrt
       id: package
       run: |
@@ -192,7 +193,7 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
-    - name: Compile the firmware
+    - name: Compile the firmware 开始编译固件
       working-directory: ./openwrt
       id: compile
       run: |
@@ -203,7 +204,7 @@ jobs:
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
         
-    - name: Check space usage
+    - name: Check space usage 检查空间使用情况
       if: (!cancelled())
       run: |
         echo "=========================================="
@@ -216,14 +217,14 @@ jobs:
         du -h --max-depth=1 openwrt/build_dir
         du -h --max-depth=1 openwrt/bin
 
-    - name: Upload bin directory
+    - name: Upload bin directory 上传bin目录
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
         
-    - name: delete files
+    - name: Delete files 删除文件并改名
       working-directory: ./openwrt
       run: |
         rm -rf  bin/targets/x86/64/config.buildinfo
@@ -263,7 +264,7 @@ jobs:
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver518}_uefi.img.gz     
         fi
         
-    - name: Organize files
+    - name: Organize files 组织文件
       id: organize
       if: steps.compile.outputs.status == 'success' && !cancelled()
       run: |
@@ -272,14 +273,14 @@ jobs:
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
         
-    - name: Upload firmware directory
+    - name: Upload firmware directory 上载固件目录
       uses: actions/upload-artifact@main
       if: env.UPLOAD_FIRMWARE == 'true' && steps.organize.outputs.status == 'success' && !cancelled()
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
-    - name: Create release
+    - name: Create release 创建发布
       id: release
       uses: ncipollo/release-action@v1
       with:
@@ -291,12 +292,14 @@ jobs:
         commit: main
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - ⭐️这是 X86_64 个人精简
+          - ⭐️X86_64 
           - 🔥默认IP：192.168.8.3 默认密码：password
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
+          ★  感谢源码作者无私分享！
           ${{ env.useVersionInfo }}
      
-    - name: Total time
+    - name: Completion time 编译完成时间
+      if: steps.organizer.outputs.status == 'success' 
       run: |
          echo "编译完成时间..."
          echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
@@ -307,8 +310,9 @@ jobs:
          sec=$(( $seconds-${hour}*3600-${min}*60 ))
          HMS=`echo ${hour}:${min}:${sec}`
          echo "time=$HMS" >> $GITHUB_ENV
-        
-    - name: Telegram notification
+         
+    - name: Telegram notification 编译成功信息通知
+      if: steps.organizer.outputs.status == 'success' 
       run: |
         MSG="
           ♨️${{ env.PRODUCT_NAME }}编译完成
