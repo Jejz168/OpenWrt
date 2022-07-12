@@ -169,8 +169,8 @@ jobs:
         body: |
           * 修改后的config文件 📝
 
-      - name: 输出编译信息
-        run: |
+    - name: 输出编译信息
+      run: |
           cd openwrt
           echo " 系统空间      类型   总数  已用  可用 使用率"
           df -hT $PWD
@@ -276,7 +276,6 @@ jobs:
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver518}_bios.img.gz
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver518}_uefi.img.gz     
         fi
-        exit 0
         
     - name: Organize files
       id: organize
