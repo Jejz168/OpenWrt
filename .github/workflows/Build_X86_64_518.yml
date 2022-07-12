@@ -186,7 +186,7 @@ jobs:
         ver54=`grep "LINUX_VERSION-5.4 ="  include/kernel-5.4 | cut -d . -f 3`
         ver510=`grep "LINUX_VERSION-5.10 ="  include/kernel-5.10 | cut -d . -f 3`
         ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
-        ver517=`grep "LINUX_VERSION-5.18 ="  include/kernel-5.18 | cut -d . -f 3`
+        ver518=`grep "LINUX_VERSION-5.18 ="  include/kernel-5.18 | cut -d . -f 3`
         if [ "$str1" = "5.4" ];then
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver54}_bios.img.gz
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver54}_uefi.img.gz
