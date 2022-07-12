@@ -3,7 +3,7 @@
 
 pwd
 ls -l
-echo "开始 DIY 配置……"
+echo "开始 DIY1 配置……"
 pwd
 ls -l
 
@@ -62,4 +62,4 @@ rm -rf feeds/luci/themes/luci-theme-argon
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
 
-echo "……配置完成……"
+echo "DIY1 配置完成……"
