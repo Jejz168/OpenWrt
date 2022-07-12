@@ -1,13 +1,3 @@
-#
-# Copyright (c) 2019-2020 P3TERX <https://p3terx.com>
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
-# https://github.com/P3TERX/Actions-OpenWrt
-# Description: Build OpenWrt using GitHub Actions
-#
-
 name: Build X86_64 OpenWrt
 
 on:
@@ -118,22 +108,21 @@ jobs:
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
-        pwd
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
         
-    - name: Update feeds / Install feeds
+    - name: Update & Install feeds
       run: |
           cd openwrt 
-          ./scripts/feeds update -a && ./scripts/feeds install -a
-          ./scripts/feeds update -a && ./scripts/feeds install -a
+          ./scripts/feeds update -a 
+          
+          ./scripts/feeds install -a -f
           
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
-        pwd
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
@@ -162,7 +151,7 @@ jobs:
       id: package
       run: |
         cd openwrt
-        make download -j8
+        make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
