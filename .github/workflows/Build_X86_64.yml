@@ -127,6 +127,8 @@ jobs:
           
           ./scripts/feeds install -a -f
           
+    - name: Load custom feeds 自定义配置
+      run: |  
           chmod +x $DIY_P2_SH
           cd openwrt
           $GITHUB_WORKSPACE/$DIY_P2_SH
