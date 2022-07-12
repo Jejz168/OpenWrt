@@ -1,8 +1,8 @@
 #!/bin/bash
 
-
+echo "========================="
 echo "开始 DIY2 配置……"
-
+echo "========================="
 
 
 #允许ROOT编译
@@ -132,4 +132,5 @@ sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-fuse/luas
 # sed -i 's/"管理权"/"改密码"/g' `grep "管理权" -rl ./`
 # sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
 
+echo "========================="
 echo " DIY2 配置完成……"
