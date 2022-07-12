@@ -1,10 +1,9 @@
 #!/bin/bash
 
-pwd
-ls -l
+
 echo "开始 DIY2 配置……"
-pwd
-ls -l
+
+
 
 #允许ROOT编译
 export FORCE_UNSAFE_CONFIGURE=1
@@ -71,19 +70,19 @@ sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-fuse/luas
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-fuse/luasrc/view/aliyundrive-fuse/*.htm
 
 # 修改插件名字
-#sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
-#sed -i 's/"Argon 主题设置"/"Argon 设置"/g' `grep "Argon 主题设置" -rl ./`
-#sed -i 's/"阿里云盘 WebDAV"/"阿里云盘"/g' `grep "阿里云盘 WebDAV" -rl ./`
-#sed -i 's/"USB 打印服务器"/"USB 打印"/g' `grep "USB 打印服务器" -rl ./`
-#sed -i 's/网页快捷菜单/端口访问/g' `grep "网页快捷菜单" -rl ./`
-#sed -i 's/"网络存储"/"存储"/g' `grep "网络存储" -rl ./`
-#sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' `grep "Turbo ACC 网络加速" -rl ./`
-#sed -i 's/"实时流量监测"/"流量"/g' `grep "实时流量监测" -rl ./`
-#sed -i 's/"KMS 服务器"/"KMS激活"/g' `grep "KMS 服务器" -rl ./`
-#sed -i 's/"TTYD 终端"/"命令窗"/g' `grep "TTYD 终端" -rl ./`
-#sed -i 's/"USB 打印服务器"/"打印服务"/g' `grep "USB 打印服务器" -rl ./`
-#sed -i 's/"Web 管理"/"Web"/g' `grep "Web 管理" -rl ./`
-#sed -i 's/"管理权"/"改密码"/g' `grep "管理权" -rl ./`
-#sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
+# sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
+# sed -i 's/"Argon 主题设置"/"Argon 设置"/g' `grep "Argon 主题设置" -rl ./`
+# sed -i 's/"阿里云盘 WebDAV"/"阿里云盘"/g' `grep "阿里云盘 WebDAV" -rl ./`
+# sed -i 's/"USB 打印服务器"/"USB 打印"/g' `grep "USB 打印服务器" -rl ./`
+# sed -i 's/网页快捷菜单/端口访问/g' `grep "网页快捷菜单" -rl ./`
+# sed -i 's/"网络存储"/"存储"/g' `grep "网络存储" -rl ./`
+# sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' `grep "Turbo ACC 网络加速" -rl ./`
+# sed -i 's/"实时流量监测"/"流量"/g' `grep "实时流量监测" -rl ./`
+# sed -i 's/"KMS 服务器"/"KMS激活"/g' `grep "KMS 服务器" -rl ./`
+# sed -i 's/"TTYD 终端"/"命令窗"/g' `grep "TTYD 终端" -rl ./`
+# sed -i 's/"USB 打印服务器"/"打印服务"/g' `grep "USB 打印服务器" -rl ./`
+# sed -i 's/"Web 管理"/"Web"/g' `grep "Web 管理" -rl ./`
+# sed -i 's/"管理权"/"改密码"/g' `grep "管理权" -rl ./`
+# sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
 
 echo " DIY2 配置完成……"
