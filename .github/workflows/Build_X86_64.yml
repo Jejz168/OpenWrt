@@ -4,30 +4,6 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      url:
-        description: "URL connection to Actions"
-        required: false
-        default: "https://github.com/coolsnowwolf/lede"
-        type: choice  
-        options:
-          - https://github.com/coolsnowwolf/lede
-          - https://github.com/Lienol/openwrt
-          - https://github.com/openwrt/openwrt
-      branch:
-        description: "BRANCH connection to Actions"
-        required: false
-        default: "master"
-        type: choice  
-        options:
-          - master
-          - main
-          - openwrt-18.06
-          - openwrt-21.02
-          - openwrt-22.03
-      config:
-        description: "config connection to Actions"
-        required: false
-        default: "x86/.config"  
       ssh:
         description: 'SSH connection to Actions'
         required: false
@@ -36,9 +12,9 @@ on:
     #- cron: 15 16 * * 6
 
 env:
-  REPO_URL: ${{ github.event.inputs.url }}
-  REPO_BRANCH: ${{ github.event.inputs.branch }}
-  CONFIG_FILE: ${{ github.event.inputs.config }}
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
+  CONFIG_FILE:x86/.config
   DIY_P1_SH: x86/diy1.sh
   DIY_P2_SH: x86/diy2.sh
   UPLOAD_BIN_DIR: false
@@ -95,12 +71,17 @@ jobs:
         pip install aligo
         sudo -E apt-get clean
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
         df -h
         
     - name: Clone source code 下载源码
+      working-directory: /workdir
       run: |
+        df -hT $PWD
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-        
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
     - name: Start time 编译开始时间
       run: |  
         echo "编译开始时间..."
@@ -119,6 +100,7 @@ jobs:
 
     - name: Load custom feeds 自定义DIY1配置
       run: |
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
@@ -139,6 +121,7 @@ jobs:
         
     - name: Load custom configuration 加载config配置
       run: |
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
         
