@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name: Checkout 准备完成
+    - name: Checkout
       uses: actions/checkout@v2
 
     - name: Check server configuration 查看服务器
@@ -90,7 +90,7 @@ jobs:
       run: |
         echo " 系统空间       类型  总数  已用  可用 使用率"
         df -hT $PWD
-        git clone -b $REPO_BRANCH --single-branch $REPO_URL openwrt
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt 
         Author=$(git show -s --date=short --format="%an")
