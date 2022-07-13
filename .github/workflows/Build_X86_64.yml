@@ -23,11 +23,7 @@ on:
           - main
           - openwrt-18.06
           - openwrt-21.02
-          - openwrt-22.03
-      config:
-        description: "config connection to Actions"
-        required: false
-        default: "x86/.config"  
+          - openwrt-22.03 
   #schedule:
     #- cron: 15 16 * * *
 
@@ -35,7 +31,7 @@ env:
   REPO_URL: ${{ github.event.inputs.url }}
   REPO_BRANCH: ${{ github.event.inputs.branch }}
   FEEDS_CONF: x86/feeds.conf.default
-  CONFIG_FILE: ${{ github.event.inputs.config }}
+  CONFIG_FILE: x86/.config
   DIY_P1_SH: x86/diy1.sh
   DIY_P2_SH: x86/diy2.sh
   UPLOAD_BIN_DIR: false
@@ -92,22 +88,21 @@ jobs:
     - name: Clone source code 下载源码
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
-        cd openwrt 
-        Author=$(git show -s --date=short --format="%an")
-        Date=$(git show -s --date=short --format="%ci")
-        Commit=$(git show -s --date=short --format="%s")
-        Hash=$(git show -s --date=short --format="%H")
-        echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
-        echo "author=$Author" >> $GITHUB_ENV
-        echo "date=$Date" >> $GITHUB_ENV
-        echo "commit=$Commit" >> $GITHUB_ENV
-        echo "hash=$Hash" >> $GITHUB_ENV
         
     - name: Start time 编译开始时间
       run: |  
         echo "编译开始时间..."
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "start=$(date +%s)" >> $GITHUB_ENV
+        cd openwrt 
+        Author=$(git show -s --date=short --format="%an")
+        Date=$(git show -s --date=short --format="%ci")
+        Commit=$(git show -s --date=short --format="%s")
+        Hash=$(git show -s --date=short --format="%H")
+        echo "author=$Author" >> $GITHUB_ENV
+        echo "date=$Date" >> $GITHUB_ENV
+        echo "commit=$Commit" >> $GITHUB_ENV
+        echo "hash=$Hash" >> $GITHUB_ENV
 
     - name: Load custom feeds 自定义DIY1配置
       run: |
@@ -168,7 +163,7 @@ jobs:
       working-directory: ./openwrt
       id: package
       run: |
-        make download -j$(nproc)
+        make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
