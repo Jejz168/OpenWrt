@@ -5,8 +5,8 @@ on:
   workflow_dispatch:
 
 # 定时触发编译
-  schedule:
-    - cron: 3 17 * * 4
+  #schedule:
+  #  - cron: 3 17 * * 4
 
 # 点赞☆Star触发编译
 #  watch:
@@ -47,8 +47,8 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
-        cp -f ../diy/lean/lean1.sh ./
-        chmod +x ./lean1.sh && ./lean1.sh
+        cp -f ../X86/diy1.sh ./
+        chmod +x ./diy1.sh && ./diy1.sh
 
     - name: Update & Install feeds
       working-directory: ./openwrt
@@ -57,16 +57,14 @@ jobs:
 
         ./scripts/feeds install -a
 
-        cp -f ../diy/lean/lean2.sh ./        
-        chmod +x ./lean2.sh && ./lean2.sh 
+        cp -f ../x86/diy2.sh ./        
+        chmod +x ./diy2.sh && ./diy2.sh 
         
         sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g" target/linux/x86/Makefile      
-
-        sed -i "s/DISTRIB_DESCRIPTION='*.*'/DISTRIB_DESCRIPTION='AE86Wrt-X86-Lite-$(date +%Y%m%d)'/g" package/lean/default-settings/files/zzz-default-settings
         
     - name: Configuration Customization - Build_x86_515_lite
       env:
-        CONFIG_FILE: './configs/X86/Lite/x86_515_lite.config'
+        CONFIG_FILE: './x86/.config'
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
@@ -81,7 +79,7 @@ jobs:
     - name: Build firmware
       working-directory: ./openwrt
       run: |
-        make -j$(nproc) V=s
+        make -j$(nproc)
 
     - name: Assemble Artifact
       id: assemble_artifact
