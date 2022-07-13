@@ -50,7 +50,7 @@ env:
   CONFIG: X86
 
 jobs:
-  Build_x86:
+  build:
     runs-on: ubuntu-20.04
 
     steps:
@@ -73,7 +73,7 @@ jobs:
         echo "-----------------------------硬盘信息---------------------------------------------"
         echo -e  "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
         echo "硬盘详情："
-        echo " 系统空间       类型     总数   已用  可用 使用率"
+        echo " 系统空间       类型     总数   已用  可用  使用率"
         df -Th
         
     - name: Initialization environment 初始化系统环境
@@ -152,7 +152,7 @@ jobs:
     - name: Output compilation information 输出编译信息
       run: |
         cd openwrt
-        echo " 系统空间       类型  总数  已用  可用 使用率"
+        echo " 系统空间       类型  总数  已用  可用  使用率"
         df -hT $PWD
         echo
         echo "=========================================="
@@ -177,8 +177,7 @@ jobs:
         echo
         echo
         cat .config
-        echo
-        echo
+        echo "=========================================="
         echo "输出成功..."
         
     - name: Download package 下载固件包
@@ -284,10 +283,7 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
-        allowUpdates: true
-        removeArtifacts: true
         tag: ${{ env.FILE_NAME }}
-        commit: main
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️这是 ${{ env.PRODUCT_NAME }}
