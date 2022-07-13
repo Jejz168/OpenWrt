@@ -90,6 +90,7 @@ jobs:
         wget -qO - https://raw.githubusercontent.com/friendlyarm/build-env-on-ubuntu-bionic/master/install.sh | sed 's/python-/python3-/g' | /bin/bash
         pip install aligo
         sudo -E apt-get clean
+        git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         df -h
         
     - name: Clone source code 下载源码
