@@ -115,18 +115,18 @@ jobs:
       working-directory: ./openwrt
       run: |
           ./scripts/feeds update -a 
-       
+          
+    - name: Install feeds 安装源
+      working-directory: ./openwrt
+      run: |
+          ./scripts/feeds install -a
+          
     - name: Custom configuration 自定义DIY2配置
       run: |  
           chmod +x $DIY_P2_SH
           cd openwrt
           $GITHUB_WORKSPACE/$DIY_P2_SH
           sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g" target/linux/x86/Makefile
-    
-    - name: Install feeds 安装源
-      working-directory: ./openwrt
-      run: |
-          ./scripts/feeds install -a
           
     - name: Load custom configuration 加载config配置
       run: |
