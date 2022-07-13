@@ -28,10 +28,6 @@ on:
         description: "config connection to Actions"
         required: false
         default: "x86/.config"  
-      ssh:
-         description: 'SSH connection to Actions'
-         required: false
-         default: 'false'
   #schedule:
     #- cron: 15 16 * * *
 
@@ -139,25 +135,6 @@ jobs:
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
         
-    - name: SSH connection to Actions SSH远程连接服务器
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        
-    - name: Upload files to release 上载config
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false')     
-      uses: ncipollo/release-action@v1
-      with:
-        name: config📝${{ env.CONFIG }}
-        artifacts: ./openwrt/.config
-        allowUpdates: true
-        tag: ${{ env.CONFIG }}
-        token: ${{ secrets.GH_TOKEN }}
-        body: |
-          * 修改后的config文件 📝
-
     - name: Output compilation information 输出编译信息
       run: |
           cd openwrt
