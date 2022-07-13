@@ -69,7 +69,7 @@ jobs:
         echo "-----------------------------硬盘信息---------------------------------------------"
         echo -e  "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
         echo "硬盘详情："
-        echo " 系统空间       类型   总数  已用  可用 使用率"
+        echo " 系统空间       类型     总数   已用  可用 使用率"
         df -Th
         
     - name: Initialization environment 初始化系统环境
@@ -90,7 +90,7 @@ jobs:
     - name: Clone source code 下载源码
       working-directory: /workdir
       run: |
-        echo " 系统空间       类型   总数  已用  可用 使用率"
+        echo " 系统空间       类型  总数  已用  可用 使用率"
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
@@ -161,7 +161,7 @@ jobs:
     - name: Output compilation information 输出编译信息
       run: |
           cd openwrt
-          echo " 系统空间       类型   总数  已用  可用 使用率"
+          echo " 系统空间       类型  总数  已用  可用 使用率"
           df -hT $PWD
           echo
           echo "=========================================="
