@@ -25,10 +25,10 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/X86_518.config
-  DIY_P1_SH: diy_script/diy-part_X86_5151.sh
-  DIY_P2_SH: diy_script/diy-part_X86_5152.sh
+  FEEDS_CONF: x86/feeds.conf.default
+  CONFIG_FILE: x86/.config
+  DIY_P1_SH: x86/diy1.sh
+  DIY_P2_SH: x86/diy2.sh
   COMMIT_LOG_NUM: 1
   RELEASE_TAG: X86_518
   UPLOAD_BIN_DIR: false
@@ -36,7 +36,7 @@ env:
   UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: false
   UPLOAD_RELEASE: true
-  SERVERCHAN_SCKEY: true
+  SERVERCHAN_SCKEY: false
   TZ: Asia/Shanghai
 
 jobs:
@@ -206,7 +206,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
