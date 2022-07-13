@@ -50,7 +50,7 @@ env:
   CONFIG: X86
 
 jobs:
-  build:
+  Build_x86:
     runs-on: ubuntu-20.04
 
     steps:
