@@ -96,10 +96,10 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         useVersionInfo=$(git show -s --date=short --format="Author: %an<br/>date: %cd<br/>commit: %s<br/>commit hash: %H")
-        Author=$(git show -s --date=short --format="Author: %an")
-        Date=$(git show -s --date=short --format="date: %cd")
-        Commit=$(git show -s --date=short --format="commit: %s")
-        Hash=$(git show -s --date=short --format="commit hash: %h")
+        Author=$(git show -s --date=short --format=" %an ")
+        Date=$(git show -s --date=short --format=" %cd ")
+        Commit=$(git show -s --date=short --format=" %s ")
+        Hash=$(git show -s --date=short --format=" %h ")
         echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
         echo "author=$Author" >> $GITHUB_ENV
         echo "date=$Date" >> $GITHUB_ENV
