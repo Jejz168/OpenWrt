@@ -136,7 +136,6 @@ jobs:
           
     - name: Load custom configuration 加载config配置
       run: |
-        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
         
