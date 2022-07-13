@@ -8,7 +8,7 @@ on:
         description: "URL connection to Actions"
         required: false
         default: "https://github.com/coolsnowwolf/lede.git"
-        type: choice
+        type: choice  
         options:
           - https://github.com/coolsnowwolf/lede.git
           - https://github.com/Lienol/openwrt.git
@@ -17,25 +17,33 @@ on:
         description: "BRANCH connection to Actions"
         required: false
         default: "master"
-        type: choice
+        type: choice  
         options:
           - master
           - main
           - openwrt-18.06
           - openwrt-21.02
-          - openwrt-22.03 
+          - openwrt-22.03
+      config:
+        description: "config connection to Actions"
+        required: false
+        default: "x86/.config"  
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
   #schedule:
-    #- cron: 15 16 * * *
+    #- cron: 15 16 * * 6
 
 env:
   REPO_URL: ${{ github.event.inputs.url }}
   REPO_BRANCH: ${{ github.event.inputs.branch }}
-  FEEDS_CONF: x86/feeds.conf.default
-  CONFIG_FILE: x86/.config
+  CONFIG_FILE: ${{ github.event.inputs.config }}
   DIY_P1_SH: x86/diy1.sh
   DIY_P2_SH: x86/diy2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: false
+  UPLOAD_CONFIG: true
   TZ: Asia/Shanghai
   FILE_NAME: X86_64
   PRODUCT_NAME: x86_64
@@ -51,6 +59,10 @@ jobs:
 
     - name: Check server configuration 查看服务器
       run: |
+        echo "警告⚠"
+        echo "若分配的服务器性能不足，务必及时取消，重新运行！"
+        echo "已知编译成功CPU型号：8370C,8171M"
+        echo "已知性能不足CPU型号：8272CL"
         echo -e "-------------- ------------CPU信息------------------------------------------\n"
         echo "CPU物理数量:$(cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l)"
         echo -e "CPU核心及版本信息：$(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
@@ -68,7 +80,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo timedatectl set-timezone "$TZ"
+        sudo timedatectl set-timezone "$TZ" 
         sudo -E swapoff -a
         sudo -E rm -f /swapfile
         sudo -E docker image prune -a -f
@@ -103,70 +115,77 @@ jobs:
         echo "date=$Date" >> $GITHUB_ENV
         echo "commit=$Commit" >> $GITHUB_ENV
         echo "hash=$Hash" >> $GITHUB_ENV
+        echo "读取时间完成..."
 
     - name: Load custom feeds 自定义DIY1配置
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
         
     - name: Update feeds 更新源
-      working-directory: ./openwrt
-      run: |
-          ./scripts/feeds update -a 
-          
-    - name: Install feeds 安装源
-      working-directory: ./openwrt
-      run: |
-          ./scripts/feeds install -a
-          
+      run: cd openwrt && ./scripts/feeds update -a
+
+    - name: Install feeds 安装源 
+      run: cd openwrt && ./scripts/feeds install -a
+        
     - name: Custom configuration 自定义DIY2配置
       run: |  
-          chmod +x $DIY_P2_SH
-          cd openwrt
-          $GITHUB_WORKSPACE/$DIY_P2_SH
-          sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g" target/linux/x86/Makefile
-          
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P2_SH
+        
+        sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g" target/linux/x86/Makefile
+        
     - name: Load custom configuration 加载config配置
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
         
+    - name: SSH connection to Actions SSH远程连接服务器
+      uses: P3TERX/ssh2actions@v1.0.0
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        
     - name: Output compilation information 输出编译信息
       run: |
-          cd openwrt
-          echo " 系统空间       类型  总数  已用  可用 使用率"
-          df -hT $PWD
-          echo
-          echo "=========================================="
-          grep -i CONFIG_PACKAGE_luci-app .config | grep  -v \# > Plug-in
-          grep -i CONFIG_PACKAGE_luci-theme .config | grep  -v \# >> Plug-in
-          sed -i '/INCLUDE/d' Plug-in > /dev/null 2>&1
-          sed -i 's/CONFIG_PACKAGE_/、/g' Plug-in
-          sed -i '/Transparent_Proxy/d' Plug-in > /dev/null 2>&1
-          sed -i 's/=y/\ /g' Plug-in
-          awk '$0=NR$0' Plug-in > Plug-2
-          awk '{print "	" $0}' Plug-2 > Plug-in    
-          echo
-          echo
-          echo "	      已选插件列表"
-          cat Plug-in
-          rm -rf {Plug-in,Plug-2}  
-          echo
-          echo "=========================================="
-          echo
-          echo
-          echo "输出完整插件信息..."
-          echo
-          echo
-          cat .config
-
+        cd openwrt
+        echo " 系统空间       类型  总数  已用  可用 使用率"
+        df -hT $PWD
+        echo
+        echo "=========================================="
+        grep -i CONFIG_PACKAGE_luci-app .config | grep  -v \# > Plug-in
+        grep -i CONFIG_PACKAGE_luci-theme .config | grep  -v \# >> Plug-in
+        sed -i '/INCLUDE/d' Plug-in > /dev/null 2>&1
+        sed -i 's/CONFIG_PACKAGE_/、/g' Plug-in
+        sed -i '/Transparent_Proxy/d' Plug-in > /dev/null 2>&1
+        sed -i 's/=y/\ /g' Plug-in
+        awk '$0=NR$0' Plug-in > Plug-2
+        awk '{print "	" $0}' Plug-2 > Plug-in    
+        echo
+        echo
+        echo "	      已选插件列表"
+        cat Plug-in
+        rm -rf {Plug-in,Plug-2}  
+        echo
+        echo "=========================================="
+        echo
+        echo
+        echo "输出完整插件信息..."
+        echo
+        echo
+        cat .config
+        echo
+        echo
+        echo "输出成功..."
+        
     - name: Download package 下载固件包
       working-directory: ./openwrt
       id: package
       run: |
-        make download -j8
+        make download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
         
@@ -201,6 +220,13 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
         
+    - name: Upload config 上传config目录
+      uses: actions/upload-artifact@main
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_CONFIG == 'true'
+      with:
+        name: x86-config
+        path: openwrt/.config  
+     
     - name: Delete files 删除文件并改名
       working-directory: ./openwrt
       run: |
@@ -214,22 +240,15 @@ jobs:
         rm -rf  bin/targets/x86/64/sha256sums
         rm -rf  bin/targets/x86/64/version.buildinfo
         sleep 2
-        str1=`grep "KERNEL_PATCHVER:="  target/linux/x86/Makefile | cut -d = -f 2` #判断当前默认内核版本号如5.10
-        ver414=`grep "LINUX_VERSION-4.14 ="  include/kernel-4.14 | cut -d . -f 3`
-        ver419=`grep "LINUX_VERSION-4.19 ="  include/kernel-4.19 | cut -d . -f 3`
+        str1=`grep "KERNEL_PATCHVER:="  target/linux/x86/Makefile | cut -d = -f 2` #判断当前默认内核版本号
         ver54=`grep "LINUX_VERSION-5.4 ="  include/kernel-5.4 | cut -d . -f 3`
         ver510=`grep "LINUX_VERSION-5.10 ="  include/kernel-5.10 | cut -d . -f 3`
         ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
-        ver517=`grep "LINUX_VERSION-5.18 ="  include/kernel-5.18 | cut -d . -f 3`
+        ver518=`grep "LINUX_VERSION-5.18 ="  include/kernel-5.18 | cut -d . -f 3`
+        ver519=`grep "LINUX_VERSION-5.19 ="  include/kernel-5.19 | cut -d . -f 3`
         if [ "$str1" = "5.4" ];then
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver54}_bios.img.gz
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver54}_uefi.img.gz
-        elif [ "$str1" = "4.19" ];then
-          mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver419}_bios.img.gz
-          mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver419}_uefi.img.gz
-        elif [ "$str1" = "4.14" ];then
-          mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver414}_bios.img.gz
-          mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver414}_uefi.img.gz
         elif [ "$str1" = "5.10" ];then
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver510}_bios.img.gz
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver510}_uefi.img.gz
@@ -239,8 +258,11 @@ jobs:
         elif [ "$str1" = "5.18" ];then
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver518}_bios.img.gz
           mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver518}_uefi.img.gz     
+        elif [ "$str1" = "5.19" ];then
+          mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver519}_bios.img.gz
+          mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver519}_uefi.img.gz
         fi
-        
+
     - name: Organize files 组织文件
       id: organize
       if: steps.compile.outputs.status == 'success' && !cancelled()
@@ -264,16 +286,15 @@ jobs:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
         allowUpdates: true
         removeArtifacts: true
-        artifacts: ${{ env.FIRMWARE }}/*
         tag: ${{ env.FILE_NAME }}
         commit: main
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - ⭐️X86_64 
+          - ⭐️这是 ${{ env.PRODUCT_NAME }}
           - 🔥默认IP：192.168.8.3 默认密码：password
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           ★  感谢源码作者无私分享！
-          🎈 更新信息：
+          🎈🎈🎈 更新信息 🎈🎈🎈
           🎈 作者: ${{ env.author }}
           
           🎈 时间: ${{ env.date }}
@@ -281,20 +302,21 @@ jobs:
           🎈 内容: ${{ env.commit }}
           
           🎈 hash: ${{ env.hash }}
-     
+        artifacts: ${{ env.FIRMWARE }}/*          
+      
     - name: Completion time 编译完成时间
       if: steps.organizer.outputs.status == 'success' 
       run: |
-         echo "编译完成时间..."
-         echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
-         end=$(date +%s)
-         seconds=$(( end - start ))
-         hour=$(( $seconds/3600 ))
-         min=$(( ($seconds-${hour}*3600)/60 ))
-         sec=$(( $seconds-${hour}*3600-${min}*60 ))
-         HMS=`echo ${hour}:${min}:${sec}`
-         echo "time=$HMS" >> $GITHUB_ENV
-         
+        echo "编译完成时间..."
+        echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        end=$(date +%s)
+        seconds=$(( end - start ))
+        hour=$(( $seconds/3600 ))
+        min=$(( ($seconds-${hour}*3600)/60 ))
+        sec=$(( $seconds-${hour}*3600-${min}*60 ))
+        HMS=`echo ${hour}:${min}:${sec}`
+        echo "time=$HMS" >> $GITHUB_ENV
+
     - name: Telegram notification 编译成功信息通知
       if: steps.organizer.outputs.status == 'success' 
       run: |
@@ -303,10 +325,10 @@ jobs:
           开始时间：${{ env.DATE }}
           完成时间：${{ env.DATE1 }}
           编译耗时：${{ env.time }}
-          更新信息：
+          🎈🎈🎈 更新信息 🎈🎈🎈
           作者: ${{ env.author }}
           时间: ${{ env.date }}
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
         "
-        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}" >/dev/null 2>&1 && echo "ok..."
+        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}" >/dev/null 2>&1 && echo "👌ok..."
