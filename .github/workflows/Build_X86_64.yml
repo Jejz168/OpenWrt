@@ -14,7 +14,7 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  CONFIG_FILE:x86/.config
+  CONFIG_FILE: x86/.config
   DIY_P1_SH: x86/diy1.sh
   DIY_P2_SH: x86/diy2.sh
   UPLOAD_BIN_DIR: false
