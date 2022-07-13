@@ -3,17 +3,14 @@ name: Build X86_64 OpenWrt
 on:
   repository_dispatch:
   workflow_dispatch:
-    inputs:
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
+  
   #schedule:
     #- cron: 15 16 * * 6
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
+  FEEDS_CONF: x86/feeds.conf.default
   CONFIG_FILE: x86/.config
   DIY_P1_SH: x86/diy1.sh
   DIY_P2_SH: x86/diy2.sh
@@ -73,7 +70,6 @@ jobs:
         git config --global user.name 'GitHub Actions' && git config --global user.email 'noreply@github.com'
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-        df -h
         
     - name: Clone source code 下载源码
       working-directory: /workdir
@@ -124,13 +120,6 @@ jobs:
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         cd openwrt && make defconfig
-        
-    - name: SSH connection to Actions SSH远程连接服务器
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         
     - name: Output compilation information 输出编译信息
       run: |
