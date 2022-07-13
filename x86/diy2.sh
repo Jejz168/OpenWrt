@@ -129,5 +129,8 @@ sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-fuse/luas
 # sed -i 's/"管理权"/"改密码"/g' `grep "管理权" -rl ./`
 # sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
 
+./scripts/feeds update -a
+./scripts/feeds install -a
+
 echo "========================="
 echo " DIY2 配置完成……"
