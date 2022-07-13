@@ -7,12 +7,12 @@ on:
       url:
         description: "URL connection to Actions"
         required: false
-        default: "https://github.com/coolsnowwolf/lede.git"
+        default: "https://github.com/coolsnowwolf/lede"
         type: choice  
         options:
-          - https://github.com/coolsnowwolf/lede.git
-          - https://github.com/Lienol/openwrt.git
-          - https://github.com/openwrt/openwrt.git
+          - https://github.com/coolsnowwolf/lede
+          - https://github.com/Lienol/openwrt
+          - https://github.com/openwrt/openwrt
       branch:
         description: "BRANCH connection to Actions"
         required: false
