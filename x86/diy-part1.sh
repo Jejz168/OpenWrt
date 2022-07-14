@@ -13,6 +13,12 @@ echo "src-git helloworld https://github.com/fw876/helloworld.git" >> "feeds.conf
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall;packages' >>feeds.conf.default
 
 
+
+
+mkdir wget
+
+
+
 cat>rename.sh<<-\EOF
 #!/bin/bash
 rm -rf  bin/targets/x86/64/config.buildinfo
