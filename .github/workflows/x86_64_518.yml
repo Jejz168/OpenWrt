@@ -279,4 +279,4 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         "
-        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
+        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}" >/dev/null 2>&1 && echo "ok..."
