@@ -116,6 +116,8 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
+        sed -i 's/CONFIG_LINUX_5_15=y/CONFIG_LINUX_5_18=y/g' .config
+        
         sed -i "s/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.18/g" target/linux/x86/Makefile
         
     - name: SSH connection to Actions
