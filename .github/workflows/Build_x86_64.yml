@@ -235,7 +235,7 @@ jobs:
         artifacts: ${{ env.FIRMWARE }}/*
 
     - name: Completion time 
-      if: steps.organizer.outputs.status == 'success' 
+      if: steps.organizer.outputs.status == 'success' && !cancelled()
       run: |
         echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         end=$(date +%s)
