@@ -190,7 +190,7 @@ jobs:
         name: x86-config
         path: openwrt/.config
     
-    - name: delete files
+    - name: elete files
       run: |
         cd openwrt 
         bash  rename.sh
