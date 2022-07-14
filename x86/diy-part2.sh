@@ -10,9 +10,6 @@
 #允许ROOT编译
 export FORCE_UNSAFE_CONFIGURE=1
 
-# 切换内核版本
-#sed -i 's/KERNEL_PATCHVER:=5.15/KERNEL_PATCHVER:=5.4/g' ./target/linux/x86/Makefile
-
 # 修改主机名字，修改你喜欢的就行（不能纯数字或者使用中文）
 #sed -i "/uci commit system/i\uci set system.@system[0].hostname='Jejz'" package/lean/default-settings/files/zzz-default-settings
 #sed -i "s/hostname='OpenWrt'/hostname='Jejz'/g" ./package/base-files/files/bin/config_generate
@@ -29,30 +26,26 @@ sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/tt
 # 修改 argon 为默认主题
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci/Makefile
 
-# 移除重复软件包
-rm -rf feeds/luci/themes/luci-theme-argon
-rm -rf feeds/luci/themes/luci-theme-netgear
-rm -rf feeds/luci/applications/luci-app-serverchan
-rm -rf feeds/luci/applications/luci-app-frpc
-rm -rf feeds/luci/applications/luci-app-socat
-rm -rf feeds/luci/applications/luci-app-wrtbwmon
-
-# 添加额外软件包
+#svn co 复制 仓库下的文件夹 git clone 复制整个仓库
+# vssr
 git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
-git clone https://github.com/tty228/luci-app-serverchan.git package/luci-app-serverchan
-git clone https://github.com/kuoruan/luci-app-frpc.git package/luci-app-frpc
+
+# 关机
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
-git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
+
+# unblockneteasemusic
 git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
-svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-adguardhome package/luci-app-adguardhome
-svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-socat package/luci-app-socat
+
+#adguardhome
+git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
+
+# filebrowser
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
-svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
-svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
-svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
+
+# smartdns
 svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-smartdns package/luci-app-smartdns
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
+
 
 # 科学上网插件依赖
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
@@ -61,7 +54,8 @@ pushd package/luci-app-openclash/tools/po2lmo
 make && sudo make install
 popd
 
-# Themes
+# argon
+rm -rf feeds/luci/themes/luci-theme-argon
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
 
@@ -115,16 +109,12 @@ sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-fuse/luas
 #sed -i 's/"Argon 主题设置"/"Argon 设置"/g' `grep "Argon 主题设置" -rl ./`
 #sed -i 's/"阿里云盘 WebDAV"/"阿里云盘"/g' `grep "阿里云盘 WebDAV" -rl ./`
 #sed -i 's/"USB 打印服务器"/"USB 打印"/g' `grep "USB 打印服务器" -rl ./`
-#sed -i 's/网页快捷菜单/端口访问/g' `grep "网页快捷菜单" -rl ./`
 #sed -i 's/"网络存储"/"存储"/g' `grep "网络存储" -rl ./`
 #sed -i 's/"Turbo ACC 网络加速"/"网络加速"/g' `grep "Turbo ACC 网络加速" -rl ./`
 #sed -i 's/"实时流量监测"/"流量"/g' `grep "实时流量监测" -rl ./`
 #sed -i 's/"KMS 服务器"/"KMS激活"/g' `grep "KMS 服务器" -rl ./`
 #sed -i 's/"TTYD 终端"/"命令窗"/g' `grep "TTYD 终端" -rl ./`
 #sed -i 's/"USB 打印服务器"/"打印服务"/g' `grep "USB 打印服务器" -rl ./`
-#sed -i 's/"Web 管理"/"Web"/g' `grep "Web 管理" -rl ./`
-#sed -i 's/"管理权"/"改密码"/g' `grep "管理权" -rl ./`
-#sed -i 's/"带宽监控"/"监控"/g' `grep "带宽监控" -rl ./`
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
