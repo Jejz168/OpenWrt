@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: x86_64 OpenWrt
+name: Build_x86_64
 
 on:
   repository_dispatch:
@@ -36,7 +36,7 @@ env:
   PRODUCT_NAME: x86_64
 
 jobs:
-  Build-x86:
+  Build_x86_64:
     runs-on: ubuntu-22.04
 
     steps:
