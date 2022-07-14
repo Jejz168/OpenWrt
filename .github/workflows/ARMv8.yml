@@ -33,7 +33,7 @@ env:
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
   FILE_NAME: ARMv8_ROOTFS
-  PRODUCT_NAME: ARMv8
+  PRODUCT_NAME: ARMv8_ROOTFS
 
 jobs:
   Build-ARMv8:
@@ -152,7 +152,14 @@ jobs:
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
-
+        
+    - name: Upload config 
+      uses: actions/upload-artifact@main
+      if: steps.compile.outputs.status == 'success' 
+      with:
+        name: ARMv8-config
+        path: openwrt/.config
+        
     - name: Organize files
       id: organize
       if: steps.compile.outputs.status == 'success' && !cancelled()
@@ -161,7 +168,7 @@ jobs:
         tar -zcvf Packages.tar.gz ./*
         cp Packages.tar.gz $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
         cd $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
-        rm -rf packages feeds.buildinfo sha256sums version.buildinfo
+        rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
@@ -176,7 +183,7 @@ jobs:
       id: release
       uses: ncipollo/release-action@v1
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FIRMWARE }} 」
+        name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.FILE_NAME }}
@@ -211,7 +218,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.PACKAGED_STATUS == 'success' && !cancelled()
       with:
-        name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
+        name: R${{ env.DATE }} for ${{ env.PRODUCT_NAME }}
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.PRODUCT_NAME }}
