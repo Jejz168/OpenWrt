@@ -186,7 +186,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' 
       with:
-        name: ARMv8-config
+        name: armv8-config
         path: openwrt/.config
         
     - name: Organize files
