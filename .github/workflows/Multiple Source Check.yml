@@ -15,7 +15,7 @@ name: Multiple Source Check
 on:
   workflow_dispatch:
   schedule:
-    - cron: 6 7-23/2 * * * 
+    - cron: 6 */2 * * * 
      
 env:
   TZ: Asia/Shanghai
@@ -126,13 +126,13 @@ jobs:
       run: |
         echo "commitHash_OpenClash: ${{ steps.getHash.outputs.commitHash_OpenClash }}"
         echo "::set-output name=commitHash_All::\
-          ${{steps.getHash.outputs.commitHash_OpenClash}}"      
+          ${{steps.getHash.outputs.commitHash_OpenClash}}"         
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
       with:
         path: .commitHash_All
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
+        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}        
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
@@ -145,7 +145,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-         🚀 OpenClash
+          🚀 OpenClash
                 ● 源码更新了
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍：https://github.com/vernesong/OpenClash             
@@ -159,4 +159,4 @@ jobs:
       uses: GitRML/delete-workflow-runs@main
       with:
         retain_days: 1
-        keep_minimum_runs: 2
+        keep_minimum_runs: 6
