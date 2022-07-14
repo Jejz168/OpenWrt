@@ -32,8 +32,8 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: x86_64
-  PRODUCT_NAME: x86_64
+  FILE_NAME: x86_64_518
+  PRODUCT_NAME: x86_64_518
 
 jobs:
   Build_x86_64_518:
