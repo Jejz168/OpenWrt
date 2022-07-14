@@ -12,7 +12,7 @@ export FORCE_UNSAFE_CONFIGURE=1
 
 # 修改主机名字，修改你喜欢的就行（不能纯数字或者使用中文）
 #sed -i "/uci commit system/i\uci set system.@system[0].hostname='Jejz'" package/lean/default-settings/files/zzz-default-settings
-#sed -i "s/hostname='OpenWrt'/hostname='Jejz'/g" ./package/base-files/files/bin/config_generate
+#sed -i "s/hostname='.*'/hostname='Jejz'/g" ./package/base-files/files/bin/config_generate
 
 # 修改默认IP
 sed -i 's/192.168.1.1/192.168.8.3/g' package/base-files/files/bin/config_generate
@@ -25,13 +25,18 @@ sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/tt
 
 # 修改 argon 为默认主题
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci/Makefile
+sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-nginx/Makefile
+
+##切换为samba4
+sed -i 's/luci-app-samba/luci-app-samba4/g' package/lean/autosamba/Makefile
+
 
 #svn co 复制 仓库下的文件夹 git clone 复制整个仓库
 # vssr
 git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 
-# 关机
+# poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
 
 # unblockneteasemusic
@@ -91,8 +96,13 @@ cat >>feeds/luci/modules/luci-base/po/zh-cn/base.po<<- EOF
 
 msgid "Compile update"
 msgstr "固件地址"
-
 EOF
+
+#修改makefile
+find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
+find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/lang\/golang\/golang\-package\.mk/include \$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang\-package\.mk/g' {}
+find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHREPO/PKG_SOURCE_URL:=https:\/\/github\.com/g' {}
+find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload\.github\.com/g' {}
 
 # 调整V2ray服务到VPN菜单
 sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/controller/*.lua
