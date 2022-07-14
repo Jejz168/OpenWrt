@@ -115,7 +115,10 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        sed -i "s/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g" target/linux/x86/Makefile
+
+        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
+
+        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -223,12 +226,12 @@ jobs:
           - ⭐️这是 ${{ env.PRODUCT_NAME }}
           - 🔥默认IP：192.168.8.3 默认密码：password
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
-          ★  感谢源码作者无私分享！
+          ★ 感谢源码作者无私分享！
           🎈🎈🎈 更新信息 🎈🎈🎈
-          作者: ${{ env.author }}
-          时间: ${{ env.date }}
-          内容: ${{ env.commit }}
-          hash: ${{ env.hash }}
+          - 作者: ${{ env.author }}
+          - 时间: ${{ env.date }}
+          - 内容: ${{ env.commit }}
+          - hash: ${{ env.hash }}
         artifacts: ${{ env.FIRMWARE }}/*
 
     - name: Completion time 
