@@ -225,17 +225,13 @@ jobs:
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           ★  感谢源码作者无私分享！
           🎈🎈🎈 更新信息 🎈🎈🎈
-          🎈 作者: ${{ env.author }}
-          
-          🎈 时间: ${{ env.date }}
-          
-          🎈 内容: ${{ env.commit }}
-          
-          🎈 hash: ${{ env.hash }}
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
         artifacts: ${{ env.FIRMWARE }}/*
 
     - name: Completion time 
-      if: steps.organizer.outputs.status == 'success' && !cancelled()
       run: |
         echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         end=$(date +%s)
