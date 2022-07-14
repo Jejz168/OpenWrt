@@ -36,7 +36,7 @@ env:
   PRODUCT_NAME: x86_64
 
 jobs:
-  Build-X86-518:
+  Build-x86-518:
     runs-on: ubuntu-22.04
 
     steps:
