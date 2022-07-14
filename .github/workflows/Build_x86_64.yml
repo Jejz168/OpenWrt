@@ -189,7 +189,7 @@ jobs:
       if: steps.compile.outputs.status == 'success' 
       with:
         name: x86-config
-        path: openwrt/bin/targets/x86/64/config.buildinfo
+        path: openwrt/bin/targets/*/*/config.buildinfo
     
     - name: elete files
       run: |
