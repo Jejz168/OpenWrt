@@ -118,7 +118,7 @@ jobs:
         
         sed -i 's/CONFIG_LINUX_5_15=y/CONFIG_LINUX_5_18=y/g' .config
         
-        sed -i "s/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.18/g" target/linux/x86/Makefile
+        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.18/g' target/linux/x86/Makefile
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
