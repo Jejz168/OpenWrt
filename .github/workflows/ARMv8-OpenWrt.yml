@@ -4,7 +4,7 @@
 # Cron: min (0 - 59) / hour (0 - 23) / day of month (1 - 31) / month (1 - 12) / day of week (0 - 6)(Sunday - Saturday)
 #========================================================================================================================
 
-name: ARMv8-OpenWrt
+name: ARMv8 OpenWrt快速打包
 
 on:
   repository_dispatch:
@@ -127,10 +127,8 @@ jobs:
     - name: Telegram notification
       run: |
         MSG="
-        💥${{ env.PRODUCT_NAME }}编译完成
+        💥${{ env.PRODUCT_NAME }}打包完成
         开始时间：${{ env.DATE }}
-        完成时间：${{ env.DATE1 }}
-        编译耗时：${{ env.time }}
         🎈🎈🎈 更新信息 🎈🎈🎈
         作者: ${{ env.author }}
         时间: ${{ env.date }}
