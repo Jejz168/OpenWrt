@@ -52,9 +52,6 @@ svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-pass
 # passwall2
 # svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 
-# SSRP
-svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus package/luci-app-ssr-plus
-
 # 科学上网插件依赖
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
