@@ -251,7 +251,7 @@ jobs:
       with:
         token: ${{ secrets.GH_TOKEN }}
         repository: ${{ github.repository }}
-        retain_days: 1
+        retain_days: 6
         keep_minimum_runs: 6
 
     - name: Remove old Releases
