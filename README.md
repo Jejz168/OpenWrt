@@ -25,8 +25,8 @@
 
 ![](http://profile-counter.glitch.me/Jejz168-OpenWrt/count.svg)
 
-# Special thanks 
-- [GitHub Actions](https://github.com/features/actions)Thank you very much.
+# Special thanks（特别感谢）
+- [GitHub Actions](https://github.com/features/actions)🎉🎉Thank you very much.🎉🎉
 
 
 
