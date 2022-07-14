@@ -81,12 +81,10 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
-        useVersionInfo=$(git show -s --date=short --format="%0AAuthor: %an%0Adate: %cd%0Acommit: %s%0Acommit hash: %H")
         Author=$(git show -s --date=short --format="Author: %an")
         Date=$(git show -s --date=short --format="date: %cd")
         Commit=$(git show -s --date=short --format="commit: %s")
         Hash=$(git show -s --date=short --format="commit hash: %h")
-        echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
         echo "author=$Author" >> $GITHUB_ENV
         echo "date=$Date" >> $GITHUB_ENV
         echo "commit=$Commit" >> $GITHUB_ENV
@@ -94,12 +92,6 @@ jobs:
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "DATE1=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
         
-    - name: Cache Toolchain
-      uses: klever1988/cachewrtbuild@main
-      with:
-        ccache: 'false'
-        prefix: ${{ github.workspace }}/openwrt
-
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
@@ -159,6 +151,13 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
 
+    - name: Upload config 
+      uses: actions/upload-artifact@main
+      if: steps.compile.outputs.status == 'success' 
+      with:
+        name: ARMv8-config
+        path: openwrt/.config
+        
     - name: Organize files
       id: organize
       if: steps.compile.outputs.status == 'success' && !cancelled()
@@ -182,27 +181,36 @@ jobs:
       id: release
       uses: ncipollo/release-action@v1
       with:
-        name: R${{ env.DATE }} for ${{ env.FILE_NAME }}
+        name: R${{ env.DATE }} for ${{ env.FILE_NAME }}底包
         allowUpdates: true
         tag: ${{ env.FILE_NAME }}
         commit: main
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          *🔥 此为精简底包，非完整固件，每日自动编译
+          *🔥 此为ARMv8底包，非完整固件，每日自动编译
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
-          ${{ env.useVersionInfo }}
+          ★  感谢源码作者无私分享！
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          🎈 作者: ${{ env.author }}
+          
+          🎈 时间: ${{ env.date }}
+          
+          🎈 内容: ${{ env.commit }}
+          
+          🎈 hash: ${{ env.hash }} 
         artifacts: ${{ env.FIRMWARE }}/*
 
     - name: Telegram notification
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: |
-          🌈${{ env.PRODUCT_NAME }}编译完成
-          编译时间：${{ env.DATE }}
-          更新信息：
-          作者: ${{ env.author }}
-          时间: ${{ env.date }}
-          内容: ${{ env.commit }}
-          hash: ${{ env.hash }}
+      run: |
+        MSG="
+        🌺${{ env.PRODUCT_NAME }}编译完成
+        开始时间：${{ env.DATE }}
+        完成时间：${{ env.DATE1 }}
+        编译耗时：${{ env.time }}
+        🎈🎈🎈 更新信息 🎈🎈🎈
+        作者: ${{ env.author }}
+        时间: ${{ env.date }}
+        内容: ${{ env.commit }}
+        hash: ${{ env.hash }}
+        "
+        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}" >/dev/null 2>&1 && echo "ok..."
