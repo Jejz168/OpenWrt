@@ -18,8 +18,8 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
-  schedule:
-    - cron: 10 16 * * *
+  #schedule:
+  #  - cron: 10 16 * * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -36,7 +36,7 @@ env:
   PRODUCT_NAME: ARMv8_ROOTFS
 
 jobs:
-  Build-ARMv8:
+  Build-armv8:
     runs-on: ubuntu-22.04
 
     steps:
