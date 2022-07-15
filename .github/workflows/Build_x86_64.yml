@@ -187,12 +187,11 @@ jobs:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
 
-    - name: Upload config 
+    - name: Upload config
       uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' 
       with:
         name: x86-config
-        path: /home/runner/work/OpenWrt/OpenWrt/openwrt/.config
+        path: openwrt/.config
     
     - name: Delete files
       run: |
