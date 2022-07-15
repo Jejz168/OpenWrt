@@ -221,7 +221,6 @@ jobs:
       with:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
         allowUpdates: true
-        removeArtifacts: true
         tag: ${{ env.FILE_NAME }}
         token: ${{ secrets.GH_TOKEN }}
         commit: main
