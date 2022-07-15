@@ -194,7 +194,7 @@ jobs:
       if: steps.compile.outputs.status == 'success' 
       with:
         name: x86-518-config
-        path: openwrt/bin/targets/*/*/config.buildinfo
+        path: /home/runner/work/OpenWrt/OpenWrt/openwrt/.config
     
     - name: Delete files
       run: |
