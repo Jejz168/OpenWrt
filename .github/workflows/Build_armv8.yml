@@ -233,11 +233,11 @@ jobs:
       uses: unifreq/openwrt_packit@master
       if: steps.organize.outputs.status == 'success' && !cancelled()
       env:
-        OPENWRT_ARMVIRT: lean/*/*/*rootfs.tar.gz
+        OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz
         PACKAGE_SOC: s905d_s905x3
         WHOAMI: Jejz
         KERNEL_REPO_URL: https://github.com/Jejz168/OpenWrt/tree/main/backup/kernel
-        KERNEL_VERSION_NAME: 5.4.191_5.10.100
+        KERNEL_VERSION_NAME: 5.4.191_5.10.100_5.15.51_5.18.10
         KERNEL_AUTO_LATEST: true
         GZIP_IMGS: .gz 
         
