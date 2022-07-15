@@ -81,7 +81,7 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        git clone -b $REPO_BRANCH --single-branch $REPO_URL openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="%an")
@@ -110,11 +110,11 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        make defconfig
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -156,7 +156,6 @@ jobs:
       id: package
       run: |
         cd openwrt
-        make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
@@ -173,9 +172,24 @@ jobs:
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
 
     - name: Check space usage
-      if: (!cancelled())
-      run: df -hT
+      run: |
+        echo "=========================================="
+        echo "----------------空间使用-------------------"
+        echo "=========================================="
+        echo " 系统空间      类型   总数  已用  可用 使用率"
+        df -hT
+        echo "=========================================="
+        du -h --max-depth=1 openwrt/ --exclude=build_dir --exclude=bin
+        du -h --max-depth=1 openwrt/build_dir
+        du -h --max-depth=1 openwrt/bin
 
+    - name: Organize firmware files
+      id: organizer
+      run: |
+        mkdir -p ./artifact/buildinfo
+        cp -rf openwrt/.config ./artifact/buildinfo/armv8.config
+        cp -rf $(find openwrt/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
+        
     - name: Upload bin directory
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
@@ -188,7 +202,7 @@ jobs:
       if: steps.compile.outputs.status == 'success' 
       with:
         name: armv8-config
-        path: openwrt/bin/targets/*/*/config.buildinfo
+        path: ./artifact/buildinfo/
         
     - name: Organize files
       id: organize
