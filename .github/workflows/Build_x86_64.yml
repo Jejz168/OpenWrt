@@ -73,12 +73,16 @@ jobs:
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir        
         df -Th
 
     - name: Clone source code
+      working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        git clone -b $REPO_BRANCH --single-branch $REPO_URL openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="%an")
         Date=$(git show -s --date=short --format="%ci")
@@ -199,6 +203,7 @@ jobs:
 
     - name: Upload config
       uses: actions/upload-artifact@main
+      if: steps.compile.outputs.status == 'success'
       with:
         name: x86-config
         path: ./artifact/buildinfo/
