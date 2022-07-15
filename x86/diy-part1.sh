@@ -55,11 +55,11 @@ elif [ "$str1" = "5.19" ];then
 fi
 #md5
 ls -l  "bin/targets/x86/64" | awk -F " " '{print $9}' > wget/open_dev_md5
-dev_version=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d _ -f 1-2`
-openwrt_dev=openwrt_x86-64-${dev_version}_bios.img.gz
-openwrt_dev_uefi=openwrt_x86-64-${dev_version}_uefi.img.gz
+dev_version=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d _ -f 2 | cut -d _ -f 1-2`
+openwrt_bios=openwrt_x86-64-${dev_version}_bios.img.gz
+openwrt_uefi=openwrt_x86-64-${dev_version}_uefi.img.gz
 cd bin/targets/x86/64
-md5sum $openwrt_dev > openwrt_dev.md5
-md5sum $openwrt_dev_uefi > openwrt_dev_uefi.md5
+md5sum $openwrt_bios > openwrt_bios.md5
+md5sum $openwrt_uefi > openwrt_uefi.md5
 exit 0
 EOF
