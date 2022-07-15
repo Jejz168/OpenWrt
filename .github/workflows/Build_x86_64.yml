@@ -220,8 +220,11 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
+        allowUpdates: true
+        removeArtifacts: true
         tag: ${{ env.FILE_NAME }}
         token: ${{ secrets.GH_TOKEN }}
+        commit: main
         body: |
           - ⭐️这是 ${{ env.PRODUCT_NAME }}
           - 🔥默认IP：192.168.8.3 默认密码：password
