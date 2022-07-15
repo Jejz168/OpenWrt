@@ -223,7 +223,6 @@ jobs:
       with:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
         allowUpdates: true
-        removeArtifacts: true
         tag: ${{ env.FILE_NAME }}
         commit: main
         token: ${{ secrets.GH_TOKEN }}
@@ -240,7 +239,6 @@ jobs:
         artifacts: ${{ env.FIRMWARE }}/*
 
     - name: Completion time 
-      if: steps.organizer.outputs.status == 'success' && !cancelled()
       run: |
         echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         end=$(date +%s)
