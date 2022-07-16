@@ -22,7 +22,7 @@ env:
 
 jobs:
   Checka:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       REPO_URL_Lede: https://github.com/coolsnowwolf/lede
       REPO_BRANCH_Lede: master
@@ -65,7 +65,7 @@ jobs:
           📍：https://github.com/coolsnowwolf/lede
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////        
   Checkb:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       REPO_URL_HelloWorld: https://github.com/fw876/helloworld
       REPO_BRANCH_HelloWorld: master
@@ -108,7 +108,7 @@ jobs:
           📍：https://github.com/fw876/helloworld   
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////       
   Checkc:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       REPO_URL_OpenClash: https://github.com/vernesong/OpenClash
       REPO_BRANCH_OpenClash: master
@@ -153,7 +153,7 @@ jobs:
   Cleaning:
     if: ${{ always() }}
     needs: [Checka,Checkb,Checkc]    
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:  
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
