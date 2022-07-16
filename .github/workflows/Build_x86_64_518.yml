@@ -237,8 +237,8 @@ jobs:
       with:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
         allowUpdates: true
+        replacesArtifacts: true
         tag: ${{ env.FILE_NAME }}
-        commit: main
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️这是 ${{ env.PRODUCT_NAME }}
