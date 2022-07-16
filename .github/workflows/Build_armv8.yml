@@ -228,7 +228,7 @@ jobs:
     - name: Create release
       id: release
       uses: ncipollo/release-action@v1
-      if: steps.organizer.outputs.status == 'success'
+      if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
         name: ${{ env.DATE }} 🚫「 ${{ env.FILE_NAME }} 」
         tag: ${{ env.TAG }}
