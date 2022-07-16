@@ -29,6 +29,7 @@ env:
   DIY_P1_SH: armv8/diy-part1.sh
   DIY_P2_SH: armv8/diy-part2.sh
   UPLOAD_BIN_DIR: false
+  UPLOAD_CONFIG: true
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
@@ -193,21 +194,21 @@ jobs:
         
     - name: Upload bin directory
       uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      if: env.UPLOAD_BIN_DIR == 'true' && steps.compile.outputs.status == 'success'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
         
     - name: Upload config 
       uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' 
+      if: env.UPLOAD_CONFIG == 'true' && steps.compile.outputs.status == 'success' 
       with:
         name: armv8-config
         path: ./artifact/buildinfo/
         
     - name: Organize files
       id: organize
-      if: steps.compile.outputs.status == 'success' && !cancelled()
+      if: steps.compile.outputs.status == 'success'
       run: |
         cd $GITHUB_WORKSPACE/openwrt/bin/packages
         tar -zcvf Packages.tar.gz ./*
@@ -219,7 +220,7 @@ jobs:
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@main
-      if: env.UPLOAD_FIRMWARE == 'true' && steps.organize.outputs.status == 'success' && !cancelled()
+      if: env.UPLOAD_FIRMWARE == 'true' && steps.organize.outputs.status == 'success'
       with:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
@@ -227,6 +228,7 @@ jobs:
     - name: Create release
       id: release
       uses: ncipollo/release-action@v1
+      if: steps.organizer.outputs.status == 'success'
       with:
         name: ${{ env.DATE }} 🚫「 ${{ env.FILE_NAME }} 」
         tag: ${{ env.TAG }}
@@ -244,7 +246,7 @@ jobs:
         
     - name: Package armvirt as openwrt
       uses: unifreq/openwrt_packit@master
-      if: steps.organize.outputs.status == 'success' && !cancelled()
+      if: steps.organize.outputs.status == 'success'
       env:
         OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz
         PACKAGE_SOC: s905d_s905x3
@@ -256,13 +258,13 @@ jobs:
         
     - name: Upload artifact to Actions
       uses: kittaakos/upload-artifact-as-is@master
-      if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_FIRMWARE == 'true'
       with:
         path: ${{ env.PACKAGED_OUTPUTPATH }}/   
         
     - name: Upload openwrt to release
       uses: ncipollo/release-action@v1
-      if: env.PACKAGED_STATUS == 'success' && !cancelled()
+      if: env.PACKAGED_STATUS == 'success'
       with:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
         tag: ${{ env.TAG }}
@@ -302,11 +304,10 @@ jobs:
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.2.0
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
       with:
         keep_latest: 8
         delete_tags: true
-        delete_tag_pattern: _
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     
