@@ -22,7 +22,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
@@ -35,7 +35,6 @@ jobs:
       with:
         keep_latest: ${{ env.KEEP_MININUM_RELEASE }}
         delete_tags: true
-        delete_tag_pattern: _
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
