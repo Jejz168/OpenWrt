@@ -15,7 +15,7 @@ echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall;packages' >
 
 
 
-
+mkdir wget
 
 cat>rename.sh<<-\EOF
 #!/bin/bash
@@ -51,5 +51,13 @@ elif [ "$str1" = "5.19" ];then
    mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver519}_bios.img.gz
    mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver519}_uefi.img.gz
 fi
+#md5
+ls -l  "bin/targets/x86/64" | awk -F " " '{print $9}' > wget/open_dev_md5
+dev_version=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2`
+openwrt_dev=openwrt_x86-64_${dev_version}_bios.img.gz
+openwrt_dev_uefi=openwrt_x86-64_${dev_version}_uefi.img.gz
+cd bin/targets/x86/64
+md5sum $openwrt_dev > openwrt_bios.md5
+md5sum $openwrt_dev_uefi > openwrt_uefi.md5
 exit 0
 EOF
