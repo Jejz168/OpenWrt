@@ -210,6 +210,7 @@ jobs:
       id: organize
       if: steps.compile.outputs.status == 'success'
       run: |
+        echo "TAG1=$(date "+%Y%m%d%H%M")" >> $GITHUB_ENV
         cd $GITHUB_WORKSPACE/openwrt/bin/packages
         tar -zcvf Packages.tar.gz ./*
         cp Packages.tar.gz $GITHUB_WORKSPACE/openwrt/bin/targets/*/*
@@ -267,7 +268,7 @@ jobs:
       if: env.PACKAGED_STATUS == 'success'
       with:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
-        tag: ${{ env.TAG }}
+        tag: ${{ env.TAG1 }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️默认 IP：192.168.8.8 默认密码：password
