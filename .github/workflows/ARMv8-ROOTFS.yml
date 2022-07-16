@@ -144,6 +144,13 @@ jobs:
       if: (!cancelled())
       run: df -hT
 
+    - name: Organize firmware files
+      id: organizer
+      run: |
+        mkdir -p ./artifact/buildinfo
+        cp -rf openwrt/.config ./artifact/buildinfo/armv8.config
+        cp -rf $(find openwrt/bin/targets/ -type f -name "*.buildinfo" -o -name "*.manifest") ./artifact/buildinfo/
+        
     - name: Upload bin directory
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
@@ -156,7 +163,7 @@ jobs:
       if: steps.compile.outputs.status == 'success' 
       with:
         name: armv8-config
-        path: openwrt/bin/targets/*/*/config.buildinfo
+        path: ./artifact/buildinfo/
         
     - name: Organize files
       id: organize
