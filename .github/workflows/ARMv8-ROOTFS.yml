@@ -192,7 +192,6 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.FILE_NAME }}
-        commit: main
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - 🔥这是${{ env.FILE_NAME }}底包，非完整固件，不可直刷
