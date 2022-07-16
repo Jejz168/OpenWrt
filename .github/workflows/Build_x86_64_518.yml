@@ -236,6 +236,7 @@ jobs:
     - name: Create release
       id: release
       uses: ncipollo/release-action@v1
+      if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
         tag: ${{ env.TAG }}
@@ -273,7 +274,7 @@ jobs:
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.2.0
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+      if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
         keep_latest: 8
         delete_tags: true
