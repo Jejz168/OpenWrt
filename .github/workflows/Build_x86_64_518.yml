@@ -93,6 +93,7 @@ jobs:
         echo "commit=$Commit" >> $GITHUB_ENV
         echo "hash=$Hash" >> $GITHUB_ENV
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "TAG=$(date "+%Y%m%d%H%M")" >> $GITHUB_ENV
         echo "start=$(date +%s)" >> $GITHUB_ENV
 
     - name: Load custom feeds
@@ -236,9 +237,7 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
-        allowUpdates: true
-        replacesArtifacts: true
-        tag: ${{ env.FILE_NAME }}
+        tag: ${{ env.TAG }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️这是 ${{ env.PRODUCT_NAME }}
