@@ -69,6 +69,7 @@ jobs:
         echo "commit=$Commit" >> $GITHUB_ENV
         echo "hash=$Hash" >> $GITHUB_ENV
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "TAG=$(date "+%Y%m%d%H%M")" >> $GITHUB_ENV
         echo "DATE1=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
     
     - name: Package Armvirt as OpenWrt
@@ -102,9 +103,7 @@ jobs:
       if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }} 」固件
-        allowUpdates: true
-        removeArtifacts: true
-        tag: ${{ env.FILE_NAME }}
+        tag: ${{ env.TAG }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️默认 IP：192.168.8.8 默认密码：password
