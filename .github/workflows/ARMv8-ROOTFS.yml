@@ -83,7 +83,7 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="Author: %an")
-        Date=$(git show -s --date=short --format="date: %cd")
+        Date=$(git show -s --date=short --format="date: %ci")
         Commit=$(git show -s --date=short --format="commit: %s")
         Hash=$(git show -s --date=short --format="commit hash: %h")
         echo "author=$Author" >> $GITHUB_ENV
@@ -91,8 +91,9 @@ jobs:
         echo "commit=$Commit" >> $GITHUB_ENV
         echo "hash=$Hash" >> $GITHUB_ENV
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
-        echo "DATE1=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
-        
+        echo "TAG=$(date "+%Y%m%d%H%M")" >> $GITHUB_ENV
+        echo "start=$(date +%s)" >> $GITHUB_ENV
+
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
@@ -189,9 +190,7 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         name: R${{ env.DATE }} for ${{ env.FILE_NAME }}底包
-        allowUpdates: true
-        removeArtifacts: true
-        tag: ${{ env.FILE_NAME }}
+        tag: ${{ env.TAG }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - 🔥这是${{ env.FILE_NAME }}底包，非完整固件，不可直刷
@@ -203,6 +202,17 @@ jobs:
           - 内容: ${{ env.commit }}       
           - hash: ${{ env.hash }} 
         artifacts: ${{ env.FIRMWARE }}/*
+
+    - name: Total time
+      run: |
+        echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        end=$(date +%s)
+        seconds=$(( end - start ))
+        hour=$(( $seconds/3600 ))
+        min=$(( ($seconds-${hour}*3600)/60 ))
+        sec=$(( $seconds-${hour}*3600-${min}*60 ))
+        HMS=`echo ${hour}:${min}:${sec}`
+        echo "time=$HMS" >> $GITHUB_ENV
 
     - name: Telegram notification
       run: |
