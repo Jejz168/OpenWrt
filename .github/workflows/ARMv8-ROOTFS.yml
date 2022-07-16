@@ -29,6 +29,7 @@ env:
   DIY_P1_SH: armv8/diy-part1.sh
   DIY_P2_SH: armv8/diy-part2.sh
   UPLOAD_BIN_DIR: false
+   UPLOAD_CONFIG: true
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
@@ -154,21 +155,21 @@ jobs:
         
     - name: Upload bin directory
       uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
+      if: env.UPLOAD_BIN_DIR == 'true' && steps.compile.outputs.status == 'success'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: openwrt/bin
 
     - name: Upload config 
       uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' 
+      if: env.UPLOAD_CONFIG == 'true' && steps.compile.outputs.status == 'success'
       with:
         name: armv8-config
         path: ./artifact/buildinfo/
         
     - name: Organize files
       id: organize
-      if: steps.compile.outputs.status == 'success' && !cancelled()
+      if: steps.compile.outputs.status == 'success'
       run: |
         cd $GITHUB_WORKSPACE/openwrt/bin/packages
         tar -zcvf Packages.tar.gz ./*
@@ -189,11 +190,11 @@ jobs:
       id: release
       uses: ncipollo/release-action@v1
       with:
-        name: R${{ env.DATE }} for ${{ env.FILE_NAME }}底包
+        name: ${{ env.DATE }} 🚫「 ${{ env.FILE_NAME }} 」
         tag: ${{ env.TAG }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - 🔥这是${{ env.FILE_NAME }}底包，非完整固件，不可直刷
+          - 🔥此为ARMv8底包，非完整固件，不可直刷
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
           - 🎈🎈🎈 更新信息 🎈🎈🎈
