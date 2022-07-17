@@ -33,7 +33,7 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: x86_64_518
+  FILE_NAME: x86_64
   PRODUCT_NAME: x86_64_518
 
 jobs:
@@ -216,6 +216,9 @@ jobs:
       run: |
         cd openwrt 
         bash  rename.sh
+        cd openwrt
+        Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
+        echo "KERNEL=$Kernel" >> $GITHUB_ENV
     
     - name: Organize files
       id: organize
@@ -238,7 +241,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}」固件
         allowUpdates: true
         tag: ${{ env.TAG }}-${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
