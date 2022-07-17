@@ -33,8 +33,8 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: ARMv8
-  PRODUCT_NAME: ARMv8-ROOTFS
+  FILE_NAME: ARMv8-ROOTFS
+  PRODUCT_NAME: ARMv8
 
 jobs:
   build:
