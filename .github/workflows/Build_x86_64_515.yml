@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Build_x86_64
+name: Build_x86_64_515
 
 on:
   repository_dispatch:
@@ -244,7 +244,7 @@ jobs:
         tag: ${{ env.TAG }}-${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - ⭐️此为 ${{ env.PRODUCT_NAME }} 固件
+          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 固件
           - 🔥默认IP：192.168.8.3 默认密码：password
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
