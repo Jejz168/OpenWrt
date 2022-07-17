@@ -4,6 +4,7 @@
 # File name: diy-part2.sh
 # Lisence: MIT
 # Author: P3TERX
+# By: Jejz
 # Blog: https://p3terx.com
 #===============================================
 
