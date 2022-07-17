@@ -33,8 +33,8 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: ARMv8_ROOTFS
-  PRODUCT_NAME: ARMv8
+  FILE_NAME: ARMv8-ROOTFS
+  PRODUCT_NAME: ARMv8_
 
 jobs:
   Build_armv8:
@@ -311,6 +311,7 @@ jobs:
       with:
         keep_latest: 8
         delete_tags: true
+        delete_tag_pattern: _
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     
