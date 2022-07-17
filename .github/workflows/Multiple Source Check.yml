@@ -160,6 +160,7 @@ jobs:
       with:
           token: ${{ secrets.GH_TOKEN }}
           event-type: my-build
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
