@@ -6,6 +6,7 @@ name: Build_x86_64_515
 
 on:
   repository_dispatch:
+    types: [my-build]
   workflow_dispatch:
     inputs:
       ssh:
