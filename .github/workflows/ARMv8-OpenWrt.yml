@@ -27,7 +27,7 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: ARMv8
+  FILE_NAME: ARMv8_
   PRODUCT_NAME: ARMv8
 
 jobs:
