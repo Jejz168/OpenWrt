@@ -268,6 +268,7 @@ jobs:
       if: env.PACKAGED_STATUS == 'success'
       with:
         name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
+        allowUpdates: true
         tag: ${{ env.TAG }}-${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
