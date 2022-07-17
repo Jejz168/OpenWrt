@@ -212,9 +212,12 @@ jobs:
     
     - name: Delete files
       run: |
-        cd openwrt 
+        cd openwrt
         bash  rename.sh
-    
+        cd openwrt
+        Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
+        echo "KERNEL=$Kernel" >> $GITHUB_ENV
+        
     - name: Organize files
       id: organize
       if: steps.compile.outputs.status == 'success'
@@ -236,7 +239,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
+        name: ${{ env.KERNEL }} 「 ${{ env.PRODUCT_NAME }} 」固件
         allowUpdates: true
         tag: ${{ env.TAG }}-${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
