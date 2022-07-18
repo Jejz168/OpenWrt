@@ -6,6 +6,7 @@ name: ARMv8 OpenWrt快速打包
 
 on:
   repository_dispatch:
+    types: [my-event]
   workflow_dispatch:
     inputs:
       ssh:
