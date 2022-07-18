@@ -8,8 +8,8 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      up:
-        description: 'UP connection to Actions'
+      Checkupdates:
+        description: 'Checkupdates connection to Actions'
         required: false
         default: 'false'
       ssh:
@@ -31,7 +31,6 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  UPDA: ${{ github.event.inputs.up }}
   FILE_NAME: x86_64
   PRODUCT_NAME: x86_64_515
   
@@ -77,7 +76,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////        
   Build_x86_64_515:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' }} && env.UPDA == 'true' && env.UPDA != 'false'
+    if: (github.event.inputs.Checkupdates == 'true' && github.event.inputs.Checkupdates != 'false') && ${{ needs.Checka.outputs.output != 'hello' }}
     runs-on: ubuntu-22.04
 
     steps:
