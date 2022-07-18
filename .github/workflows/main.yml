@@ -12,10 +12,10 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
-      forceupdate:
-        description: 'Forceupdate connection to Actions'
+      checkupdates:
+        description: 'Checkupdates connection to Actions'
         required: false
-        default: 'false'  
+        default: 'false'
   #schedule:
    # - cron: 15 16 * * 6
 
@@ -76,7 +76,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////         
   Build_x86_64_515:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.forceupdate == 'true' || github.event.inputs.forceupdate != 'false'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
