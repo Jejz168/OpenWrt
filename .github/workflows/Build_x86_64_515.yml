@@ -8,10 +8,6 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      updates:
-        description: 'Updates connection to Actions'
-        required: false
-        default: 'false'
       ssh:
         description: 'SSH connection to Actions'
         required: false
@@ -76,7 +72,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////        
   Build_x86_64_515:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' }} && (github.event.inputs.updates == 'true' && github.event.inputs.updates != 'false')
+    if: ${{ needs.Checka.outputs.output != 'hello' }} 
     runs-on: ubuntu-22.04
 
     steps:
