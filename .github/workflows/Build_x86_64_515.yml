@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       checkupdates:
-        description: 'Checkupdates 不检查源码更新'
+        description: 'Checkupdates connection to Actions'
         required: false
         default: 'false'
       ssh:
