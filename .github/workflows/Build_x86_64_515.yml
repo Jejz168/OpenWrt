@@ -8,7 +8,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      Checkupdates:
+      updates:
         description: 'Checkupdates connection to Actions'
         required: false
         default: 'false'
@@ -76,7 +76,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////        
   Build_x86_64_515:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' }} && (github.event.inputs.Checkupdates == 'true' && github.event.inputs.Checkupdates  != 'false')
+    if: ${{ needs.Checka.outputs.output != 'hello' }} && (github.event.inputs.updates == 'true' && github.event.inputs.updates != 'false')
     runs-on: ubuntu-22.04
 
     steps:
