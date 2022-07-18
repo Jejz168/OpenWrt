@@ -10,8 +10,8 @@ on:
     inputs:
       Checkupdates:
         description: 'Checkupdates connection to Actions'
-        required: true
-        default: 'true'
+        required: false
+        default: 'false'
       ssh:
         description: 'SSH connection to Actions'
         required: false
