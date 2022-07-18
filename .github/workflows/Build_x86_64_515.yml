@@ -70,13 +70,13 @@ jobs:
         echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All
     - name: Set output for next job
       id: outputunifreq
-      if: steps.cacheHash.outputs.cache-hit != 'true'
+      if: steps.cacheHash.outputs.cache-hit == 'true'
       run: |
         echo "::set-output name=unifreq::hello"     
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////        
   Build_x86_64_515:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output == 'hello' }} && (github.event.inputs.Checkupdates == 'true' && github.event.inputs.Checkupdates  != 'false')
+    if: ${{ needs.Checka.outputs.output != 'hello' }} && (github.event.inputs.Checkupdates == 'true' && github.event.inputs.Checkupdates  != 'false')
     runs-on: ubuntu-22.04
 
     steps:
