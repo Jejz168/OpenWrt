@@ -8,10 +8,6 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      upd:
-        description: 'UPD connection to Actions'
-        required: false
-        default: 'false'
       ssh:
         description: 'SSH connection to Actions'
         required: false
@@ -34,49 +30,8 @@ env:
   FILE_NAME: x86_64
   PRODUCT_NAME: x86_64_515
   
-jobs:
-  Checka:
-    runs-on: ubuntu-latest
-    env:
-      REPO_URL_Lede: https://github.com/coolsnowwolf/lede
-      REPO_BRANCH_Lede: master
-      REPO_PATH_Lede : "lede"
-    outputs:
-      output: ${{ steps.outputunifreq.outputs.unifreq }}   
-    steps:
-    - name: Get Commit Hash
-      id: getHash
-      run: |
-        git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
-        cd $REPO_PATH_Lede
-        echo "::set-output name=commitHash_Lede::$(git rev-parse HEAD)"
-        cd   
-    - name: Show Commit Head and Combination Heads
-      id: combHeader
-      run: |
-        echo "commitHash_Lede: ${{ steps.getHash.outputs.commitHash_Lede }}"
-        echo "::set-output name=commitHash_All::\
-          ${{steps.getHash.outputs.commitHash_Lede}}"     
-    - name: Compare Commit Hash
-      id: cacheHash
-      uses: actions/cache@v2
-      with:
-        path: .commitHash_All
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
-    - name: Save New Commit Hash
-      if: steps.cacheHash.outputs.cache-hit != 'true'
-      run: |
-        echo ${{ steps.getHash.outputs.commitHash_Lede }} | tee .commitHash_Lede
-        echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All
-    - name: Set output for next job
-      id: outputunifreq
-      if: steps.cacheHash.outputs.cache-hit == 'true'
-      run: |
-        echo "::set-output name=unifreq::hello"     
-# /////////////////////////////////////////////////////////////////////////////////////////////////////////        
+jobs:     
   Build_x86_64_515:
-    needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' }} || (github.event.inputs.upd == 'true' && github.event.inputs.upd  != 'false')
     runs-on: ubuntu-22.04
 
     steps:
