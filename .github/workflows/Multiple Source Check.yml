@@ -148,19 +148,7 @@ jobs:
           🚀 OpenClash
                 ● 源码更新了
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍：https://github.com/vernesong/OpenClash     
-# //////////////////////////////////////////////////////////////////////////////////////////////
-  Clean:
-    if: ${{ always() }}
-    #needs: [Checka,Checkb,Checkc]    
-    runs-on: ubuntu-latest
-    steps:  
-    - name: Repository Dispatch
-      uses: peter-evans/repository-dispatch@v2
-      with:
-          token: ${{ secrets.GH_TOKEN }}
-          repository: Jejz168/OpenWrt
-          event-type: my-event
+          📍：https://github.com/vernesong/OpenClash
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
