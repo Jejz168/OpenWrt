@@ -70,7 +70,7 @@ jobs:
         echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All
     - name: Set output for next job
       id: outputunifreq
-      if: steps.cacheHash.outputs.cache-hit != 'true'
+      if: steps.cacheHash.outputs.cache-hit = 'true'
       run: |
         echo "::set-output name=unifreq::hello"     
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////        
