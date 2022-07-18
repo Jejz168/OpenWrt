@@ -64,7 +64,7 @@ jobs:
 # ///////////////////////////////////////////////////////////////////////////////////////////////////////// 
   Build_x86_64_515:
     needs: [Checka] 
-    if: ${{ steps.cacheHash.outputs.cache-hit != 'true' }}
+    if: ${{ needs.cacheHash.outputs.cache-hit != 'true' }}
     runs-on: ubuntu-22.04
 
     steps:
