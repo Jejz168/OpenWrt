@@ -8,10 +8,14 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      checkupdates:
-        description: 'Checkupdates connection to Actions'
+      checkupdates515:
+        description: 'Checkupdates515 connection to Actions'
         required: false
         default: 'false'
+      checkupdates518:
+        description: 'Checkupdates518 connection to Actions'
+        required: false
+        default: 'false'  
       ssh:
         description: 'SSH connection to Actions'
         required: false
@@ -50,22 +54,26 @@ jobs:
         git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
         cd $REPO_PATH_Lede
         echo "::set-output name=commitHash_x86::$(git rev-parse HEAD)"
-        cd      
+        cd 
+        
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_x86: ${{ steps.getHash.outputs.commitHash_x86 }}"  
+        echo "commitHash_x86: ${{ steps.getHash.outputs.commitHash_x86 }}"
+        
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
       with:
         path: .commitHash_x86
         key: HEAD-${{ steps.combHeader.outputs.commitHash_x86 }}
+        
     - name: Set output for next job
       id: outputunifreq
       if: steps.cacheHash.outputs.cache-hit == 'true'
       run: |
-        echo "::set-output name=unifreq::hello"     
+        echo "::set-output name=unifreq::hello"
+        
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
@@ -73,7 +81,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates515 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
@@ -301,24 +309,6 @@ jobs:
         HMS=`echo ${hour}:${min}:${sec}`
         echo "time=$HMS" >> $GITHUB_ENV
 
-    - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
-      with:
-        token: ${{ secrets.GH_TOKEN }}
-        repository: ${{ github.repository }}
-        retain_days: 6
-        keep_minimum_runs: 6
-
-    - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@v0.2.0
-      if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
-      with:
-        keep_latest: 8
-        delete_tags: true
-        delete_tag_pattern: _
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-
     - name: Telegram notification
       run: |
         MSG="
@@ -336,7 +326,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_518:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates518 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
@@ -393,12 +383,14 @@ jobs:
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "TAG=$(date "+%Y%m%d")" >> $GITHUB_ENV
         echo "start=$(date +%s)" >> $GITHUB_ENV
+        
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
+        
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
@@ -418,6 +410,7 @@ jobs:
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.18/g' target/linux/x86/Makefile
         
         sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.18/g' target/linux/x86/Makefile
+        
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
@@ -461,6 +454,7 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
+        
     - name: Compile the firmware
       id: compile
       run: |
@@ -471,6 +465,7 @@ jobs:
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
+        
     - name: Check space usage
       run: |
         echo "=========================================="
@@ -482,6 +477,7 @@ jobs:
         du -h --max-depth=1 openwrt/ --exclude=build_dir --exclude=bin
         du -h --max-depth=1 openwrt/build_dir
         du -h --max-depth=1 openwrt/bin
+        
     - name: Organize firmware files
       id: organizer
       run: |
@@ -518,6 +514,7 @@ jobs:
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
+        
     - name: Upload firmware directory
       uses: actions/upload-artifact@main
       if: env.UPLOAD_FIRMWARE == 'true' && steps.organize.outputs.status == 'success'
@@ -556,23 +553,6 @@ jobs:
         sec=$(( $seconds-${hour}*3600-${min}*60 ))
         HMS=`echo ${hour}:${min}:${sec}`
         echo "time=$HMS" >> $GITHUB_ENV
-    - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
-      with:
-        token: ${{ secrets.GH_TOKEN }}
-        repository: ${{ github.repository }}
-        retain_days: 6
-        keep_minimum_runs: 6
-
-    - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@v0.2.0
-      if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
-      with:
-        keep_latest: 8
-        delete_tags: true
-        delete_tag_pattern: _
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
     - name: Telegram notification
       run: |
@@ -598,7 +578,8 @@ jobs:
       uses: GitRML/delete-workflow-runs@main
       with:
         retain_days: 6
-        keep_minimum_runs: 6    
+        keep_minimum_runs: 6
+        
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.2.0
       if: env.UPLOAD_RELEASE == 'true' 
