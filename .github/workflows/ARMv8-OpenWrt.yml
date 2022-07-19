@@ -25,7 +25,7 @@ env:
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
-  FILE_NAME: ARMv8_
+  FILE_NAME: ARMv8
   PRODUCT_NAME: ARMv8
 
 jobs:
@@ -100,7 +100,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }} 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_ 」固件
         allowUpdates: true
         tag: ${{ env.TAG }}-${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
