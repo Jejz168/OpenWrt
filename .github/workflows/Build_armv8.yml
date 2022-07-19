@@ -32,8 +32,8 @@ env:
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
   FILE_NAME: ARMv8-ROOTFS
-  PRODUCT_NAME: ARMv8_
-
+  PRODUCT_NAME: ARMv8
+  
 jobs:
   Checka:
     runs-on: ubuntu-latest
@@ -303,7 +303,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.PACKAGED_STATUS == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }} 」固件
+        name: ${{ env.DATE }} 「 ${{ env.PRODUCT_NAME }}_ 」固件
         allowUpdates: true
         tag: ${{ env.TAG }}-${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
@@ -332,24 +332,6 @@ jobs:
         sec=$(( $seconds-${hour}*3600-${min}*60 ))
         HMS=`echo ${hour}:${min}:${sec}`
         echo "time=$HMS" >> $GITHUB_ENV
-        
-    - name: Delete workflow runs
-      uses: GitRML/delete-workflow-runs@main
-      with:
-        token: ${{ secrets.GH_TOKEN }}
-        repository: ${{ github.repository }}
-        retain_days: 6
-        keep_minimum_runs: 6
-
-    - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@v0.2.0
-      if: env.UPLOAD_RELEASE == 'true' && steps.organize.outputs.status == 'success'
-      with:
-        keep_latest: 8
-        delete_tags: true
-        delete_tag_pattern: _
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
     
     - name: Telegram notification
       run: |
@@ -365,3 +347,24 @@ jobs:
         hash: ${{ env.hash }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}" >/dev/null 2>&1 && echo "ok..."
+# //////////////////////////////////////////////////////////////////////////////////////////////
+  Cleaning:
+    if: ${{ always() }}
+    needs: [Checka,Build_armv8]
+    runs-on: ubuntu-latest
+    steps:  
+    - name: Delete workflow runs
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        retain_days: 6
+        keep_minimum_runs: 6
+        
+    - name: Remove old Releases
+      uses: dev-drprasad/delete-older-releases@v0.2.0
+      if: env.UPLOAD_RELEASE == 'true' 
+      with:
+        keep_latest: 19
+        delete_tags: true
+        delete_tag_pattern: ARMv8_
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  
