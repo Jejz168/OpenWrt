@@ -598,11 +598,10 @@ jobs:
       uses: GitRML/delete-workflow-runs@main
       with:
         retain_days: 6
-        keep_minimum_runs: 6
-        
+        keep_minimum_runs: 6    
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.2.0
-      if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
+      if: env.UPLOAD_RELEASE == 'true' 
       with:
         keep_latest: 19
         delete_tags: true
