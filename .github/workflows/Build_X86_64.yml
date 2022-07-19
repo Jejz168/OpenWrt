@@ -2,7 +2,7 @@
 # X86_64
 #========================================================================================================================
 
-name: Build_x86_64_515
+name: Build_x86_64
 
 on:
   repository_dispatch:
@@ -40,7 +40,7 @@ jobs:
     env:
       REPO_URL_Lede: https://github.com/coolsnowwolf/lede
       REPO_BRANCH_Lede: master
-      REPO_PATH_Lede : "lede_515"
+      REPO_PATH_Lede : "Lede_x86"
     outputs:
       output: ${{ steps.outputunifreq.outputs.unifreq }}   
     steps:
@@ -49,18 +49,18 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
         cd $REPO_PATH_Lede
-        echo "::set-output name=commitHash_515::$(git rev-parse HEAD)"
+        echo "::set-output name=commitHash_x86::$(git rev-parse HEAD)"
         cd      
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_515: ${{ steps.getHash.outputs.commitHash_515 }}"  
+        echo "commitHash_x86: ${{ steps.getHash.outputs.commitHash_x86 }}"  
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
       with:
-        path: .commitHash_515
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_515 }}
+        path: .commitHash_x86
+        key: HEAD-${{ steps.combHeader.outputs.commitHash_x86 }}
     - name: Set output for next job
       id: outputunifreq
       if: steps.cacheHash.outputs.cache-hit == 'true'
@@ -69,7 +69,7 @@ jobs:
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash_515 }} | tee .commitHash_515
+        echo ${{ steps.getHash.outputs.commitHash_x86 }} | tee .commitHash_x86
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
     needs: [Checka]   
