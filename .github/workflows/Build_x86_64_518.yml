@@ -40,7 +40,7 @@ jobs:
     env:
       REPO_URL_Lede: https://github.com/coolsnowwolf/lede
       REPO_BRANCH_Lede: master
-      REPO_PATH_Lede : "lede"
+      REPO_PATH_Lede : "lede_518"
     outputs:
       output: ${{ steps.outputunifreq.outputs.unifreq }}   
     steps:
