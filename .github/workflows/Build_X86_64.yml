@@ -16,8 +16,12 @@ on:
         description: 'Checkupdates518 connection to Actions'
         required: false
         default: 'false'  
-      ssh:
-        description: 'SSH connection to Actions'
+      ssh515:
+        description: 'SSH515 connection to Actions'
+        required: false
+        default: 'false'
+      ssh518:
+        description: 'SSH518 connection to Actions'
         required: false
         default: 'false'
   schedule:
@@ -168,7 +172,7 @@ jobs:
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      if: (github.event.inputs.ssh515 == 'true' && github.event.inputs.ssh515  != 'false') || contains(github.event.action, 'ssh515')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -413,7 +417,7 @@ jobs:
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      if: (github.event.inputs.ssh518 == 'true' && github.event.inputs.ssh518  != 'false') || contains(github.event.action, 'ssh518')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
