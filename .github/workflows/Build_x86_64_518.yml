@@ -49,20 +49,18 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
         cd $REPO_PATH_Lede
-        echo "::set-output name=commitHash_Lede::$(git rev-parse HEAD)"
+        echo "::set-output name=commitHash_518::$(git rev-parse HEAD)"
         cd      
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_Lede: ${{ steps.getHash.outputs.commitHash_Lede }}"
-        echo "::set-output name=commitHash_All::\
-          ${{steps.getHash.outputs.commitHash_Lede}}"     
+        echo "commitHash_518: ${{ steps.getHash.outputs.commitHash_518 }}"    
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
       with:
-        path: .commitHash_All
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
+        path: .commitHash_518
+        key: HEAD-${{ steps.combHeader.outputs.commitHash_518 }}
     - name: Set output for next job
       id: outputunifreq
       if: steps.cacheHash.outputs.cache-hit == 'true'
@@ -71,8 +69,7 @@ jobs:
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash_Lede }} | tee .commitHash_Lede
-        echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All 
+        echo ${{ steps.getHash.outputs.commitHash_518 }} | tee .commitHash_518
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_518:
     needs: [Checka]   
