@@ -1,11 +1,10 @@
 name: Delete Artifacts Update Checker
 
 on:
-  #release:
-  #  types: published
- # schedule:
-  #  - cron: 20 0/1 * * * 
+  repository_dispatch:
   workflow_dispatch:
+  schedule:
+    - cron: 16 8 * * * 
 env:
   TZ: Asia/Shanghai
 
