@@ -38,20 +38,17 @@ jobs:
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_Lede: ${{ steps.getHash.outputs.commitHash_Lede }}"
-        echo "::set-output name=commitHash_All::\
-          ${{steps.getHash.outputs.commitHash_Lede}}"     
+        echo "commitHash_Lede: ${{ steps.getHash.outputs.commitHash_Lede }}"    
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
       with:
-        path: .commitHash_All
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
+        path: .commitHash_Lede
+        key: HEAD-${{ steps.combHeader.outputs.commitHash_Lede }}
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash_Lede }} | tee .commitHash_Lede
-        echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All     
+        echo ${{ steps.getHash.outputs.commitHash_Lede }} | tee .commitHash_Lede  
     - name: Telegram notification upload success
       if: steps.cacheHash.outputs.cache-hit != 'true'
       uses: appleboy/telegram-action@master
@@ -81,20 +78,17 @@ jobs:
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_HelloWorld: ${{ steps.getHash.outputs.commitHash_HelloWorld }}"
-        echo "::set-output name=commitHash_All::\
-          ${{steps.getHash.outputs.commitHash_HelloWorld}}"      
+        echo "commitHash_HelloWorld: ${{ steps.getHash.outputs.commitHash_HelloWorld }}"   
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
       with:
-        path: .commitHash_All
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}
+        path: .commitHash_HelloWorld
+        key: HEAD-${{ steps.combHeader.outputs.commitHash_HelloWorld }}
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-         echo ${{ steps.getHash.outputs.commitHash_HelloWorld }} | tee .commitHash_HelloWorld
-         echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All       
+         echo ${{ steps.getHash.outputs.commitHash_HelloWorld }} | tee .commitHash_HelloWorld    
     - name: Telegram notification upload success
       if: steps.cacheHash.outputs.cache-hit != 'true'
       uses: appleboy/telegram-action@master
@@ -124,20 +118,17 @@ jobs:
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_OpenClash: ${{ steps.getHash.outputs.commitHash_OpenClash }}"
-        echo "::set-output name=commitHash_All::\
-          ${{steps.getHash.outputs.commitHash_OpenClash}}"         
+        echo "commitHash_OpenClash: ${{ steps.getHash.outputs.commitHash_OpenClash }}"       
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
       with:
-        path: .commitHash_All
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_All }}        
+        path: .commitHash_OpenClash
+        key: HEAD-${{ steps.combHeader.outputs.commitHash_OpenClash }}        
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-         echo ${{ steps.getHash.outputs.commitHash_OpenClash }} | tee .commitHash_OpenClash
-         echo ${{ steps.combHeader.outputs.commitHash_All }} | tee .commitHash_All       
+         echo ${{ steps.getHash.outputs.commitHash_OpenClash }} | tee .commitHash_OpenClash     
     - name: Telegram notification upload success
       if: steps.cacheHash.outputs.cache-hit != 'true'
       uses: appleboy/telegram-action@master
