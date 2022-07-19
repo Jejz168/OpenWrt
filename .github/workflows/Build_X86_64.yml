@@ -584,8 +584,8 @@ jobs:
       uses: dev-drprasad/delete-older-releases@v0.2.0
       if: env.UPLOAD_RELEASE == 'true' 
       with:
-        keep_latest: 19
+        keep_latest: 16
         delete_tags: true
-        delete_tag_pattern: _
+        delete_tag_pattern: x86_
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}    
