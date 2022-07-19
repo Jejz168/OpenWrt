@@ -588,3 +588,24 @@ jobs:
         hash: ${{ env.hash }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}" >/dev/null 2>&1 && echo "ok..."
+# //////////////////////////////////////////////////////////////////////////////////////////////
+  Cleaning:
+    if: ${{ always() }}
+    needs: [Checka,Build_x86_64_515,Build_x86_64_518]    
+    runs-on: ubuntu-latest
+    steps:  
+    - name: Delete workflow runs
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        retain_days: 6
+        keep_minimum_runs: 6
+        
+    - name: Remove old Releases
+      uses: dev-drprasad/delete-older-releases@v0.2.0
+      if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
+      with:
+        keep_latest: 19
+        delete_tags: true
+        delete_tag_pattern: _
+      env:
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}    
