@@ -15,6 +15,9 @@ openwrt_md5_uefi=https://github.com/Jejz168/OpenWrt/releases/download/${update_t
 #防止内存不足tmp扩容到2g，升级重启后恢复
 mount -t tmpfs -o remount,size=2G tmpfs /tmp
 #判断系统
+echo "对应更新时间：${update_time}"
+echo "内核简写：${kernel}"
+echo "对应内核具体版本：${kernel_version}"
 if [ ! -d /sys/firmware/efi ];then
     wget -P /tmp "$OPENWRT_URL" -O /tmp/openwrt_x86-64_${kernel_version}_bios.img.gz
 	wget -P /tmp "$openwrt_md5" -O /tmp/openwrt_bios.md5
@@ -36,7 +39,7 @@ echo
 case $num1 in
 	Y|y)
 	echo
-  echo -e "\033[32m >>>正在准备保留配置升级，请稍后，等待系统重启…-> \033[0m"
+  echo -e "\033[33m >>>正在准备保留配置升级，请稍后，等待系统重启…-> \033[0m"
 	echo
 	sleep 3
 	if [ ! -d /sys/firmware/efi ];then
@@ -49,7 +52,7 @@ case $num1 in
     ;;
     n|N)
     echo
-    echo -e "\033[32m >>>正在准备不保留配置升级，请稍后，等待系统重启…-> \033[0m"
+    echo -e "\033[33m >>>正在准备不保留配置升级，请稍后，等待系统重启…-> \033[0m"
     echo
     sleep 3
 	if [ ! -d /sys/firmware/efi ];then
