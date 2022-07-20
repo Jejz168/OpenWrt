@@ -2,7 +2,7 @@
 <img width="768" src="https://cdn.jsdelivr.net/gh/haiibo/OpenWrt/image/openwrt.png"/>
 <h1>OpenWrt — Actions</h1>
 </div>
-## x86升级说明[![]]
+## x86升级说明[!]
 - [在线手动升级说明](https://github.com/Jejz168/OpenWrt/blob/main/Upgrade.sh)
 - [半自动升级说明](https://github.com/Jejz168/OpenWrt/raw/main/Semi_automatic_update.sh)
 -  此文件修改好后放到openwrt的root目录中
