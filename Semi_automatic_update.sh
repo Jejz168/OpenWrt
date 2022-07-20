@@ -20,7 +20,7 @@ if [ ! -d /sys/firmware/efi ];then
     wget -P /tmp "$openwrt_md5" -O /tmp/openwrt_bios.md5
     cd /tmp && md5sum -c openwrt_bios.md5
     if [ $? != 0 ]; then
-      echo "您下载文件失败，请检查网络重试…"
+      echo "您下载文件失败，请检查填写和网络再重试…"
       sleep 4
       exit
     fi
@@ -30,7 +30,7 @@ else
     wget -P /tmp "$openwrt_md5_uefi" -O /tmp/openwrt_uefi.md5
     cd /tmp && md5sum -c openwrt_uefi.md5
     if [ $? != 0 ]; then
-      echo "您下载文件失败，请检查网络重试…"
+      echo "您下载文件失败，请检查填写和网络再重试…"
       sleep 4
       exit
     fi
