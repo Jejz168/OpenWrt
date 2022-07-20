@@ -2,8 +2,8 @@
 <img width="768" src="https://cdn.jsdelivr.net/gh/haiibo/OpenWrt/image/openwrt.png"/>
 <h1>OpenWrt — Actions</h1>
 </div>
-## [在线升级说明](https://github.com/Jejz168/OpenWrt/raw/main/Upgrade.sh)
-
+## 在线升级说明
+- [在线升级说明](https://github.com/Jejz168/OpenWrt/raw/main/Upgrade.sh)
 ## 项目说明 [![](https://img.shields.io/badge/-项目基本介绍-FFFFFF.svg)](#项目说明-)
 - 固件来源：[![Lean](https://img.shields.io/badge/Lede-Lean-red.svg?style=flat&logo=appveyor)](https://github.com/coolsnowwolf/lede) 
 - 项目使用 Github Actions 拉取 [Lean](https://github.com/coolsnowwolf/lede) 的 `Openwrt` 源码仓库进行云编译
