@@ -3,7 +3,7 @@
 <h1>OpenWrt — Actions</h1>
 </div>
 # 在线升级说明
-- 升级说明[点击查看](https://github.com/Jejz168/OpenWrt)
+- 升级说明 [点击查看](https://github.com/Jejz168/OpenWrt)
 
 ## 项目说明 [![](https://img.shields.io/badge/-项目基本介绍-FFFFFF.svg)](#项目说明-)
 - 固件来源：[![Lean](https://img.shields.io/badge/Lede-Lean-red.svg?style=flat&logo=appveyor)](https://github.com/coolsnowwolf/lede) 
