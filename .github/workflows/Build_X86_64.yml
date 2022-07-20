@@ -288,7 +288,7 @@ jobs:
       with:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」固件
         allowUpdates: true
-        tag: ${{ env.TAG }}-${{ env.PRODUCT_NAME }}
+        tag: ${{ env.TAG }}_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 固件
@@ -533,7 +533,7 @@ jobs:
       with:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}」固件
         allowUpdates: true
-        tag: ${{ env.TAG }}-${{ env.PRODUCT_NAME }}
+        tag: ${{ env.TAG }}_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 固件
