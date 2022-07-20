@@ -1,6 +1,6 @@
 # config在线生成项目
 
-name: Aarch64-config
+name: armv8-config
 
 on:
   repository_dispatch:
