@@ -63,8 +63,8 @@ case $num1 in
     echo
     sleep 3
 	if [ ! -d /sys/firmware/efi ];then
-		gzip -d openwrt_x86-64_${kernel_version}_uefi.img.gz
-		sysupgrade -n  /tmp/openwrt_x86-64_${kernel_version}_uefi.img
+		gzip -d openwrt_x86-64_${kernel_version}_bios.img.gz
+		sysupgrade -n  /tmp/openwrt_x86-64_${kernel_version}_bios.img
 	else
 		gzip -d openwrt_x86-64_${kernel_version}_uefi.img.gz
 		sysupgrade -n  /tmp/openwrt_x86-64_${kernel_version}_uefi.img
