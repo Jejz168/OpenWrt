@@ -6,7 +6,7 @@
 - [x86手动升级说明](https://github.com/Jejz168/OpenWrt/blob/main/Upgrade.sh)
 - [x86半自动升级下载](https://github.com/Jejz168/OpenWrt/raw/main/Semi_automatic_update.sh)
 -  此Semi_automatic_update.sh文件修改好后放到openwrt的root目录中
--  运行方法 cd /root && chmod +x Semi_automatic_update.sh && ./Semi_automatic_update.sh
+-  再进ssh输入:cd /root && chmod +x Semi_automatic_update.sh && ./Semi_automatic_update.sh
 # ==============================
 ## 项目说明 [![](https://img.shields.io/badge/-项目基本介绍-FFFFFF.svg)](#项目说明-)
 - 固件来源：[![Lean](https://img.shields.io/badge/Lede-Lean-red.svg?style=flat&logo=appveyor)](https://github.com/coolsnowwolf/lede) 
