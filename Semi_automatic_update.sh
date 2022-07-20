@@ -19,12 +19,12 @@ echo "对应更新时间：${update_time}"
 echo "内核简写：${kernel}"
 echo "对应内核具体版本：${kernel_version}"
 if [ ! -d /sys/firmware/efi ];then
-    wget -P /tmp "$OPENWRT_URL" -O /tmp/openwrt_x86-64_${kernel_version}_bios.img.gz
+        wget -P /tmp "$OPENWRT_URL" -O /tmp/openwrt_x86-64_${kernel_version}_bios.img.gz
 	wget -P /tmp "$openwrt_md5" -O /tmp/openwrt_bios.md5
 	cd /tmp && md5sum -c openwrt_bios.md5
 	Boot_type=logic
 else
-    wget -P /tmp "$OPENWRT_UEFI_URL" -O /tmp/openwrt_x86-64_${kernel_version}_uefi.img.gz
+        wget -P /tmp "$OPENWRT_UEFI_URL" -O /tmp/openwrt_x86-64_${kernel_version}_uefi.img.gz
 	wget -P /tmp "$openwrt_md5_uefi" -O /tmp/openwrt_uefi.md5
 	cd /tmp && md5sum -c openwrt_uefi.md5
     Boot_type=efi
