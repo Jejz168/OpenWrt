@@ -1,12 +1,10 @@
 #!/bin/bash
-#此文件修改好后放到openwrt的root目录中
-#运行方法 cd /root && chmod +x Semi_automatic_update.sh && ./Semi_automatic_update.sh
 #手动填写
 #对应更新时间（主要年月日）必须要写对
 update_time=20220719
 #内核简写（不换内核可以不用改）
 kernel=515
-#对应内核具体版本
+#对应内核具体版本，必须要写对
 kernel_version=5.15.55
 #固件地址
 OPENWRT_URL=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}-x86_64_${kernel}/openwrt_x86-64_${kernel_version}_bios.img.gz
