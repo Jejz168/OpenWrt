@@ -1,17 +1,15 @@
 #!/bin/bash
 #手动填写
-#对应更新时间（主要年月日）必须要写对
+#对应更新时间（年月日）必须要写对
 update_time=20220719
-#内核简写（不换内核可以不用改）
-kernel=515
 #对应内核具体版本，必须要写对
 kernel_version=5.15.55
 #固件地址
-OPENWRT_URL=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}-x86_64_${kernel}/openwrt_x86-64_${kernel_version}_bios.img.gz
-OPENWRT_UEFI_URL=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}-x86_64_${kernel}/openwrt_x86-64_${kernel_version}_uefi.img.gz
+OPENWRT_URL=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}_${kernel_version}/openwrt_x86-64_${kernel_version}_bios.img.gz
+OPENWRT_UEFI_URL=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}_${kernel_version}/openwrt_x86-64_${kernel_version}_uefi.img.gz
 #MD5地址
-openwrt_md5=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}-x86_64_${kernel}/openwrt_bios.md5
-openwrt_md5_uefi=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}-x86_64_${kernel}/openwrt_uefi.md5
+openwrt_md5=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}_${kernel_version}/openwrt_bios.md5
+openwrt_md5_uefi=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}_${kernel_version}/openwrt_uefi.md5
 #防止内存不足tmp扩容到2g，升级重启后恢复
 mount -t tmpfs -o remount,size=2G tmpfs /tmp
 #判断系统
