@@ -63,11 +63,11 @@ case $num1 in
     echo
     sleep 3
 	if [ ! -d /sys/firmware/efi ];then
-		gzip -d openwrt_x86-64-${new_version}_dev_Lenyu.img.gz
-		sysupgrade -n  /tmp/openwrt_x86-64-${new_version}_dev_Lenyu.img
+		gzip -d openwrt_x86-64_${kernel_version}_uefi.img.gz
+		sysupgrade -n  /tmp/openwrt_x86-64_${kernel_version}_uefi.img
 	else
-		gzip -d openwrt_x86-64-${new_version}_uefi-gpt_dev_Lenyu.img.gz
-		sysupgrade -n  /tmp/openwrt_x86-64-${new_version}_uefi-gpt_dev_Lenyu.img
+		gzip -d openwrt_x86-64_${kernel_version}_uefi.img.gz
+		sysupgrade -n  /tmp/openwrt_x86-64_${kernel_version}_uefi.img
 	fi
     ;;
     *)
