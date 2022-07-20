@@ -20,7 +20,7 @@ env:
   DIY_P2_SH: x86/diy-part2.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: false
-  CONFIG: X86
+  CONFIG: x86
   TZ: Asia/Shanghai
   
 jobs:
