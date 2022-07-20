@@ -14,17 +14,26 @@ openwrt_md5_uefi=https://github.com/Jejz168/OpenWrt/releases/download/${update_t
 mount -t tmpfs -o remount,size=2G tmpfs /tmp
 #判断系统
 echo "对应更新时间：${update_time}"
-echo "内核简写：${kernel}"
 echo "对应内核具体版本：${kernel_version}"
 if [ ! -d /sys/firmware/efi ];then
     wget -P /tmp "$OPENWRT_URL" -O /tmp/openwrt_x86-64_${kernel_version}_bios.img.gz
     wget -P /tmp "$openwrt_md5" -O /tmp/openwrt_bios.md5
     cd /tmp && md5sum -c openwrt_bios.md5
+    if [ $? != 0 ]; then
+      echo "您下载文件失败，请检查网络重试…"
+      sleep 4
+      exit
+    fi
     Boot_type=logic
 else
     wget -P /tmp "$OPENWRT_UEFI_URL" -O /tmp/openwrt_x86-64_${kernel_version}_uefi.img.gz
     wget -P /tmp "$openwrt_md5_uefi" -O /tmp/openwrt_uefi.md5
     cd /tmp && md5sum -c openwrt_uefi.md5
+    if [ $? != 0 ]; then
+      echo "您下载文件失败，请检查网络重试…"
+      sleep 4
+      exit
+    fi
     Boot_type=efi
 fi
 #升级选择
