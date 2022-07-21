@@ -60,7 +60,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: .commitHash_arm
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_arm }}
+        key: HEAD-${{ steps.getHash.outputs.commitHash_arm }}
     - name: Set output for next job
       id: outputunifreq
       if: steps.cacheHash.outputs.cache-hit == 'true'
