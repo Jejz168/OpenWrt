@@ -70,7 +70,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: .commitHash_x86
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_x86 }}
+        key: HEAD-${{ steps.getHash.outputs.commitHash_x86 }}
         
     - name: Set output for next job
       id: outputunifreq
