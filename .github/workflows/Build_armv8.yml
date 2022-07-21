@@ -51,22 +51,26 @@ jobs:
         git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
         cd $REPO_PATH_Lede
         echo "::set-output name=commitHash_arm::$(git rev-parse HEAD)"
-        cd      
+        cd
+        
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_arm: ${{ steps.getHash.outputs.commitHash_arm }}"    
+        echo "commitHash_arm: ${{ steps.getHash.outputs.commitHash_arm }}"
+        
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@v2
       with:
         path: .commitHash_arm
         key: HEAD-${{ steps.getHash.outputs.commitHash_arm }}
+        
     - name: Set output for next job
       id: outputunifreq
       if: steps.cacheHash.outputs.cache-hit == 'true'
       run: |
-        echo "::set-output name=unifreq::hello"     
+        echo "::set-output name=unifreq::hello"
+        
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
