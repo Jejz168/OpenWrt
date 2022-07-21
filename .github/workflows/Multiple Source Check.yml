@@ -1,17 +1,9 @@
-#
-# Copyright (c) 2019-2021 smallprogram
-#
-# This is free software, licensed under the MIT License.
-# See /LICENSE for more information.
-#
-# https://github.com/smallprogram/OpenWrtAction
-# File: .github/workflows/Update_Checker.yml
-# Description: Source code update checker
-#
+#===============================================
+# Multiple Source Check
+#===============================================
+
 name: Multiple Source Check
-
-
-  
+ 
 on:
   workflow_dispatch:
   schedule:
