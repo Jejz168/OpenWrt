@@ -2,10 +2,7 @@
 #===============================================
 # Description: DIY script part 2
 # File name: diy-part2.sh
-# Lisence: MIT
-# Author: P3TERX
 # By: Jejz
-# Blog: https://p3terx.com
 #===============================================
 
 #允许ROOT编译
