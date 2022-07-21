@@ -44,7 +44,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: .commitHash_Lede
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_Lede }}
+        key: HEAD-${{ steps.getHash.outputs.commitHash_Lede }}
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
@@ -84,7 +84,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: .commitHash_HelloWorld
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_HelloWorld }}
+        key: HEAD-${{ steps.getHash.outputs.commitHash_HelloWorld }}
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
@@ -124,7 +124,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: .commitHash_OpenClash
-        key: HEAD-${{ steps.combHeader.outputs.commitHash_OpenClash }}        
+        key: HEAD-${{ steps.getHash.outputs.commitHash_OpenClash }}        
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
