@@ -2,6 +2,7 @@
 #===============================================
 # Description: DIY script part 2
 # File name: diy-part2.sh
+# Lisence: MIT
 # By: Jejz
 #===============================================
 
