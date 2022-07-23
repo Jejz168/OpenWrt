@@ -104,7 +104,7 @@ jobs:
       with:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_ 」固件
         allowUpdates: true
-        tag: ${{ env.TAG }}-${{ env.PRODUCT_NAME }}
+        tag: ${{ env.TAG }}_${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️默认 IP：192.168.8.8 默认密码：password
@@ -121,15 +121,16 @@ jobs:
           - hash: ${{ env.hash }}
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
         
-    - name: Telegram notification
-      run: |
-        MSG="
-        💥${{ env.PRODUCT_NAME }}打包完成
-        开始时间：${{ env.DATE }}
-        🎈🎈🎈 更新信息 🎈🎈🎈
-        作者: ${{ env.author }}
-        时间: ${{ env.date }}
-        内容: ${{ env.commit }}
-        hash: ${{ env.hash }}
-        "
-        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}" >/dev/null 2>&1 && echo "ok..."
+    - name: Telegram notification upload success
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          💥${{ env.PRODUCT_NAME }}打包完成
+          开始时间：${{ env.DATE }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
