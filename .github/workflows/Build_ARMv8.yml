@@ -339,7 +339,6 @@ jobs:
         HMS=`echo ${hour}:${min}:${sec}`
         echo "time=$HMS" >> $GITHUB_ENV
 
-
     - name: Telegram notification upload success
       uses: appleboy/telegram-action@master
       with:
