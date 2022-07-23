@@ -102,7 +102,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_ 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }} 」固件
         allowUpdates: true
         tag: ${{ env.TAG }}_${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
