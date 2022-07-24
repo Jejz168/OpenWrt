@@ -4,7 +4,7 @@
 </div>
 
 - [******x86手动升级说明******](https://github.com/Jejz168/OpenWrt/blob/main/Upgrade.sh)
-- [*x86半自动升级下载*](https://github.com/Jejz168/OpenWrt/raw/main/Semi_automatic_update.sh)
+- [******x86半自动升级下载******](https://github.com/Jejz168/OpenWrt/raw/main/Semi_automatic_update.sh)
 -  🛑******最好全新刷机******
 -  必须要是本库最新才能使用。不然就会死翘翘。
 -  如果config重新生成的。就会出问题。
