@@ -10,7 +10,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-     openwrt_soc:
+      openwrt_soc:
         description: "Select 0penwrt SoC"
         required: false
         default: "s905x3_s905d"
