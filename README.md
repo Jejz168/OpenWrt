@@ -7,7 +7,6 @@
 - [******x86半自动升级下载******](https://github.com/Jejz168/OpenWrt/raw/main/Semi_automatic_update.sh)
 -  🛑******最好全新刷机******
 -  必须要是本库最新才能使用。不然就会死翘翘。
--  如果config重新生成的。就会出问题。
 -  此Semi_automatic_update.sh文件修改好后放到openwrt的root目录中
 -  再进ssh输入👉  cd /root && chmod +x Semi_automatic_update.sh && ./Semi_automatic_update.sh
 # ==============================
