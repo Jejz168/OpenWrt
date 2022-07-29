@@ -82,7 +82,7 @@ pushd package/luci-app-openclash/tools/po2lmo
 make && sudo make install
 popd
 
-# Themes
+# Themes 主题
 rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/themes/luci-theme-netgear
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-theme-edge package/luci-theme-edge
@@ -163,4 +163,3 @@ sed -i 's/services/nas/g' package/luci-app-aliyundrive-fuse/luasrc/view/aliyundr
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
-git pull
