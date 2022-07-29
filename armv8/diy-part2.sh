@@ -18,26 +18,61 @@ sed -i 's/DEPENDS:=@(.*/DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40x
 #设置ttyd免帐号登录
 sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/ttyd.config
 
-# 移除重复软件包
-rm -rf feeds/luci/themes/luci-theme-argon
-rm -rf feeds/luci/themes/luci-theme-netgear
-rm -rf feeds/luci/applications/luci-app-dockerman
-rm -rf feeds/luci/applications/luci-app-netdata
-
-# 添加额外软件包
+# OpenAppFilter 应用过滤
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+
+# vssr
 git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
+
+# ikoolproxy
 git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
+
+# poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
+
+#阿里云盘webdav
+rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
+rm -rf feeds/packages/multimedia/aliyundrive-webdav
+svn co https://github.com/messense/aliyundrive-webdav/trunk/openwrt/luci-app-aliyundrive-webdav package/luci-app-aliyundrive-webdav
+svn co https://github.com/messense/aliyundrive-webdav/trunk/openwrt/aliyundrive-webdav package/aliyundrive-webdav
+
+#阿里云盘fuse
+rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
+rm -rf feeds/packages/multimedia/aliyundrive-fuse
+svn co https://github.com/messense/aliyundrive-fuse/trunk/openwrt/luci-app-aliyundrive-fuse package/luci-app-aliyundrive-fuse
+svn co https://github.com/messense/aliyundrive-fuse/trunk/openwrt/aliyundrive-fuse package/aliyundrive-fuse
+
+# autotimeset 定时
 git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
+
+# unblockneteasemusic
 git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
+
+# adguardhome
 svn co https://github.com/rufengsuixing/luci-app-adguardhome/trunk package/luci-app-adguardhome
+
+# dockerman
+rm -rf feeds/luci/applications/luci-app-dockerman
 svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
+
+# filebrowser 文件浏览器
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
+
+# passwall
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
+
+# passwall2
 svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
+
+# smartdns
 svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-smartdns package/luci-app-smartdns
+
+# netdata 中文
+rm -rf feeds/luci/applications/luci-app-netdata
+svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-netdata package/luci-app-netdata
+
+# eqos 限速
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
 
 # 科学上网插件依赖
@@ -48,6 +83,8 @@ make && sudo make install
 popd
 
 # Themes
+rm -rf feeds/luci/themes/luci-theme-argon
+rm -rf feeds/luci/themes/luci-theme-netgear
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-theme-edge package/luci-theme-edge
 svn co https://github.com/rosywrt/luci-theme-rosy/trunk/luci-theme-rosy package/luci-theme-rosy
 svn co https://github.com/haiibo/packages/trunk/luci-theme-darkmatter package/luci-theme-darkmatter
@@ -86,9 +123,6 @@ msgid "Compile update"
 msgstr "固件地址"
 EOF
 
-# netdata 中文
-svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-netdata package/luci-app-netdata
-
 # 晶晨宝盒
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/luci-app-amlogic
 sed -i "s|https.*/OpenWrt|https://github.com/Jejz168/OpenWrt|g" package/luci-app-amlogic/root/etc/config/amlogic
@@ -106,21 +140,27 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload\.github\.com/g' {}
 
 # 调整V2ray服务到VPN菜单
-#sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/controller/*.lua
-#sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/model/cbi/v2ray_server/*.lua
-#sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/view/v2ray_server/*.htm
+sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/controller/*.lua
+sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/model/cbi/v2ray_server/*.lua
+sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/view/v2ray_server/*.htm
 
-# 调整阿里云盘到存储菜单
-#sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-webdav/luasrc/controller/*.lua
-#sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-webdav/luasrc/model/cbi/aliyundrive-webdav/*.lua
-#sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-webdav/luasrc/view/aliyundrive-webdav/*.htm
+# 调整阿里云盘webdav到存储菜单
+sed -i 's/services/nas/g' package/luci-app-aliyundrive-webdav/luasrc/controller/*.lua
+sed -i 's/services/nas/g' package/luci-app-aliyundrive-webdav/luasrc/model/cbi/aliyundrive-webdav/*.lua
+sed -i 's/services/nas/g' package/luci-app-aliyundrive-webdav/luasrc/view/aliyundrive-webdav/*.htm
+
+# 调整阿里云盘fuse到存储菜单
+sed -i 's/services/nas/g' package/luci-app-aliyundrive-fuse/luasrc/controller/*.lua
+sed -i 's/services/nas/g' package/luci-app-aliyundrive-fuse/luasrc/model/cbi/aliyundrive-fuse/*.lua
+sed -i 's/services/nas/g' package/luci-app-aliyundrive-fuse/luasrc/view/aliyundrive-fuse/*.htm
 
 # 修改插件名字
-#sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
-#sed -i 's/"Argon 主题设置"/"Argon 设置"/g' `grep "Argon 主题设置" -rl ./`
-#sed -i 's/"阿里云盘 WebDAV"/"阿里云盘"/g' `grep "阿里云盘 WebDAV" -rl ./`
-#sed -i 's/"USB 打印服务器"/"USB 打印"/g' `grep "USB 打印服务器" -rl ./`
+# sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
+# sed -i 's/"Argon 主题设置"/"Argon 设置"/g' `grep "Argon 主题设置" -rl ./`
+# sed -i 's/"阿里云盘 WebDAV"/"阿里云盘"/g' `grep "阿里云盘 WebDAV" -rl ./`
+# sed -i 's/"USB 打印服务器"/"USB 打印"/g' `grep "USB 打印服务器" -rl ./`
 
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
+git pull
