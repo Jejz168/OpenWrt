@@ -33,13 +33,13 @@ git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikool
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
 
-#阿里云盘webdav
+# 阿里云盘webdav
 rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
 rm -rf feeds/packages/multimedia/aliyundrive-webdav
 svn co https://github.com/messense/aliyundrive-webdav/trunk/openwrt/luci-app-aliyundrive-webdav package/luci-app-aliyundrive-webdav
 svn co https://github.com/messense/aliyundrive-webdav/trunk/openwrt/aliyundrive-webdav package/aliyundrive-webdav
 
-#阿里云盘fuse
+# 阿里云盘fuse
 rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
 rm -rf feeds/packages/multimedia/aliyundrive-fuse
 svn co https://github.com/messense/aliyundrive-fuse/trunk/openwrt/luci-app-aliyundrive-fuse package/luci-app-aliyundrive-fuse
@@ -104,7 +104,6 @@ git clone https://github.com/thinktip/luci-theme-neobird package/luci-theme-neob
 
 # 修改主题多余版本信息
 sed -i 's/<a class=\"luci-link\" href=\"https:\/\/github.com\/openwrt\/luci\">/<a>/g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i "/(<%= ver.luciversion %>)/d" package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
 sed -i 's/<a href=\"https:\/\/github.com\/jerrykuku\/luci-theme-argon\">/<a>/g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
 sed -i 's/<a href=\"https:\/\/github.com\/coolsnowwolf\/luci\">/<a>/g' feeds/luci/themes/luci-theme-bootstrap/luasrc/view/themes/bootstrap/footer.htm
 
