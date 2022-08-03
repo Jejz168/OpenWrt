@@ -111,7 +111,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: ${{ env.CONFIG }}config${{ env.FILE_DATE }}
+        name: ${{ env.CONFIG }}_config${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
     - name: 生成发布标签
