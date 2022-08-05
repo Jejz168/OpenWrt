@@ -331,7 +331,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Build_x86_64_518:
+  Build_x86_64_519:
     needs: [Checka]   
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates518 == 'true'}}
     runs-on: ubuntu-22.04
@@ -412,11 +412,11 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P2_SH
         make defconfig
         
-        sed -i 's/CONFIG_LINUX_5_15=y/CONFIG_LINUX_5_18=y/g' .config
+        sed -i 's/CONFIG_LINUX_5_15=y/CONFIG_LINUX_5_19=y/g' .config
         
-        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.18/g' target/linux/x86/Makefile
+        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.19/g' target/linux/x86/Makefile
         
-        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.18/g' target/linux/x86/Makefile
+        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.19/g' target/linux/x86/Makefile
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -579,7 +579,7 @@ jobs:
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
-    needs: [Checka,Build_x86_64_515,Build_x86_64_518]    
+    needs: [Checka,Build_x86_64_515,Build_x86_64_519]    
     runs-on: ubuntu-latest
     steps:  
     - name: Delete workflow runs
