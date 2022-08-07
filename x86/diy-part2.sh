@@ -83,7 +83,11 @@ svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser pack
 # smartdns
 svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-smartdns package/luci-app-smartdns
 
+# ssr
+git clone --depth=1 https://github.com/fw876/helloworld.git package/helloworld
+
 # passwall
+git clone --depth=1 -b packages https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
 
 # passwall2
