@@ -131,7 +131,7 @@ jobs:
       with:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }} 」固件
         allowUpdates: true
-        tag: ${{ env.TAG }}_${{ env.PRODUCT_NAME }}
+        tag: ${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️默认 IP：192.168.8.8 默认密码：password
