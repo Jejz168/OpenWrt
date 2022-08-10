@@ -66,10 +66,10 @@ svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
 
 # ssr
-git clone --depth=1 https://github.com/fw876/helloworld.git package/helloworld
+# git clone --depth=1 https://github.com/fw876/helloworld.git package/helloworld
 
 # passwall
-git clone --depth=1 -b packages https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
+# git clone --depth=1 -b packages https://github.com/xiaorouji/openwrt-passwall.git package/openwrt-passwall
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
 
 # passwall2
