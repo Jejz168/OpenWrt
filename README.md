@@ -1,5 +1,5 @@
 <div align="center">
-<img width="768" src="https://raw.githubusercontent.com/Jejz168/Picture/main/OpenWrt.png"/>
+<img width="768" src="https://cdn.jsdelivr.net/gh/Jejz168/Picture/OpenWrt.png"/>
 <h1>OpenWrt — Actions</h1>
 </div>
 
