@@ -19,7 +19,7 @@
 
 ## 插件预览 [![](https://img.shields.io/badge/-固件插件及功能预览-FFFFFF.svg)](#插件预览-)
 <details>
-<summary><b>&nbsp; X86 arm 插件预览</b></summary>
+<summary><b>&nbsp; 插件预览</b></summary>
 <br/>
 <details>
 <summary><b>├── 状态</b></summary>
