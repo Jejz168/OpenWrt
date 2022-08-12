@@ -31,7 +31,7 @@
 　├── 系统进程<br/>
 　├── 实时信息<br/>
 　├── 实时监控<br/>
-  ├── WireGuard状态<br/>
+　├── WireGuard状态<br/>
 　├── 负载均衡<br/>
 　└── 释放内存
 </details>
