@@ -18,6 +18,7 @@
 - 仓库编译的固件插件均为最新版本，最新版意味着可能有 BUG，如果之前使用稳定，则无需追新
 
 ## 插件预览 [![](https://img.shields.io/badge/-固件插件及功能预览-FFFFFF.svg)](#插件预览-)
+- x86和arm插件差不多，arm带Docker，x86无Docker
 <details>
 <summary><b>&nbsp; 插件预览</b></summary>
 <br/>
