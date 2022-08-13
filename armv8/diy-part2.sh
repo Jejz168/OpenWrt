@@ -19,7 +19,7 @@ sed -i 's/DEPENDS:=@(.*/DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40x
 sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/ttyd.config
 
 # 报错修复
-rm -rf package/kernel/mac80211/patches/brcm/999-backport-to-linux-5.18.patch
+# rm -rf package/kernel/mac80211/patches/brcm/999-backport-to-linux-5.18.patch
 
 
 # svn co 复制 仓库下的文件夹 git clone 复制整个仓库
