@@ -84,8 +84,7 @@ svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser pack
 svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-smartdns package/luci-app-smartdns
 
 # turboacc 去dns
-rm -rf feeds/luci/applications/luci-app-turboacc
-svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/tree/patch/luci-app-turboacc package/luci-app-turboacc
+cp -f $GITHUB_WORKSPACE/personal/turboacc_status.htm feeds/luci/applications/luci-app-turboacc/luasrc/view/turboacc/turboacc_status.htm
 
 # passwall
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
