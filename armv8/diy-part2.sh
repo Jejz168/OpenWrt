@@ -65,10 +65,6 @@ svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-
 # filebrowser 文件浏览器
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
 
-# turboacc 去dns
-rm -rf feeds/luci/applications/luci-app-turboacc
-svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/tree/patch/luci-app-turboacc package/luci-app-turboacc
-
 # passwall
 svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
 
@@ -77,6 +73,9 @@ svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 p
 
 # smartdns
 svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-smartdns package/luci-app-smartdns
+
+# turboacc 去dns
+cp -f $GITHUB_WORKSPACE/personal/turboacc_status.htm feeds/luci/applications/luci-app-turboacc/luasrc/view/turboacc/turboacc_status.htm
 
 # netdata 中文
 rm -rf feeds/luci/applications/luci-app-netdata
