@@ -536,6 +536,7 @@ jobs:
       with:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}」固件
         allowUpdates: true
+        removeArtifacts: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
