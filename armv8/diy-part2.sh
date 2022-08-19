@@ -176,7 +176,7 @@ sed -i 's/services/nas/g' package/luci-app-aliyundrive-fuse/luasrc/view/aliyundr
 
 
 ./scripts/feeds update -a
-./scripts/feeds install -a -f
+./scripts/feeds install -a
 
 echo "========================="
 echo " DIY2 配置完成……"
