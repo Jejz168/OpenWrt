@@ -6,6 +6,9 @@
 # By: Jejz
 #===============================================
 
+echo "开始 DIY2 配置……"
+echo "========================="
+
 #允许ROOT编译
 export FORCE_UNSAFE_CONFIGURE=1
 
@@ -170,4 +173,7 @@ sed -i 's/services/nas/g' package/luci-app-aliyundrive-fuse/luasrc/view/aliyundr
 # sed -i 's/"USB 打印服务器"/"打印服务"/g' `grep "USB 打印服务器" -rl ./`
 
 ./scripts/feeds update -a
-./scripts/feeds install -a
+./scripts/feeds install -a -f
+
+echo "========================="
+echo " DIY2 配置完成……"
