@@ -1,9 +1,9 @@
 #!/bin/bash
 #手动填写
 #对应更新时间（年月日）必须要写对
-update_time=20220813
+update_time=20220828
 #对应内核具体版本，必须要写对
-kernel_version=5.15.60
+kernel_version=5.15.63
 #固件地址
 OPENWRT_URL=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}_${kernel_version}/openwrt_x86-64_${kernel_version}_bios.img.gz
 OPENWRT_UEFI_URL=https://github.com/Jejz168/OpenWrt/releases/download/${update_time}_${kernel_version}/openwrt_x86-64_${kernel_version}_uefi.img.gz
