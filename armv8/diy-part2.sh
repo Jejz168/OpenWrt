@@ -36,6 +36,7 @@ git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 
 # ikoolproxy
 git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
+cp -f $GITHUB_WORKSPACE/personal/arm package/luci-app-ikoolproxy/koolproxy/files/arm
 
 # ddnsto
 svn co https://github.com/linkease/nas-packages-luci/trunk/luci/luci-app-ddnsto package/luci-app-ddnsto
