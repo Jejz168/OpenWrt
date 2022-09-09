@@ -31,7 +31,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' ./feeds/luci/collections/luci
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-nginx/Makefile
 
 ##切换为samba4
-sed -i 's/luci-app-samba/luci-app-samba4/g' package/lean/autosamba/Makefile
+# sed -i 's/luci-app-samba/luci-app-samba4/g' package/lean/autosamba/Makefile
 
 
 # svn co 复制 仓库下的文件夹 git clone 复制整个仓库
