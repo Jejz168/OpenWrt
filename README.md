@@ -64,6 +64,7 @@
 　├── AdGuard Home<br/>
 　├── ShadowSocksR Plus+<br/>
 　├── DDNS.to内网穿透<br/>
+　├── 应用过滤<br/>
 　├── 全能推送<br/>
 　├── 上网时间控制<br/>
 　├── 解锁网易云灰色歌曲<br/>
@@ -118,7 +119,6 @@
 　├── 静态路由<br/>
 　├── 防火墙<br/>
 　├── 诊断<br/>
-　├── 应用过滤<br/>
 　├── 网速控制<br/>
 　├── Socat<br/>
 　├── Turbo ACC 网络加速<br/>
