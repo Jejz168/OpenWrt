@@ -182,7 +182,6 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        make defconfig
         
         sed -i 's/CONFIG_LINUX_5_15=y/CONFIG_LINUX_5_4=y/g' .config
         
@@ -230,6 +229,7 @@ jobs:
       id: package
       run: |
         cd openwrt
+        make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
@@ -430,7 +430,6 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
-        make defconfig
         
         sed -i 's/CONFIG_LINUX_5_15=y/CONFIG_LINUX_5_10=y/g' .config
         
@@ -478,6 +477,7 @@ jobs:
       id: package
       run: |
         cd openwrt
+        make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
