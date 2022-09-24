@@ -80,7 +80,7 @@ svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-pass
 svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 
 # smartdns
-svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-smartdns package/luci-app-smartdns
+git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
 
 # turboacc 去dns
 # sed -i '60,70d' feeds/luci/applications/luci-app-turboacc/Makefile
