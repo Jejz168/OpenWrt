@@ -2,6 +2,7 @@
 <img width="768" src="https://cdn.jsdelivr.net/gh/Jejz168/Picture/OpenWrt-logo.png"/>
 <h1>OpenWrt — Actions</h1>
 </div>
+
 - [******x86手动升级说明******](https://github.com/Jejz168/OpenWrt/blob/main/Upgrade.sh)
 - [******x86半自动升级下载******](https://github.com/Jejz168/OpenWrt/raw/main/Semi_automatic_update.sh)
 -  🛑******最好全新刷机******
