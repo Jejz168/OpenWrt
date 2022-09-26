@@ -3,7 +3,7 @@
 <h1>OpenWrt — Actions</h1>
 </div>
 
--  🛑https://t.me/Jejz_168
+-  https://t.me/Jejz_168
 
 - [******x86手动升级说明******](https://github.com/Jejz168/OpenWrt/blob/main/Upgrade.sh)
 - [******x86半自动升级下载******](https://github.com/Jejz168/OpenWrt/raw/main/Semi_automatic_update.sh)
