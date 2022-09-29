@@ -845,7 +845,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_519:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates518 == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates519 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
