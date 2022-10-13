@@ -75,7 +75,7 @@ jobs:
         echo "commitHash_HelloWorld: ${{ steps.getHash.outputs.commitHash_HelloWorld }}"   
     - name: Compare Commit Hash
       id: cacheHash
-      uses: actions/cache@v2
+      uses: actions/cache@main
       with:
         path: .commitHash_HelloWorld
         key: HEAD-${{ steps.getHash.outputs.commitHash_HelloWorld }}
@@ -115,7 +115,7 @@ jobs:
         echo "commitHash_OpenClash: ${{ steps.getHash.outputs.commitHash_OpenClash }}"       
     - name: Compare Commit Hash
       id: cacheHash
-      uses: actions/cache@v2
+      uses: actions/cache@main
       with:
         path: .commitHash_OpenClash
         key: HEAD-${{ steps.getHash.outputs.commitHash_OpenClash }}        
