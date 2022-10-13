@@ -85,7 +85,7 @@ jobs:
         
     - name: Compare Commit Hash
       id: cacheHash
-      uses: actions/cache@v2
+      uses: actions/cache@main
       with:
         path: .commitHash_x86
         key: HEAD-${{ steps.getHash.outputs.commitHash_x86 }}
