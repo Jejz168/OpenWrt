@@ -35,7 +35,7 @@ jobs:
         echo "commitHash_Lede: ${{ steps.getHash.outputs.commitHash_Lede }}"    
     - name: Compare Commit Hash
       id: cacheHash
-      uses: actions/cache@v2
+      uses: actions/cache@main
       with:
         path: .commitHash_Lede
         key: HEAD-${{ steps.getHash.outputs.commitHash_Lede }}
