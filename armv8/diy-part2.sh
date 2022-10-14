@@ -90,8 +90,8 @@ rm -rf feeds/luci/applications/luci-app-turboacc
 svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/patch/luci-app-turboacc package/luci-app-turboacc
 
 # netdata 中文
-rm -rf feeds/luci/applications/luci-app-netdata
-svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-netdata package/luci-app-netdata
+# rm -rf feeds/luci/applications/luci-app-netdata
+# svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-netdata package/luci-app-netdata
 
 # ddns-go 动态域名
 git clone https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
