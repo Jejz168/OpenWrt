@@ -45,8 +45,8 @@ git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 
 # netdata 中文
-rm -rf feeds/luci/applications/luci-app-netdata
-svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-netdata package/luci-app-netdata
+# rm -rf feeds/luci/applications/luci-app-netdata
+# svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-netdata package/luci-app-netdata
 
 # ddns-go 动态域名
 git clone https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
