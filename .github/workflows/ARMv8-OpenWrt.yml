@@ -36,7 +36,7 @@ on:
       kernel_version:
         description: "Select kernel version"
         required: false
-        default: "5.4.191_5.10.116_5.15.50_5.18.10_5.19.1"
+        default: "5.4.191_5.10.116_5.15.60_6.0.2"
         type: choice
         options:
           - 5.4.191_5.10.116_5.15.60_6.0.2
@@ -44,7 +44,7 @@ on:
           - 5.10.116_5.15.60
           - 5.15.60_6.0.2
           - 5.4.191
-          - 5.10.100
+          - 5.10.116
           - 5.15.60
           - 6.0.2
   #schedule:
