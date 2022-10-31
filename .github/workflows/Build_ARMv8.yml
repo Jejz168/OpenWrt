@@ -51,7 +51,8 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
         cd $REPO_PATH_Lede
-        echo "::set-output name=commitHash_arm::$(git rev-parse HEAD)"
+        #echo "::set-output name=commitHash_arm::$(git rev-parse HEAD)"
+        echo "commitHash_arm=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd
         
     - name: Show Commit Head and Combination Heads
@@ -70,7 +71,8 @@ jobs:
       id: outputunifreq
       if: steps.cacheHash.outputs.cache-hit == 'true'
       run: |
-        echo "::set-output name=unifreq::hello"
+        #echo "::set-output name=unifreq::hello"
+        echo "unifreq=hello" >> $GITHUB_OUTPUT
         
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
@@ -210,7 +212,8 @@ jobs:
         cd openwrt
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 V=s
-        echo "::set-output name=status::success"
+        #echo "::set-output name=status::success"
+        echo "status=success" >> $GITHUB_OUTPUT
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%Y%m%d%H%M")" >> $GITHUB_ENV
