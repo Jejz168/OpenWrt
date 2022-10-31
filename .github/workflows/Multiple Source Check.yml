@@ -146,6 +146,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
       
+    - name: Set git
+      run : |
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
+        sudo timedatectl set-timezone "Asia/Shanghai" 
+        
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
