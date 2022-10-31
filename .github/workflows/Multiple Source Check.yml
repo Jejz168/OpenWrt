@@ -143,6 +143,9 @@ jobs:
     needs: [Checka,Checkb,Checkc]    
     runs-on: ubuntu-latest
     steps:  
+    - name: Checkout
+      uses: actions/checkout@main
+      
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
