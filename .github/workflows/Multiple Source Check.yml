@@ -141,10 +141,11 @@ jobs:
   Cleaning:
     if: ${{ always() }}
     needs: [Checka,Checkb,Checkc]    
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps: 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
+        token: ${{ secrets.GITHUB_TOKEN }}
         retain_days: 8
         keep_minimum_runs: 2
