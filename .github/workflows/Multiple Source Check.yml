@@ -139,7 +139,6 @@ jobs:
           📍：https://github.com/vernesong/OpenClash
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
-    if: ${{ always() }}
     needs: [Checka,Checkb,Checkc]    
     runs-on: ubuntu-latest
     steps: 
