@@ -141,7 +141,7 @@ jobs:
   Cleaning:
     if: ${{ always() }}
     needs: [Checka,Checkb,Checkc]    
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps: 
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
