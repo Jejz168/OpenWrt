@@ -142,6 +142,11 @@ jobs:
     needs: [Checka,Checkb,Checkc]    
     runs-on: ubuntu-latest
     steps: 
+    - uses: actions/checkout@main
+    - name: Use Node.js 16
+      uses: actions/setup-node@main
+      with:
+          node-version: 16
     - name: Delete workflow runs
       uses: GitRML/delete-workflow-runs@main
       with:
