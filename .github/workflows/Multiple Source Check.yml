@@ -137,9 +137,51 @@ jobs:
                 ● 源码更新了
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍：https://github.com/vernesong/OpenClash
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////       
+  Checkd:
+    runs-on: ubuntu-latest
+    env:
+      REPO_URL_OpenClash: https://github.com/xiaorouji/openwrt-passwall
+      REPO_BRANCH_OpenClash: luci
+      REPO_PATH_OpenClash : "PassWall"
+    steps:
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone --depth 1 $REPO_URL_PassWall -b $REPO_BRANCH_OpenClash $REPO_PATH_PassWall
+        cd $REPO_PATH_PassWall
+        #echo "::set-output name=commitHash_PassWall::$(git rev-parse HEAD)"
+        echo "commitHash_PassWall=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        cd  
+    - name: Show Commit Head and Combination Heads
+      id: combHeader
+      run: |
+        echo "commitHash_PassWall: ${{ steps.getHash.outputs.commitHash_PassWall }}"       
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@main
+      with:
+        path: .commitHash_PassWall
+        key: HEAD-${{ steps.getHash.outputs.commitHash_PassWall }}        
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+         echo ${{ steps.getHash.outputs.commitHash_PassWall }} | tee .commitHash_PassWall     
+    - name: Telegram notification upload success
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          🚀 PassWall
+                ● 源码更新了
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍：https://github.com/xiaorouji/openwrt-passwall
+          📍：https://github.com/xiaorouji/openwrt-passwall/tree/luci
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
-    needs: [Checka,Checkb,Checkc]    
+    needs: [Checka,Checkb,Checkc,Checkd]    
     runs-on: ubuntu-latest
     steps: 
     - name: Delete workflow runs
