@@ -141,14 +141,14 @@ jobs:
   Checkd:
     runs-on: ubuntu-latest
     env:
-      REPO_URL_PassWall: https://github.com/xiaorouji/openwrt-passwall/tree/luci/luci-app-passwall
+      REPO_URL_PassWall: https://github.com/xiaorouji/openwrt-passwall
       REPO_BRANCH_PassWall: luci
       REPO_PATH_PassWall: "PassWall"
     steps:
     - name: Get Commit Hash
       id: getHash
       run: |
-        git clone --depth 1 $REPO_URL_PassWall -b $REPO_BRANCH_OpenClash $REPO_PATH_PassWall
+        git clone --depth 1 $REPO_URL_PassWall -b $REPO_BRANCH_PassWall $REPO_PATH_PassWall
         cd $REPO_PATH_PassWall
         #echo "::set-output name=commitHash_PassWall::$(git rev-parse HEAD)"
         echo "commitHash_PassWall=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
