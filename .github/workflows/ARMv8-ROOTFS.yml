@@ -267,3 +267,5 @@ jobs:
           时间: ${{ env.date }}
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTFS
