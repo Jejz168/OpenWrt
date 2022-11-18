@@ -352,6 +352,8 @@ jobs:
           时间: ${{ env.date }}
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_510:
     needs: [Checka]   
@@ -602,6 +604,8 @@ jobs:
           时间: ${{ env.date }}
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
     needs: [Checka]   
@@ -850,6 +854,8 @@ jobs:
           时间: ${{ env.date }}
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_60:
     needs: [Checka]   
@@ -1099,6 +1105,8 @@ jobs:
           时间: ${{ env.date }}
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_${{ env.KERNEL }}
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
