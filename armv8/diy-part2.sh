@@ -80,7 +80,13 @@ svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-pass
 svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
 
 # smartdns
-git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+# git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+
+# mosdns
+find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
+find ./ | grep Makefile | grep mosdns | xargs rm -f
+git clone https://github.com/sbwml/luci-app-mosdns.git package/luci-app-mosdns
+git clone https://github.com/sbwml/v2ray-geodata.git package/v2ray-geodata
 
 # turboacc 去dns
 # sed -i '60,70d' feeds/luci/applications/luci-app-turboacc/Makefile
