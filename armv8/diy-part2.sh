@@ -24,7 +24,9 @@ sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/tt
 
 # 报错修复
 # rm -rf package/kernel/mac80211/patches/brcm/999-backport-to-linux-5.18.patch
-
+# sed
+sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=4.8/g' tools/sed/Makefile
+sed -i 's/PKG_HASH:=.*/PKG_HASH:=f79b0cfea71b37a8eeec8490db6c5f7ae7719c35587f21edb0617f370eeff633/g' tools/sed/Makefile
 
 # svn co 复制 仓库下的文件夹 git clone 复制整个仓库
 # OpenAppFilter 应用过滤
