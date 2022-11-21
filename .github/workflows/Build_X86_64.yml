@@ -185,7 +185,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-        sed -i 's/CONFIG_LINUX_5_15=y/CONFIG_LINUX_5_4=y/g' .config
+        sed -i 's/CONFIG_LINUX_*_*=y/CONFIG_LINUX_5_4=y/g' .config
         
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g' target/linux/x86/Makefile
         
@@ -437,7 +437,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-        sed -i 's/CONFIG_LINUX_5_15=y/CONFIG_LINUX_5_10=y/g' .config
+        sed -i 's/CONFIG_LINUX_*_*=y/CONFIG_LINUX_5_10=y/g' .config
         
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.10/g' target/linux/x86/Makefile
         
@@ -689,6 +689,8 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
+        sed -i 's/CONFIG_LINUX_*_*=y/CONFIG_LINUX_5_15=y/g' .config
+        
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
         sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g' target/linux/x86/Makefile
@@ -937,7 +939,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-        sed -i 's/CONFIG_LINUX_5_15=y/CONFIG_LINUX_6_0=y/g' .config
+        sed -i 's/CONFIG_LINUX_*_*=y/CONFIG_LINUX_6_0=y/g' .config
         
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.0/g' target/linux/x86/Makefile
         
