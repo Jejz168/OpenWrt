@@ -73,7 +73,7 @@
 　├── OpenClash<br/>
 　├── DDNS-GO<br/>
 　├── 动态 DNS<br/>
-　├── SmartDNS<br/>
+　├── MosDNS<br/>
 　├── 网络唤醒<br/>
 　├── Frps<br/>
 　├── UPnP<br/>
