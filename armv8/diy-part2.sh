@@ -66,7 +66,8 @@ git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-auto
 git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 
 # adguardhome
-svn co https://github.com/rufengsuixing/luci-app-adguardhome/trunk package/luci-app-adguardhome
+# git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
+svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
 
 # dockerman
 rm -rf feeds/luci/applications/luci-app-dockerman
