@@ -861,7 +861,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_61:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates60 == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates61 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
