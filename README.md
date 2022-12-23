@@ -15,8 +15,8 @@
 ## 项目说明 [![](https://img.shields.io/badge/-项目基本介绍-FFFFFF.svg)](#项目说明-)
 - 固件来源：[![Lean](https://img.shields.io/badge/Lede-Lean-red.svg?style=flat&logo=appveyor)](https://github.com/coolsnowwolf/lede) 
 - 项目使用 Github Actions 拉取 [Lean](https://github.com/coolsnowwolf/lede) 的 `Openwrt` 源码仓库进行云编译
-- arm 固件默认 IP 地址：`192.168.8.8` 默认密码：`password`
-- x86 固件默认 IP 地址：`192.168.8.3` 默认密码：`password`
+- arm 固件默认 IP 地址：`192.168.8.8` 默认密码：`password(后期固件默认无密码)`
+- x86 固件默认 IP 地址：`192.168.8.3` 默认密码：`password(后期固件默认无密码)`
 - 仓库编译的固件插件均为最新版本，最新版意味着可能有 BUG，如果之前使用稳定，则无需追新
 
 ## 插件预览 [![](https://img.shields.io/badge/-固件插件及功能预览-FFFFFF.svg)](#插件预览-)
@@ -71,7 +71,7 @@
 　├── 上网时间控制<br/>
 　├── 解锁网易云灰色歌曲<br/>
 　├── OpenClash<br/>
-　├── DDNS-GO<br/>
+　├── Lucky<br/>
 　├── 动态 DNS<br/>
 　├── MosDNS<br/>
 　├── 网络唤醒<br/>
