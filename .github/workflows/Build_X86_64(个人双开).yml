@@ -4,7 +4,7 @@
 # By：Jejz
 #===============================================
 
-name: Build_x86_64（个人双开）
+name: Build_x86_64(个人双开)
 
 on:
   repository_dispatch:
