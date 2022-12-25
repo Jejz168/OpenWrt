@@ -300,7 +300,7 @@ jobs:
         WHOAMI: Jejz
         DISTRIB_REVISION: ${OPENWRT_VER} (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))
         KERNEL_REPO_URL: https://github.com/Jejz168/OpenWrt/tree/main/backup
-        KERNEL_VERSION_NAME: 5.4.191_5.10.116_5.15.60_6.0.2
+        KERNEL_VERSION_NAME: 5.4.191_5.10.116_5.15.60_6.1.1
         KERNEL_AUTO_LATEST: true
         GZIP_IMGS: .gz
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
