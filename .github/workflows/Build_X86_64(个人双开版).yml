@@ -274,7 +274,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          🔴个人双开版
+          🔴【个人双开版】
           ♨️${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.DATE1 }}
