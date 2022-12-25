@@ -33,7 +33,7 @@ env:
   PRODUCT_NAME: x86_64
   
 jobs:
-  Build_x86_64_54:
+  Build_x86_64:
     runs-on: ubuntu-22.04
 
     steps:
