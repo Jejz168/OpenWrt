@@ -10,7 +10,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-     checkupdates:
+      checkupdates:
         description: 'Checkupdates connection to Actions'
         required: false
         default: 'false'
@@ -36,7 +36,7 @@ env:
   FILE_NAME: x86_64
   PRODUCT_NAME: x86_64
 
- jobs:
+jobs:
   Checka:
     runs-on: ubuntu-latest
     env:
@@ -78,8 +78,7 @@ env:
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
         echo ${{ steps.getHash.outputs.commitHash_x86_64 }} | tee .commitHash_x86_64
-# ///////////////////////////////////////////////////////////////////////////////////////////////////////// 
-jobs:
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64:
     needs: [Checka]   
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
