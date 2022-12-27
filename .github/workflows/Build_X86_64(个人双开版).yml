@@ -10,12 +10,16 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
+     checkupdates:
+        description: 'Checkupdates connection to Actions'
+        required: false
+        default: 'false'
       ssh:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
   schedule:
-    - cron: 0 19 * * *
+    - cron: 6 19 * * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
@@ -31,9 +35,54 @@ env:
   TZ: Asia/Shanghai
   FILE_NAME: x86_64
   PRODUCT_NAME: x86_64
-  
+
+ jobs:
+  Checka:
+    runs-on: ubuntu-latest
+    env:
+      REPO_URL_Lede: https://github.com/coolsnowwolf/lede
+      REPO_BRANCH_Lede: master
+      REPO_PATH_Lede : "Lede_x86_64"
+    outputs:
+      output: ${{ steps.outputunifreq.outputs.unifreq }}   
+    steps:
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
+        cd $REPO_PATH_Lede
+        #echo "::set-output name=commitHash_x86::$(git rev-parse HEAD)"
+        echo "commitHash_x86_64=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        cd 
+        
+    - name: Show Commit Head and Combination Heads
+      id: combHeader
+      run: |
+        echo "commitHash_x86_64: ${{ steps.getHash.outputs.commitHash_x86_64 }}"
+        
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@main
+      with:
+        path: .commitHash_x86_64
+        key: HEAD-${{ steps.getHash.outputs.commitHash_x86_64 }}
+        
+    - name: Set output for next job
+      id: outputunifreq
+      if: steps.cacheHash.outputs.cache-hit == 'true'
+      run: |
+        #echo "::set-output name=unifreq::hello"
+        echo "unifreq=hello" >> $GITHUB_OUTPUT
+        
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHash_x86_64 }} | tee .commitHash_x86_64
+# ///////////////////////////////////////////////////////////////////////////////////////////////////////// 
 jobs:
   Build_x86_64:
+    needs: [Checka]   
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
