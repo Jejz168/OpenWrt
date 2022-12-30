@@ -71,7 +71,7 @@
 　├── 上网时间控制<br/>
 　├── 解锁网易云灰色歌曲<br/>
 　├── OpenClash<br/>
-　├── Lucky大吉<br/>
+　├── DDNS-GO<br/>
 　├── 动态 DNS<br/>
 　├── MosDNS<br/>
 　├── 网络唤醒<br/>
