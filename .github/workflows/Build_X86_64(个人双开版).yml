@@ -290,7 +290,7 @@ jobs:
         name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」(个人双开版)
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.FILE_NAME }}
+        tag: ${{ env.TAG }}8_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 固件
