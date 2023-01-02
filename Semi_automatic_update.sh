@@ -1,7 +1,7 @@
 #!/bin/bash
 #手动填写
 #对应更新时间（年月日）必须要写对
-update_time=20221223
+update_time=20230102
 #对应内核具体版本，必须要写对
 kernel_version=5.15.85
 #固件地址
