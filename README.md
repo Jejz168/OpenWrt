@@ -65,7 +65,7 @@
 　├── 广告屏蔽大师 Plus+<br/>
 　├── AdGuard Home<br/>
 　├── ShadowSocksR Plus+<br/>
-　├── DDNS.to内网穿透<br/>
+　├── DDNSTO 远程控制<br/>
 　├── 应用过滤<br/>
 　├── 全能推送<br/>
 　├── 上网时间控制<br/>
