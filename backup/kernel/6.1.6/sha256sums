@@ -1,6 +1,6 @@
-ceddbd9bf13dd46ba8aba03e3011369797645b2b415c2c4ef3b37ef78edd5f3b  boot-6.1.6-flippy-81+.tar.gz
-acec35a813c02d2be1bd044f924c6f66535c401063da07a146c75e1792978e5f  dtb-allwinner-6.1.6-flippy-81+.tar.gz
-8d4d4b43251202fdeacedaaab8fd17d071425c7b7c22892be980dd7b77c5de70  dtb-amlogic-6.1.6-flippy-81+.tar.gz
-d899b395dff1540f767a721eab7d1c33e33c6e322f831650739fcfe77fada250  dtb-rockchip-6.1.6-flippy-81+.tar.gz
-15000b4c486f64d478217fb5ec0373fffe297be0b3fc04f7cbba7a5b08ba93d8  header-6.1.6-flippy-81+.tar.gz
-2d244c4b70037a518da11739054afa5ee00ed9bd329b9b0370e318b467fc9452  modules-6.1.6-flippy-81+.tar.gz
+2ab36a07458aa76ce149b4e436deef740c3a945020af445a38071c0a0c485669  boot-6.1.6-happy-new-year.tar.gz
+5d0bad8dea320a26925cfb8a8f2b91e1f91f5dd23f6ffde10501380722c7bf3e  dtb-allwinner-6.1.6-happy-new-year.tar.gz
+b56e42d00ba96daeda203c89c69984d5db686ca441dec38ee15e901ac0088fc6  dtb-amlogic-6.1.6-happy-new-year.tar.gz
+318b8558576e360ad6c4e4b67249462f9d6806235d78cae04e5a17afbfd06987  dtb-rockchip-6.1.6-happy-new-year.tar.gz
+c7da7b02c56bddb611bb0edd6fd56d4bbaea7913b215a9d6c25a60aa39f8d9fc  header-6.1.6-happy-new-year.tar.gz
+6581b795cc568bfe0e31a1dc410b1d0da3c5fff4bd3d576fba322d59661111d4  modules-6.1.6-happy-new-year.tar.gz
