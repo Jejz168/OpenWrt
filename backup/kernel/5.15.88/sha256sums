@@ -1,6 +1,5 @@
-b53d8afdc5b626f9ddf784691ca05e3f1a3a9517346a2e2eeed5cb14c96c4c4c  boot-5.15.88-happy-new-year.tar.gz
-bec8107e1044769fc6d0630c237cfdceed5dbb649852a0d0fd0ba9bea9ad79cb  dtb-allwinner-5.15.88-happy-new-year.tar.gz
-d461143a9a29220bfbb664d4a4295b4ac75b717b18802f5e42afbe5c6bbe9ecb  dtb-amlogic-5.15.88-happy-new-year.tar.gz
-c38685ce4ad1bbc8dfe205c0c087daeb74f721b9e185fc07d8c3684702e50eaf  dtb-rockchip-5.15.88-happy-new-year.tar.gz
-7e077e1e8cb5533cd16275ec8ff12a61eb29421bced4b994ffaa55c1840739f4  header-5.15.88-happy-new-year.tar.gz
-7bfa51030d56e452e228fd4339fba406e976a5c7862031bf890eecdd696cf024  modules-5.15.88-happy-new-year.tar.gz
+9d4349310b4e513ed945fcff97fdbd826281f65cd62d88339124998e5d7b85de  boot-5.15.88-flippy-81+o.tar.gz
+eb101a18c3f654f00d14c97e37a0350658828dd4b6ab7edf19b08390de434e3b  dtb-allwinner-5.15.88-flippy-81+o.tar.gz
+1730d713cd506f0bd071666ceec8122a3a0934c4a38faa3801ba4e6c54a5b782  dtb-amlogic-5.15.88-flippy-81+o.tar.gz
+d4802166f26c805abb4dd439b7ce14827f319c851f10ecaf229d177c66785c06  dtb-rockchip-5.15.88-flippy-81+o.tar.gz
+0f36a980cf677a5518667b35598a8465e3987179209417c7793b326b01ecf725  modules-5.15.88-flippy-81+o.tar.gz
