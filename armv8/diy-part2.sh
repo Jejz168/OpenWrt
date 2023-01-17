@@ -110,7 +110,7 @@ svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/patch/luci-ap
 # git clone https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
 
 # lucky 大吉
-git clone https://github.com/sirpdboy/luci-app-lucky.git package/lucky
+git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # eqos 限速
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
