@@ -36,17 +36,17 @@ on:
       kernel_version:
         description: "Select kernel version"
         required: false
-        default: "5.4.191_5.10.116_5.15.60_6.1.1"
+        default: "5.4.228_5.10.161_5.15.88_6.1.6"
         type: choice
         options:
-          - 5.4.191_5.10.116_5.15.60_6.1.1
-          - 5.4.191_5.10.116
-          - 5.10.116_5.15.60
-          - 5.15.60_6.0.2
-          - 5.4.191
-          - 5.10.116
-          - 5.15.60
-          - 6.1.1
+          - 5.4.228_5.10.161_5.15.88_6.1.6
+          - 5.4.228_5.10.161
+          - 5.10.161_5.15.88
+          - 5.15.88_6.1.6
+          - 5.4.228
+          - 5.10.161
+          - 5.15.88
+          - 6.1.6
   #schedule:
     #- cron: '45 22 * * *'
 
@@ -84,8 +84,7 @@ jobs:
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
-        
-    
+          
     - name: Clone source code
       working-directory: /workdir
       run: |
@@ -128,7 +127,7 @@ jobs:
 
     - name: Upload OpenWrt Firmware to Release
       id: release
-      uses: ncipollo/release-action@v1
+      uses: ncipollo/release-action@main
       if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }} 」固件
