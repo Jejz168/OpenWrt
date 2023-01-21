@@ -65,7 +65,7 @@ svn co https://github.com/linkease/nas-packages/trunk/network/services/ddnsto pa
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
 # autotimeset 定时
-git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
+# git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 
 # eqos 限速
 svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
