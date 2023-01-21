@@ -63,7 +63,7 @@ svn co https://github.com/messense/aliyundrive-fuse/trunk/openwrt/luci-app-aliyu
 svn co https://github.com/messense/aliyundrive-fuse/trunk/openwrt/aliyundrive-fuse package/aliyundrive-fuse
 
 # autotimeset 定时
-git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
+# git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 
 # unblockneteasemusic
 # git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
