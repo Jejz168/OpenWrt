@@ -1,5 +1,5 @@
 <div align="center">
-<img width="768" src="https://cdn.jsdelivr.net/gh/Jejz168/Picture/OpenWrt.png"/>
+<img width="768" src="https://cdn.jsdelivr.net/gh/Jejz168/Picture/OpenWrt-logo.png"/>
 <h1>OpenWrt — Actions</h1>
 </div>
 
@@ -71,7 +71,7 @@
 　├── 上网时间控制<br/>
 　├── 解锁网易云灰色歌曲<br/>
 　├── OpenClash<br/>
-　├── Lucky大吉<br/>
+　├── Lucky<br/>
 　├── 动态 DNS<br/>
 　├── MosDNS<br/>
 　├── 网络唤醒<br/>
