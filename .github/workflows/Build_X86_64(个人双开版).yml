@@ -22,7 +22,7 @@ on:
         description: 'SSH54 connection to Actions'
         required: false
         default: 'false'
-      ssh510:
+      ssh515:
         description: 'SSH515 connection to Actions'
         required: false
         default: 'false'
