@@ -38,7 +38,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@main
+      uses: actions/checkout@v3
       
     - name: Check server configuration
       run: |
@@ -222,7 +222,7 @@ jobs:
 
     - name: Create release
       id: release
-      uses: ncipollo/release-action@main
+      uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
         name: ${{ env.DATE }} 🚫「 ${{ env.FILE_NAME }} 」
