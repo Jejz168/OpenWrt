@@ -5,14 +5,11 @@
 
 -  群组: https://t.me/Jejz_168
 
-- [******x86手动升级说明******](https://github.com/Jejz168/OpenWrt/blob/main/Upgrade.sh)
-- [******x86半自动升级下载******](https://github.com/Jejz168/OpenWrt/raw/main/Semi_automatic_update.sh)
 -  🛑******最好全新刷机******
 -  本库x86为squashfs格式(Kernel=32M，rootfs=968M)
 -  ext4 与squashfs 格式的区别： ext4 格式的rootfs 可以扩展磁盘空间大小，而squashfs 不能。 squashfs 格式的rootfs 可以使用重置功能（恢复出厂设置），而ext4 不能。
--  必须要是本库最新才能使用。不然就会死翘翘。
--  此Semi_automatic_update.sh文件修改好后放到openwrt的root目录中
--  再进ssh输入👉  cd /root && chmod +x Semi_automatic_update.sh && ./Semi_automatic_update.sh
+-  *必须要是本库最新才能使用。不然就会死翘翘。
+-  升级方法：下载好对应的版本（.img.gz），然后（openwrt-系统-备份/升级） *直接选择，不用解压
 # ==============================
 ## 项目说明 [![](https://img.shields.io/badge/-项目基本介绍-FFFFFF.svg)](#项目说明-)
 - 固件来源：[![Lean](https://img.shields.io/badge/Lede-Lean-red.svg?style=flat&logo=appveyor)](https://github.com/coolsnowwolf/lede) 
