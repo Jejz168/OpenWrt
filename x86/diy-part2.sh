@@ -117,6 +117,11 @@ rm -rf feeds/luci/applications/luci-app-mosdns
 svn co https://github.com/sbwml/luci-app-mosdns/trunk/luci-app-mosdns package/luci-app-mosdns
 svn co https://github.com/sbwml/luci-app-mosdns/trunk/mosdns package/mosdns
 
+# alist
+rm -rf feeds/packages/lang/golang
+svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
+git clone https://github.com/sbwml/luci-app-alist package/alist
+
 # turboacc 去dns
 # sed -i '60,70d' feeds/luci/applications/luci-app-turboacc/Makefile
 # sed -i '54,78d' feeds/luci/applications/luci-app-turboacc/luasrc/model/cbi/turboacc.lua
