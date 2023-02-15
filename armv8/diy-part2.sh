@@ -89,6 +89,11 @@ svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 p
 # smartdns
 # git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
 
+# alist
+rm -rf feeds/packages/lang/golang
+svn export https://github.com/sbwml/packages_lang_golang/branches/19.x feeds/packages/lang/golang
+git clone https://github.com/sbwml/luci-app-alist package/alist
+
 # mosdns
 # find ./ | grep Makefile | grep mosdns | xargs rm -f
 rm -rf feeds/packages/net/mosdns
