@@ -6,7 +6,7 @@
 #===============================================
 
 ## docker套件
-# sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=2048/g' .config
+sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=2048/g' .config
 sed -i 's/# CONFIG_PACKAGE_luci-app-dockerman is not set/CONFIG_PACKAGE_luci-app-dockerman=y/g' .config
 sed -i 's/# CONFIG_PACKAGE_docker is not set/CONFIG_PACKAGE_docker=y/g' .config
 sed -i 's/# CONFIG_PACKAGE_dockerd is not set/CONFIG_PACKAGE_dockerd=y/g' .config
