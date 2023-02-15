@@ -5,7 +5,7 @@
 # By：Jejz
 #===============================================
 
-name: Update synchronization checke
+name: Update synchronization checker
 
 on:
   repository_dispatch:
