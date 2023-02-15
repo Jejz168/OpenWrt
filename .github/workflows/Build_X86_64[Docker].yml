@@ -293,13 +293,13 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 」固件
+        name: ${{ env.DATE }} 🐳「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 」固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}6_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 固件
+          - ⭐️此为 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 固件
           - 🔴默认IP：192.168.8.3 默认密码：无密码
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
@@ -337,7 +337,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}8_${{ env.KERNEL }}
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}6_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
     needs: [Checka]   
@@ -546,13 +546,13 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 」固件
+        name: ${{ env.DATE }} 🐳「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 」固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}6_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 固件
+          - ⭐️此为 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 固件
           - 🔴默认IP：192.168.8.3 默认密码：无密码
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
@@ -590,4 +590,4 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}8_${{ env.KERNEL }}
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}6_${{ env.KERNEL }}
