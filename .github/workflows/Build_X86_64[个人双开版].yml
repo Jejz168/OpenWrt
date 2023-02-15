@@ -4,7 +4,7 @@
 # By：Jejz
 #===============================================
 
-name: Build_x86_64(个人双开版)
+name: Build_x86_64[个人双开版]
 
 on:
   repository_dispatch:
@@ -292,7 +292,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」(个人双开版)
+        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[个人双开版]
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}8_${{ env.KERNEL }}
@@ -547,7 +547,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」(个人双开版)
+        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[个人双开版]
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}8_${{ env.KERNEL }}
