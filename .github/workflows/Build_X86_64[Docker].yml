@@ -51,7 +51,7 @@ jobs:
     env:
       REPO_URL_Lede: https://github.com/coolsnowwolf/lede
       REPO_BRANCH_Lede: master
-      REPO_PATH_Lede : "Lede_x86_64"
+      REPO_PATH_Lede : "Lede_x86_64-docker"
     outputs:
       output: ${{ steps.outputunifreq.outputs.unifreq }}   
     steps:
@@ -60,20 +60,20 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL_Lede -b $REPO_BRANCH_Lede $REPO_PATH_Lede
         cd $REPO_PATH_Lede
-        echo "commitHash_x86_64=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        echo "commitHash_x86_64-docker=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd 
         
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_x86_64: ${{ steps.getHash.outputs.commitHash_x86_64 }}"
+        echo "commitHash_x86_64-docker: ${{ steps.getHash.outputs.commitHash_x86_64-docker }}"
         
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@main
       with:
-        path: .commitHash_x86_64
-        key: HEAD-${{ steps.getHash.outputs.commitHash_x86_64 }}
+        path: .commitHash_x86_64-docker
+        key: HEAD-${{ steps.getHash.outputs.commitHash_x86_64-docker }}
         
     - name: Set output for next job
       id: outputunifreq
@@ -84,7 +84,7 @@ jobs:
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash_x86_64 }} | tee .commitHash_x86_64
+        echo ${{ steps.getHash.outputs.commitHash_x86_64-docker }} | tee .commitHash_x86_64
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_54:
     needs: [Checka]   
