@@ -53,25 +53,25 @@ jobs:
         cd $REPO_PATH_Lede
         echo "commitHash_arm=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd
-        
+
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
         echo "commitHash_arm: ${{ steps.getHash.outputs.commitHash_arm }}"
-        
+
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@main
       with:
         path: .commitHash_arm
         key: HEAD-${{ steps.getHash.outputs.commitHash_arm }}
-        
+
     - name: Set output for next job
       id: outputunifreq
       if: steps.cacheHash.outputs.cache-hit == 'true'
       run: |
         echo "unifreq=hello" >> $GITHUB_OUTPUT
-        
+
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
@@ -85,7 +85,7 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-      
+
     - name: Check server configuration
       run: |
         echo "警告⚠"
@@ -109,6 +109,7 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
+        docker rmi `docker images -q`
         sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android /opt/ghc
         sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* || true
         sudo -E apt-get -qq update
@@ -138,7 +139,7 @@ jobs:
         echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         echo "TAG=$(date "+%Y%m%d")" >> $GITHUB_ENV
         echo "start=$(date +%s)" >> $GITHUB_ENV
-        
+
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
@@ -180,12 +181,12 @@ jobs:
         sed -i '/Transparent_Proxy/d' Plug-in > /dev/null 2>&1
         sed -i 's/=y/\ /g' Plug-in
         awk '$0=NR$0' Plug-in > Plug-2
-        awk '{print "	" $0}' Plug-2 > Plug-in    
+        awk '{print "	" $0}' Plug-2 > Plug-in
         echo
         echo
         echo "	      已选插件列表"
         cat Plug-in
-        rm -rf {Plug-in,Plug-2}  
+        rm -rf {Plug-in,Plug-2}
         echo
         echo "=========================================="
         echo
@@ -247,7 +248,7 @@ jobs:
       with:
         name: armv8-config
         path: ./artifact/buildinfo/
-        
+
     - name: Organize files
       id: organize
       if: steps.compile.outputs.status == 'success'
@@ -282,12 +283,71 @@ jobs:
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
           - 🎈🎈🎈 更新信息 🎈🎈🎈
-          - 作者: ${{ env.author }}       
-          - 时间: ${{ env.date }}      
-          - 内容: ${{ env.commit }}        
-          - hash: ${{ env.hash }}         
+          - 作者: ${{ env.author }}
+          - 时间: ${{ env.date }}
+          - 内容: ${{ env.commit }}
+          - hash: ${{ env.hash }}
         artifacts: ${{ env.FIRMWARE }}/*
-        
+
+    - name: Telegram or Push notification
+      run: |
+        MSG="
+        🌺${{ env.FILE_NAME }}编译完成
+        开始时间：${{ env.DATE }}
+        完成时间：${{ env.DATE1 }}
+        编译耗时：${{ env.time }}
+        🎈🎈🎈 更新信息 🎈🎈🎈
+        作者: ${{ env.author }}
+        时间: ${{ env.date }}
+        内容: ${{ env.commit }}
+        hash: ${{ env.hash }}
+        ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTF
+        "
+        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
+        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}编译完成&content=${MSG}"
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Build_ARMv8_OpenWrt:
+    needs: [Build_armv8]
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        df -hT $PWD
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        cd openwrt
+        Author=$(git show -s --date=short --format="Author: %an")
+        Date=$(git show -s --date=short --format="date: %ci")
+        Commit=$(git show -s --date=short --format="commit: %s")
+        Hash=$(git show -s --date=short --format="commit hash: %h")
+        echo "author=$Author" >> $GITHUB_ENV
+        echo "date=$Date" >> $GITHUB_ENV
+        echo "commit=$Commit" >> $GITHUB_ENV
+        echo "hash=$Hash" >> $GITHUB_ENV
+        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "TAG=$(date "+%Y%m%d")" >> $GITHUB_ENV
+        echo "TAG=$(date "+%Y%m%d")" >> $GITHUB_ENV
+        echo "start=$(date +%s)" >> $GITHUB_ENV
+
     - name: Package armvirt as openwrt
       uses: unifreq/openwrt_packit@master
       if: steps.organize.outputs.status == 'success'
@@ -301,13 +361,13 @@ jobs:
         KERNEL_AUTO_LATEST: true
         GZIP_IMGS: .gz
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        
+
     - name: Upload artifact to Actions
       uses: kittaakos/upload-artifact-as-is@master
       if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_FIRMWARE == 'true'
       with:
-        path: ${{ env.PACKAGED_OUTPUTPATH }}/   
-        
+        path: ${{ env.PACKAGED_OUTPUTPATH }}/
+
     - name: Upload openwrt to release
       uses: ncipollo/release-action@v1
       if: env.PACKAGED_STATUS == 'success'
@@ -327,12 +387,12 @@ jobs:
           - 当前使用版本:【编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
           - 🎈🎈🎈 更新信息 🎈🎈🎈
-          - 作者: ${{ env.author }}       
-          - 时间: ${{ env.date }}        
-          - 内容: ${{ env.commit }}       
+          - 作者: ${{ env.author }}
+          - 时间: ${{ env.date }}
+          - 内容: ${{ env.commit }}
           - hash: ${{ env.hash }}
         artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
-        
+
     - name: Total time
       run: |
         echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
@@ -344,35 +404,35 @@ jobs:
         HMS=`echo ${hour}:${min}:${sec}`
         echo "time=$HMS" >> $GITHUB_ENV
 
-    - name: Telegram notification upload success
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_TO }}
-        token: ${{ secrets.TELEGRAM_TOKEN }}
-        message: |
-          🌺${{ env.PRODUCT_NAME }}编译完成
-          开始时间：${{ env.DATE }}
-          完成时间：${{ env.DATE1 }}
-          编译耗时：${{ env.time }}
-          🎈🎈🎈 更新信息 🎈🎈🎈
-          作者: ${{ env.author }}
-          时间: ${{ env.date }}
-          内容: ${{ env.commit }}
-          hash: ${{ env.hash }}
-          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8
+    - name: Telegram or Push notification
+      run: |
+        MSG="
+        🌺${{ env.PRODUCT_NAME }}打包完成
+        开始时间：${{ env.DATE }}
+        完成时间：${{ env.DATE1 }}
+        编译耗时：${{ env.time }}
+        🎈🎈🎈 更新信息 🎈🎈🎈
+        作者: ${{ env.author }}
+        时间: ${{ env.date }}
+        内容: ${{ env.commit }}
+        hash: ${{ env.hash }}
+        ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8
+        "
+        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
+        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.PRODUCT_NAME }}打包完成&content=${MSG}"
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
-    needs: [Checka,Build_armv8]
+    needs: [Checka,Build_armv8,Build_ARMv8_OpenWrt]
     runs-on: ubuntu-latest
-    steps:  
+    steps:
     - name: Delete workflow runs
       uses: Jejz168/delete-workflow-runs@main
       with:
         retain_days: 8
         keep_minimum_runs: 2
-        
+
     - name: Remove old Releases
       uses: Jejz168/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' 
@@ -381,4 +441,4 @@ jobs:
         delete_tags: true
         delete_tag_pattern: _
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}  
+        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
