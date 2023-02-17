@@ -269,6 +269,6 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-       📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTF
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTF
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
