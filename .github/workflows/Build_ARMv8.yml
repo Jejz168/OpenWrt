@@ -360,7 +360,7 @@ jobs:
       uses: unifreq/openwrt_packit@master
       if: steps.organize.outputs.status == 'success'
       env:
-        OPENWRT_ARMVIRT: openwrt/bin/targets/*/*/*rootfs.tar.gz
+        OPENWRT_ARMVIRT: https://github.com/Jejz168/OpenWrt/releases/download/ARMv8-ROOTFS/openwrt-armvirt-64-default-rootfs.tar.gz
         PACKAGE_SOC: s905d_s905x3
         WHOAMI: Jejz
         DISTRIB_REVISION: ${OPENWRT_VER} (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))
