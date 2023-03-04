@@ -135,7 +135,7 @@ jobs:
         tag: ${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - 🔴默认 IP：192.168.8.8 默认密码：无密码
+          - 🔴默认 IP：192.168.8.8 默认密码：password
           - 🔴WiFi默认密码：password
           - 🔥此为 ARMv8-Docker 固件，集成一些日常常用插件
           - 安装到 EMMC：系统 → 晶晨宝盒 → 安装 OpenWrt → 选择型号 → 安装
