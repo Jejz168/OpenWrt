@@ -16,9 +16,6 @@ export FORCE_UNSAFE_CONFIGURE=1
 # 修改默认IP
 sed -i 's/192.168.1.1/192.168.8.8/g' package/base-files/files/bin/config_generate
 
-# 设置密码为空（安装固件时无需密码登陆，然后自己修改想要的密码）
-sed -i '/$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF./d' package/lean/default-settings/files/zzz-default-settings
-
 # Autocore
 sed -i 's/DEPENDS:=@(.*/DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40xx||TARGET_ipq806x||TARGET_ipq807x||TARGET_mvebu||TARGET_rockchip||TARGET_armvirt) \\/g' package/lean/autocore/Makefile
 
