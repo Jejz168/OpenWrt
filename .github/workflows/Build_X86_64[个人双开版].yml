@@ -344,7 +344,7 @@ jobs:
         📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}8_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
-        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
+        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[个人双开版]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
     needs: [Checka]
@@ -605,4 +605,4 @@ jobs:
         📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}8_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
-        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
+        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[个人双开版]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
