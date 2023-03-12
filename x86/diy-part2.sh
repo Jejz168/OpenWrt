@@ -147,6 +147,7 @@ popd
 # argon 主题
 rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/themes/luci-theme-design
+rm -rf feeds/luci/applications/luci-app-argon-config
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
 git clone https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
