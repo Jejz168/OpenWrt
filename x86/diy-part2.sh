@@ -50,6 +50,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-n
 # svn co 复制 仓库下的文件夹 git clone 复制整个仓库
 # ikoolproxy
 git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
+cp -f $GITHUB_WORKSPACE/personal/files/* package/luci-app-ikoolproxy/koolproxy/files
 
 # vssr
 git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
