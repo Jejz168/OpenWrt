@@ -54,6 +54,7 @@
 　├── 定时设置<br/>
 　├── 文件传输<br/>
 　├── Argon 主题设置<br/>
+　├── Design 主题设置<br/>
 　├── 重启<br/>
 　└── 关机
 </details>
@@ -94,15 +95,16 @@
 </details>
 <details>
 <summary><b>├── 网络存储</b></summary>
-　├── Alist 文件列表<br/>
 　├── 文件浏览器<br/>
 　├── NFS 管理<br/>
 　├── 阿里云盘 FUSE<br/>
 　├── 阿里云盘 WebDAV<br/>
+　├── Alist 文件列表<br/>
 　├── USB 打印服务器<br/>
 　├── 硬盘休眠<br/>
 　├── 打印服务器<br/>
 　├── 网络共享<br/>
+　├── Aria2 配置<br/>
 　└── FTP 服务器
 </details>
 <details>
