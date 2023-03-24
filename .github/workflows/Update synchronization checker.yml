@@ -49,8 +49,8 @@ jobs:
     - name: Release tar
       run: |
         cd ./backup/kernel
-        rm -rf ./5.4*gz
-        rm -rf ./5.10*gz
+        rm -rf ./5.4*
+        rm -rf ./5.10*
         
   #  - name: Download kernel
    #   uses: robinraju/release-downloader@main
