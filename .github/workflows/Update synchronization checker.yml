@@ -58,8 +58,8 @@ jobs:
     - name: Release tar
       run: |
         cd ./backup/kernel
-       # find ./ -name *ophub*|xargs rm -rf
-     #   find ./ -name *compile*|xargs rm -rf
+        find ./ -name *ophub*|xargs rm -rf
+        find ./ -name *compile*|xargs rm -rf
         ls ./*.tar.gz |xargs -n1 tar xzvf
         rm -rf ./*gz
         
