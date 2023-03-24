@@ -43,7 +43,7 @@ jobs:
         repository: "ophub/kernel"
         tag: "kernel_stable"
         latest: true
-        fileName: "*"
+        fileName: "6.*"
         tarBall: true
         out-file-path: ./backup/kernel
         
