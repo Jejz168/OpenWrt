@@ -40,7 +40,8 @@ jobs:
     - name: Download kernel
       uses: robinraju/release-downloader@main
       with:
-        repository: "Jejz168/compile-kernel"
+        repository: "ophub/kernel"
+        tag: "kernel_stable"
         latest: true
         fileName: "*"
         tarBall: true
@@ -49,7 +50,7 @@ jobs:
     - name: Release tar
       run: |
         cd ./backup/kernel
-        #find ./ -name *stable*|xargs rm -rf
+        find ./ -name *stable*|xargs rm -rf
         find ./ -name *compile*|xargs rm -rf
         ls ./*.tar.gz |xargs -n1 tar xzvf
         rm -rf ./*gz
