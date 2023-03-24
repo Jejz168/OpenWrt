@@ -46,20 +46,20 @@ jobs:
         tarBall: true
         out-file-path: ./backup/kernel
 
-    - name: Download kernel
-      uses: robinraju/release-downloader@main
-      with:
-        repository: "Jejz168/compile-kernel"
-        latest: true
-        fileName: "*"
-        tarBall: true
-        out-file-path: ./backup/kernel
+  #  - name: Download kernel
+   #   uses: robinraju/release-downloader@main
+   #   with:
+   #     repository: "Jejz168/compile-kernel"
+  #      latest: true
+    #    fileName: "*"
+  #      tarBall: true
+   #     out-file-path: ./backup/kernel
 
     - name: Release tar
       run: |
         cd ./backup/kernel
-        find ./ -name *ophub*|xargs rm -rf
-        find ./ -name *compile*|xargs rm -rf
+       # find ./ -name *ophub*|xargs rm -rf
+     #   find ./ -name *compile*|xargs rm -rf
         ls ./*.tar.gz |xargs -n1 tar xzvf
         rm -rf ./*gz
         
