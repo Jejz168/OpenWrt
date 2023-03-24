@@ -41,6 +41,7 @@ jobs:
       uses: robinraju/release-downloader@main
       with:
         repository: "ophub/kernel"
+        tag: "kernel_stable"
         latest: true
         fileName: "*"
         tarBall: true
@@ -49,8 +50,8 @@ jobs:
     - name: Release tar
       run: |
         cd ./backup/kernel
-        rm -rf ./5.4*
-        rm -rf ./5.10*
+        rm -rf ./5.4.*
+        rm -rf ./5.10.*
         
   #  - name: Download kernel
    #   uses: robinraju/release-downloader@main
