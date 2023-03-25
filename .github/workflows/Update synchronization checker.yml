@@ -51,7 +51,7 @@ jobs:
       uses: robinraju/release-downloader@main
       with:
         repository: "Jejz168/compile-kernel"
-        tag: "Manual_upload"
+        tag: "kernel"
         latest: true
         fileName: "*"
         tarBall: true
