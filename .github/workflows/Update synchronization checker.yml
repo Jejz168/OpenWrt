@@ -52,9 +52,7 @@ jobs:
       with:
         repository: "Jejz168/compile-kernel"
         tag: "kernel"
-        latest: true
         fileName: "*"
-        tarBall: true
         out-file-path: ./backup/kernel
         
     - name: Release tar
@@ -63,7 +61,9 @@ jobs:
         find ./ -name *stable*|xargs rm -rf
         find ./ -name *compile*|xargs rm -rf
         ls ./*.tar.gz |xargs -n1 tar xzvf
+        ls ./*.zip |xargs -n1 tar xzvf
         rm -rf ./*gz
+        rm -rf ./*zip
         
     - name: Commit
       run: |
