@@ -372,7 +372,7 @@ jobs:
         PACKAGE_SOC: s905d_s905x3
         WHOAMI: Jejz
         DISTRIB_REVISION: ${OPENWRT_VER} (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))
-        KERNEL_REPO_URL: https://github.com/Jejz168/OpenWrt/releases/tag/kernel_stable
+        KERNEL_REPO_URL: https://github.com/Jejz168/compile-kernel/releases/tag/kernel_stable
         KERNEL_VERSION_NAME: 5.4.228_5.10.161_5.15.100_6.1.8
         KERNEL_AUTO_LATEST: true
         GZIP_IMGS: .gz
