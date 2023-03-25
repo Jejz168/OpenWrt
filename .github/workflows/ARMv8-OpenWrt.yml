@@ -41,7 +41,7 @@ on:
         options:
           - Jejz168/compile-kernel
           - breakings/OpenWrt
-          - ophub/kernel/
+          - ophub/kernel
       kernel_version:
         description: "Select kernel version"
         required: false
