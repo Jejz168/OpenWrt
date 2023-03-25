@@ -10,8 +10,8 @@ name: Update synchronization checker
 on:
   repository_dispatch:
   workflow_dispatch:
-  schedule:
-    - cron: 16 1 * * * 
+  #schedule:
+    #- cron: 16 1 * * * 
 env:
   TZ: Asia/Shanghai
 
