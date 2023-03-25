@@ -113,7 +113,7 @@ jobs:
         WHOAMI: Jejz
         OPENWRT_VER: R23.3.3
         DISTRIB_REVISION: ${OPENWRT_VER} (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))
-        KERNEL_REPO_URL: https://github.com/Jejz168/OpenWrt/releases/tag/kernel_stable
+        KERNEL_REPO_URL: https://github.com/Jejz168/compile-kernel/releases/tag/kernel_stable
         KERNEL_VERSION_NAME: ${{ github.event.inputs.kernel_version }}
         KERNEL_AUTO_LATEST: true
         GZIP_IMGS: .gz
