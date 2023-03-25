@@ -61,7 +61,7 @@ jobs:
         find ./ -name *stable*|xargs rm -rf
         find ./ -name *compile*|xargs rm -rf
         ls ./*.tar.gz |xargs -n1 tar xzvf
-        ls ./*.zip |xargs -n1 tar xzvf
+        ls ./*.zip | xargs -n1 unzip -o
         rm -rf ./*gz
         rm -rf ./*zip
         
