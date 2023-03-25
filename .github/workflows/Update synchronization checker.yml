@@ -33,37 +33,29 @@ jobs:
         rm -rf ./backup/kernel
         mkdir -p ./backup/kernel
         #svn export https://github.com/ophub/kernel/trunk/pub/stable ./backup/kernel --force
-        #svn export https://github.com/breakings/OpenWrt/trunk/opt/kernel ./backup/kernel --force
-        #rm -rf ./backup/kernel/5.10.*
-        #rm -rf ./backup/kernel/5.4.*
+        svn export https://github.com/breakings/OpenWrt/trunk/opt/kernel ./backup/kernel --force
+        rm -rf ./backup/kernel/5.10.*
+        rm -rf ./backup/kernel/5.4.*
         
     - name: Download kernel
       uses: robinraju/release-downloader@main
       with:
         repository: "Jejz168/compile-kernel"
-        #tag: "kernel_stable"
+        tag: "kernel_stable"
         latest: true
         fileName: "*"
         tarBall: true
         out-file-path: ./backup/kernel
-        
-    - name: Download kernel
-      uses: robinraju/release-downloader@main
-      with:
-        repository: "Jejz168/compile-kernel"
-        tag: "kernel"
-        fileName: "*"
-        out-file-path: ./backup/kernel
-        
+
     - name: Release tar
       run: |
         cd ./backup/kernel
         find ./ -name *stable*|xargs rm -rf
         find ./ -name *compile*|xargs rm -rf
         ls ./*.tar.gz |xargs -n1 tar xzvf
-        ls ./*.zip | xargs -n1 unzip -o
+        #ls ./*.zip | xargs -n1 unzip -o
         rm -rf ./*gz
-        rm -rf ./*zip
+        #rm -rf ./*zip
         
     - name: Commit
       run: |
