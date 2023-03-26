@@ -143,7 +143,7 @@
 </details>
 
 ## 固件下载
-点击下表中 [![](https://img.shields.io/badge/下载-链接-blueviolet.svg?style=flat&logo=hack-the-box)](https://github.com/Jejz168/OpenWrt/releases) 即可跳转到该设备固件下载页面
+点击下表中 [X86](https://github.com/Jejz168/OpenWrt/releases) [Arm](https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8)即可跳转到该设备固件下载页面
 
 ## 鸣谢 [![](https://img.shields.io/badge/-跪谢各大佬-FFFFFF.svg)](#鸣谢-)
 | [ImmortalWrt](https://github.com/immortalwrt) | [coolsnowwolf](https://github.com/coolsnowwolf) | [P3TERX](https://github.com/P3TERX) | [Flippy](https://github.com/unifreq) | [haiibo](https://github.com/haiibo) | [Lenyu2020](https://github.com/Lenyu2020) |
