@@ -143,9 +143,9 @@
 </details>
 
 ## 固件下载
-**即可跳转到该设备固件下载页面**
-[**X86下载地址**](https://github.com/Jejz168/OpenWrt/releases)
-[**Arm下载地址**](https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8)
+**点击跳转到该设备固件下载页面**
+- [**X86下载地址**](https://github.com/Jejz168/OpenWrt/releases)
+- [**Arm下载地址**](https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8)
 
 ## 鸣谢 [![](https://img.shields.io/badge/-跪谢各大佬-FFFFFF.svg)](#鸣谢-)
 | [ImmortalWrt](https://github.com/immortalwrt) | [coolsnowwolf](https://github.com/coolsnowwolf) | [P3TERX](https://github.com/P3TERX) | [Flippy](https://github.com/unifreq) | [haiibo](https://github.com/haiibo) | [Lenyu2020](https://github.com/Lenyu2020) |
