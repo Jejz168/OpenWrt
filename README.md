@@ -3,8 +3,7 @@
 <h1>OpenWrt — Actions</h1>
 </div>
 
-#  [群组](https://t.me/Jejz_168)
-
+-  [群组](https://t.me/Jejz_168)
 -  🛑******最好全新刷机******
 -  本库x86为squashfs格式(Kernel=32M，rootfs=968M)
 -  ext4 与squashfs 格式的区别： ext4 格式的rootfs 可以扩展磁盘空间大小，而squashfs 不能。 squashfs 格式的rootfs 可以使用重置功能（恢复出厂设置），而ext4 不能。
