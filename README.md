@@ -3,7 +3,7 @@
 <h1>OpenWrt — Actions</h1>
 </div>
 
--  [群组](https://t.me/Jejz_168)
+-  [#群组](https://t.me/Jejz_168)
 
 -  🛑******最好全新刷机******
 -  本库x86为squashfs格式(Kernel=32M，rootfs=968M)
