@@ -120,7 +120,7 @@ jobs:
     
     - name: Package Armvirt as OpenWrt
       if: (!cancelled())
-      uses: unifreq/openwrt_packit@master
+      uses: ophub/flippy-openwrt-actions@main
       env:
         OPENWRT_ARMVIRT: https://github.com/Jejz168/OpenWrt/releases/download/ARMv8-ROOTFS/openwrt-armvirt-64-generic-rootfs.tar.gz
         PACKAGE_SOC: ${{ github.event.inputs.openwrt_soc }}
