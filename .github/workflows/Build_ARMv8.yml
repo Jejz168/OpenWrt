@@ -384,7 +384,7 @@ jobs:
         echo "start=$(date +%s)" >> $GITHUB_ENV
 
     - name: Package armvirt as openwrt
-      uses: unifreq/openwrt_packit@master
+      uses: ophub/flippy-openwrt-actions@main
       if: (!cancelled())
       env:
         OPENWRT_ARMVIRT: https://github.com/Jejz168/OpenWrt/releases/download/ARMv8-ROOTFS/openwrt-armvirt-64-generic-rootfs.tar.gz
