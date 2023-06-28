@@ -330,8 +330,7 @@ jobs:
     - name: Telegram or Push notification
       run: |
         MSG="
-        🔴【个人双开版】
-        ♨️${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+        ♨️${{ env.FILE_NAME }}_${{ env.KERNEL }}【个人双开版】编译完成
         开始时间：${{ env.DATE }}
         完成时间：${{ env.DATE1 }}
         编译耗时：${{ env.time }}
@@ -591,8 +590,7 @@ jobs:
     - name: Telegram or Push notification
       run: |
         MSG="
-        🔴【个人双开版】
-        ♨️${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+        ♨️${{ env.FILE_NAME }}_${{ env.KERNEL }}【个人双开版】编译完成
         开始时间：${{ env.DATE }}
         完成时间：${{ env.DATE1 }}
         编译耗时：${{ env.time }}
