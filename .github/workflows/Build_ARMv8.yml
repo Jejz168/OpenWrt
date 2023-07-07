@@ -36,7 +36,7 @@ on:
       openwrt_version:
         description: "Set the openwrt version"
         required: false
-        default: "R23.6.6"
+        default: "R23.7.7"
   #schedule:
    # - cron: 16 7,20 * * *
 
