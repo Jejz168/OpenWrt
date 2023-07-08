@@ -197,7 +197,7 @@ jobs:
     - name: Push notification
       run: |
         MSG="
-        ♨️${{ env.FILE_NAME }}_${{ env.KERNEL }}【个人双开版】编译完成
+        💥${{ env.PRODUCT_NAME }}打包完成
         开始时间：${{ env.DATE }}
         完成时间：${{ env.DATE1 }}
         编译耗时：${{ env.time }}
@@ -209,4 +209,4 @@ jobs:
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
         📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}8_${{ env.KERNEL }}
         "
-        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[个人双开版]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
+        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.PRODUCT_NAME }}打包完成&content=${MSG}"
