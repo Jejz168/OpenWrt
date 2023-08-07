@@ -307,6 +307,7 @@ jobs:
         body: |
           - ⭐️此为 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 固件
           - 🔴默认IP：192.168.8.3 默认密码：无密码
+          - 🔴Docker版固件(Kernel=32M，rootfs=5120M)
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
           - 🎈🎈🎈 更新信息 🎈🎈🎈
@@ -566,6 +567,7 @@ jobs:
         body: |
           - ⭐️此为 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 固件
           - 🔴默认IP：192.168.8.3 默认密码：无密码
+          - 🔴Docker版固件(Kernel=32M，rootfs=5120M)
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
           - 🎈🎈🎈 更新信息 🎈🎈🎈
