@@ -133,9 +133,9 @@ rm -rf feeds/luci/themes/luci-theme-design
 rm -rf feeds/luci/applications/luci-app-argon-config
 rm -rf feeds/luci/applications/luci-app-design-config
 svn co https://github.com/rosywrt/luci-theme-rosy/trunk/luci-theme-rosy package/luci-theme-rosy
-svn co https://github.com/haiibo/packages/trunk/luci-theme-atmaterial_new package/luci-theme-atmaterial_new
-svn co https://github.com/haiibo/packages/trunk/luci-theme-opentomcat package/luci-theme-opentomcat
-svn co https://github.com/haiibo/packages/trunk/luci-theme-netgear package/luci-theme-netgear
+svn co https://github.com/haiibo/openwrt-packages/trunk/luci-theme-atmaterial_new package/luci-theme-atmaterial_new
+svn co https://github.com/haiibo/openwrt-packages/trunk/luci-theme-opentomcat package/luci-theme-opentomcat
+svn co https://github.com/haiibo/openwrt-packages/trunk/luci-theme-netgear package/luci-theme-netgear
 git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone -b 18.06 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
