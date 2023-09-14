@@ -131,7 +131,7 @@ rm -rf feeds/luci/applications/luci-app-turboacc
 svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/patch/luci-app-turboacc package/luci-app-turboacc
 
 # passwall
-svn co https://github.com/xiaorouji/openwrt-passwall/branches/luci/luci-app-passwall package/luci-app-passwall
+svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall package/luci-app-passwall
 
 # passwall2
 # svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
