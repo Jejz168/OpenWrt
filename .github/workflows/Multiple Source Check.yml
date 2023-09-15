@@ -138,7 +138,7 @@ jobs:
   Checkd:
     runs-on: ubuntu-latest
     env:
-      REPO_URL_PassWall: https://github.com/xiaorouji/openwrt-passwall/tree/main/luci-app-passwall
+      REPO_URL_PassWall: https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall
       REPO_BRANCH_PassWall: luci
       REPO_PATH_PassWall: "PassWall"
     steps:
