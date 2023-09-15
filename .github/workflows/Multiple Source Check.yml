@@ -139,7 +139,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPO_URL_PassWall: https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall
-      REPO_BRANCH_PassWall: luci
+      REPO_BRANCH_PassWall: main
       REPO_PATH_PassWall: "PassWall"
     steps:
     - name: Get Commit Hash
