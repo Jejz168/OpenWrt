@@ -138,7 +138,7 @@ jobs:
   Checkd:
     runs-on: ubuntu-latest
     env:
-      REPO_URL_PassWall: https://github.com/xiaorouji/openwrt-passwall
+      REPO_URL_PassWall: https://github.com/xiaorouji/openwrt-passwall/tree/main/luci-app-passwall
       REPO_BRANCH_PassWall: luci
       REPO_PATH_PassWall: "PassWall"
     steps:
@@ -174,7 +174,7 @@ jobs:
                 ● 源码更新了
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍：https://github.com/xiaorouji/openwrt-passwall
-          📍：https://github.com/xiaorouji/openwrt-passwall/tree/luci
+          📍：https://github.com/xiaorouji/openwrt-passwall-packages
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     needs: [Checka,Checkb,Checkc,Checkd]    
