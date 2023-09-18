@@ -116,7 +116,7 @@ svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/patch/luci-ap
 git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # eqos 限速
-svn co https://github.com/kiddin9/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
+svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
 
 # 科学上网插件依赖
 svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
