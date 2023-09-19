@@ -36,7 +36,7 @@ env:
   CONFIG_FILE: x86/x86.config
   DIY_P1_SH: x86/diy-part1.sh
   DIY_P2_SH: x86/diy-part2.sh
-  5GMK_SH: x86/5gMK.sh
+  WGMK_SH: x86/5gMK.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_CONFIG: true
   UPLOAD_FIRMWARE: false
@@ -171,9 +171,9 @@ jobs:
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
-        chmod +x $5GMK_SH
+        chmod +x $WGMK_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$5GMK_SH
+        $GITHUB_WORKSPACE/$WGMK_SH
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_4=y/g' .config
@@ -430,9 +430,9 @@ jobs:
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
-        chmod +x $5GMK_SH
+        chmod +x $WGMK_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$5GMK_SH
+        $GITHUB_WORKSPACE/$WGMK_SH
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_1=y/g' .config
