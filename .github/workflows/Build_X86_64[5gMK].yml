@@ -4,7 +4,7 @@
 # By：Jejz
 #===============================================
 
-name: Build_x86_64[Docker]
+name: Build_x86_64[5gMK]
 
 on:
   repository_dispatch:
