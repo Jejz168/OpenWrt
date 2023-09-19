@@ -23,4 +23,4 @@ sed -i 's/# CONFIG_PACKAGE_kmod-usb-serial is not set/CONFIG_PACKAGE_kmod-usb-se
 sed -i 's/# CONFIG_PACKAGE_kmod-usb-serial-wwan is not set/CONFIG_PACKAGE_kmod-usb-serial-wwan=y/g' .config
 sed -i 's/# CONFIG_PACKAGE_luci-proto-qmi is not set/CONFIG_PACKAGE_luci-proto-qmi=y/g' .config
 sed -i 's/# CONFIG_PACKAGE_kmod-usb-net-rndis is not set/CONFIG_PACKAGE_kmod-usb-net-rndis=y/g' .config
-sed -i '/# CONFIG_PACKAGE_kmod-usb-serial=y/a\CONFIG_PACKAGE_kmod-usb-serial-wwan=y' .config
+sed -i '/CONFIG_PACKAGE_kmod-usb-serial=y/a\CONFIG_PACKAGE_kmod-usb-serial-wwan=y' .config
