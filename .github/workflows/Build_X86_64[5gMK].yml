@@ -268,7 +268,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.UPLOAD_CONFIG == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: x86-5.4-config
+        name: x86-54-config
         path: ./artifact/buildinfo/
 
     - name: Delete files
@@ -528,7 +528,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.UPLOAD_CONFIG == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: x86-6.1-config
+        name: x86-61-config
         path: ./artifact/buildinfo/
 
     - name: Delete files
