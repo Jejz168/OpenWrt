@@ -111,6 +111,7 @@ svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser pack
 
 # smartdns
 # git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+# git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 
 # mosdns
 # find ./ | grep Makefile | grep mosdns | xargs rm -f
