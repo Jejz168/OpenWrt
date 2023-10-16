@@ -86,6 +86,7 @@ svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 p
 
 # smartdns
 # git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+# git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 
 # alist
 rm -rf feeds/packages/lang/golang
