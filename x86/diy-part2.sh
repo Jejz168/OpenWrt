@@ -50,8 +50,8 @@ cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
 
 # svn co 复制 仓库下的文件夹 git clone 复制整个仓库
 # ikoolproxy
-git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
-cp -f $GITHUB_WORKSPACE/personal/files/* package/luci-app-ikoolproxy/koolproxy/files
+# git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
+# cp -f $GITHUB_WORKSPACE/personal/files/* package/luci-app-ikoolproxy/koolproxy/files
 
 # vssr
 git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
@@ -110,8 +110,8 @@ svn co https://github.com/messense/aliyundrive-fuse/trunk/openwrt/aliyundrive-fu
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
 
 # smartdns
-# git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
-# git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
+git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 
 # mosdns
 # find ./ | grep Makefile | grep mosdns | xargs rm -f
