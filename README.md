@@ -62,7 +62,6 @@
 　├── PassWall<br/>
 　├── PassWall2  (arm)<br/>
 　├── Hello World<br/>
-　├── iKoolProxy 滤广告<br/>
 　├── 广告屏蔽大师 Plus+<br/>
 　├── AdGuard Home<br/>
 　├── ShadowSocksR Plus+<br/>
@@ -74,6 +73,7 @@
 　├── OpenClash<br/>
 　├── Lucky<br/>
 　├── 动态 DNS<br/>
+　├── SmartDNS<br/>
 　├── MosDNS<br/>
 　├── 网络唤醒<br/>
 　├── Frps<br/>
