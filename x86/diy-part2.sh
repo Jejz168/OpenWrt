@@ -123,8 +123,8 @@ svn co https://github.com/sbwml/luci-app-mosdns/trunk/luci-app-mosdns package/lu
 svn co https://github.com/sbwml/luci-app-mosdns/trunk/mosdns package/mosdns
 
 # alist
-rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 20.x feeds/packages/lang/golang
+# rm -rf feeds/packages/lang/golang
+# git clone https://github.com/sbwml/packages_lang_golang -b 20.x feeds/packages/lang/golang
 git clone https://github.com/sbwml/luci-app-alist package/alist
 
 # turboacc 去dns
