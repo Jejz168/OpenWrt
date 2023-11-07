@@ -51,8 +51,11 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-n
 # cp -f $GITHUB_WORKSPACE/personal/files/* package/luci-app-ikoolproxy/koolproxy/files
 
 # vssr
-git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
-git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
+# git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
+# git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
+svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci/lua-maxminddb package/lua-maxminddb
+svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci
+/luci-app-vssr package/luci-app-vssr
 
 # netdata 中文
 # rm -rf feeds/luci/applications/luci-app-netdata
@@ -129,7 +132,7 @@ git clone https://github.com/sbwml/luci-app-alist package/alist
 # sed -i '54,78d' feeds/luci/applications/luci-app-turboacc/luasrc/model/cbi/turboacc.lua
 # sed -i '7d;15d;21d' feeds/luci/applications/luci-app-turboacc/luasrc/view/turboacc/turboacc_status.htm
 rm -rf feeds/luci/applications/luci-app-turboacc
-svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/patch/luci-app-turboacc package/luci-app-turboacc
+svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/luci-app-turboacc package/luci-app-turboacc
 
 # passwall
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall package/luci-app-passwall
