@@ -51,6 +51,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-n
 # cp -f $GITHUB_WORKSPACE/personal/files/* package/luci-app-ikoolproxy/koolproxy/files
 
 # ssrp
+svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall package/wall
 svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci
 /luci-app-ssr-plus package/luci-app-ssr-plus
 
