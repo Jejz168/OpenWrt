@@ -36,15 +36,13 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
 # ssrp
 svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall package/wall
-svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci
-/luci-app-ssr-plus package/luci-app-ssr-plus
+svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci/luci-app-ssr-plus package/luci-app-ssr-plus
 
 # vssr
 # git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 # git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
 svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci/lua-maxminddb package/lua-maxminddb
-svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci
-/luci-app-vssr package/luci-app-vssr
+svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci/luci-app-vssr package/luci-app-vssr
 
 # ikoolproxy
 # git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
