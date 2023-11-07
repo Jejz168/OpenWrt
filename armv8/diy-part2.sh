@@ -35,6 +35,7 @@ sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/tt
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
 # ssrp
+svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall package/wall
 svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci
 /luci-app-ssr-plus package/luci-app-ssr-plus
 
