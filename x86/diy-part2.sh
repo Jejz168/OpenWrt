@@ -50,6 +50,10 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-n
 # git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 # cp -f $GITHUB_WORKSPACE/personal/files/* package/luci-app-ikoolproxy/koolproxy/files
 
+# ssrp
+svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci
+/luci-app-ssr-plus package/luci-app-ssr-plus
+
 # vssr
 # git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 # git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
