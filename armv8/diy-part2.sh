@@ -71,7 +71,7 @@ svn co https://github.com/messense/aliyundrive-fuse/trunk/openwrt/aliyundrive-fu
 
 # adguardhome
 # git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
-svn co https://github.com/xiangfeidexiaohuo/openwrt-packages/trunk/luci-app-adguardhome package/luci-app-adguardhome
+svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/luci-app-adguardhome package/luci-app-adguardhome
 
 # dockerman
 rm -rf feeds/luci/applications/luci-app-dockerman
