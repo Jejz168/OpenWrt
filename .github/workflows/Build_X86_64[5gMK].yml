@@ -26,8 +26,8 @@ on:
         description: 'SSH61 connection to Actions'
         required: false
         default: 'false'
-  schedule:
-    - cron: 50 17 */3 * *
+  #schedule:
+  #  - cron: 50 17 */3 * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
