@@ -77,8 +77,8 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 # git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 
 # dockerman
-rm -rf feeds/luci/applications/luci-app-dockerman
-svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
+# rm -rf feeds/luci/applications/luci-app-dockerman
+# svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
 
 # eqos 限速
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
