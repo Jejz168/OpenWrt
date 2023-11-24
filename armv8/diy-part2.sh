@@ -74,8 +74,8 @@ svn co https://github.com/messense/aliyundrive-fuse/trunk/openwrt/aliyundrive-fu
 svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/luci-app-adguardhome package/luci-app-adguardhome
 
 # dockerman
-rm -rf feeds/luci/applications/luci-app-dockerman
-svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
+# rm -rf feeds/luci/applications/luci-app-dockerman
+# svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
 
 # filebrowser 文件浏览器
 svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
