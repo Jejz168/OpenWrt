@@ -33,10 +33,9 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: x86/x86.config
+  CONFIG_FILE: x86/x86_docker.config
   DIY_P1_SH: x86/diy-part1.sh
   DIY_P2_SH: x86/diy-part2.sh
-  DOCKER_SH: x86/docker.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_CONFIG: true
   UPLOAD_FIRMWARE: false
@@ -171,12 +170,12 @@ jobs:
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
-        chmod +x $DOCKER_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DOCKER_SH
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_4=y/g' .config
+
+        sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=5120/g' .config
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g' target/linux/x86/Makefile
 
@@ -431,12 +430,12 @@ jobs:
       run: |
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $DIY_P2_SH
-        chmod +x $DOCKER_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DOCKER_SH
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_15=y/g' .config
+
+        sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=5120/g' .config
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
