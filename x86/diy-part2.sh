@@ -12,7 +12,6 @@ echo "========================="
 function merge_package(){
     repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
     pkg=`echo $2 | rev | cut -d'/' -f 1 | rev`
-    find package/ -follow -name $pkg -not -path "package/custom/*" | xargs -rt rm -rf
     git clone --depth=1 --single-branch $1
     mv $2 package/custom/
     rm -rf $repo
@@ -122,11 +121,11 @@ merge_package https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/
 # 阿里云盘fuse
 rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
 rm -rf feeds/packages/multimedia/aliyundrive-fuse
-merge_package https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/luci-app-aliyundrive-fus
+merge_package https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/luci-app-aliyundrive-fuse
 merge_package https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/aliyundrive-fuse
 
 # filebrowser 文件浏览器
-merge_package https://github.com/Lienol/openwrt-package openwrt-package/uci-app-filebrowser
+merge_package https://github.com/Lienol/openwrt-package openwrt-package/luci-app-filebrowser
 
 # smartdns
 rm -rf feeds/packages/net/smartdns
@@ -138,7 +137,7 @@ git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 # find ./ | grep Makefile | grep mosdns | xargs rm -f
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/luci/applications/luci-app-mosdns
-merge_package https://github.com/sbwml/luci-app-mosdns luci-app-mosdns/luci-app-mosdns
+merge_package https://github.com/sbwml/luci-app-mosdns luci-app-mosdns
 merge_package https://github.com/sbwml/luci-app-mosdns luci-app-mosdns/mosdns
 
 # alist
@@ -154,7 +153,7 @@ rm -rf feeds/luci/applications/luci-app-turboacc
 merge_package https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/luci-app-turboacc
 
 # passwall
-merge_package "-b main https://github.com/xiaorouji/openwrt-passwall" openwrt-passwall
+merge_package https://github.com/xiaorouji/openwrt-passwall openwrt-passwall/luci-app-passwall
 
 # passwall2
 # merge_package https://github.com/xiaorouji/openwrt-passwall2 openwrt-passwall2/luci-app-passwall2
@@ -215,14 +214,14 @@ sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/m
 sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/view/v2ray_server/*.htm
 
 # 调整阿里云盘webdav到存储菜单
-sed -i 's/services/nas/g' package/luci-app-aliyundrive-webdav/luasrc/controller/*.lua
-sed -i 's/services/nas/g' package/luci-app-aliyundrive-webdav/luasrc/model/cbi/aliyundrive-webdav/*.lua
-sed -i 's/services/nas/g' package/luci-app-aliyundrive-webdav/luasrc/view/aliyundrive-webdav/*.htm
+sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/controller/*.lua
+sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/model/cbi/aliyundrive-webdav/*.lua
+sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/view/aliyundrive-webdav/*.htm
 
 # 调整阿里云盘fuse到存储菜单
-sed -i 's/services/nas/g' package/luci-app-aliyundrive-fuse/luasrc/controller/*.lua
-sed -i 's/services/nas/g' package/luci-app-aliyundrive-fuse/luasrc/model/cbi/aliyundrive-fuse/*.lua
-sed -i 's/services/nas/g' package/luci-app-aliyundrive-fuse/luasrc/view/aliyundrive-fuse/*.htm
+sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/controller/*.lua
+sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/model/cbi/aliyundrive-fuse/*.lua
+sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/view/aliyundrive-fuse/*.htm
 
 # 修改插件名字
 # sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
