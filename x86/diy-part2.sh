@@ -27,6 +27,7 @@ function merge_feed(){
     ./scripts/feeds update $1
     ./scripts/feeds install -a -p $1
 }
+rm -rf package/custom; mkdir package/custom
 
 #允许ROOT编译
 export FORCE_UNSAFE_CONFIGURE=1
