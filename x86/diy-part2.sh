@@ -14,7 +14,7 @@ function merge_package(){
     pkg=`echo $2 | rev | cut -d'/' -f 1 | rev`
     find package/ -follow -name $pkg -not -path "package/custom/*" | xargs -rt rm -rf
     git clone --depth=1 --single-branch $1
-    mv $2 package/
+    mv $2 package/custom/
     rm -rf $repo
 }
 function drop_package(){
@@ -163,7 +163,7 @@ merge_package "-b main https://github.com/xiaorouji/openwrt-passwall" openwrt-pa
 merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
 # svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
-pushd package/luci-app-openclash/tools/po2lmo
+pushd package/custom/luci-app-openclash/tools/po2lmo
 make && sudo make install
 popd
 
