@@ -9,6 +9,53 @@
 echo "开始 DIY2 配置……"
 echo "========================="
 
+function merge_package(){
+    repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
+    pkg=`echo $2 | rev | cut -d'/' -f 1 | rev`
+    find package/ -follow -name $pkg -not -path "package/custom/*" | xargs -rt rm -rf
+    git clone --depth=1 --single-branch $1
+    mv $2 package/
+    rm -rf $repo
+}
+function drop_package(){
+    find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
+}
+function merge_feed(){
+    if [ ! -d "feed/$1" ]; then
+        echo >> feeds.conf.default
+        echo "src-git $1 $2" >> feeds.conf.default
+    fi
+    ./scripts/feeds update $1
+    ./scripts/feeds install -a -p $1
+}
+
+rm -rf feeds/packages/net/mosdns package/feeds/packages/mosdns
+rm -rf package/custom; mkdir package/custom
+merge_feed nas "https://github.com/linkease/nas-packages;master"
+merge_feed nas_luci "https://github.com/linkease/nas-packages-luci;main"
+rm -r package/feeds/nas_luci/luci-app-ddnsto
+merge_feed helloworld "https://github.com/stupidloud/helloworld;tmp"
+merge_package https://github.com/ilxp/luci-app-ikoolproxy luci-app-ikoolproxy
+merge_package https://github.com/sundaqiang/openwrt-packages openwrt-packages/luci-app-wolplus
+merge_package https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/aliyundrive-webdav
+merge_package https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/luci-app-aliyundrive-webdav
+merge_package "-b 18.06 https://github.com/jerrykuku/luci-theme-argon" luci-theme-argon
+merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
+merge_package https://github.com/NateLol/luci-app-oled luci-app-oled
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/brook
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/chinadns-ng
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/trojan-go
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/trojan-plus
+merge_package https://github.com/xiaorouji/openwrt-passwall-packages openwrt-passwall-packages/sing-box
+merge_package "-b main https://github.com/xiaorouji/openwrt-passwall" openwrt-passwall
+merge_package https://github.com/jerrykuku/lua-maxminddb lua-maxminddb
+merge_package https://github.com/kongfl888/luci-app-adguardhome luci-app-adguardhome
+drop_package luci-app-cd8021x
+drop_package luci-app-cifs
+drop_package verysync
+drop_package luci-app-verysync
+drop_package luci-app-mosdns
+
 #允许ROOT编译
 export FORCE_UNSAFE_CONFIGURE=1
 
@@ -53,8 +100,8 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-n
 # vssr
 # git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 # git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
-svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci/lua-maxminddb package/lua-maxminddb
-svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci/luci-app-vssr package/luci-app-vssr
+merge_package https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/wall-luci/lua-maxminddb
+merge_package https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/wall-luci/luci-app-vssr
 
 # netdata 中文
 # rm -rf feeds/luci/applications/luci-app-netdata
@@ -67,8 +114,8 @@ svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/wall-luci/luci
 git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # ddnsto
-svn co https://github.com/linkease/nas-packages-luci/trunk/luci/luci-app-ddnsto package/luci-app-ddnsto
-svn co https://github.com/linkease/nas-packages/trunk/network/services/ddnsto package/ddnsto
+merge_package https://github.com/linkease/nas-packages-luci nas-packages-luci/luci/luci-app-ddnsto
+merge_package https://github.com/linkease/nas-packages nas-packages/network/services/ddnsto
 
 # OpenAppFilter 应用过滤
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
@@ -81,7 +128,7 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 # svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
 
 # eqos 限速
-svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-eqos package/luci-app-eqos
+merge_package https://github.com/kenzok8/openwrt-packages openwrt-packages/luci-app-eqos
 
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
@@ -91,22 +138,22 @@ git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-p
 
 # adguardhome
 # git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
-svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/luci-app-adguardhome package/luci-app-adguardhome
+merge_package https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/luci-app-adguardhome
 
 # 阿里云盘webdav
 rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
 rm -rf feeds/packages/multimedia/aliyundrive-webdav
-svn co https://github.com/messense/aliyundrive-webdav/trunk/openwrt/luci-app-aliyundrive-webdav package/luci-app-aliyundrive-webdav
-svn co https://github.com/messense/aliyundrive-webdav/trunk/openwrt/aliyundrive-webdav package/aliyundrive-webdav
+merge_package https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/luci-app-aliyundrive-webdav
+merge_package https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/aliyundrive-webdav
 
 # 阿里云盘fuse
 rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
 rm -rf feeds/packages/multimedia/aliyundrive-fuse
-svn co https://github.com/messense/aliyundrive-fuse/trunk/openwrt/luci-app-aliyundrive-fuse package/luci-app-aliyundrive-fuse
-svn co https://github.com/messense/aliyundrive-fuse/trunk/openwrt/aliyundrive-fuse package/aliyundrive-fuse
+merge_package https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/luci-app-aliyundrive-fus
+merge_package https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/aliyundrive-fuse
 
 # filebrowser 文件浏览器
-svn co https://github.com/Lienol/openwrt-package/trunk/luci-app-filebrowser package/luci-app-filebrowser
+merge_package https://github.com/Lienol/openwrt-package openwrt-package/uci-app-filebrowser
 
 # smartdns
 rm -rf feeds/packages/net/smartdns
@@ -118,8 +165,8 @@ git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 # find ./ | grep Makefile | grep mosdns | xargs rm -f
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/luci/applications/luci-app-mosdns
-svn co https://github.com/sbwml/luci-app-mosdns/trunk/luci-app-mosdns package/luci-app-mosdns
-svn co https://github.com/sbwml/luci-app-mosdns/trunk/mosdns package/mosdns
+merge_package https://github.com/sbwml/luci-app-mosdns luci-app-mosdns/luci-app-mosdns
+merge_package https://github.com/sbwml/luci-app-mosdns luci-app-mosdns/mosdns
 
 # alist
 # rm -rf feeds/packages/lang/golang
@@ -131,16 +178,16 @@ git clone https://github.com/sbwml/luci-app-alist package/alist
 # sed -i '54,78d' feeds/luci/applications/luci-app-turboacc/luasrc/model/cbi/turboacc.lua
 # sed -i '7d;15d;21d' feeds/luci/applications/luci-app-turboacc/luasrc/view/turboacc/turboacc_status.htm
 rm -rf feeds/luci/applications/luci-app-turboacc
-svn co https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/luci-app-turboacc package/luci-app-turboacc
+merge_package https://github.com/xiangfeidexiaohuo/extra-ipk/trunk/patch/luci-app-turboacc package/luci-app-turboacc
 
 # passwall
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/luci-app-passwall package/luci-app-passwall
+merge_package "-b main https://github.com/xiaorouji/openwrt-passwall" openwrt-passwall
 
 # passwall2
-# svn co https://github.com/xiaorouji/openwrt-passwall2/trunk/luci-app-passwall2 package/luci-app-passwall2
+# merge_package https://github.com/xiaorouji/openwrt-passwall2 openwrt-passwall2/luci-app-passwall2
 
 # openclash
-svn co https://github.com/vernesong/OpenClash/trunk/luci-app-openclash package/luci-app-openclash
+merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
 # svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
 pushd package/luci-app-openclash/tools/po2lmo
