@@ -14,7 +14,7 @@ function merge_package(){
     pkg=`echo $2 | rev | cut -d'/' -f 1 | rev`
     # find package/ -follow -name $pkg -not -path "package/custom/*" | xargs -rt rm -rf
     git clone --depth=1 --single-branch $1
-    [ -d package/custom ] || mkdir package/custom
+    [ -d package/custom ] || mkdir -p package/custom
     mv $2 package/custom/
     rm -rf $repo
 }
