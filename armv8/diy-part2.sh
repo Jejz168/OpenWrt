@@ -106,7 +106,7 @@ git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/luci-a
 git_sparse_clone https://github.com/Lienol/openwrt-package openwrt-package/luci-app-filebrowser
 
 # passwall
-git_sparse_clone https://github.com/xiaorouji/openwrt-passwallopenwrt-passwall/luci-app-passwall
+git_sparse_clone https://github.com/xiaorouji/openwrt-passwall openwrt-passwall/luci-app-passwall
 
 # passwall2
 git_sparse_clone https://github.com/xiaorouji/openwrt-passwall2 openwrt-passwall2/luci-app-passwall2
