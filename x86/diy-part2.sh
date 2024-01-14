@@ -78,8 +78,8 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-n
 # vssr
 # git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 # git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/wall-luci/lua-maxminddb
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/wall-luci/luci-app-vssr
+git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/wall-luci/lua-maxminddb
+git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/wall-luci/luci-app-vssr
 
 # netdata 中文
 # rm -rf feeds/luci/applications/luci-app-netdata
@@ -92,8 +92,8 @@ git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/wal
 git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # ddnsto
-git_sparse_clone main https://github.com/linkease/nas-packages-luci luci/luci-app-ddnsto
-git_sparse_clone main https://github.com/linkease/nas-packages network/services/ddnsto
+git_sparse_clone https://github.com/linkease/nas-packages-luci nas-packages-luci/luci/luci-app-ddnsto
+git_sparse_clone https://github.com/linkease/nas-packages nas-packages/network/services/ddnsto
 
 # OpenAppFilter 应用过滤
 git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
@@ -106,7 +106,7 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 # svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
 
 # eqos 限速
-# git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
+git_sparse_clone https://github.com/kenzok8/openwrt-packages openwrt-packages/luci-app-eqos
 
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
@@ -116,22 +116,22 @@ git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-p
 
 # adguardhome
 # git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome
+git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/luci-app-adguardhome
 
 # 阿里云盘webdav
 rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
 rm -rf feeds/packages/multimedia/aliyundrive-webdav
-git_sparse_clone main https://github.com/messense/aliyundrive-webdav openwrt/luci-app-aliyundrive-webdav
-git_sparse_clone main https://github.com/messense/aliyundrive-webdav openwrt/aliyundrive-webdav
+git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/luci-app-aliyundrive-webdav
+git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/aliyundrive-webdav
 
 # 阿里云盘fuse
-# rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
-# rm -rf feeds/packages/multimedia/aliyundrive-fuse
-# git_sparse_clone main https://github.com/messense/aliyundrive-fuse openwrt/luci-app-aliyundrive-fuse
-# git_sparse_clone main https://github.com/messense/aliyundrive-fuse openwrt/aliyundrive-fuse
+rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
+rm -rf feeds/packages/multimedia/aliyundrive-fuse
+git_sparse_clone https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/luci-app-aliyundrive-fuse
+git_sparse_clone https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/aliyundrive-fuse
 
 # filebrowser 文件浏览器
-git_sparse_clone main https://github.com/Lienol/openwrt-package luci-app-filebrowser
+git_sparse_clone https://github.com/Lienol/openwrt-package openwrt-package/luci-app-filebrowser
 
 # smartdns
 rm -rf feeds/packages/net/smartdns
@@ -143,8 +143,8 @@ git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 # find ./ | grep Makefile | grep mosdns | xargs rm -f
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/luci/applications/luci-app-mosdns
-git_sparse_clone v5 https://github.com/sbwml/luci-app-mosdns luci-app-mosdns
-git_sparse_clone v5 https://github.com/sbwml/luci-app-mosdns mosdns
+git_sparse_clone https://github.com/sbwml/luci-app-mosdns luci-app-mosdns
+git_sparse_clone https://github.com/sbwml/luci-app-mosdns luci-app-mosdns/mosdns
 
 # alist
 # rm -rf feeds/packages/lang/golang
@@ -156,17 +156,17 @@ git clone https://github.com/sbwml/luci-app-alist package/alist
 # sed -i '54,78d' feeds/luci/applications/luci-app-turboacc/luasrc/model/cbi/turboacc.lua
 # sed -i '7d;15d;21d' feeds/luci/applications/luci-app-turboacc/luasrc/view/turboacc/turboacc_status.htm
 rm -rf feeds/luci/applications/luci-app-turboacc
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/luci-app-turboacc
+git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/luci-app-turboacc
 
 # passwall
-git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
+git_sparse_clone https://github.com/xiaorouji/openwrt-passwall openwrt-passwall/luci-app-passwall
 
 # passwall2
-# git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
+# git_sparse_clone https://github.com/xiaorouji/openwrt-passwall2 openwrt-passwall2/luci-app-passwall2
 
 # openclash
-git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
-# git_sparse_clone dev https://github.com/vernesong/OpenClash luci-app-openclash
+git_sparse_clone https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
+# svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
 pushd package/custom/luci-app-openclash/tools/po2lmo
 make && sudo make install
