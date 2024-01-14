@@ -14,20 +14,11 @@ function git_sparse_clone(){
     repo=$(echo $1 | rev | cut -d'/' -f 1 | rev)
     pkg=$(echo $2 | rev | cut -d'/' -f 1 | rev)
     branch=$3  # 获取第三个参数作为分支名，如果不存在则使用默认分支
-    new_name=$4  # 获取第四个参数作为新的本地仓库名称，如果不存在则使用第三个参数或默认仓库名
 
     if [ -z "$branch" ]; then
-        if [ -z "$new_name" ]; then
-            git clone --depth=1 --single-branch $1
-        else
-            git clone --depth=1 --single-branch $1 $new_name
-        fi
+        git clone --depth=1 --single-branch $1
     else
-        if [ -z "$new_name" ] || [ ! "$new_name" ]; then
-            git clone --depth=1 --single-branch -b $branch $1
-        else
-            git clone --depth=1 --single-branch -b $branch $1 $new_name
-        fi
+        git clone -b $branch --depth=1 --single-branch $1
     fi
 
     mv $2 package/custom/
@@ -201,7 +192,7 @@ sed -i 's/<a href=\"https:\/\/github.com\/coolsnowwolf\/luci\">/<a>/g' feeds/luc
 # EOF
 
 # 晶晨宝盒
-git_sparse_clone https://github.com/ophub/luci-app-amlogic amlogic/luci-app-amlogic main amlogic
+git clone -b main --depth 1 https://github.com/ophub/luci-app-amlogic amlogic && mv -n amlogic/luci-app-amlogic package/custom/luci-app-amlogic ; rm -rf amlogic
 sed -i "s|https.*/OpenWrt|https://github.com/Jejz168/OpenWrt|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
 # sed -i "s|http.*/library|https://github.com/Jejz168/OpenWrt/backup/kernel|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
 sed -i "s|ARMv8|ARMv8|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
