@@ -148,10 +148,10 @@ rm -rf feeds/luci/themes/luci-theme-netgear
 rm -rf feeds/luci/themes/luci-theme-design
 rm -rf feeds/luci/applications/luci-app-argon-config
 rm -rf feeds/luci/applications/luci-app-design-config
-git_sparse_clone https://github.com/rosywrt/luci-theme-rosy luci-theme-rosy
-git_sparse_clone https://github.com/haiibo/openwrt-packages luci-theme-atmaterial_new
-git_sparse_clone https://github.com/haiibo/openwrt-packages luci-theme-opentomcat
-git_sparse_clone https://github.com/haiibo/openwrt-packages luci-theme-netgear
+git_sparse_clone openwrt-18.06 https://github.com/rosywrt/luci-theme-rosy luci-theme-rosy
+git_sparse_clone master https://github.com/haiibo/openwrt-packages luci-theme-atmaterial_new
+git_sparse_clone master https://github.com/haiibo/openwrt-packages luci-theme-opentomcat
+git_sparse_clone master https://github.com/haiibo/openwrt-packages luci-theme-netgear
 git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone -b 18.06 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
