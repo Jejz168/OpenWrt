@@ -34,7 +34,7 @@ function git_sparse_clone(){
 }
 rm -rf package/custom; mkdir package/custom
 
-#允许ROOT编译
+# 允许ROOT编译
 export FORCE_UNSAFE_CONFIGURE=1
 
 # 修改主机名字，修改你喜欢的就行（不能纯数字或者使用中文）
@@ -106,7 +106,7 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 # svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
 
 # eqos 限速
-git_sparse_clone https://github.com/kenzok8/openwrt-packages openwrt-packages/luci-app-eqos
+# git_sparse_clone https://github.com/kenzok8/openwrt-packages openwrt-packages/luci-app-eqos
 
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
@@ -125,10 +125,10 @@ git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webd
 git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/aliyundrive-webdav
 
 # 阿里云盘fuse
-rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
-rm -rf feeds/packages/multimedia/aliyundrive-fuse
-git_sparse_clone https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/luci-app-aliyundrive-fuse
-git_sparse_clone https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/aliyundrive-fuse
+# rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
+# rm -rf feeds/packages/multimedia/aliyundrive-fuse
+# git_sparse_clone https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/luci-app-aliyundrive-fuse
+# git_sparse_clone https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/aliyundrive-fuse
 
 # filebrowser 文件浏览器
 git_sparse_clone https://github.com/Lienol/openwrt-package openwrt-package/luci-app-filebrowser
