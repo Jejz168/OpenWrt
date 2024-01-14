@@ -10,12 +10,27 @@ echo "开始 DIY2 配置……"
 echo "========================="
 
 function git_sparse_clone(){
-    branch="$1" repourl="$2" && shift 2
-    git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
-    repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
-    cd $repodir && git sparse-checkout set $@
-    mv -f $@ ../package/custom/
-    cd .. && rm -rf $repodir
+    repo=$(echo $1 | rev | cut -d'/' -f 1 | rev)
+    pkg=$(echo $2 | rev | cut -d'/' -f 1 | rev)
+    branch=$3  # 获取第三个参数作为分支名，如果不存在则使用默认分支
+    new_name=$4  # 获取第四个参数作为新的本地仓库名称，如果不存在则使用第三个参数或默认仓库名
+
+    if [ -z "$branch" ]; then
+        if [ -z "$new_name" ]; then
+            git clone --depth=1 --single-branch $1
+        else
+            git clone --depth=1 --single-branch $1 $new_name
+        fi
+    else
+        if [ -z "$new_name" ] || [ ! "$new_name" ]; then
+            git clone --depth=1 --single-branch -b $branch $1
+        else
+            git clone --depth=1 --single-branch -b $branch $1 $new_name
+        fi
+    fi
+
+    mv $2 package/custom/
+    rm -rf $repo
 }
 rm -rf package/custom; mkdir package/custom
 
