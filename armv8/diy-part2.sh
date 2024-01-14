@@ -11,12 +11,27 @@ echo "开始 DIY2 配置……"
 echo "========================="
 
 function git_sparse_clone(){
-    branch="$1" repourl="$2" && shift 2
-    git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
-    repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
-    cd $repodir && git sparse-checkout set $@
-    mv -f $@ ../package/custom/
-    cd .. && rm -rf $repodir
+    repo=$(echo $1 | rev | cut -d'/' -f 1 | rev)
+    pkg=$(echo $2 | rev | cut -d'/' -f 1 | rev)
+    branch=$3  # 获取第三个参数作为分支名，如果不存在则使用默认分支
+    new_name=$4  # 获取第四个参数作为新的本地仓库名称，如果不存在则使用第三个参数或默认仓库名
+
+    if [ -z "$branch" ]; then
+        if [ -z "$new_name" ]; then
+            git clone --depth=1 --single-branch $1
+        else
+            git clone --depth=1 --single-branch $1 $new_name
+        fi
+    else
+        if [ -z "$new_name" ] || [ ! "$new_name" ]; then
+            git clone --depth=1 --single-branch -b $branch $1
+        else
+            git clone --depth=1 --single-branch -b $branch $1 $new_name
+        fi
+    fi
+
+    mv $2 package/custom/
+    rm -rf $repo
 }
 rm -rf package/custom; mkdir package/custom
 
@@ -47,22 +62,22 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 # vssr
 # git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 # git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/wall-luci/lua-maxminddb
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/wall-luci/luci-app-vssr
+git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk patch/wall-luci/lua-maxminddb
+git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk patch/wall-luci/luci-app-vssr
 
 # ikoolproxy
 # git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 # cp -f $GITHUB_WORKSPACE/personal/files/* package/luci-app-ikoolproxy/koolproxy/files
 
 # ddnsto
-git_sparse_clone main https://github.com/linkease/nas-packages-luci luci/luci-app-ddnsto
-git_sparse_clone master https://github.com/linkease/nas-packages network/services/ddnsto
+git_sparse_clone https://github.com/linkease/nas-packages-luci luci/luci-app-ddnsto
+git_sparse_clone https://github.com/linkease/nas-packages network/services/ddnsto
 
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
 
 # 晶晨宝盒
-git_sparse_clone main https://github.com/ophub/luci-app-amlogic luci-app-amlogic
+git_sparse_clone https://github.com/ophub/luci-app-amlogic amlogic/luci-app-amlogic main amlogic
 sed -i "s|https.*/OpenWrt|https://github.com/Jejz168/OpenWrt|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
 # sed -i "s|http.*/library|https://github.com/Jejz168/OpenWrt/backup/kernel|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
 sed -i "s|ARMv8|ARMv8|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
@@ -70,14 +85,14 @@ sed -i "s|ARMv8|ARMv8|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
 # 阿里云盘webdav
 rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
 rm -rf feeds/packages/multimedia/aliyundrive-webdav
-git_sparse_clone main https://github.com/messense/aliyundrive-webdav openwrt/luci-app-aliyundrive-webdav
-git_sparse_clone main https://github.com/messense/aliyundrive-webdav openwrt/aliyundrive-webdav
+git_sparse_clone https://github.com/messense/aliyundrive-webdav openwrt/luci-app-aliyundrive-webdav
+git_sparse_clone https://github.com/messense/aliyundrive-webdav openwrt/aliyundrive-webdav
 
 # 阿里云盘fuse
 # rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
 # rm -rf feeds/packages/multimedia/aliyundrive-fuse
-# git_sparse_clone main https://github.com/messense/aliyundrive-fuse openwrt/luci-app-aliyundrive-fuse
-# git_sparse_clone main https://github.com/messense/aliyundrive-fuse openwrt/aliyundrive-fuse
+# git_sparse_clone https://github.com/messense/aliyundrive-fuse openwrt/luci-app-aliyundrive-fuse
+# git_sparse_clone https://github.com/messense/aliyundrive-fuse openwrt/aliyundrive-fuse
 
 # autotimeset 定时
 # git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
@@ -87,20 +102,20 @@ git_sparse_clone main https://github.com/messense/aliyundrive-webdav openwrt/ali
 
 # adguardhome
 # git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome
+git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome
 
 # dockerman
 # rm -rf feeds/luci/applications/luci-app-dockerman
 # svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
 
 # filebrowser 文件浏览器
-git_sparse_clone main https://github.com/Lienol/openwrt-package luci-app-filebrowser
+git_sparse_clone https://github.com/Lienol/openwrt-package luci-app-filebrowser
 
 # passwall
-git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
+git_sparse_clone https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
 
 # passwall2
-git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
+git_sparse_clone https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
 
 # smartdns
 rm -rf feeds/packages/net/smartdns
@@ -117,15 +132,15 @@ git clone https://github.com/sbwml/luci-app-alist package/alist
 # find ./ | grep Makefile | grep mosdns | xargs rm -f
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/luci/applications/luci-app-mosdns
-git_sparse_clone v5 https://github.com/sbwml/luci-app-mosdns luci-app-mosdns
-git_sparse_clone v5 https://github.com/sbwml/luci-app-mosdns mosdns
+git_sparse_clone https://github.com/sbwml/luci-app-mosdns luci-app-mosdns
+git_sparse_clone https://github.com/sbwml/luci-app-mosdns mosdns
 
 # turboacc 去dns
 # sed -i '60,70d' feeds/luci/applications/luci-app-turboacc/Makefile
 # sed -i '54,78d' feeds/luci/applications/luci-app-turboacc/luasrc/model/cbi/turboacc.lua
 # sed -i '7d;15d;21d' feeds/luci/applications/luci-app-turboacc/luasrc/view/turboacc/turboacc_status.htm
 rm -rf feeds/luci/applications/luci-app-turboacc
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/luci-app-turboacc
+git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk patch/luci-app-turboacc
 
 # netdata 中文
 # rm -rf feeds/luci/applications/luci-app-netdata
@@ -138,7 +153,7 @@ git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/luc
 git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # eqos 限速
-git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
+git_sparse_clone https://github.com/kenzok8/openwrt-packages luci-app-eqos
 
 # openclash
 git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
@@ -154,10 +169,10 @@ rm -rf feeds/luci/themes/luci-theme-netgear
 rm -rf feeds/luci/themes/luci-theme-design
 rm -rf feeds/luci/applications/luci-app-argon-config
 rm -rf feeds/luci/applications/luci-app-design-config
-git_sparse_clone openwrt-18.06 https://github.com/rosywrt/luci-theme-rosy luci-theme-rosy
-git_sparse_clone master https://github.com/haiibo/openwrt-packages luci-theme-atmaterial_new
-git_sparse_clone master https://github.com/haiibo/openwrt-packages luci-theme-opentomcat
-git_sparse_clone master https://github.com/haiibo/openwrt-packages luci-theme-netgear
+git_sparse_clone https://github.com/rosywrt/luci-theme-rosy luci-theme-rosy
+git_sparse_clone https://github.com/haiibo/openwrt-packages luci-theme-atmaterial_new
+git_sparse_clone https://github.com/haiibo/openwrt-packages luci-theme-opentomcat
+git_sparse_clone https://github.com/haiibo/openwrt-packages luci-theme-netgear
 git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone -b 18.06 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
