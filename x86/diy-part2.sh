@@ -91,7 +91,7 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 # svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
 
 # eqos 限速
-git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
+# git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
 
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
