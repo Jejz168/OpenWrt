@@ -56,7 +56,7 @@ git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/wal
 
 # ddnsto
 git_sparse_clone main https://github.com/linkease/nas-packages-luci luci/luci-app-ddnsto
-git_sparse_clone main https://github.com/linkease/nas-packages network/services/ddnsto
+git_sparse_clone master https://github.com/linkease/nas-packages network/services/ddnsto
 
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
