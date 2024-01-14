@@ -10,24 +10,13 @@ echo "========================="
 echo "开始 DIY2 配置……"
 echo "========================="
 
-function merge_package(){
-    repo=`echo $1 | rev | cut -d'/' -f 1 | rev`
-    pkg=`echo $2 | rev | cut -d'/' -f 1 | rev`
-    # find package/ -follow -name $pkg -not -path "package/custom/*" | xargs -rt rm -rf
-    git clone --depth=1 --single-branch $1
-    mv $2 package/custom/
-    rm -rf $repo
-}
-function drop_package(){
-    find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
-}
-function merge_feed(){
-    if [ ! -d "feed/$1" ]; then
-        echo >> feeds.conf.default
-        echo "src-git $1 $2" >> feeds.conf.default
-    fi
-    ./scripts/feeds update $1
-    ./scripts/feeds install -a -p $1
+function git_sparse_clone(){
+    branch="$1" repourl="$2" && shift 2
+    git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
+    repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
+    cd $repodir && git sparse-checkout set $@
+    mv -f $@ ../package/custom/
+    cd .. && rm -rf $repodir
 }
 rm -rf package/custom; mkdir package/custom
 
@@ -58,16 +47,16 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 # vssr
 # git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
 # git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
-merge_package https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/wall-luci/lua-maxminddb
-merge_package https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/wall-luci/luci-app-vssr
+git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/wall-luci/lua-maxminddb
+git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/wall-luci/luci-app-vssr
 
 # ikoolproxy
 # git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
 # cp -f $GITHUB_WORKSPACE/personal/files/* package/luci-app-ikoolproxy/koolproxy/files
 
 # ddnsto
-merge_package https://github.com/linkease/nas-packages-luci nas-packages-luci/luci/luci-app-ddnsto
-merge_package https://github.com/linkease/nas-packages nas-packages/network/services/ddnsto
+git_sparse_clone main https://github.com/linkease/nas-packages-luci luci/luci-app-ddnsto
+git_sparse_clone main https://github.com/linkease/nas-packages network/services/ddnsto
 
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
@@ -75,14 +64,14 @@ git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-p
 # 阿里云盘webdav
 rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
 rm -rf feeds/packages/multimedia/aliyundrive-webdav
-merge_package https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/luci-app-aliyundrive-webdav
-merge_package https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/aliyundrive-webdav
+git_sparse_clone main https://github.com/messense/aliyundrive-webdav openwrt/luci-app-aliyundrive-webdav
+git_sparse_clone main https://github.com/messense/aliyundrive-webdav openwrt/aliyundrive-webdav
 
 # 阿里云盘fuse
-rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
-rm -rf feeds/packages/multimedia/aliyundrive-fuse
-merge_package https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/luci-app-aliyundrive-fuse
-merge_package https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/aliyundrive-fuse
+# rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
+# rm -rf feeds/packages/multimedia/aliyundrive-fuse
+# git_sparse_clone main https://github.com/messense/aliyundrive-fuse openwrt/luci-app-aliyundrive-fuse
+# git_sparse_clone main https://github.com/messense/aliyundrive-fuse openwrt/aliyundrive-fuse
 
 # autotimeset 定时
 # git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
@@ -92,20 +81,20 @@ merge_package https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/open
 
 # adguardhome
 # git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
-merge_package https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/luci-app-adguardhome
+git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome
 
 # dockerman
 # rm -rf feeds/luci/applications/luci-app-dockerman
 # svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
 
 # filebrowser 文件浏览器
-merge_package https://github.com/Lienol/openwrt-package openwrt-package/luci-app-filebrowser
+git_sparse_clone main https://github.com/Lienol/openwrt-package luci-app-filebrowser
 
 # passwall
-merge_package https://github.com/xiaorouji/openwrt-passwall openwrt-passwall/luci-app-passwall
+git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
 
 # passwall2
-merge_package https://github.com/xiaorouji/openwrt-passwall2 openwrt-passwall2/luci-app-passwall2
+git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
 
 # smartdns
 rm -rf feeds/packages/net/smartdns
@@ -122,15 +111,15 @@ git clone https://github.com/sbwml/luci-app-alist package/alist
 # find ./ | grep Makefile | grep mosdns | xargs rm -f
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/luci/applications/luci-app-mosdns
-merge_package https://github.com/sbwml/luci-app-mosdns luci-app-mosdns
-merge_package https://github.com/sbwml/luci-app-mosdns luci-app-mosdns/mosdns
+git_sparse_clone v5 https://github.com/sbwml/luci-app-mosdns luci-app-mosdns
+git_sparse_clone v5 https://github.com/sbwml/luci-app-mosdns mosdns
 
 # turboacc 去dns
 # sed -i '60,70d' feeds/luci/applications/luci-app-turboacc/Makefile
 # sed -i '54,78d' feeds/luci/applications/luci-app-turboacc/luasrc/model/cbi/turboacc.lua
 # sed -i '7d;15d;21d' feeds/luci/applications/luci-app-turboacc/luasrc/view/turboacc/turboacc_status.htm
 rm -rf feeds/luci/applications/luci-app-turboacc
-merge_package https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/luci-app-turboacc
+git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk patch/luci-app-turboacc
 
 # netdata 中文
 # rm -rf feeds/luci/applications/luci-app-netdata
@@ -143,11 +132,11 @@ merge_package https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/luc
 git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # eqos 限速
-merge_package https://github.com/kenzok8/openwrt-packages openwrt-packages/luci-app-eqos
+git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
 
 # openclash
-merge_package https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
-# svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
+git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
+# git_sparse_clone dev https://github.com/vernesong/OpenClash luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
 pushd package/custom/luci-app-openclash/tools/po2lmo
 make && sudo make install
@@ -159,10 +148,10 @@ rm -rf feeds/luci/themes/luci-theme-netgear
 rm -rf feeds/luci/themes/luci-theme-design
 rm -rf feeds/luci/applications/luci-app-argon-config
 rm -rf feeds/luci/applications/luci-app-design-config
-merge_package https://github.com/rosywrt/luci-theme-rosy luci-theme-rosy
-merge_package https://github.com/haiibo/openwrt-packages openwrt-packages/luci-theme-atmaterial_new
-merge_package https://github.com/haiibo/openwrt-packages openwrt-packages/luci-theme-opentomcat
-merge_package https://github.com/haiibo/openwrt-packages openwrt-packages/luci-theme-netgear
+git_sparse_clone https://github.com/rosywrt/luci-theme-rosy luci-theme-rosy
+git_sparse_clone https://github.com/haiibo/openwrt-packages luci-theme-atmaterial_new
+git_sparse_clone https://github.com/haiibo/openwrt-packages luci-theme-opentomcat
+git_sparse_clone https://github.com/haiibo/openwrt-packages luci-theme-netgear
 git clone https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
 git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone -b 18.06 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
@@ -197,10 +186,10 @@ sed -i 's/<a href=\"https:\/\/github.com\/coolsnowwolf\/luci\">/<a>/g' feeds/luc
 # EOF
 
 # 晶晨宝盒
-merge_package https://github.com/ophub/luci-app-amlogic luci-app-amlogic
-sed -i "s|https.*/OpenWrt|https://github.com/Jejz168/OpenWrt|g" package/custom/luci-app-amlogic/luci-app-amlogic/root/etc/config/amlogic
-# sed -i "s|http.*/library|https://github.com/Jejz168/OpenWrt/backup/kernel|g" package/custom/luci-app-amlogic/luci-app-amlogic/root/etc/config/amlogic
-sed -i "s|ARMv8|ARMv8|g" package/custom/luci-app-amlogic/luci-app-amlogic/root/etc/config/amlogic
+git_sparse_clone main https://github.com/ophub/luci-app-amlogic luci-app-amlogic
+sed -i "s|https.*/OpenWrt|https://github.com/Jejz168/OpenWrt|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
+# sed -i "s|http.*/library|https://github.com/Jejz168/OpenWrt/backup/kernel|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
+sed -i "s|ARMv8|ARMv8|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
 
 # 修改makefile
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
@@ -219,9 +208,9 @@ sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/mode
 sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/view/aliyundrive-webdav/*.htm
 
 # 调整阿里云盘fuse到存储菜单
-sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/controller/*.lua
-sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/model/cbi/aliyundrive-fuse/*.lua
-sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/view/aliyundrive-fuse/*.htm
+# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/controller/*.lua
+# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/model/cbi/aliyundrive-fuse/*.lua
+# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/view/aliyundrive-fuse/*.htm
 
 # 修改插件名字
 # sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
