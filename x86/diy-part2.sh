@@ -13,20 +13,11 @@ function git_sparse_clone(){
     repo=$(echo $1 | rev | cut -d'/' -f 1 | rev)
     pkg=$(echo $2 | rev | cut -d'/' -f 1 | rev)
     branch=$3  # 获取第三个参数作为分支名，如果不存在则使用默认分支
-    new_name=$4  # 获取第四个参数作为新的本地仓库名称，如果不存在则使用第三个参数或默认仓库名
 
     if [ -z "$branch" ]; then
-        if [ -z "$new_name" ]; then
-            git clone --depth=1 --single-branch $1
-        else
-            git clone --depth=1 --single-branch $1 $new_name
-        fi
+        git clone --depth=1 --single-branch $1
     else
-        if [ -z "$new_name" ] || [ ! "$new_name" ]; then
-            git clone --depth=1 --single-branch -b $branch $1
-        else
-            git clone --depth=1 --single-branch -b $branch $1 $new_name
-        fi
+        git clone --depth=1 --single-branch -b $branch $1
     fi
 
     mv $2 package/custom/
