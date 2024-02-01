@@ -72,7 +72,7 @@ jobs:
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
         sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
-        sudo -E apt-get -y install libfuse-dev
+        sudo -E apt-get -y install libfuse-dev clang
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo timedatectl set-timezone "$TZ"
