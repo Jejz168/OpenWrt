@@ -107,16 +107,14 @@ jobs:
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /builder/workdir
-        sudo chown $USER:$GROUPS /builder/workdir
         df -Th
 
     - name: Clone source code
-      working-directory: /builder/workdir
+      working-directory: /builder
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /builder/workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="Author: %an")
         Date=$(git show -s --date=short --format="date: %ci")
