@@ -45,7 +45,7 @@ sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/tt
 # sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.7.2/g' feeds/Jejz/xray-core/Makefile
 # sed -i 's/PKG_HASH:=.*/PKG_HASH:=e35824e19e8acc06296ce6bfa78a14a6f3ee8f42a965f7762b7056b506457a29/g' feeds/Jejz/xray-core/Makefile
 # cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
-rm -rf package/feeds/packages/perl-xml-parser
+# rm -rf package/feeds/packages/perl-xml-parser
 
 # svn co 复制 仓库下的文件夹 git clone 复制整个仓库
 # OpenAppFilter 应用过滤
