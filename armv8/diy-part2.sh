@@ -111,8 +111,8 @@ git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-a
 git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
 
 # alist
-# rm -rf feeds/packages/lang/golang
-# git clone https://github.com/sbwml/packages_lang_golang -b 20.x feeds/packages/lang/golang
+rm -rf feeds/packages/lang/golang
+git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 git clone https://github.com/sbwml/luci-app-alist package/alist
 
 # mosdns
