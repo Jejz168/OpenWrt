@@ -1217,7 +1217,7 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e $CONFIG_FILE ] && mv x86/x86_66.config openwrt/.config
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
