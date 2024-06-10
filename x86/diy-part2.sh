@@ -61,7 +61,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-n
 # sed -i 's/PKG_HASH:=.*/PKG_HASH:=e35824e19e8acc06296ce6bfa78a14a6f3ee8f42a965f7762b7056b506457a29/g' feeds/Jejz/xray-core/Makefile
 # cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
 # cp -f $GITHUB_WORKSPACE/personal/chinadns-ng/* feeds/Jejz/chinadns-ng
-cp -f $GITHUB_WORKSPACE/personal/softethervpn5/* packages/net/softethervpn5
+cp -f $GITHUB_WORKSPACE/personal/softethervpn5/* feeds/packages/net/softethervpn5
 rm -rf feeds/packages/utils/v2dat
 rm -rf package/feeds/packages/qemu
 
