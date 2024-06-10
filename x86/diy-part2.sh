@@ -62,6 +62,7 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-n
 # cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
 # cp -f $GITHUB_WORKSPACE/personal/chinadns-ng/* feeds/Jejz/chinadns-ng
 cp -f $GITHUB_WORKSPACE/personal/softethervpn5/* feeds/packages/net/softethervpn5
+cp -f $GITHUB_WORKSPACE/personal/softethervpn5/* package/feeds/packages/softethervpn5
 rm -rf feeds/packages/utils/v2dat
 rm -rf package/feeds/packages/qemu
 
