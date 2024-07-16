@@ -62,7 +62,7 @@ on:
       openwrt_version:
         description: "Set the openwrt version"
         required: false
-        default: "R24.6.6"
+        default: "R24.7.7"
   #schedule:
     #- cron: '45 22 * * *'
 
