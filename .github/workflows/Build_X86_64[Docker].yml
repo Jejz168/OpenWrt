@@ -184,6 +184,10 @@ jobs:
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_4=y/g' .config
 
+        sed -i '/# CONFIG_PACKAGE_mt76-test is not set/d' .config
+
+        sed -i '/# CONFIG_PACKAGE_kmod-mt76 is not set/d' .config
+
         sed -i '/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
 
         sed -i '/CONFIG_PACKAGE_kmod-mt76-core=y/d' .config
@@ -451,6 +455,10 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_15=y/g' .config
+
+        sed -i '/# CONFIG_PACKAGE_mt76-test is not set/d' .config
+
+        sed -i '/# CONFIG_PACKAGE_kmod-mt76 is not set/d' .config
 
         sed -i '/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
 
