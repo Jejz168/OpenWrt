@@ -207,13 +207,13 @@ jobs:
 
         sed -i '/# CONFIG_PACKAGE_mt76-test is not set/d' .config
 
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-connac=y/# CONFIG_PACKAGE_kmod-mt76-connac is not set/g' .config
 
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-core=y/d' .config
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-core=y/# CONFIG_PACKAGE_kmod-mt76-core is not set/g' .config
 
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-sdio=y/d' .config
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-sdio=y/# CONFIG_PACKAGE_kmod-mt76-sdio is not set/g' .config
 
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-usb=y/d' .config
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-usb=y/# CONFIG_PACKAGE_kmod-mt76-usb is not set/g' .config
 
         sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=5120/g' .config
 
