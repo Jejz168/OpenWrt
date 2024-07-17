@@ -127,7 +127,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo -E swapoff -a
-        sudo -E rm -f /swapfile
+        sudo -E rm -f /swapfile /mnt/swapfile
         sudo -E docker image prune -a -f
         sudo -E snap set system refresh.retain=2
         sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
@@ -138,17 +138,38 @@ jobs:
         sudo -E apt-get -y install libfuse-dev clang
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
+        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
+        sudo rm -rf ~/{.cargo,.dotnet,.rustup}
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        df -Th
+
+    - name: Create VG & LV
+      run: |
+        mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
+        root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
+        sudo truncate -s "$mnt_size"G /mnt/mnt.img
+        sudo truncate -s "$root_size"G /root.img
+        sudo losetup /dev/loop6 /mnt/mnt.img
+        sudo losetup /dev/loop7 /root.img
+        sudo pvcreate /dev/loop6
+        sudo pvcreate /dev/loop7
+        sudo vgcreate github /dev/loop6 /dev/loop7
+        sudo lvcreate -n runner -l 100%FREE github
+        sudo mkfs.xfs /dev/github/runner
+
+    - name: Mount LV
+      run: |
+        sudo mkdir -p /builder
+        sudo mount /dev/github/runner /builder
+        sudo chown -R runner.runner /builder
         df -Th
 
     - name: Clone source code
-      working-directory: /workdir
+      working-directory: /builder
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="%an")
         Date=$(git show -s --date=short --format="%ci")
@@ -667,7 +688,7 @@ jobs:
         DEBIAN_FRONTEND: noninteractive
       run: |
         sudo -E swapoff -a
-        sudo -E rm -f /swapfile
+        sudo -E rm -f /swapfile /mnt/swapfile
         sudo -E docker image prune -a -f
         sudo -E snap set system refresh.retain=2
         sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
@@ -678,17 +699,38 @@ jobs:
         sudo -E apt-get -y install libfuse-dev clang
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
+        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
+        sudo rm -rf ~/{.cargo,.dotnet,.rustup}
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        df -Th
+
+    - name: Create VG & LV
+      run: |
+        mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
+        root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
+        sudo truncate -s "$mnt_size"G /mnt/mnt.img
+        sudo truncate -s "$root_size"G /root.img
+        sudo losetup /dev/loop6 /mnt/mnt.img
+        sudo losetup /dev/loop7 /root.img
+        sudo pvcreate /dev/loop6
+        sudo pvcreate /dev/loop7
+        sudo vgcreate github /dev/loop6 /dev/loop7
+        sudo lvcreate -n runner -l 100%FREE github
+        sudo mkfs.xfs /dev/github/runner
+
+    - name: Mount LV
+      run: |
+        sudo mkdir -p /builder
+        sudo mount /dev/github/runner /builder
+        sudo chown -R runner.runner /builder
         df -Th
 
     - name: Clone source code
-      working-directory: /workdir
+      working-directory: /builder
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="%an")
         Date=$(git show -s --date=short --format="%ci")
