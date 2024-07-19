@@ -218,7 +218,7 @@ jobs:
       with:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」固件
         allowUpdates: true
-        tag: ${{ env.TAG }}66_${{ env.KERNEL }}
+        tag: ${{ env.TAG }}168_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 固件
@@ -256,7 +256,7 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}66_${{ env.KERNEL }}
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}168_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
