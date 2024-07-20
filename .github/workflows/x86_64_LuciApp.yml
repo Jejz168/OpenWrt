@@ -120,9 +120,9 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
         
-        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g' target/linux/x86/Makefile
+        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
         
-        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.4/g' target/linux/x86/Makefile
+        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
     - name: Modify configuration
       run: |
@@ -130,7 +130,7 @@ jobs:
         cd openwrt && make defconfig
         sed -i '/CONFIG_DEFAULT_luci/'d .config
 
-        sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_4=y/g' .config
+        sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_15=y/g' .config
 
         sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=5120/g' .config
 
