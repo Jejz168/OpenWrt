@@ -129,6 +129,31 @@ jobs:
         cat $EXTERNAL_FILE >> openwrt/.config
         cd openwrt && make defconfig
         sed -i '/CONFIG_DEFAULT_luci/'d .config
+        sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_4=y/g' .config
+        echo " 系统空间       类型   总数  已用  可用  使用率"
+        df -hT $PWD
+        echo
+        echo "=========================================="
+        grep -i CONFIG_PACKAGE_luci-app .config | grep  -v \# > Plug-in
+        grep -i CONFIG_PACKAGE_luci-theme .config | grep  -v \# >> Plug-in
+        sed -i '/INCLUDE/d' Plug-in > /dev/null 2>&1
+        sed -i 's/CONFIG_PACKAGE_/、/g' Plug-in
+        sed -i '/Transparent_Proxy/d' Plug-in > /dev/null 2>&1
+        sed -i 's/=y/\ /g' Plug-in
+        awk '$0=NR$0' Plug-in > Plug-2
+        awk '{print "	" $0}' Plug-2 > Plug-in
+        echo
+        echo
+        echo "	      已选插件列表"
+        cat Plug-in
+        rm -rf {Plug-in,Plug-2}
+        echo
+        echo "=========================================="
+        echo
+        echo
+        echo "输出完整插件信息..."
+        echo
+        echo
         cat .config
 
     - name: SSH connection to Actions
@@ -162,7 +187,7 @@ jobs:
         echo "=========================================="
         echo "----------------空间使用-------------------"
         echo "=========================================="
-        echo " 系统空间      类型   总数  已用  可用 使用率"
+        echo " 系统空间       类型   总数  已用  可用  使用率"
         df -hT
         echo "=========================================="
         du -h --max-depth=1 openwrt/ --exclude=build_dir --exclude=bin
@@ -218,12 +243,12 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[测试]固件
         allowUpdates: true
         tag: ${{ env.TAG }}168_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[测试] 固件
+          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 固件
           - 🔴默认IP：192.168.8.3 默认密码：无密码
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
@@ -261,4 +286,4 @@ jobs:
         📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}168_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
-        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
+        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}_${{ env.KERNEL }}[测试]编译完成&content=${MSG}"
