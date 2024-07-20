@@ -13,7 +13,8 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: x86/x86-LuciApp.config
+  CONFIG_FILE: x86/x86-64.config
+  EXTERNAL_FILE: x86/x86-LuciApp.config
   DIY_P1_SH: x86/diy-part1.sh
   DIY_P2_SH: x86/diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -125,6 +126,7 @@ jobs:
 
     - name: Modify configuration
       run: |
+        cat $EXTERNAL_FILE >> openwrt/.config
         cd openwrt && make defconfig
         sed -i '/CONFIG_DEFAULT_luci/'d .config
         cat .config
