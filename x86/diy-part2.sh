@@ -82,6 +82,9 @@ git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/
 # ddns-go 动态域名
 # git clone https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
 
+# chatgpt
+git clone https://github.com/sirpdboy/chatgpt-web.git package/luci-app-chatgpt
+
 # lucky 大吉
 git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
 
