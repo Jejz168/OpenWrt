@@ -83,7 +83,7 @@ git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/
 # git clone https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
 
 # chatgpt
-git clone https://github.com/sirpdboy/chatgpt-web.git package/luci-app-chatgpt
+git clone https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
 
 # lucky 大吉
 git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
@@ -116,10 +116,10 @@ git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-p
 git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/luci-app-adguardhome
 
 # 阿里云盘webdav
-rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
-rm -rf feeds/packages/multimedia/aliyundrive-webdav
-git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/luci-app-aliyundrive-webdav
-git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/aliyundrive-webdav
+# rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
+# rm -rf feeds/packages/multimedia/aliyundrive-webdav
+# git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/luci-app-aliyundrive-webdav
+# git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/aliyundrive-webdav
 
 # 阿里云盘fuse
 # rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
@@ -217,9 +217,9 @@ sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/m
 sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/view/v2ray_server/*.htm
 
 # 调整阿里云盘webdav到存储菜单
-sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/controller/*.lua
-sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/model/cbi/aliyundrive-webdav/*.lua
-sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/view/aliyundrive-webdav/*.htm
+# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/controller/*.lua
+# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/model/cbi/aliyundrive-webdav/*.lua
+# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/view/aliyundrive-webdav/*.htm
 
 # 调整阿里云盘fuse到存储菜单
 # sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/controller/*.lua
