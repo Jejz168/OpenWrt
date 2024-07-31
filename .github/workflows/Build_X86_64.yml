@@ -111,8 +111,6 @@ jobs:
         echo ${{ steps.getHash.outputs.commitHash_x86 }} | tee .commitHash_x86
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   job_init: 
-    needs: [Checka]
-    if: ${{ needs.Checka.outputs.output != 'hello'}}
     runs-on: ubuntu-latest
     name: Build-Init
     outputs:
