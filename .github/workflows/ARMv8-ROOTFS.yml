@@ -31,11 +31,83 @@ env:
   TZ: Asia/Shanghai
   FILE_NAME: ARMv8-ROOTFS
   PRODUCT_NAME: ARMv8-ROOTFS
+  
+jobs: 
+  job_init: 
+    runs-on: ubuntu-latest
+    name: Build-Init
+    outputs:
+      output_release_tag: ${{ steps.gen_release_tag.outputs.release_tag }}
+    steps:
+      - name: Generate Tag Name
+        id: gen_release_tag
+        run: |
+          echo "release_tag=multi-platform_$(date +"%Y.%m.%d_%H.%M.%S")" >> $GITHUB_OUTPUT
+          sudo timedatectl set-timezone "$TZ"
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
+          cd /workdir
+          sudo mkdir -p output
+          sudo chown $USER:$GROUPS /workdir/output
+          ln -sf /workdir/output $GITHUB_WORKSPACE/output
 
-jobs:
-  build:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Clone Source Code
+        working-directory: /workdir
+        run: |
+          git clone $REPO_URL -b $REPO_BRANCH openwrt
+          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+      - name: Load Custom Feeds
+        run: |
+          [ -e $FEEDS_CONF ] && cp -r $FEEDS_CONF openwrt/feeds.conf.default
+          chmod +x $DIY_P1_SH
+          cd openwrt
+          $GITHUB_WORKSPACE/$DIY_P1_SH
+
+      - name: Update Feeds
+        run: cd openwrt && ./scripts/feeds update -a
+
+      - name: Install Feeds
+        run: cd openwrt && ./scripts/feeds install -a
+
+      - name: Make Defconfig Custom Configuration
+        run: |
+          chmod +x $DIY_P2_SH
+          cd openwrt
+          $GITHUB_WORKSPACE/$DIY_P2_SH
+          
+          cd ..
+          platforms=(armv8)
+          for i in "${platforms[@]}"; do
+            [ -e $CONFIGS/$i.config ] && cp -r $CONFIGS/$i.config openwrt/.config
+            cd openwrt
+            echo ""
+            echo "make defconfig for $i platform....."
+            echo "result:"
+            make defconfig
+            cd ..
+            cp -f openwrt/.config $CONFIGS/$i.config
+          done
+          cd openwrt
+          rm -rf .config
+
+      - name: Git Auto Update Config
+        uses: stefanzweifel/git-auto-commit-action@v5.0.0
+        id: commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commit_message: auto update config
+          branch: main
+          commit_author: Jejz168 <Jejz168@foxmail.com>
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Build_ARMv8-ROOTFS:
+    needs: [job_init]
     runs-on: ubuntu-22.04
-
+    
     steps:
     - name: Checkout
       uses: actions/checkout@v3
