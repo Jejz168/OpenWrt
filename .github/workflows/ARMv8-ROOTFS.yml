@@ -50,8 +50,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@main
-        with:
-         path: /workdir/openwrt
 
       - name: Clone Source Code
         working-directory: /workdir
