@@ -119,14 +119,9 @@ jobs:
       - name: Generate Tag Name
         id: gen_release_tag
         run: |
-          echo "release_tag=multi-platform_$(date +"%Y.%m.%d_%H.%M.%S")" >> $GITHUB_OUTPUT
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
-          cd /workdir
-          sudo mkdir -p output
-          sudo chown $USER:$GROUPS /workdir/output
-          ln -sf /workdir/output $GITHUB_WORKSPACE/output
 
       - name: Checkout
         uses: actions/checkout@main
