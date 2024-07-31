@@ -109,8 +109,70 @@ jobs:
       run: |
         echo ${{ steps.getHash.outputs.commitHash_x86 }} | tee .commitHash_x86
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  job_init: 
+    runs-on: ubuntu-latest
+    name: Build-Init
+    outputs:
+      output_release_tag: ${{ steps.gen_release_tag.outputs.release_tag }}
+      output_sha: ${{steps.commit.outputs.commit_hash }}
+      output_platforms: ${{steps.read-platforms.outputs.platforms}}
+    steps:
+      - name: Generate Tag Name
+        id: gen_release_tag
+        run: |
+          echo "release_tag=multi-platform_$(date +"%Y.%m.%d_%H.%M.%S")" >> $GITHUB_OUTPUT
+          sudo timedatectl set-timezone "$TZ"
+          sudo mkdir -p /workdir
+          sudo chown $USER:$GROUPS /workdir
+          cd /workdir
+          sudo mkdir -p output
+          sudo chown $USER:$GROUPS /workdir/output
+          ln -sf /workdir/output $GITHUB_WORKSPACE/output
+
+      - name: Checkout
+        uses: actions/checkout@main
+        with:
+          fetch-depth: 0
+
+      - name: Clone Source Code
+        working-directory: /workdir
+        run: |
+          git clone $REPO_URL -b $REPO_BRANCH openwrt
+          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+      - name: Load Custom Feeds
+        run: |
+          [ -e $FEEDS_CONF ] && cp -r $FEEDS_CONF openwrt/feeds.conf.default
+          chmod +x $DIY_P1_SH
+          cd openwrt
+          $GITHUB_WORKSPACE/$DIY_P1_SH
+
+      - name: Update Feeds
+        run: cd openwrt && ./scripts/feeds update -a
+
+      - name: Install Feeds
+        run: cd openwrt && ./scripts/feeds install -a
+
+      - name: Make Defconfig Custom Configuration
+        run: |
+          chmod +x $DIY_P2_SH
+          chmod +x $MAKE_DEFCONFIG_SH
+          cd openwrt
+          $GITHUB_WORKSPACE/$DIY_P2_SH
+          $GITHUB_WORKSPACE/$MAKE_DEFCONFIG_SH
+
+      - name: Git Auto Update Config
+        uses: stefanzweifel/git-auto-commit-action@v5.0.0
+        id: commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commit_message: auto update config
+          branch: main
+          commit_author: Jejz168 <Jejz168@foxmail.com>
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_54:
-    needs: [Checka]
+    needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates54 == 'true'}}
     runs-on: ubuntu-22.04
 
@@ -366,7 +428,7 @@ jobs:
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_510:
-    needs: [Checka]
+    needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates510 == 'true'}}
     runs-on: ubuntu-22.04
 
@@ -622,7 +684,7 @@ jobs:
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
-    needs: [Checka]
+    needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates515 == 'true'}}
     runs-on: ubuntu-22.04
 
@@ -878,7 +940,7 @@ jobs:
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_61:
-    needs: [Checka]
+    needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates61 == 'true'}}
     runs-on: ubuntu-22.04
 
@@ -1139,7 +1201,7 @@ jobs:
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_66:
-    needs: [Checka]
+    needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates66 == 'true'}}
     runs-on: ubuntu-22.04
 
