@@ -47,10 +47,6 @@ jobs:
           sudo timedatectl set-timezone "$TZ"
           sudo mkdir -p /workdir
           sudo chown $USER:$GROUPS /workdir
-          cd /workdir
-          sudo mkdir -p output
-          sudo chown $USER:$GROUPS /workdir/output
-          ln -sf /workdir/output $GITHUB_WORKSPACE/output
 
       - name: Checkout
         uses: actions/checkout@main
@@ -103,7 +99,6 @@ jobs:
         with:
           commit_message: auto update config
           branch: main
-          push_options: '--force'
           commit_author: Jejz168 <Jejz168@foxmail.com>
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_ARMv8-ROOTFS:
