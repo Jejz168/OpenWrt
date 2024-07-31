@@ -115,8 +115,6 @@ jobs:
     name: Build-Init
     outputs:
       output_release_tag: ${{ steps.gen_release_tag.outputs.release_tag }}
-      output_sha: ${{steps.commit.outputs.commit_hash }}
-      output_platforms: ${{steps.read-platforms.outputs.platforms}}
     steps:
       - name: Generate Tag Name
         id: gen_release_tag
@@ -132,8 +130,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@main
-        with:
-          fetch-depth: 0
 
       - name: Clone Source Code
         working-directory: /workdir
@@ -162,7 +158,7 @@ jobs:
           
           cd ..
           #platforms=(X86 R5S R5C R4S R4SE R2S R2C H66K H68K H69K R66S R68S R_PI_3b R_PI_4b)
-          platforms=(X86)
+          platforms=(x86)
           for i in "${platforms[@]}"; do
             [ -e $CONFIGS/$i.config ] && cp -r $CONFIGS/$i.config openwrt/.config
             cd openwrt
