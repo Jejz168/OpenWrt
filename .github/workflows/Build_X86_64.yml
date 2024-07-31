@@ -158,7 +158,7 @@ jobs:
           $GITHUB_WORKSPACE/$DIY_P2_SH
           
           cd ..
-          platforms=(x86 armv8)
+          platforms=(x86)
           for i in "${platforms[@]}"; do
             [ -e $CONFIGS/$i.config ] && cp -r $CONFIGS/$i.config openwrt/.config
             cd openwrt
