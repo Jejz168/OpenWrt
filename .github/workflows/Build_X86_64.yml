@@ -58,6 +58,7 @@ env:
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: x86/x86.config
+  CONFIGS: x86
   DIY_P1_SH: x86/diy-part1.sh
   DIY_P2_SH: x86/diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -156,10 +157,24 @@ jobs:
       - name: Make Defconfig Custom Configuration
         run: |
           chmod +x $DIY_P2_SH
-          chmod +x $MAKE_DEFCONFIG_SH
           cd openwrt
           $GITHUB_WORKSPACE/$DIY_P2_SH
-          $GITHUB_WORKSPACE/$MAKE_DEFCONFIG_SH
+          
+          cd ..
+          #platforms=(X86 R5S R5C R4S R4SE R2S R2C H66K H68K H69K R66S R68S R_PI_3b R_PI_4b)
+          platforms=(X86)
+          for i in "${platforms[@]}"; do
+            [ -e $CONFIGS/$i.config ] && cp -r $CONFIGS/$i.config openwrt/.config
+            cd openwrt
+            echo ""
+            echo "make defconfig for $i platform....."
+            echo "result:"
+            make defconfig
+            cd ..
+            cp -f openwrt/.config $CONFIGS/$i.config
+          done
+          cd openwrt
+          rm -rf .config
 
       - name: Git Auto Update Config
         uses: stefanzweifel/git-auto-commit-action@v5.0.0
