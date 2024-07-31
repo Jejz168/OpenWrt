@@ -103,6 +103,7 @@ jobs:
         with:
           commit_message: auto update config
           branch: main
+          push_options: '--force'
           commit_author: Jejz168 <Jejz168@foxmail.com>
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_ARMv8-ROOTFS:
