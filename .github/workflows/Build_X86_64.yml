@@ -112,6 +112,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   job_init: 
     needs: [Checka]
+    if: ${{ needs.Checka.outputs.output != 'hello'}}
     runs-on: ubuntu-latest
     name: Build-Init
     outputs:
