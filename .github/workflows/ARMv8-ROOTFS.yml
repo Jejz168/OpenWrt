@@ -50,6 +50,8 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@main
+        with:
+          fetch-depth: 0
 
       - name: Clone Source Code
         working-directory: /workdir
