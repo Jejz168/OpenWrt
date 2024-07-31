@@ -60,7 +60,7 @@ jobs:
         run: |
           [ -e $FEEDS_CONF ] && cp -r $FEEDS_CONF /workdir/openwrt/feeds.conf.default
           chmod +x $DIY_P1_SH
-          cd openwrt
+          cd /workdir/openwrt
           $GITHUB_WORKSPACE/$DIY_P1_SH
 
       - name: Update Feeds
@@ -72,7 +72,7 @@ jobs:
       - name: Make Defconfig Custom Configuration
         run: |
           chmod +x $DIY_P2_SH
-          cd openwrt
+          cd /workdir/openwrt
           $GITHUB_WORKSPACE/$DIY_P2_SH
           
           cd ..
