@@ -51,26 +51,25 @@ jobs:
       - name: Checkout
         uses: actions/checkout@main
         with:
-          fetch-depth: 0
+         path: /workdir/openwrt
 
       - name: Clone Source Code
         working-directory: /workdir
         run: |
           git clone $REPO_URL -b $REPO_BRANCH openwrt
-          ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
       - name: Load Custom Feeds
         run: |
-          [ -e $FEEDS_CONF ] && cp -r $FEEDS_CONF openwrt/feeds.conf.default
+          [ -e $FEEDS_CONF ] && cp -r $FEEDS_CONF /workdir/openwrt/feeds.conf.default
           chmod +x $DIY_P1_SH
           cd openwrt
           $GITHUB_WORKSPACE/$DIY_P1_SH
 
       - name: Update Feeds
-        run: cd openwrt && ./scripts/feeds update -a
+        run: cd /workdir/openwrt && ./scripts/feeds update -a
 
       - name: Install Feeds
-        run: cd openwrt && ./scripts/feeds install -a
+        run: cd /workdir/openwrt && ./scripts/feeds install -a
 
       - name: Make Defconfig Custom Configuration
         run: |
@@ -81,14 +80,14 @@ jobs:
           cd ..
           platforms=(armv8)
           for i in "${platforms[@]}"; do
-            [ -e $CONFIGS/$i.config ] && cp -r $CONFIGS/$i.config openwrt/.config
+            [ -e $CONFIGS/$i.config ] && cp -r $CONFIGS/$i.config /workdir/openwrt/.config
             cd openwrt
             echo ""
             echo "make defconfig for $i platform....."
             echo "result:"
             make defconfig
             cd ..
-            cp -f openwrt/.config $CONFIGS/$i.config
+            cp -f /workdir/openwrt/.config $CONFIGS/$i.config
           done
           cd openwrt
           rm -rf .config
