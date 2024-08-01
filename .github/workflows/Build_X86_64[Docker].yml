@@ -343,7 +343,7 @@ jobs:
         name: ${{ env.DATE }} 🐳「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 」固件
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.TAG }}6_${{ env.KERNEL }}
+        tag: ${{ env.TAG }}_Docker_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 固件
@@ -481,16 +481,6 @@ jobs:
 
         sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=5120/g' .config
 
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
-
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-core=y/d' .config
-
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-sdio=y/d' .config
-
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-usb=y/d' .config
-
-        sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=5120/g' .config
-
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
         sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g' target/linux/x86/Makefile
@@ -615,7 +605,7 @@ jobs:
         name: ${{ env.DATE }} 🐳「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 」固件
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.TAG }}6_${{ env.KERNEL }}
+        tag: ${{ env.TAG }}_Docker_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 固件
@@ -896,7 +886,7 @@ jobs:
         name: ${{ env.DATE }} 🐳「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 」固件
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.TAG }}6_${{ env.KERNEL }}
+        tag: ${{ env.TAG }}_Docker_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker] 固件
