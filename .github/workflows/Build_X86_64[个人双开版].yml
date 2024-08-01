@@ -181,6 +181,8 @@ jobs:
 
         sed -i 's/CONFIG_PACKAGE_kmod-mt76-usb=y/# CONFIG_PACKAGE_kmod-mt76-usb is not set/g' .config
 
+        rm -rf package/kernel/mt76
+
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_4=y/g' .config
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g' target/linux/x86/Makefile
