@@ -108,6 +108,7 @@ jobs:
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Revision=$(grep "DISTRIB_REVISION=" package/lean/default-settings/files/zzz-default-settings | awk -F"'" '{print $2}')
+        echo "Extracted DISTRIB_REVISION: ${Revision}"
         Author=$(git show -s --date=short --format="Author: %an")
         Date=$(git show -s --date=short --format="date: %ci")
         Commit=$(git show -s --date=short --format="commit: %s")
