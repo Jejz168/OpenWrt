@@ -207,8 +207,6 @@ jobs:
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_4=y/g' .config
 
-        sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=5120/g' .config
-
         sed -i 's/CONFIG_PACKAGE_kmod-mt76-connac=y/# CONFIG_PACKAGE_kmod-mt76-connac is not set/g' .config
 
         sed -i 's/CONFIG_PACKAGE_kmod-mt76-core=y/# CONFIG_PACKAGE_kmod-mt76-core is not set/g' .config
@@ -382,7 +380,7 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}6_${{ env.KERNEL }}
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
@@ -644,7 +642,7 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}6_${{ env.KERNEL }}
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
@@ -925,7 +923,7 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}6_${{ env.KERNEL }}
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
