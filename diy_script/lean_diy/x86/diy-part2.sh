@@ -100,7 +100,6 @@ git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
 # dockerman
 rm -rf feeds/luci/applications/luci-app-dockerman
-rm -rf feeds/luci/applications/luci-app-docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 
 # eqos 限速
