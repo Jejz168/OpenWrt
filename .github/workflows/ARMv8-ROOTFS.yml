@@ -90,17 +90,15 @@ jobs:
           cd openwrt
           rm -rf .config
 
-      - name: Commit
-        run: |
-          git config --global user.name "Jejz168"
-          git config --global user.email "Jejz168@foxmail.com"
-          git add $CONFIGS/*.config
-          git commit -m "Auto update config: $(date +%Y-%m-%d" "%H:%M)" -a
-          
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      - name: Git Auto Update Config
+        uses: stefanzweifel/git-auto-commit-action@v5.0.0
+        id: commit
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-         github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: auto update config
+          branch: main
+          commit_author: Jejz168 <Jejz168@foxmail.com>
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_ARMv8-ROOTFS:
     needs: [job_init]
