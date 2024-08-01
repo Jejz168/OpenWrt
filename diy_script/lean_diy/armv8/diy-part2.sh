@@ -94,7 +94,6 @@ git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/luci-a
 
 # dockerman
 rm -rf feeds/luci/applications/luci-app-dockerman
-rm -rf feeds/luci/applications/luci-app-docker
 git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 
 # filebrowser 文件浏览器
