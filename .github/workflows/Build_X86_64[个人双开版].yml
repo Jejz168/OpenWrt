@@ -185,7 +185,7 @@ jobs:
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g' target/linux/x86/Makefile
 
-        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.4/g' target/linux/x86/Makefile
+        #sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.4/g' target/linux/x86/Makefile
 
         sed -i 's/192.168.8.3/192.168.8.5/g' package/base-files/files/bin/config_generate
 
@@ -309,7 +309,7 @@ jobs:
         name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版] 」固件
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.TAG }}8_${{ env.KERNEL }}
+        tag: ${{ env.TAG }}_Personal_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版] 固件
@@ -348,7 +348,7 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}8_${{ env.KERNEL }}
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Personal_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[个人双开版]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
@@ -445,7 +445,7 @@ jobs:
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
-        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g' target/linux/x86/Makefile
+        #sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
         sed -i 's/192.168.8.3/192.168.8.5/g' package/base-files/files/bin/config_generate
 
@@ -569,7 +569,7 @@ jobs:
         name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版] 」固件
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.TAG }}8_${{ env.KERNEL }}
+        tag: ${{ env.TAG }}_Personal_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版] 固件
@@ -608,7 +608,7 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}8_${{ env.KERNEL }}
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Personal_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[个人双开版]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
