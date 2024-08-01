@@ -36,12 +36,12 @@ on:
       kernel_download:
         description: "Select kernel download"
         required: false
-        default: "Jejz168/compile-kernel"
+        default: "breakings/OpenWrt"
         type: choice
         options:
-          - Jejz168/compile-kernel
           - breakings/OpenWrt
           - ophub/kernel
+          - Jejz168/compile-kernel
       kernel_version:
         description: "Select kernel version"
         required: false
@@ -59,10 +59,6 @@ on:
           - 5.15.100
           - 6.1.8
           - 6.6.18
-      openwrt_version:
-        description: "Set the openwrt version"
-        required: false
-        default: "R24.7.7"
   #schedule:
     #- cron: '45 22 * * *'
 
