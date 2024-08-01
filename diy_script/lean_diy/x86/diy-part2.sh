@@ -9,19 +9,14 @@
 echo "开始 DIY2 配置……"
 echo "========================="
 
-function git_sparse_clone(){
-    repo=$(echo $1 | rev | cut -d'/' -f 1 | rev)
-    pkg=$(echo $2 | rev | cut -d'/' -f 1 | rev)
-    branch=$3  # 获取第三个参数作为分支名，如果不存在则使用默认分支
-
-    if [ -z "$branch" ]; then
-        git clone --depth=1 --single-branch $1
-    else
-        git clone --depth=1 --single-branch -b $branch $1
-    fi
-
-    mv $2 package/custom/
-    rm -rf $repo
+# Git稀疏克隆，只克隆指定目录到本地
+function git_sparse_clone() {
+  branch="$1" repourl="$2" && shift 2
+  git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
+  repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
+  cd $repodir && git sparse-checkout set $@
+  mv -f $@ ../package/custom
+  cd .. && rm -rf $repodir
 }
 rm -rf package/custom; mkdir package/custom
 
@@ -65,104 +60,70 @@ rm -rf feeds/packages/utils/v2dat
 rm -rf package/feeds/packages/qemu
 
 # svn co 复制 仓库下的文件夹 git clone 复制整个仓库
-# ikoolproxy
-# git clone https://github.com/iwrt/luci-app-ikoolproxy.git package/luci-app-ikoolproxy
-# cp -f $GITHUB_WORKSPACE/personal/files/* package/luci-app-ikoolproxy/koolproxy/files
 
-# vssr
-# git clone https://github.com/jerrykuku/lua-maxminddb.git package/lua-maxminddb
-# git clone https://github.com/jerrykuku/luci-app-vssr.git package/luci-app-vssr
-git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/wall-luci/lua-maxminddb
-git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/wall-luci/luci-app-vssr
-
-# netdata 中文
-# rm -rf feeds/luci/applications/luci-app-netdata
-# svn co https://github.com/sirpdboy/sirpdboy-package/trunk/luci-app-netdata package/luci-app-netdata
+# vssr adguardhome turboacc去dns
+rm -rf feeds/luci/applications/luci-app-turboacc
+git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 
 # ddns-go 动态域名
-# git clone https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
+# git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
 
 # chatgpt
-git clone https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
+git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
 
 # lucky 大吉
-git clone https://github.com/gdy666/luci-app-lucky.git package/lucky
+git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # ddnsto
-git_sparse_clone https://github.com/linkease/nas-packages-luci nas-packages-luci/luci/luci-app-ddnsto
-git_sparse_clone https://github.com/linkease/nas-packages nas-packages/network/services/ddnsto
+git_sparse_clone main https://github.com/linkease/nas-packages-luci luci/luci-app-ddnsto
+git_sparse_clone master https://github.com/linkease/nas-packages network/services/ddnsto
 
 # OpenAppFilter 应用过滤
-git clone https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
 # autotimeset 定时
-# git clone https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
+# git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 
 # dockerman
 rm -rf feeds/luci/applications/luci-app-dockerman
-git clone https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
+git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 
 # eqos 限速
-# git_sparse_clone https://github.com/kenzok8/openwrt-packages openwrt-packages/luci-app-eqos
+# git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
 
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
 
 # unblockneteasemusic
-# git clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
-
-# adguardhome
-# git clone https://github.com/rufengsuixing/luci-app-adguardhome.git package/luci-app-adguardhome
-git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/luci-app-adguardhome
-
-# 阿里云盘webdav
-# rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
-# rm -rf feeds/packages/multimedia/aliyundrive-webdav
-# git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/luci-app-aliyundrive-webdav
-# git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/aliyundrive-webdav
-
-# 阿里云盘fuse
-# rm -rf feeds/luci/applications/luci-app-aliyundrive-fuse
-# rm -rf feeds/packages/multimedia/aliyundrive-fuse
-# git_sparse_clone https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/luci-app-aliyundrive-fuse
-# git_sparse_clone https://github.com/messense/aliyundrive-fuse aliyundrive-fuse/openwrt/aliyundrive-fuse
+# git clone --depth=1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 
 # filebrowser 文件浏览器
-git_sparse_clone https://github.com/Lienol/openwrt-package openwrt-package/luci-app-filebrowser
+git_sparse_clone main https://github.com/Lienol/openwrt-package luci-app-filebrowser
 
 # smartdns
 rm -rf feeds/packages/net/smartdns
 rm -rf feeds/luci/applications/luci-app-smartdns
-git clone -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
-git clone https://github.com/pymumu/openwrt-smartdns package/smartdns
+git clone --depth=1 -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
+git clone --depth=1 https://github.com/pymumu/openwrt-smartdns package/smartdns
 
 # mosdns
-# find ./ | grep Makefile | grep mosdns | xargs rm -f
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/luci/applications/luci-app-mosdns
-git_sparse_clone https://github.com/sbwml/luci-app-mosdns luci-app-mosdns
-git_sparse_clone https://github.com/sbwml/luci-app-mosdns luci-app-mosdns/mosdns
+git clone --depth=1 https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
 
 # alist
 rm -rf feeds/packages/lang/golang
-git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
-git clone https://github.com/sbwml/luci-app-alist package/alist
-
-# turboacc 去dns
-# sed -i '60,70d' feeds/luci/applications/luci-app-turboacc/Makefile
-# sed -i '54,78d' feeds/luci/applications/luci-app-turboacc/luasrc/model/cbi/turboacc.lua
-# sed -i '7d;15d;21d' feeds/luci/applications/luci-app-turboacc/luasrc/view/turboacc/turboacc_status.htm
-rm -rf feeds/luci/applications/luci-app-turboacc
-git_sparse_clone https://github.com/xiangfeidexiaohuo/extra-ipk extra-ipk/patch/luci-app-turboacc
+git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
+git clone --depth=1 https://github.com/sbwml/luci-app-alist package/alist
 
 # passwall
-git_sparse_clone https://github.com/xiaorouji/openwrt-passwall openwrt-passwall/luci-app-passwall
+git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
 
 # passwall2
-# git_sparse_clone https://github.com/xiaorouji/openwrt-passwall2 openwrt-passwall2/luci-app-passwall2
+# git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
 
 # openclash
-git_sparse_clone https://github.com/vernesong/OpenClash OpenClash/luci-app-openclash
+git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
 # svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
 pushd package/custom/luci-app-openclash/tools/po2lmo
@@ -174,11 +135,11 @@ rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/themes/luci-theme-design
 rm -rf feeds/luci/applications/luci-app-argon-config
 rm -rf feeds/luci/applications/luci-app-design-config
-git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
-git clone -b 18.06 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
-git clone https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
-git clone https://github.com/gngpp/luci-app-design-config.git package/luci-app-design-config
-git clone -b classic https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
+git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
+git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
+git clone --depth=1 https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
+git clone --depth=1 https://github.com/gngpp/luci-app-design-config.git package/luci-app-design-config
+git clone --depth=1 -b classic https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
 
 # 主机名右上角符号❤
 # sed -i 's/❤/❤/g' package/lean/luci-theme-argon_armygreen/luasrc/view/themes/argon_armygreen/header.htm
@@ -216,16 +177,6 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/controller/*.lua
 sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/model/cbi/v2ray_server/*.lua
 sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/view/v2ray_server/*.htm
-
-# 调整阿里云盘webdav到存储菜单
-# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/controller/*.lua
-# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/model/cbi/aliyundrive-webdav/*.lua
-# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/view/aliyundrive-webdav/*.htm
-
-# 调整阿里云盘fuse到存储菜单
-# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/controller/*.lua
-# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/model/cbi/aliyundrive-fuse/*.lua
-# sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-fuse/luasrc/view/aliyundrive-fuse/*.htm
 
 # 修改插件名字
 # sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
