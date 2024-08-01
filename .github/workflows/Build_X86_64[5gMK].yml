@@ -176,11 +176,19 @@ jobs:
         $GITHUB_WORKSPACE/$WGMK_SH
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-connac=y/# CONFIG_PACKAGE_kmod-mt76-connac is not set/g' .config
+
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-core=y/# CONFIG_PACKAGE_kmod-mt76-core is not set/g' .config
+
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-sdio=y/# CONFIG_PACKAGE_kmod-mt76-sdio is not set/g' .config
+
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-usb=y/# CONFIG_PACKAGE_kmod-mt76-usb is not set/g' .config
+
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_4=y/g' .config
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g' target/linux/x86/Makefile
 
-        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.4/g' target/linux/x86/Makefile
+        #sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.4/g' target/linux/x86/Makefile
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -302,7 +310,7 @@ jobs:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[5gMK] 」固件
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.TAG }}7_${{ env.KERNEL }}
+        tag: ${{ env.TAG }}_5gMK_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[5gMK] 固件
@@ -341,7 +349,7 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}7_${{ env.KERNEL }}
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_5gMK_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[5gMK]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
@@ -440,7 +448,7 @@ jobs:
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.1/g' target/linux/x86/Makefile
 
-        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=6.1/g' target/linux/x86/Makefile
+        #sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=6.1/g' target/linux/x86/Makefile
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -562,7 +570,7 @@ jobs:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[5gMK] 」固件
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.TAG }}7_${{ env.KERNEL }}
+        tag: ${{ env.TAG }}_5gMK_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
           - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[5gMK] 固件
@@ -601,7 +609,7 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}7_${{ env.KERNEL }}
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_5gMK_${{ env.KERNEL }}
         "
         curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[5gMK]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
