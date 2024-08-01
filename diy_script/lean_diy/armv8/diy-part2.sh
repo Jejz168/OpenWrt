@@ -105,8 +105,7 @@ git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-pa
 # 阿里云盘webdav
 rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
 rm -rf feeds/packages/multimedia/aliyundrive-webdav
-git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/luci-app-aliyundrive-webdav
-git_sparse_clone https://github.com/messense/aliyundrive-webdav aliyundrive-webdav/openwrt/aliyundrive-webdav
+git_sparse_clone main https://github.com/messense/aliyundrive-webdav openwrt/luci-app-aliyundrive-webdav openwrt/aliyundrive-webdav
 
 # openclash
 git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
