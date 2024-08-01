@@ -205,21 +205,23 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
+
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-core=y/d' .config
+
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-sdio=y/d' .config
+
+        sed -i 's/CONFIG_PACKAGE_kmod-mt76-usb=y/d' .config
+
+        rm -rf package/kernel/mt76
+
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_4=y/g' .config
-
-        sed -i 's/CONFIG_PACKAGE_kmod-mt76-connac=y/# CONFIG_PACKAGE_kmod-mt76-connac is not set/g' .config
-
-        sed -i 's/CONFIG_PACKAGE_kmod-mt76-core=y/# CONFIG_PACKAGE_kmod-mt76-core is not set/g' .config
-
-        sed -i 's/CONFIG_PACKAGE_kmod-mt76-sdio=y/# CONFIG_PACKAGE_kmod-mt76-sdio is not set/g' .config
-
-        sed -i 's/CONFIG_PACKAGE_kmod-mt76-usb=y/# CONFIG_PACKAGE_kmod-mt76-usb is not set/g' .config
 
         sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=5120/g' .config
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g' target/linux/x86/Makefile
 
-        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.4/g' target/linux/x86/Makefile
+        #sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.4/g' target/linux/x86/Makefile
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -481,7 +483,7 @@ jobs:
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
-        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g' target/linux/x86/Makefile
+        #sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -762,7 +764,7 @@ jobs:
 
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.6/g' target/linux/x86/Makefile
 
-        sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=6.6/g' target/linux/x86/Makefile
+        #sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=6.6/g' target/linux/x86/Makefile
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
