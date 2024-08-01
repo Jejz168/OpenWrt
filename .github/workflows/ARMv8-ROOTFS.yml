@@ -94,6 +94,7 @@ jobs:
         run: |
           git config --global user.name "Jejz168"
           git config --global user.email "Jejz168@foxmail.com"
+          cd /workdir/openwrt
           git add .
           git commit -m "Auto update config: $(date +%Y-%m-%d" "%H:%M)"
           git push
