@@ -125,7 +125,7 @@ jobs:
         OPENWRT_ARMVIRT: https://github.com/Jejz168/OpenWrt/releases/download/ARMv8-ROOTFS/openwrt-armvirt-64-generic-rootfs.tar.gz
         PACKAGE_SOC: ${{ github.event.inputs.openwrt_soc }}
         WHOAMI: Jejz
-        OPENWRT_VER: ${{ github.event.inputs.openwrt_version }}
+        OPENWRT_VER: ${{ env.revision }}
         DISTRIB_REVISION: ${{ env.revision }} (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))
         KERNEL_REPO_URL: https://github.com/${{ github.event.inputs.kernel_download }}/releases/tag/kernel_stable
         KERNEL_VERSION_NAME: ${{ github.event.inputs.kernel_version }}
@@ -207,6 +207,6 @@ jobs:
         内容: ${{ env.commit }}
         hash: ${{ env.hash }}
         ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}8_${{ env.KERNEL }}
+        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}
         "
         curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.PRODUCT_NAME }}打包完成&content=${MSG}"
