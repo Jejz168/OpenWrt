@@ -92,9 +92,9 @@ jobs:
 
       - name: Commit
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git add .
+          git config --global user.name "Jejz168"
+          git config --global user.email "Jejz168@foxmail.com"
+          git add $CONFIGS/*.config
           git commit -m "Auto update config: $(date +%Y-%m-%d" "%H:%M)" -a
           
       - name: Push changes
