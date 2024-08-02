@@ -89,6 +89,7 @@ jobs:
           done
           cd openwrt
           rm -rf .config
+          echo "COMMIT_TIME=Auto update config: $(date +'%Y-%m-%d %H:%M')" >> $GITHUB_ENV
 
       - name: Git Auto Update Config
         uses: stefanzweifel/git-auto-commit-action@v5.0.0
@@ -96,7 +97,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          commit_message: auto update config
+          commit_message: ${{ env.COMMIT_TIME }}
           branch: main
           commit_author: Jejz168 <Jejz168@foxmail.com>
           add_options: '-u'
