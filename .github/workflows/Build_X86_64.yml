@@ -175,6 +175,7 @@ jobs:
           commit_message: auto update config
           branch: main
           commit_author: Jejz168 <Jejz168@foxmail.com>
+          add_options: '-u'
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_54:
     needs: [Checka,job_init]
