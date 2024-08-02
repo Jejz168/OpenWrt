@@ -173,13 +173,13 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-        sed -i 's/CONFIG_PACKAGE_kmod-mt76-connac=y/# CONFIG_PACKAGE_kmod-mt76-connac is not set/g' .config
+        sed -i '/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
 
-        sed -i 's/CONFIG_PACKAGE_kmod-mt76-core=y/# CONFIG_PACKAGE_kmod-mt76-core is not set/g' .config
+        sed -i '/CONFIG_PACKAGE_kmod-mt76-core=y/d' .config
 
-        sed -i 's/CONFIG_PACKAGE_kmod-mt76-sdio=y/# CONFIG_PACKAGE_kmod-mt76-sdio is not set/g' .config
+        sed -i '/CONFIG_PACKAGE_kmod-mt76-sdio=y/d' .config
 
-        sed -i 's/CONFIG_PACKAGE_kmod-mt76-usb=y/# CONFIG_PACKAGE_kmod-mt76-usb is not set/g' .config
+        sed -i '/CONFIG_PACKAGE_kmod-mt76-usb=y/d' .config
 
         rm -rf package/kernel/mt76
 
