@@ -57,7 +57,6 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-n
 # cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
 # cp -f $GITHUB_WORKSPACE/personal/chinadns-ng/* feeds/Jejz/chinadns-ng
 rm -rf feeds/packages/utils/v2dat
-rm -rf package/feeds/packages/qemu
 
 # git_sparse_clone 复制 仓库下的文件夹 git clone 复制整个仓库
 # vssr adguardhome turboacc去dns
