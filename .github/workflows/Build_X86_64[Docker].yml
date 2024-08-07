@@ -386,41 +386,23 @@ jobs:
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
 
-    - name: Push notification
+    - name: Push notification upload success
       uses: xhnmt/pushplus-action@v1.0.0
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
         title: "[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
-           开始时间：${{ env.DATE }}
-           完成时间：${{ env.DATE1 }}
-           编译耗时：${{ env.time }}
-           🎈🎈🎈 更新信息 🎈🎈🎈
-           作者: ${{ env.author }}
-           时间: ${{ env.date }}
-           内容: ${{ env.commit }}
-           hash: ${{ env.hash }}
-           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
-        
-    - name: Telegram or Push notification
-      run: |
-        MSG="
-        ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
-        开始时间：${{ env.DATE }}
-        完成时间：${{ env.DATE1 }}
-        编译耗时：${{ env.time }}
-        🎈🎈🎈 更新信息 🎈🎈🎈
-        作者: ${{ env.author }}
-        时间: ${{ env.date }}
-        内容: ${{ env.commit }}
-        hash: ${{ env.hash }}
-        ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
-        "
-        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
-        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.DATE1 }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
     needs: [Checka]   
@@ -683,23 +665,23 @@ jobs:
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
 
-    - name: Push notification
+    - name: Push notification upload success
       uses: xhnmt/pushplus-action@v1.0.0
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
         title: "[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
-           开始时间：${{ env.DATE }}
-           完成时间：${{ env.DATE1 }}
-           编译耗时：${{ env.time }}
-           🎈🎈🎈 更新信息 🎈🎈🎈
-           作者: ${{ env.author }}
-           时间: ${{ env.date }}
-           内容: ${{ env.commit }}
-           hash: ${{ env.hash }}
-           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.DATE1 }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_66:
     needs: [Checka]   
@@ -981,20 +963,20 @@ jobs:
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
 
-    - name: Push notification
+    - name: Push notification upload success
       uses: xhnmt/pushplus-action@v1.0.0
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
         title: "[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
-           开始时间：${{ env.DATE }}
-           完成时间：${{ env.DATE1 }}
-           编译耗时：${{ env.time }}
-           🎈🎈🎈 更新信息 🎈🎈🎈
-           作者: ${{ env.author }}
-           时间: ${{ env.date }}
-           内容: ${{ env.commit }}
-           hash: ${{ env.hash }}
-           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.DATE1 }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
