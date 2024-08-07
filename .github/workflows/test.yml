@@ -1,0 +1,24 @@
+name: 'build-test'
+on:
+  push:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PUSHPLUS推送通知
+        uses: xhnmt/pushplus-action@v1.0.0
+        with:
+          token: ${{ secrets.PUSH_PLUS_TOKEN }}
+          title: "我是一个小测试😝"
+          content: |
+               ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
+                开始时间：${{ env.DATE }}
+                完成时间：${{ env.DATE1 }}
+                编译耗时：${{ env.time }}
+                🎈🎈🎈 更新信息 🎈🎈🎈
+                作者: ${{ env.author }}
+                时间: ${{ env.date }}
+                内容: ${{ env.commit }}
+                hash: ${{ env.hash }}
+                ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+                📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
