@@ -129,8 +129,8 @@ jobs:
         sudo -E swapoff -a
         sudo -E rm -f /swapfile /mnt/swapfile
         sudo -E snap set system refresh.retain=2
-        sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* moby* snap* aspnetcore*
+        sudo -E rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
         sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
@@ -359,7 +359,7 @@ jobs:
 
     - name: Completion time 
       run: |
-        echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "END=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         end=$(date +%s)
         seconds=$(( end - start ))
         hour=$(( $seconds/3600 ))
@@ -376,7 +376,7 @@ jobs:
         message: |
           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
           开始时间：${{ env.DATE }}
-          完成时间：${{ env.DATE1 }}
+          完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
           🎈🎈🎈 更新信息 🎈🎈🎈
           作者: ${{ env.author }}
@@ -387,14 +387,14 @@ jobs:
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
 
     - name: Push notification upload success
-      uses: xhnmt/pushplus-action@v1.0.0
+      uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
         title: "[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
           开始时间：${{ env.DATE }}
-          完成时间：${{ env.DATE1 }}
+          完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
           🎈🎈🎈 更新信息 🎈🎈🎈
           作者: ${{ env.author }}
@@ -439,25 +439,46 @@ jobs:
         sudo -E swapoff -a
         sudo -E rm -f /swapfile
         sudo -E snap set system refresh.retain=2
-        sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* moby* snap* aspnetcore*
+        sudo -E rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
         sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
         sudo -E apt-get -y install libfuse-dev clang
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
+        sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
+        sudo rm -rf ~/{.cargo,.dotnet,.rustup}
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
-        sudo chown $USER:$GROUPS /workdir
+        df -Th
+
+    - name: Create VG & LV
+      run: |
+        mnt_size=$(expr $(df -h /mnt | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 1)
+        root_size=$(expr $(df -h / | tail -1 | awk '{print $4}' | sed 's/[[:alpha:]]//g' | sed 's/\..*//') - 4)
+        sudo truncate -s "$mnt_size"G /mnt/mnt.img
+        sudo truncate -s "$root_size"G /root.img
+        sudo losetup /dev/loop6 /mnt/mnt.img
+        sudo losetup /dev/loop7 /root.img
+        sudo pvcreate /dev/loop6
+        sudo pvcreate /dev/loop7
+        sudo vgcreate github /dev/loop6 /dev/loop7
+        sudo lvcreate -n runner -l 100%FREE github
+        sudo mkfs.xfs /dev/github/runner
+
+    - name: Mount LV
+      run: |
+        sudo mkdir -p /builder
+        sudo mount /dev/github/runner /builder
+        sudo chown -R runner.runner /builder
         df -Th
 
     - name: Clone source code
-      working-directory: /workdir
+      working-directory: /builder
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="%an")
         Date=$(git show -s --date=short --format="%ci")
@@ -638,7 +659,7 @@ jobs:
 
     - name: Completion time 
       run: |
-        echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "END=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         end=$(date +%s)
         seconds=$(( end - start ))
         hour=$(( $seconds/3600 ))
@@ -655,7 +676,7 @@ jobs:
         message: |
           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
           开始时间：${{ env.DATE }}
-          完成时间：${{ env.DATE1 }}
+          完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
           🎈🎈🎈 更新信息 🎈🎈🎈
           作者: ${{ env.author }}
@@ -666,14 +687,14 @@ jobs:
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
 
     - name: Push notification upload success
-      uses: xhnmt/pushplus-action@v1.0.0
+      uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
         title: "[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
           开始时间：${{ env.DATE }}
-          完成时间：${{ env.DATE1 }}
+          完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
           🎈🎈🎈 更新信息 🎈🎈🎈
           作者: ${{ env.author }}
@@ -719,7 +740,7 @@ jobs:
         sudo -E rm -f /swapfile /mnt/swapfile
         sudo -E snap set system refresh.retain=2
         sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* moby* snap* aspnetcore*
+        sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
         sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
@@ -936,7 +957,7 @@ jobs:
 
     - name: Completion time 
       run: |
-        echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "END=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         end=$(date +%s)
         seconds=$(( end - start ))
         hour=$(( $seconds/3600 ))
@@ -953,7 +974,7 @@ jobs:
         message: |
           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
           开始时间：${{ env.DATE }}
-          完成时间：${{ env.DATE1 }}
+          完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
           🎈🎈🎈 更新信息 🎈🎈🎈
           作者: ${{ env.author }}
@@ -964,14 +985,14 @@ jobs:
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
 
     - name: Push notification upload success
-      uses: xhnmt/pushplus-action@v1.0.0
+      uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
         title: "[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
           开始时间：${{ env.DATE }}
-          完成时间：${{ env.DATE1 }}
+          完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
           🎈🎈🎈 更新信息 🎈🎈🎈
           作者: ${{ env.author }}
