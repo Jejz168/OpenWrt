@@ -103,7 +103,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@main
 
     - name: Check server configuration
       run: |
@@ -130,10 +130,9 @@ jobs:
       run: |
         sudo -E swapoff -a
         sudo -E rm -f /swapfile /mnt/swapfile
-        sudo -E docker image prune -a -f
         sudo -E snap set system refresh.retain=2
-        sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
-        sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* moby* snap* aspnetcore*
+        sudo -E rm -rf /usr/share/dotnet /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
         sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
@@ -336,7 +335,7 @@ jobs:
 
     - name: Total time
       run: |
-        echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "END=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         end=$(date +%s)
         seconds=$(( end - start ))
         hour=$(( $seconds/3600 ))
@@ -345,23 +344,41 @@ jobs:
         HMS=`echo ${hour}:${min}:${sec}`
         echo "time=$HMS" >> $GITHUB_ENV
 
-    - name: Telegram or Push notification
-      run: |
-        MSG="
-        🌺${{ env.FILE_NAME }}编译完成
-        开始时间：${{ env.DATE }}
-        完成时间：${{ env.DATE1 }}
-        编译耗时：${{ env.time }}
-        🎈🎈🎈 更新信息 🎈🎈🎈
-        作者: ${{ env.author }}
-        时间: ${{ env.date }}
-        内容: ${{ env.commit }}
-        hash: ${{ env.hash }}
-        ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.FILE_NAME }}
-        "
-        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
-        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.FILE_NAME }}编译完成&content=${MSG}"
+    - name: Telegram notification upload success
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          🌺${{ env.PRODUCT_NAME }}编译完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.END }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTFS
+
+    - name: Push notification upload success
+      uses: xhnmt/pushplus-action@main
+      with:
+        token: ${{ secrets.PUSH_PLUS_TOKEN }}
+        title: "${{ env.PRODUCT_NAME }}编译完成"
+        content: |
+          🌺${{ env.PRODUCT_NAME }}编译完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.END }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTFS
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_ARMv8_OpenWrt:
     needs: [Build_ARMv8-ROOTFS]
@@ -369,7 +386,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@main
 
     - name: Initialization environment
       env:
@@ -391,6 +408,7 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
+        Revision=$(grep "DISTRIB_REVISION=" package/lean/default-settings/files/zzz-default-settings | awk -F"'" '{print $2}')
         Author=$(git show -s --date=short --format="Author: %an")
         Date=$(git show -s --date=short --format="date: %ci")
         Commit=$(git show -s --date=short --format="commit: %s")
@@ -403,6 +421,7 @@ jobs:
         echo "TAG=$(date "+%Y%m%d")" >> $GITHUB_ENV
         echo "TAG=$(date "+%Y%m%d")" >> $GITHUB_ENV
         echo "start=$(date +%s)" >> $GITHUB_ENV
+        echo "revision=$Revision" >> $GITHUB_ENV
 
     - name: Package armvirt as openwrt
       uses: ophub/flippy-openwrt-actions@main
@@ -412,8 +431,8 @@ jobs:
         PACKAGE_SOC: s905d_s905x3
         WHOAMI: Jejz
         OPENWRT_VER: ${{ github.event.inputs.openwrt_version }}
-        DISTRIB_REVISION: ${OPENWRT_VER} (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))
-        KERNEL_REPO_URL: https://github.com/Jejz168/compile-kernel/releases/tag/kernel_stable
+        DISTRIB_REVISION: ${{ env.revision }} (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))
+        KERNEL_REPO_URL: https://github.com/breakings/OpenWrt/releases/tag/kernel_stable
         KERNEL_VERSION_NAME: ${{ github.event.inputs.kernel_version }}
         KERNEL_AUTO_LATEST: true
         GZIP_IMGS: .gz
@@ -452,7 +471,7 @@ jobs:
 
     - name: Total time
       run: |
-        echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "END=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
         end=$(date +%s)
         seconds=$(( end - start ))
         hour=$(( $seconds/3600 ))
@@ -461,23 +480,41 @@ jobs:
         HMS=`echo ${hour}:${min}:${sec}`
         echo "time=$HMS" >> $GITHUB_ENV
 
-    - name: Telegram or Push notification
-      run: |
-        MSG="
-        🌺${{ env.PRODUCT_NAME }}打包完成
-        开始时间：${{ env.DATE }}
-        完成时间：${{ env.DATE1 }}
-        编译耗时：${{ env.time }}
-        🎈🎈🎈 更新信息 🎈🎈🎈
-        作者: ${{ env.author }}
-        时间: ${{ env.date }}
-        内容: ${{ env.commit }}
-        hash: ${{ env.hash }}
-        ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}
-        "
-        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
-        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=${{ env.PRODUCT_NAME }}打包完成&content=${MSG}"
+    - name: Telegram notification upload success
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          💥${{ env.PRODUCT_NAME }}打包完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.END }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}
+
+    - name: Push notification upload success
+      uses: xhnmt/pushplus-action@main
+      with:
+        token: ${{ secrets.PUSH_PLUS_TOKEN }}
+        title: "${{ env.PRODUCT_NAME }}打包完成"
+        content: |
+          💥${{ env.PRODUCT_NAME }}打包完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.END }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
