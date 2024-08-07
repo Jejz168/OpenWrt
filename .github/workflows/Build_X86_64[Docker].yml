@@ -128,7 +128,6 @@ jobs:
       run: |
         sudo -E swapoff -a
         sudo -E rm -f /swapfile /mnt/swapfile
-        sudo -E docker image prune -a -f
         sudo -E snap set system refresh.retain=2
         sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* moby* snap* aspnetcore*
@@ -369,6 +368,42 @@ jobs:
         HMS=`echo ${hour}:${min}:${sec}`
         echo "time=$HMS" >> $GITHUB_ENV
 
+    - name: Telegram notification upload success
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.DATE1 }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
+
+    - name: Push notification
+      uses: xhnmt/pushplus-action@v1.0.0
+      with:
+        token: ${{ secrets.PUSH_PLUS_TOKEN }}
+        title: "[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        content: |
+           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
+           开始时间：${{ env.DATE }}
+           完成时间：${{ env.DATE1 }}
+           编译耗时：${{ env.time }}
+           🎈🎈🎈 更新信息 🎈🎈🎈
+           作者: ${{ env.author }}
+           时间: ${{ env.date }}
+           内容: ${{ env.commit }}
+           hash: ${{ env.hash }}
+           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
+        
     - name: Telegram or Push notification
       run: |
         MSG="
@@ -421,7 +456,6 @@ jobs:
       run: |
         sudo -E swapoff -a
         sudo -E rm -f /swapfile
-        sudo -E docker image prune -a -f
         sudo -E snap set system refresh.retain=2
         sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* moby* snap* aspnetcore*
@@ -631,23 +665,41 @@ jobs:
         HMS=`echo ${hour}:${min}:${sec}`
         echo "time=$HMS" >> $GITHUB_ENV
 
-    - name: Telegram or Push notification
-      run: |
-        MSG="
-        ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
-        开始时间：${{ env.DATE }}
-        完成时间：${{ env.DATE1 }}
-        编译耗时：${{ env.time }}
-        🎈🎈🎈 更新信息 🎈🎈🎈
-        作者: ${{ env.author }}
-        时间: ${{ env.date }}
-        内容: ${{ env.commit }}
-        hash: ${{ env.hash }}
-        ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
-        "
-        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
-        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
+    - name: Telegram notification upload success
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.DATE1 }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
+
+    - name: Push notification
+      uses: xhnmt/pushplus-action@v1.0.0
+      with:
+        token: ${{ secrets.PUSH_PLUS_TOKEN }}
+        title: "[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        content: |
+           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
+           开始时间：${{ env.DATE }}
+           完成时间：${{ env.DATE1 }}
+           编译耗时：${{ env.time }}
+           🎈🎈🎈 更新信息 🎈🎈🎈
+           作者: ${{ env.author }}
+           时间: ${{ env.date }}
+           内容: ${{ env.commit }}
+           hash: ${{ env.hash }}
+           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_66:
     needs: [Checka]   
@@ -683,7 +735,6 @@ jobs:
       run: |
         sudo -E swapoff -a
         sudo -E rm -f /swapfile /mnt/swapfile
-        sudo -E docker image prune -a -f
         sudo -E snap set system refresh.retain=2
         sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
         sudo -E apt-get -y purge azure-cli* docker* ghc* zulu* llvm* firefox google* dotnet* powershell* openjdk* mysql* php* mongodb* dotnet* moby* snap* aspnetcore*
@@ -912,20 +963,38 @@ jobs:
         HMS=`echo ${hour}:${min}:${sec}`
         echo "time=$HMS" >> $GITHUB_ENV
 
-    - name: Telegram or Push notification
-      run: |
-        MSG="
-        ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
-        开始时间：${{ env.DATE }}
-        完成时间：${{ env.DATE1 }}
-        编译耗时：${{ env.time }}
-        🎈🎈🎈 更新信息 🎈🎈🎈
-        作者: ${{ env.author }}
-        时间: ${{ env.date }}
-        内容: ${{ env.commit }}
-        hash: ${{ env.hash }}
-        ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-        📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
-        "
-        curl "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" -d "chat_id=${{ secrets.TELEGRAM_TO }}&text=${MSG}"
-        curl "http://www.pushplus.plus/send?token=${{ secrets.PUSH_PLUS_TOKEN }}" -d "title=[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成&content=${MSG}"
+    - name: Telegram notification upload success
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.DATE1 }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
+
+    - name: Push notification
+      uses: xhnmt/pushplus-action@v1.0.0
+      with:
+        token: ${{ secrets.PUSH_PLUS_TOKEN }}
+        title: "[Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        content: |
+           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[Docker]编译完成
+           开始时间：${{ env.DATE }}
+           完成时间：${{ env.DATE1 }}
+           编译耗时：${{ env.time }}
+           🎈🎈🎈 更新信息 🎈🎈🎈
+           作者: ${{ env.author }}
+           时间: ${{ env.date }}
+           内容: ${{ env.commit }}
+           hash: ${{ env.hash }}
+           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Docker_${{ env.KERNEL }}
