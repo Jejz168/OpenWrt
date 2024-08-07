@@ -81,7 +81,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@main
 
     - name: Initialization environment
       env:
@@ -195,7 +195,7 @@ jobs:
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}
 
     - name: Push notification
-      uses: xhnmt/pushplus-action@v1.0.0
+      uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
         title: "💥${{ env.PRODUCT_NAME }}打包完成"
