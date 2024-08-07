@@ -4,7 +4,8 @@
 </div>
 
 -  [**群组**](https://t.me/Jejz_168)
--  🛑******最好全新刷机******
+-  🛑🛑🛑******最好全新刷机******🛑🛑🛑
+-  🔴🔴🔴【x86】Docker版（rootfs=5120M）和普通（rootfs=968M）不通刷🔴🔴🔴
 -  本库x86为squashfs格式(Kernel=32M，rootfs=968M)
 -  ext4 与squashfs 格式的区别： ext4 格式的rootfs 可以扩展磁盘空间大小，而squashfs 不能。 squashfs 格式的rootfs 可以使用重置功能（恢复出厂设置），而ext4 不能。
 -  *必须要是本库最新才能使用。不然就会死翘翘。
@@ -63,7 +64,6 @@
 　├── PassWall<br/>
 　├── PassWall2  (arm)<br/>
 　├── Hello World<br/>
-　├── 广告屏蔽大师 Plus+<br/>
 　├── AdGuard Home<br/>
 　├── ShadowSocksR Plus+<br/>
 　├── DDNSTO 远程控制<br/>
@@ -71,7 +71,6 @@
 　├── 网站域名黑白名单配置<br/>
 　├── 全能推送<br/>
 　├── 上网时间控制<br/>
-　├── 解锁网易云灰色歌曲<br/>
 　├── OpenClash<br/>
 　├── Lucky<br/>
 　├── 动态 DNS<br/>
@@ -98,8 +97,6 @@
 <summary><b>├── 网络存储</b></summary>
 　├── 文件浏览器<br/>
 　├── NFS 管理<br/>
-　├── 阿里云盘 FUSE<br/>
-　├── 阿里云盘 WebDAV<br/>
 　├── Alist 文件列表<br/>
 　├── USB 打印服务器<br/>
 　├── 硬盘休眠<br/>
