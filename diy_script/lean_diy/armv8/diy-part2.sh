@@ -63,6 +63,9 @@ git_sparse_clone master https://github.com/linkease/nas-packages network/service
 # OpenAppFilter 应用过滤
 git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
 
+# autotimeset 定时
+# git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
+
 # eqos 限速
 # git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
 
@@ -99,9 +102,6 @@ git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-pa
 
 # mihomo
 git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
-
-# autotimeset 定时
-# git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 
 # 阿里云盘webdav
 rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
