@@ -97,6 +97,9 @@ git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-pas
 # passwall2
 git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
 
+# mihomo
+git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
+
 # autotimeset 定时
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 
