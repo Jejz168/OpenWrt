@@ -30,8 +30,11 @@ sed -i 's/192.168.1.1/192.168.8.8/g' package/base-files/files/bin/config_generat
 # Autocore
 sed -i 's/DEPENDS:=@(.*/DEPENDS:=@(TARGET_bcm27xx||TARGET_bcm53xx||TARGET_ipq40xx||TARGET_ipq806x||TARGET_ipq807x||TARGET_mvebu||TARGET_rockchip||TARGET_armvirt) \\/g' package/lean/autocore/Makefile
 
-#设置ttyd免帐号登录
+# 设置ttyd免帐号登录
 sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/ttyd.config
+
+# 默认 shell 为 bash
+sed -i 's/\/bin\/ash/\/bin\/bash/g' package/base-files/files/etc/passwd
 
 # 报错修复
 # rm -rf package/kernel/mac80211/patches/brcm/999-backport-to-linux-5.18.patch
