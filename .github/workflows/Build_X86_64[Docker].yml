@@ -44,7 +44,7 @@ env:
   CONFIG_FILE: config/leanlede_config/x86-docker.config
   DIY_P1_SH: diy_script/lean_diy/x86/diy-part1.sh
   DIY_P2_SH: diy_script/lean_diy/x86/diy-part2.sh
-  DOCKER_SH: diy_script/lean_diy/x86/docker.sh
+  CLASH_KERNEL: amd64
   UPLOAD_BIN_DIR: false
   UPLOAD_CONFIG: true
   UPLOAD_FIRMWARE: false
@@ -188,8 +188,6 @@ jobs:
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
-        
-        rm -rf package/kernel/mt76
 
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -199,10 +197,14 @@ jobs:
 
     - name: Load custom configuration
       run: |
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
         sed -i '/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
 
@@ -499,8 +501,6 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
-        rm -rf package/kernel/mt76
-
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
 
@@ -509,10 +509,14 @@ jobs:
 
     - name: Load custom configuration
       run: |
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_15=y/g' .config
 
@@ -807,10 +811,14 @@ jobs:
 
     - name: Load custom configuration
       run: |
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_6=y/g' .config
 
