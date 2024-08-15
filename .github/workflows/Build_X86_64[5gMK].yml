@@ -37,6 +37,7 @@ env:
   DIY_P1_SH: diy_script/lean_diy/x86/diy-part1.sh
   DIY_P2_SH: diy_script/lean_diy/x86/diy-part2.sh
   WGMK_SH: diy_script/lean_diy/x86/5gMK.sh
+  CLASH_KERNEL: amd64
   UPLOAD_BIN_DIR: false
   UPLOAD_CONFIG: true
   UPLOAD_FIRMWARE: false
@@ -189,12 +190,14 @@ jobs:
 
     - name: Load custom configuration
       run: |
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
-        chmod +x $WGMK_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$WGMK_SH
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
         sed -i '/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
 
@@ -497,12 +500,14 @@ jobs:
 
     - name: Load custom configuration
       run: |
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
-        chmod +x $WGMK_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$WGMK_SH
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_1=y/g' .config
 
