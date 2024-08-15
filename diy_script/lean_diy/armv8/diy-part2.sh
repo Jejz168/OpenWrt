@@ -48,6 +48,7 @@ rm -rf feeds/packages/utils/v2dat
 # git_sparse_clone 复制 仓库下的文件夹 git clone 复制整个仓库
 # vssr adguardhome turboacc去dns
 rm -rf feeds/luci/applications/luci-app-turboacc
+rm -rf package/feeds/packages/adguardhome
 git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 
 # ddns-go 动态域名
