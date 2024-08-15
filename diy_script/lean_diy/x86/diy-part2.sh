@@ -42,6 +42,9 @@ sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}/g' package/lean/autocore/files/x86/aut
 # 设置ttyd免帐号登录
 sed -i 's/\/bin\/login/\/bin\/login -f root/' feeds/packages/utils/ttyd/files/ttyd.config
 
+# 默认bash
+sed -i 's/\/bin\/ash/\/bin\/bash/g' package/base-files/files/etc/passwd
+
 # 修改 argon 为默认主题
 sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
 sed -i 's/Bootstrap theme/Argon theme/g' feeds/luci/collections/luci/Makefile
