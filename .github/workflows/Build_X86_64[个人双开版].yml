@@ -44,6 +44,7 @@ env:
   CONFIG_FILE: config/leanlede_config/x86.config
   DIY_P1_SH: diy_script/lean_diy/x86/diy-part1.sh
   DIY_P2_SH: diy_script/lean_diy/x86/diy-part2.sh
+  CLASH_KERNEL: amd64
   UPLOAD_BIN_DIR: false
   UPLOAD_CONFIG: true
   UPLOAD_FIRMWARE: false
@@ -196,10 +197,14 @@ jobs:
 
     - name: Load custom configuration
       run: |
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
         sed -i '/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
 
@@ -504,10 +509,14 @@ jobs:
 
     - name: Load custom configuration
       run: |
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_15=y/g' .config
 
@@ -802,16 +811,22 @@ jobs:
 
     - name: Load custom configuration
       run: |
+        [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
+        $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
         
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_6=y/g' .config
         
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.6/g' target/linux/x86/Makefile
         
         #sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=6.6/g' target/linux/x86/Makefile
+
+        sed -i 's/192.168.8.3/192.168.8.5/g' package/base-files/files/bin/config_generate
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -930,14 +945,15 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}」固件
+        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版] 」固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 固件
-          - 🔴默认IP：192.168.8.3 默认密码：无密码
+          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版] 固件
+          - 🔴【个人双开版方便不用改ip】
+          - 🔴默认IP：192.168.8.5 默认密码：无密码
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
           - 🎈🎈🎈 更新信息 🎈🎈🎈
@@ -964,7 +980,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -974,15 +990,15 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_${{ env.KERNEL }}
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Personal_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[个人双开版]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -992,4 +1008,4 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_${{ env.KERNEL }}
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_Personal_${{ env.KERNEL }}
