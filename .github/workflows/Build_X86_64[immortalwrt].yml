@@ -26,8 +26,8 @@ on:
         description: 'SSH66 connection to Actions'
         required: false
         default: 'false'
-  schedule:
-    - cron: 5 19 * * *
+  #schedule:
+    #- cron: 5 19 * * *
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
