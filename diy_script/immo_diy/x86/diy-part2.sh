@@ -20,9 +20,6 @@ function git_sparse_clone() {
 }
 rm -rf package/custom; mkdir package/custom
 
-# 允许ROOT编译
-export FORCE_UNSAFE_CONFIGURE=1
-
 # 修改默认IP
 sed -i 's/192.168.1.1/192.168.8.3/g' package/base-files/files/bin/config_generate
 
@@ -43,18 +40,12 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci/M
 sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-nginx/Makefile
 
 # 报错修复
-# sed -i 's/9625784cf2e4fd9842f1d407681ce4878b5b0dcddbcd31c6135114a30c71e6a8/5de8c8e29aaa3fb9cc6b47bb27299f271354ebb72514e3accadc7d38b5bbaa72/g' feeds/packages/utils/jq/Makefile
-# sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.7.2/g' feeds/Jejz/xray-core/Makefile
-# sed -i 's/PKG_HASH:=.*/PKG_HASH:=e35824e19e8acc06296ce6bfa78a14a6f3ee8f42a965f7762b7056b506457a29/g' feeds/Jejz/xray-core/Makefile
-# cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
-# cp -f $GITHUB_WORKSPACE/personal/chinadns-ng/* feeds/Jejz/chinadns-ng
+sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 
 # git_sparse_clone 复制 仓库下的文件夹 git clone 复制整个仓库
 # vssr adguardhome turboacc去dns
 rm -rf package/feeds/packages/adguardhome
-rm -rf feeds/luci/applications/luci-app-turboacc
-rm -rf feeds/packages/lang/lua-maxminddb
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
+git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome
 
 # ddns-go 动态域名
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
@@ -144,9 +135,8 @@ git clone --depth=1 https://github.com/gngpp/luci-app-design-config.git package/
 cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # 修改主题多余版本信息
-sed -i 's/<a class=\"luci-link\" href=\"https:\/\/github.com\/openwrt\/luci\">/<a>/g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's/<a href=\"https:\/\/github.com\/jerrykuku\/luci-theme-argon\">/<a>/g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's/<a href=\"https:\/\/github.com\/coolsnowwolf\/luci\">/<a>/g' feeds/luci/themes/luci-theme-bootstrap/luasrc/view/themes/bootstrap/footer.htm
+sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
+sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
 
 # 修改欢迎banner
 # cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
