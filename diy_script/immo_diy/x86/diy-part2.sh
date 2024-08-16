@@ -77,8 +77,8 @@ git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAp
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 
 # dockerman
-rm -rf feeds/luci/applications/luci-app-dockerman
-git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
+# rm -rf feeds/luci/applications/luci-app-dockerman
+# git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 
 # eqos 限速
 # git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
