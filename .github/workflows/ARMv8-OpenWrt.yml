@@ -65,10 +65,10 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  FEEDS_CONF: feeds_config/lean.feeds.conf.default
-  CONFIG_FILE: config/leanlede_config/armv8.config
-  DIY_P1_SH: diy_script/lean_diy/armv8/diy-part1.sh
-  DIY_P2_SH: diy_script/lean_diy/armv8/diy-part2.sh
+  FEEDS_CONF: feeds_config/lede.feeds.conf.default
+  CONFIG_FILE: config/lede_config/armv8.config
+  DIY_P1_SH: diy_script/lede_diy/armv8/diy-part1.sh
+  DIY_P2_SH: diy_script/lede_diy/armv8/diy-part2.sh
   UPLOAD_FIRMWARE: false
   UPLOAD_RELEASE: true
   TZ: Asia/Shanghai
