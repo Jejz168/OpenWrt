@@ -40,10 +40,10 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  FEEDS_CONF: feeds_config/lean.feeds.conf.default
-  CONFIG_FILE: config/leanlede_config/x86-docker.config
-  DIY_P1_SH: diy_script/lean_diy/x86/diy-part1.sh
-  DIY_P2_SH: diy_script/lean_diy/x86/diy-part2.sh
+  FEEDS_CONF: feeds_config/lede.feeds.conf.default
+  CONFIG_FILE: config/lede_config/x86-docker.config
+  DIY_P1_SH: diy_script/lede_diy/x86/diy-part1.sh
+  DIY_P2_SH: diy_script/lede_diy/x86/diy-part2.sh
   CLASH_KERNEL: amd64
   UPLOAD_BIN_DIR: false
   UPLOAD_CONFIG: true
