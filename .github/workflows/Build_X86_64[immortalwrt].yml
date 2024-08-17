@@ -11,14 +11,14 @@ on:
   workflow_dispatch:
     inputs:
       checkupdates61:
-        description: 'Checkupdates515 connection to Actions'
+        description: 'Checkupdates61 connection to Actions'
         required: false
         default: 'false'
       checkupdates66:
         description: 'Checkupdates66 connection to Actions'
         required: false
         default: 'false'
-      ssh515:
+      ssh61:
         description: 'SSH61 connection to Actions'
         required: false
         default: 'false'
