@@ -60,18 +60,18 @@ jobs:
       run: |
         git clone --depth 1 $REPO_URL_immo -b $REPO_BRANCH_immo $REPO_PATH_immo
         cd $REPO_PATH_immo
-        echo "commitHash_x86_64=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        echo "commitHash_x86_64_immo=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_x86_64: ${{ steps.getHash.outputs.commitHash_x86_64 }}"
+        echo "commitHash_x86_64_immo: ${{ steps.getHash.outputs.commitHash_x86_64_immo }}"
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@main
       with:
-        path: .commitHash_x86_64
-        key: HEAD-${{ steps.getHash.outputs.commitHash_x86_64 }}
+        path: .commitHash_x86_64_immo
+        key: HEAD-${{ steps.getHash.outputs.commitHash_x86_64_immo }}
 
     - name: Set output for next job
       id: outputunifreq
@@ -81,7 +81,7 @@ jobs:
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash_x86_64 }} | tee .commitHash_x86_64
+        echo ${{ steps.getHash.outputs.commitHash_x86_64_immo }} | tee .commitHash_x86_64_immo
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
     needs: [Checka]
