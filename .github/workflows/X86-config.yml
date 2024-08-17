@@ -89,6 +89,7 @@ jobs:
         chmod +x $DIY_P2_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
+        sed -i 's/+firewall/+uci-firewall/g' feeds/luci/applications/luci-app-firewall/Makefile
         
     - name: SSH链接管理
       uses: P3TERX/ssh2actions@v1.0.0
