@@ -84,7 +84,7 @@ jobs:
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash_x86_64 }} | tee .commitHash_x86_64
+        echo ${{ steps.getHash.outputs.commitHash_x86_64 }} | tee .commitHash_x86_64_firewall4
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
     needs: [Checka]
