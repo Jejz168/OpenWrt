@@ -133,6 +133,9 @@ git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-pas
 # mihomo
 git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
 
+# homeproxy
+git clone --depth=1 https://github.com/muink/luci-app-homeproxy.git package/luci-app-homeproxy
+
 # openclash
 git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
 # svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
