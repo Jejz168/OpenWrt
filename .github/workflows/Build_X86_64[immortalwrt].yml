@@ -10,7 +10,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      checkupdates515:
+      checkupdates61:
         description: 'Checkupdates515 connection to Actions'
         required: false
         default: 'false'
@@ -19,7 +19,7 @@ on:
         required: false
         default: 'false'
       ssh515:
-        description: 'SSH515 connection to Actions'
+        description: 'SSH61 connection to Actions'
         required: false
         default: 'false'
       ssh66:
@@ -83,9 +83,9 @@ jobs:
       run: |
         echo ${{ steps.getHash.outputs.commitHash_x86_64_immo }} | tee .commitHash_x86_64_immo
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Build_x86_64_515:
+  Build_x86_64_61:
     needs: [Checka]
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates515 == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates61 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
@@ -188,8 +188,11 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P2_SH
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
-        sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_15=y/g' .config
-        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
+        
+        sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_1=y/g' .config
+        
+        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.1/g' target/linux/x86/Makefile
+        
         #sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g' target/linux/x86/Makefile
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
@@ -272,7 +275,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.UPLOAD_CONFIG == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: x86-515-config
+        name: x86-61-config
         path: ./artifact/buildinfo/
 
     - name: Delete files
