@@ -58,7 +58,7 @@ jobs:
     - name: Get Commit Hash
       id: getHash
       run: |
-        git clone --depth 1 $REPO_URL_immo -b $REPO_BRANCH_firewall4 $REPO_PATH_firewall4
+        git clone --depth 1 $REPO_URL_firewall4 -b $REPO_BRANCH_firewall4 $REPO_PATH_firewall4
         cd $REPO_PATH_firewall4
         echo "commitHash_x86_64=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd
