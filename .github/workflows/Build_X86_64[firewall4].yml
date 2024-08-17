@@ -4,7 +4,7 @@
 # By：Jejz
 #===============================================
 
-name: Build_x86_64[immortalwrt]
+name: Build_x86_64[firewall4]
 
 on:
   repository_dispatch:
@@ -30,12 +30,12 @@ on:
     #- cron: 5 19 * * *
 
 env:
-  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  FEEDS_CONF: feeds_config/immo.feeds.conf.default
-  CONFIG_FILE: config/immo_config/x86.config
-  DIY_P1_SH: diy_script/immo_diy/x86/diy-part1.sh
-  DIY_P2_SH: diy_script/immo_diy/x86/diy-part2.sh
+  FEEDS_CONF: feeds_config/lean.feeds.conf.default
+  CONFIG_FILE: config/leanlede_config/x86-firewall4.config
+  DIY_P1_SH: diy_script/leanlede_config/x86/diy-part1.sh
+  DIY_P2_SH: diy_script/leanlede_config/x86/diy-part2.sh
   CLASH_KERNEL: amd64
   UPLOAD_BIN_DIR: false
   UPLOAD_CONFIG: true
@@ -49,17 +49,17 @@ jobs:
   Checka:
     runs-on: ubuntu-latest
     env:
-      REPO_URL_immo: https://github.com/immortalwrt/immortalwrt
-      REPO_BRANCH_immo: master
-      REPO_PATH_immo : "immo_x86_64"
+      REPO_URL_firewall4: https://github.com/coolsnowwolf/lede
+      REPO_BRANCH_firewall4: master
+      REPO_PATH_firewall4 : "firewall4_x86_64"
     outputs:
       output: ${{ steps.outputunifreq.outputs.unifreq }}   
     steps:
     - name: Get Commit Hash
       id: getHash
       run: |
-        git clone --depth 1 $REPO_URL_immo -b $REPO_BRANCH_immo $REPO_PATH_immo
-        cd $REPO_PATH_immo
+        git clone --depth 1 $REPO_URL_immo -b $REPO_BRANCH_firewall4 $REPO_PATH_firewall4
+        cd $REPO_PATH_firewall4
         echo "commitHash_x86_64=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd
 
@@ -321,15 +321,15 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt] 」固件
+        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[firewall4] 」固件
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.TAG }}_immo_${{ env.KERNEL }}
+        tag: ${{ env.TAG }}_firewall4_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt] 固件
+          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[firewall4] 固件
           - 🔴默认IP：192.168.8.3 默认密码：无密码
-          - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/immortalwrt/immortalwrt)更新记录】
+          - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
           - 🎈🎈🎈 更新信息 🎈🎈🎈
           - 作者: ${{ env.author }}
@@ -355,7 +355,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt]编译完成
+          ♨${{ env.FILE_NAME }}_${{ env.KERNEL }}[firewall4]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -365,15 +365,15 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_firewall4_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "[immortalwrt]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[firewall4]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt]编译完成
+          ♨${{ env.FILE_NAME }}_${{ env.KERNEL }}[firewall4]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -383,7 +383,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_firewall4_${{ env.KERNEL }}
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_66:
     needs: [Checka]
@@ -620,15 +620,15 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt] 」固件
+        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[firewall4] 」固件
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.TAG }}_immo_${{ env.KERNEL }}
+        tag: ${{ env.TAG }}_firewall4_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt] 固件
+          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[firewall4] 固件
           - 🔴默认IP：192.168.8.3 默认密码：无密码
-          - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/immortalwrt/immortalwrt)更新记录】
+          - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/coolsnowwolf/lede)更新记录】
           - ★ 感谢源码作者无私分享！
           - 🎈🎈🎈 更新信息 🎈🎈🎈
           - 作者: ${{ env.author }}
@@ -654,7 +654,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt]编译完成
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[firewall4]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -664,15 +664,15 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_firewall4_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "[immortalwrt]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[firewall4]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt]编译完成
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[firewall4]编译完成
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
           🎈🎈🎈 更新信息 🎈🎈🎈
@@ -681,4 +681,4 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_firewall4_${{ env.KERNEL }}
