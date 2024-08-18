@@ -47,6 +47,10 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/luci-n
 sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 
 # git_sparse_clone 复制 仓库下的文件夹 git clone 复制整个仓库
+# filebrowser luci-app-pushbot
+rm -rf feeds/luci/applications/luci-app-filebrowser
+git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-pushbot luci-app-filebrowser
+
 # adguardhome
 git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome
 
@@ -78,14 +82,10 @@ git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAp
 # git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
 
 # poweroff
-git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
+# git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
 
 # unblockneteasemusic
 # git clone --depth=1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
-
-# filebrowser 文件浏览器
-rm -rf feeds/luci/applications/luci-app-filebrowser
-git_sparse_clone main https://github.com/Lienol/openwrt-package luci-app-filebrowser
 
 # smartdns
 rm -rf feeds/packages/net/smartdns
