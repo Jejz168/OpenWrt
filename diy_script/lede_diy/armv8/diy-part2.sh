@@ -36,6 +36,9 @@ sed -i 's/\/bin\/ash/\/bin\/bash/g' package/base-files/files/etc/passwd
 # samba解除root限制
 sed -i 's/invalid users = root/#&/g' feeds/packages/net/samba4/files/smb.conf.template
 
+# coremark跑分定时清除
+sed -i '/\* \* \* \/etc\/coremark.sh/d' feeds/packages/utils/coremark/*
+
 # 报错修复
 # rm -rf package/kernel/mac80211/patches/brcm/999-backport-to-linux-5.18.patch
 # sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=4.8/g' tools/sed/Makefile
