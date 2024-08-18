@@ -381,13 +381,13 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt] 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[ImmortalWrt] 」固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_immo_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is immortalwrt Firmware for ${{ env.FILE_NAME }}**
+          **This is ImmortalWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -422,7 +422,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt]编译完成
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[ImmortalWrt]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -438,7 +438,7 @@ jobs:
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "[immortalwrt]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[ImmortalWrt]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt]编译完成
           开始时间：${{ env.DATE }}
@@ -682,13 +682,13 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt-docker] 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[ImmortalWrt-Docker] 」固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_immoD_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is immortalwrt-docker Firmware for ${{ env.FILE_NAME }}**
+          **This is ImmortalWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔴 Docker版固件(Kernel=32M，rootfs=5120M)
           - 💻 平台架构: ${{ env.FILE_NAME }}
@@ -724,7 +724,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt-docker]编译完成
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[ImmortalWrt-Docker]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -740,9 +740,9 @@ jobs:
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "[immortalwrt-docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[ImmortalWrt-Docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt-docker]编译完成
+          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[ImmortalWrt-Docker]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
