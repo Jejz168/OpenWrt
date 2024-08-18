@@ -21,9 +21,6 @@ function git_sparse_clone() {
 }
 rm -rf package/custom; mkdir package/custom
 
-# 允许ROOT编译
-export FORCE_UNSAFE_CONFIGURE=1
-
 # 修改默认IP
 sed -i 's/192.168.1.1/192.168.8.8/g' package/base-files/files/bin/config_generate
 
