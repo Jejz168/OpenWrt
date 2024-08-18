@@ -20,9 +20,6 @@ function git_sparse_clone() {
 }
 rm -rf package/custom; mkdir package/custom
 
-# 允许ROOT编译
-export FORCE_UNSAFE_CONFIGURE=1
-
 # 修改主机名字，修改你喜欢的就行（不能纯数字或者使用中文）
 # sed -i "/uci commit system/i\uci set system.@system[0].hostname='Jejz'" package/lean/default-settings/files/zzz-default-settings
 # sed -i "s/hostname='.*'/hostname='Jejz'/g" ./package/base-files/files/bin/config_generate
