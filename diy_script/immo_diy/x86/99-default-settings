@@ -21,10 +21,8 @@ rm -f /usr/lib/lua/luci/view/admin_status/index/linkease.htm
 
 ln -sf /sbin/ip /usr/bin/ip
 
-sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
-echo "DISTRIB_REVISION='R$(date +'%y.%m.%d')(By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))'" >> /etc/openwrt_release
 sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
-echo "DISTRIB_DESCRIPTION='ImmortalWrt '" >> /etc/openwrt_release
+echo "DISTRIB_DESCRIPTION='ImmortalWrt R$(TZ=UTC-8 date +'%y.%-m.%-d')(By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M")) '" >> /etc/openwrt_release
 
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo "log-facility=/dev/null" >> /etc/dnsmasq.conf
