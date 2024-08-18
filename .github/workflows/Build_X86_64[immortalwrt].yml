@@ -177,7 +177,7 @@ jobs:
         echo "-----------------------------硬盘信息---------------------------------------------"
         echo -e  "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l)"
         echo "硬盘详情："
-        echo " 系统空间       类型   总数  已用  可用  使用率"
+        echo "系统空间        类型   总数  已用  可用  使用率"
         df -Th
         
     - name: Initialization environment
@@ -274,7 +274,7 @@ jobs:
     - name: Output compilation information
       run: |
         cd openwrt
-        echo " 系统空间       类型  总数  已用  可用  使用率"
+        echo "系统空间        类型  总数  已用  可用  使用率"
         df -hT $PWD
         echo
         echo "=========================================="
@@ -325,7 +325,7 @@ jobs:
         echo "=========================================="
         echo "----------------空间使用-------------------"
         echo "=========================================="
-        echo " 系统空间      类型   总数  已用  可用 使用率"
+        echo "系统空间       类型   总数  已用  可用 使用率"
         df -hT
         echo "=========================================="
         du -h --max-depth=1 openwrt/ --exclude=build_dir --exclude=bin
@@ -476,7 +476,7 @@ jobs:
         echo "-----------------------------硬盘信息---------------------------------------------"
         echo -e  "硬盘数量：$(ls /dev/sd* | grep -v [1-9] | wc -l)"
         echo "硬盘详情："
-        echo " 系统空间       类型   总数  已用  可用  使用率"
+        echo "系统空间        类型   总数  已用  可用  使用率"
         df -Th
         
     - name: Initialization environment
@@ -575,7 +575,7 @@ jobs:
     - name: Output compilation information
       run: |
         cd openwrt
-        echo " 系统空间       类型  总数  已用  可用  使用率"
+        echo "系统空间        类型  总数  已用  可用  使用率"
         df -hT $PWD
         echo
         echo "=========================================="
@@ -626,7 +626,7 @@ jobs:
         echo "=========================================="
         echo "----------------空间使用-------------------"
         echo "=========================================="
-        echo " 系统空间      类型   总数  已用  可用 使用率"
+        echo "系统空间       类型   总数  已用  可用 使用率"
         df -hT
         echo "=========================================="
         du -h --max-depth=1 openwrt/ --exclude=build_dir --exclude=bin
