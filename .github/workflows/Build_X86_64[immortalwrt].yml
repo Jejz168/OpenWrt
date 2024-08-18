@@ -441,6 +441,7 @@ jobs:
         title: "[immortalwrt]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt]编译完成
+          开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
           🎈🎈🎈 更新信息 🎈🎈🎈
@@ -451,7 +452,7 @@ jobs:
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Build_x86_64D:
+  Build_x86_64_docker:
     needs: [Checka,job_init]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdatesD == 'true'}}
     runs-on: ubuntu-22.04
@@ -742,6 +743,7 @@ jobs:
         title: "[immortalwrt-docker]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
           ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt-docker]编译完成
+          开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
           🎈🎈🎈 更新信息 🎈🎈🎈
