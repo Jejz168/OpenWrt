@@ -156,7 +156,6 @@ jobs:
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
-          - 🚀 内核版本: ${{ env.KERNEL }}
           - 🌐 默认地址：192.168.8.8
           - 🔑 默认密码：password
           - 🔴 WiFi默认密码：password
