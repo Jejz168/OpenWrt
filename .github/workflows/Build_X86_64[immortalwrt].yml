@@ -310,8 +310,15 @@ jobs:
         tag: ${{ env.TAG }}_immo_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          - ⭐️此为 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt] 固件
-          - 🔴默认IP：192.168.8.3 默认密码：无密码
+          **This is immortalwrt Firmware for ${{ env.FILE_NAME }}**
+          ### 📒 固件信息
+          - 💻 平台架构: ${{ env.FILE_NAME }}
+          - ⚽ 固件源码: ${{ env.REPO_URL }}
+          - 💝 源码分支: ${{ env.REPO_BRANCH }}
+          - 🚀 内核版本: ${{ env.KERNEL }}
+          - 🌐 默认地址：192.168.8.3
+          - 🔑 默认密码：无密码
+          ### 🧊 固件版本
           - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/immortalwrt/immortalwrt)更新记录】
           - ★ 感谢源码作者无私分享！
           - 🎈🎈🎈 更新信息 🎈🎈🎈
