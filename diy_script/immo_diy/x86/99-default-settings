@@ -1,0 +1,37 @@
+#!/bin/sh
+
+uci -q get system.@imm_init[0] > "/dev/null" || uci -q add system imm_init > "/dev/null"
+
+if ! uci -q get system.@imm_init[0].lang > "/dev/null"; then
+	uci -q batch <<-EOF
+		set luci.main.lang="auto"
+		commit luci
+
+		set system.@imm_init[0].lang="1"
+		commit system
+	EOF
+fi
+
+uci set fstab.@global[0].anon_mount=1
+uci commit fstab
+
+rm -f /usr/lib/lua/luci/view/admin_status/index/mwan.htm
+rm -f /usr/lib/lua/luci/view/admin_status/index/upnp.htm
+rm -f /usr/lib/lua/luci/view/admin_status/index/linkease.htm
+
+ln -sf /sbin/ip /usr/bin/ip
+
+sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
+echo "DISTRIB_REVISION='R$(date +'%y.%m.%d')(By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))'" >> /etc/openwrt_release
+sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
+echo "DISTRIB_DESCRIPTION='ImmortalWrt '" >> /etc/openwrt_release
+
+sed -i '/log-facility/d' /etc/dnsmasq.conf
+echo "log-facility=/dev/null" >> /etc/dnsmasq.conf
+
+rm -rf /tmp/luci-modulecache/
+rm -f /tmp/luci-indexcache
+
+chmod 0755 /etc/init.d/*
+
+exit 0
