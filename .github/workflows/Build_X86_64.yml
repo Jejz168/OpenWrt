@@ -1721,14 +1721,14 @@ jobs:
     - name: Delete workflow runs
       uses: Jejz168/delete-workflow-runs@main
       with:
-        retain_days: 8
-        keep_minimum_runs: 2
+        retain_days: 30
+        keep_minimum_runs: 8
 
     - name: Remove old Releases
       uses: Jejz168/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' 
       with:
-        keep_latest: 36
+        keep_latest: 86
         delete_tags: true
         delete_tag_pattern: _
       env:
