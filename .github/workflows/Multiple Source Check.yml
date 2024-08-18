@@ -176,13 +176,53 @@ jobs:
           📍：https://github.com/xiaorouji/openwrt-passwall
           📍：https://github.com/xiaorouji/openwrt-passwall-packages
 # //////////////////////////////////////////////////////////////////////////////////////////////
+  Checke:
+    runs-on: ubuntu-latest
+    env:
+      REPO_URL_Immo: https://github.com/immortalwrt/immortalwrt
+      REPO_BRANCH_Immo: master
+      REPO_PATH_Immo: "Immo"
+    steps:
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone --depth 1 $REPO_URL_Immo -b $REPO_BRANCH_Immo $REPO_PATH_Immo
+        cd $REPO_PATH_Immo
+        echo "commitHash_Immo=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        cd      
+    - name: Show Commit Head and Combination Heads
+      id: combHeader
+      run: |
+        echo "commitHash_Immo: ${{ steps.getHash.outputs.commitHash_Immo }}"    
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@main
+      with:
+        path: .commitHash_Immo
+        key: HEAD-${{ steps.getHash.outputs.commitHash_Immo }}
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHash_Immo }} | tee .commitHash_Immo  
+    - name: Telegram notification upload success
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          ✨༺ImmortalWrt༻✨
+                ● 源码更新了
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍：https://github.com/immortalwrt/immortalwrt
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
-    needs: [Checka,Checkb,Checkc,Checkd]    
+    needs: [Checka,Checkb,Checkc,Checkd,Checke]    
     runs-on: ubuntu-latest
     steps: 
     - name: Delete workflow runs
       uses: Jejz168/delete-workflow-runs@main
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        retain_days: 8
-        keep_minimum_runs: 2
+        retain_days: 30
+        keep_minimum_runs: 8
