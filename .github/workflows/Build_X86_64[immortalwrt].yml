@@ -422,7 +422,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[ImmortalWrt]编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[ImmortalWrt]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -440,7 +440,7 @@ jobs:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
         title: "[ImmortalWrt]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨️ 🐳${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt]编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[immortalwrt]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
