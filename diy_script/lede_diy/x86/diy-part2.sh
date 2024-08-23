@@ -90,8 +90,8 @@ git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAp
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 
 # dockerman
-rm -rf feeds/luci/applications/luci-app-dockerman
-git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
+# rm -rf feeds/luci/applications/luci-app-dockerman
+# git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 
 # eqos 限速
 # git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
@@ -144,13 +144,9 @@ popd
 
 # argon 主题
 rm -rf feeds/luci/themes/luci-theme-argon
-rm -rf feeds/luci/themes/luci-theme-design
 rm -rf feeds/luci/applications/luci-app-argon-config
-rm -rf feeds/luci/applications/luci-app-design-config
 git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
-git clone --depth=1 https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
-git clone --depth=1 https://github.com/gngpp/luci-app-design-config.git package/luci-app-design-config
 
 # 更改argon主题背景
 cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
