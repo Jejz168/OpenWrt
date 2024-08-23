@@ -114,7 +114,7 @@ git clone --depth=1 https://github.com/pymumu/openwrt-smartdns package/smartdns
 # mosdns
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/luci/applications/luci-app-mosdns
-git clone --depth=1 https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
+git clone --depth=1 -b v5-lua https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
 
 # alist
 rm -rf feeds/packages/lang/golang
