@@ -74,8 +74,8 @@ git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAp
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
 
 # dockerman
-rm -rf feeds/luci/applications/luci-app-dockerman
-git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
+# rm -rf feeds/luci/applications/luci-app-dockerman
+# git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 
 # eqos 限速
 # git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
@@ -98,12 +98,13 @@ git clone --depth=1 https://github.com/pymumu/openwrt-smartdns package/smartdns
 # mosdns
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/luci/applications/luci-app-mosdns
-git clone --depth=1 https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
+git clone --depth=1 -b v5-lua https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
 
 # alist
 rm -rf feeds/packages/lang/golang
 git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
-git clone --depth=1 https://github.com/sbwml/luci-app-alist package/alist
+git clone --depth=1 -b lua https://github.com/sbwml/luci-app-alist package/alist
+git_sparse_clone master https://github.com/sbwml/luci-app-alist alist
 
 # passwall
 git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
@@ -112,7 +113,7 @@ git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-pas
 git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
 
 # mihomo
-git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
+# git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
 
 # 阿里云盘webdav
 rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
@@ -130,9 +131,7 @@ popd
 # Themes 主题
 rm -rf feeds/luci/themes/luci-theme-argon
 rm -rf feeds/luci/themes/luci-theme-netgear
-rm -rf feeds/luci/themes/luci-theme-design
 rm -rf feeds/luci/applications/luci-app-argon-config
-rm -rf feeds/luci/applications/luci-app-design-config
 git_sparse_clone openwrt-18.06 https://github.com/rosywrt/luci-theme-rosy luci-theme-rosy
 git_sparse_clone master https://github.com/haiibo/openwrt-packages luci-theme-atmaterial_new luci-theme-opentomcat luci-theme-netgear
 git clone --depth=1 -b classic https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
@@ -140,8 +139,6 @@ git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git p
 git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
 git clone --depth=1 https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
 git clone --depth=1 https://github.com/thinktip/luci-theme-neobird package/luci-theme-neobird
-git clone --depth=1 https://github.com/gngpp/luci-theme-design.git package/luci-theme-design
-git clone --depth=1 https://github.com/gngpp/luci-app-design-config.git package/luci-app-design-config
 
 # 更改argon主题背景
 cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
