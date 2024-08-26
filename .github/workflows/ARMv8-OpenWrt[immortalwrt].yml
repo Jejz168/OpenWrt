@@ -120,7 +120,7 @@ jobs:
       if: (!cancelled())
       uses: ophub/flippy-openwrt-actions@main
       env:
-        OPENWRT_ARMVIRT: https://github.com/Jejz168/OpenWrt/releases/download/ARMv8-ROOTFS-IMMO/openwrt-armvirt-64-generic-rootfs.tar.gz
+        OPENWRT_ARMVIRT: https://github.com/Jejz168/OpenWrt/releases/download/ARMv8-ROOTFS-IMMO/immortalwrt-armsr-armv8-generic-rootfs.tar.gz
         PACKAGE_SOC: ${{ github.event.inputs.openwrt_soc }}
         WHOAMI: Jejz
         OPENWRT_VER: R$(TZ=UTC-8 date +'%y.%-m.%-d') 
