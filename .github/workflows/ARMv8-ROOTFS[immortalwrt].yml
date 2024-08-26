@@ -328,7 +328,7 @@ jobs:
         name: ${{ env.DATE }} 🚫「 ${{ env.FILE_NAME }} 」
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.FILE_NAME }}_immo
+        tag: ${{ env.FILE_NAME }}-IMMO
         token: ${{ secrets.GH_TOKEN }}
         body: |
           **This is ImmortalWrt Firmware for ${{ env.FILE_NAME }}**
@@ -374,7 +374,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-immo-ROOTFS
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTFS-IMMO
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -392,4 +392,4 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-immo-ROOTFS
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTFS-IMMO
