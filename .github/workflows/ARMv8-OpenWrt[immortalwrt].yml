@@ -1,0 +1,219 @@
+#===============================================
+# Description: ARMv8 OpenWrt
+# Lisence: MIT
+# By：Jejz
+#===============================================
+
+name: ARMv8 OpenWrt[immortalwrt]快速打包
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      openwrt_soc:
+        description: "Select 0penwrt SoC"
+        required: false
+        default: "s905x3_s905d"
+        type: choice
+        options:
+          - s905x3_s905d
+          - all
+          - a311d
+          - s922x
+          - s922x-n2
+          - s922x-reva
+          - s905x3
+          - s905x2
+          - s905x2-km3
+          - s912
+          - s912-m8s
+          - s905d
+          - s905d-ki
+          - s905x
+          - s905w
+          - s905
+          - s905l3a
+      kernel_download:
+        description: "Select kernel download"
+        required: false
+        default: "breakings/OpenWrt"
+        type: choice
+        options:
+          - breakings/OpenWrt
+          - ophub/kernel
+          - Jejz168/compile-kernel
+      kernel_version:
+        description: "Select kernel version"
+        required: false
+        default: "5.4.228_5.10.161_5.15.100_6.1.8_6.6.18"
+        type: choice
+        options:
+          - 5.4.228_5.10.161_5.15.100_6.1.8_6.6.18
+          - 5.4.228_5.10.161
+          - 5.4.228_5.15.100
+          - 5.10.161_5.15.100
+          - 5.15.100_6.1.8
+          - 6.1.8_6.6.18
+          - 5.4.228
+          - 5.10.161
+          - 5.15.100
+          - 6.1.8
+          - 6.6.18
+  #schedule:
+    #- cron: '45 22 * * *'
+
+env:
+  REPO_URL: https://github.com/immortalwrt/immortalwrt
+  REPO_BRANCH: master
+  FEEDS_CONF: feeds_config/immo.feeds.conf.default
+  CONFIG_FILE: config/immo_config/armv8.config
+  DIY_P1_SH: diy_script/immo_diy/armv8/diy-part1.sh
+  DIY_P2_SH: diy_script/immo_diy/armv8/diy-part2.sh
+  UPLOAD_FIRMWARE: false
+  UPLOAD_RELEASE: true
+  TZ: Asia/Shanghai
+  FILE_NAME: ARMv8
+  PRODUCT_NAME: ARMv8
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo -E rm -rf /usr/share/dotnet /etc/mysql /etc/php /etc/apt/sources.list.d /usr/local/lib/android
+        sudo -E apt-get update
+        sudo -E apt-get -y install $(curl -fsSL https://raw.githubusercontent.com/ophub/amlogic-s9xxx-armbian/main/compile-kernel/tools/script/ubuntu2204-make-openwrt-depends)
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get clean
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+          
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        df -hT $PWD
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        cd openwrt
+        Author=$(git show -s --date=short --format="Author: %an")
+        Date=$(git show -s --date=short --format="date: %ci")
+        Commit=$(git show -s --date=short --format="commit: %s")
+        Hash=$(git show -s --date=short --format="commit hash: %h")
+        echo "author=$Author" >> $GITHUB_ENV
+        echo "date=$Date" >> $GITHUB_ENV
+        echo "commit=$Commit" >> $GITHUB_ENV
+        echo "hash=$Hash" >> $GITHUB_ENV
+        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "TAG=$(date "+%Y%m%d")" >> $GITHUB_ENV
+        echo "TAG=$(date "+%Y%m%d")" >> $GITHUB_ENV
+        echo "start=$(date +%s)" >> $GITHUB_ENV
+    
+    - name: Package Armvirt as OpenWrt
+      if: (!cancelled())
+      uses: ophub/flippy-openwrt-actions@main
+      env:
+        OPENWRT_ARMVIRT: https://github.com/Jejz168/OpenWrt/releases/download/ARMv8-ROOTFS-IMMO/openwrt-armvirt-64-generic-rootfs.tar.gz
+        PACKAGE_SOC: ${{ github.event.inputs.openwrt_soc }}
+        WHOAMI: Jejz
+        OPENWRT_VER: R$(TZ=UTC-8 date +'%y.%-m.%-d') 
+        DISTRIB_REVISION: R$(TZ=UTC-8 date +'%y.%-m.%-d') (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M")) 
+        DISTRIB_DESCRIPTION: ImmortalWrt  
+        KERNEL_REPO_URL: https://github.com/${{ github.event.inputs.kernel_download }}/releases/tag/kernel_stable
+        KERNEL_VERSION_NAME: ${{ github.event.inputs.kernel_version }}
+        KERNEL_AUTO_LATEST: true
+        GZIP_IMGS: .gz
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    
+    - name: Upload artifact to Actions
+      uses: kittaakos/upload-artifact-as-is@master
+      if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+      with:
+        path: ${{ env.PACKAGED_OUTPUTPATH }}/
+
+    - name: Upload OpenWrt Firmware to Release
+      id: release
+      uses: ncipollo/release-action@v1
+      if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+      with:
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }} 」固件
+        allowUpdates: true
+        removeArtifacts: true
+        tag: ${{ env.PRODUCT_NAME }}_IMMO
+        token: ${{ secrets.GH_TOKEN }}
+        body: |
+          **This is ImmortalWrt Firmware for ${{ env.FILE_NAME }}**
+          ### 📒 固件信息
+          - 🔥 此为 ARMv8-Docker[immortalwrt] 固件，集成一些日常常用插件
+          - 💻 平台架构: ${{ env.FILE_NAME }}
+          - ⚽ 固件源码: ${{ env.REPO_URL }}
+          - 💝 源码分支: ${{ env.REPO_BRANCH }}
+          - 🌐 默认地址：192.168.8.8
+          - 🔑 默认密码：password
+          - 🔴 WiFi默认密码：password
+          ### 🧊 固件版本
+          - 安装到 EMMC：系统 → 晶晨宝盒 → 安装 OpenWrt → 选择型号 → 安装
+          - 升级 OpenWrt：系统 → 晶晨宝盒 → 手动上传更新 或者 在线下载更新
+          - 常见问题及注意事项请参考恩山F大➦[最新帖](https://www.right.com.cn/forum/thread-4076037-1-1.html)
+          - 当前使用版本:【编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录】
+          - ★ 感谢源码作者无私分享！
+          - 🎈🎈🎈 更新信息 🎈🎈🎈
+          - 作者: ${{ env.author }}
+          - 时间: ${{ env.date }}
+          - 内容: ${{ env.commit }}
+          - hash: ${{ env.hash }}
+        artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+        
+    - name: Completion time 
+      run: |
+        echo "DATE1=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        end=$(date +%s)
+        seconds=$(( end - start ))
+        hour=$(( $seconds/3600 ))
+        min=$(( ($seconds-${hour}*3600)/60 ))
+        sec=$(( $seconds-${hour}*3600-${min}*60 ))
+        HMS=`echo ${hour}:${min}:${sec}`
+        echo "time=$HMS" >> $GITHUB_ENV
+        
+    - name: Telegram notification upload success
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          💥${{ env.PRODUCT_NAME }}[immortalwrt]打包完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.DATE1 }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}_IMMO
+
+    - name: Push notification
+      uses: xhnmt/pushplus-action@main
+      with:
+        token: ${{ secrets.PUSH_PLUS_TOKEN }}
+        title: "💥[immortalwrt]${{ env.PRODUCT_NAME }}打包完成"
+        content: |
+          💥${{ env.PRODUCT_NAME }}[immortalwrt]打包完成
+          开始时间：${{ env.DATE }}
+          完成时间：${{ env.DATE1 }}
+          编译耗时：${{ env.time }}
+          🎈🎈🎈 更新信息 🎈🎈🎈
+          作者: ${{ env.author }}
+          时间: ${{ env.date }}
+          内容: ${{ env.commit }}
+          hash: ${{ env.hash }}
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}_IMMO
