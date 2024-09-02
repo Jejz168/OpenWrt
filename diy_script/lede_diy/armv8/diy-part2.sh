@@ -39,6 +39,18 @@ sed -i 's/invalid users = root/#&/g' feeds/packages/net/samba4/files/smb.conf.te
 # coremark跑分定时清除
 sed -i '/\* \* \* \/etc\/coremark.sh/d' feeds/packages/utils/coremark/*
 
+# unzip
+rm -rf feeds/packages/utils/unzip
+git clone https://github.com/sbwml/feeds_packages_utils_unzip feeds/packages/utils/unzip
+
+# ppp - 2.5.0
+rm -rf package/network/services/ppp
+git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
+
+# curl
+rm -rf feeds/packages/net/curl
+git clone https://github.com/sbwml/feeds_packages_net_curl feeds/packages/net/curl
+
 # 报错修复
 # rm -rf package/kernel/mac80211/patches/brcm/999-backport-to-linux-5.18.patch
 # sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=4.8/g' tools/sed/Makefile
