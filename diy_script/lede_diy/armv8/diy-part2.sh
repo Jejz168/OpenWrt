@@ -47,9 +47,13 @@ git clone https://github.com/sbwml/feeds_packages_utils_unzip feeds/packages/uti
 rm -rf package/network/services/ppp
 git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
 
-# curl
-rm -rf feeds/packages/net/curl
-git clone https://github.com/sbwml/feeds_packages_net_curl feeds/packages/net/curl
+# 替换curl修改版（无nghttp3、ngtcp2）
+curl_ver=$(cat feeds/packages/net/curl/Makefile | grep -i "PKG_VERSION:=" | awk 'BEGIN{FS="="};{print $2}')
+[ $(check_ver "$curl_ver" "8.9.1") != 0 ] && {
+	echo "替换curl版本"
+	rm -rf feeds/packages/net/curl
+	cp -rf $GITHUB_WORKSPACE/personal/curl feeds/packages/net/curl
+}
 
 # 报错修复
 # rm -rf package/kernel/mac80211/patches/brcm/999-backport-to-linux-5.18.patch
