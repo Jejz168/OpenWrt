@@ -39,14 +39,6 @@ sed -i 's/invalid users = root/#&/g' feeds/packages/net/samba4/files/smb.conf.te
 # coremark跑分定时清除
 sed -i '/\* \* \* \/etc\/coremark.sh/d' feeds/packages/utils/coremark/*
 
-# unzip
-rm -rf feeds/packages/utils/unzip
-git clone https://github.com/sbwml/feeds_packages_utils_unzip feeds/packages/utils/unzip
-
-# ppp - 2.5.0
-rm -rf package/network/services/ppp
-git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
-
 # 替换curl修改版（无nghttp3、ngtcp2）
 curl_ver=$(grep -i "PKG_VERSION:=" feeds/packages/net/curl/Makefile | awk -F'=' '{print $2}')
 if [ "$curl_ver" != "8.9.1" ]; then
