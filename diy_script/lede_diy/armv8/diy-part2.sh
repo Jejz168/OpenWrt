@@ -48,12 +48,12 @@ rm -rf package/network/services/ppp
 git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
 
 # 替换curl修改版（无nghttp3、ngtcp2）
-curl_ver=$(cat feeds/packages/net/curl/Makefile | grep -i "PKG_VERSION:=" | awk 'BEGIN{FS="="};{print $2}')
-[ $(check_ver "$curl_ver" "8.9.1") != 0 ] && {
-	echo "替换curl版本"
-	rm -rf feeds/packages/net/curl
-	cp -rf $GITHUB_WORKSPACE/personal/curl feeds/packages/net/curl
-}
+curl_ver=$(grep -i "PKG_VERSION:=" feeds/packages/net/curl/Makefile | awk -F'=' '{print $2}')
+if [ "$(echo -e "$curl_ver\n8.9.1" | sort -V | head -n1)" != "8.9.1" ]; then
+    echo "当前 curl 版本是: $curl_ver,开始替换......"
+    rm -rf feeds/packages/net/curl
+    cp -rf $GITHUB_WORKSPACE/personal/curl feeds/packages/net/curl
+fi
 
 # 报错修复
 # rm -rf package/kernel/mac80211/patches/brcm/999-backport-to-linux-5.18.patch
