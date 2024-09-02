@@ -65,12 +65,12 @@ rm -rf package/network/services/ppp
 git clone https://github.com/sbwml/package_network_services_ppp package/network/services/ppp
 
 # 替换curl修改版（无nghttp3、ngtcp2）
-curl_ver=$(cat feeds/packages/net/curl/Makefile | grep -i "PKG_VERSION:=" | awk 'BEGIN{FS="="};{print $2}')
-[ $(check_ver "$curl_ver" "8.9.1") != 0 ] && {
-	echo "替换curl版本"
-	rm -rf feeds/packages/net/curl
-	cp -rf $GITHUB_WORKSPACE/personal/curl feeds/packages/net/curl
-}
+curl_ver=$(grep -i "PKG_VERSION:=" feeds/packages/net/curl/Makefile | awk -F'=' '{print $2}')
+if [ "$(echo -e "$curl_ver\n8.9.1" | sort -V | head -n1)" != "8.9.1" ]; then
+    echo "替换curl版本"
+    rm -rf feeds/packages/net/curl
+    cp -rf $GITHUB_WORKSPACE/personal/curl feeds/packages/net/curl
+fi
 
 # 报错修复
 # sed -i 's/9625784cf2e4fd9842f1d407681ce4878b5b0dcddbcd31c6135114a30c71e6a8/5de8c8e29aaa3fb9cc6b47bb27299f271354ebb72514e3accadc7d38b5bbaa72/g' feeds/packages/utils/jq/Makefile
