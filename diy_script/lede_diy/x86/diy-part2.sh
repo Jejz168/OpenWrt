@@ -67,7 +67,7 @@ git clone https://github.com/sbwml/package_network_services_ppp package/network/
 # 替换curl修改版（无nghttp3、ngtcp2）
 curl_ver=$(grep -i "PKG_VERSION:=" feeds/packages/net/curl/Makefile | awk -F'=' '{print $2}')
 if [ "$(echo -e "$curl_ver\n8.9.1" | sort -V | head -n1)" != "8.9.1" ]; then
-    echo "当前 curl 版本是: $curl_ver,开始替换curl版本"
+    echo "当前 curl 版本是: $curl_ver,开始替换......"
     rm -rf feeds/packages/net/curl
     cp -rf $GITHUB_WORKSPACE/personal/curl feeds/packages/net/curl
 fi
