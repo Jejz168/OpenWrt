@@ -68,7 +68,7 @@ dev_version=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f
 openwrt_dev=immortalwrt_x86-64_${dev_version}_bios.img.gz
 openwrt_dev_uefi=immortalwrt_x86-64_${dev_version}_uefi.img.gz
 cd bin/targets/x86/64
-md5sum $openwrt_dev > openwrt_bios.md5
-md5sum $openwrt_dev_uefi > openwrt_uefi.md5
+md5sum $openwrt_dev > immortalwrt_bios.md5
+md5sum $openwrt_dev_uefi > immortalwrt_uefi.md5
 exit 0
 EOF
