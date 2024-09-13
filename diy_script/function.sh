@@ -17,6 +17,7 @@ merge_package() {
 	localdir="$target_dir"
 	[ -d "$localdir" ] || mkdir -p "$localdir"
 	tmpdir="$(mktemp -d)" || exit 1
+        echo "开始下载：$(echo $curl | awk -F '/' '{print $(NF)}')"
 	git clone -b "$branch" --depth 1 --filter=blob:none --sparse "$curl" "$tmpdir"
 	cd "$tmpdir"
 	git sparse-checkout init --cone
