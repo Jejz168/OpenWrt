@@ -141,7 +141,6 @@ git clone --depth=1 -b v5-lua https://github.com/sbwml/luci-app-mosdns package/l
 rm -rf feeds/packages/lang/golang
 git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 git clone --depth=1 -b lua https://github.com/sbwml/luci-app-alist package/alist
-git_sparse_clone master https://github.com/sbwml/luci-app-alist package/custom alist
 
 # passwall
 git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
