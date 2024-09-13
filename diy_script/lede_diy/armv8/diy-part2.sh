@@ -11,8 +11,8 @@ echo "开始 DIY2 配置……"
 echo "========================="
 
 # Git稀疏克隆，只克隆指定目录到本地
-chmod +x $GITHUB_WORKSPACE/diy_script/diy_script/function.sh
-source $GITHUB_WORKSPACE/diy_script/diy_script/function.sh
+chmod +x $GITHUB_WORKSPACE/diy_script/function.sh
+source $GITHUB_WORKSPACE/diy_script/function.sh
 rm -rf package/custom; mkdir package/custom
 
 # 修改默认IP
