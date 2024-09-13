@@ -69,7 +69,7 @@ rm -rf feeds/packages/utils/v2dat
 # vssr adguardhome turboacc去dns
 rm -rf package/feeds/packages/adguardhome
 rm -rf feeds/luci/applications/luci-app-turboacc
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
+merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 
 # ddns-go 动态域名
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
@@ -81,8 +81,8 @@ git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luc
 git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # ddnsto
-git_sparse_clone main https://github.com/linkease/nas-packages-luci package/custom luci/luci-app-ddnsto
-git_sparse_clone master https://github.com/linkease/nas-packages package/custom network/services/ddnsto
+merge_package main https://github.com/linkease/nas-packages-luci package/custom luci/luci-app-ddnsto
+merge_package master https://github.com/linkease/nas-packages package/custom network/services/ddnsto
 
 # OpenAppFilter 应用过滤
 git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
@@ -95,7 +95,7 @@ git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAp
 # git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 
 # eqos 限速
-# git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
+# merge_package master https://github.com/kenzok8/openwrt-packages package/custom luci-app-eqos
 
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
@@ -104,7 +104,7 @@ git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-p
 # git clone --depth=1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 
 # filebrowser 文件浏览器
-git_sparse_clone main https://github.com/Lienol/openwrt-package package/custom luci-app-filebrowser
+merge_package main https://github.com/Lienol/openwrt-package package/custom luci-app-filebrowser
 
 # smartdns
 rm -rf feeds/packages/net/smartdns
@@ -123,10 +123,10 @@ git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages
 git clone --depth=1 -b lua https://github.com/sbwml/luci-app-alist package/alist
 
 # passwall
-git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
+merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
 
 # passwall2
-# git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
+# merge_package main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
 
 # mihomo
 # git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
@@ -135,8 +135,8 @@ git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall package/cust
 # git clone --depth=1 https://github.com/muink/luci-app-homeproxy.git package/luci-app-homeproxy
 
 # openclash
-git_sparse_clone master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
-# svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
+merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
+# merge_package dev https://github.com/vernesong/OpenClash package/custom luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
 pushd package/custom/luci-app-openclash/tools/po2lmo
 make && sudo make install
