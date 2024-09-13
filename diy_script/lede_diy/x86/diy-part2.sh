@@ -9,28 +9,8 @@
 echo "开始 DIY2 配置……"
 echo "========================="
 
-# Git稀疏克隆，只克隆指定目录到本地
-function git_sparse_clone() {
- if [[ $# -lt 3 ]]; then
-		echo "Syntax error: [$#] [$*]" >&2
-		return 1
-	fi
-	trap 'rm -rf "$tmpdir"' EXIT
-	branch="$1" repourl="$2" target_dir="$3" && shift 3
-	rootdir="$PWD"
-	localdir="$target_dir"
-	[ -d "$localdir" ] || mkdir -p "$localdir"
-	tmpdir="$(echo $repourl | awk -F '/' '{print $(NF)}')" || exit 1
-	git clone -b "$branch" --depth 1 --filter=blob:none --sparse "$repourl" "$tmpdir"
-	cd "$tmpdir"
-	git sparse-checkout init --cone
-	git sparse-checkout set "$@"
-	# 使用循环逐个移动文件夹
-	for folder in "$@"; do
-		mv -f "$folder" "$rootdir/$localdir"
-	done
-	cd "$rootdir"
-}
+chmod +x $GITHUB_WORKSPACE/diy_script/diy_script/function.sh
+source $GITHUB_WORKSPACE/diy_script/diy_script/function.sh
 rm -rf package/custom; mkdir package/custom
 
 # 修改主机名字，修改你喜欢的就行（不能纯数字或者使用中文）
@@ -124,7 +104,7 @@ git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-p
 # git clone --depth=1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 
 # filebrowser 文件浏览器
-git_sparse_clone main https://github.com/Lienol/openwrt-package luci-app-filebrowser
+git_sparse_clone main https://github.com/Lienol/openwrt-package package/custom luci-app-filebrowser
 
 # smartdns
 rm -rf feeds/packages/net/smartdns
@@ -146,7 +126,7 @@ git clone --depth=1 -b lua https://github.com/sbwml/luci-app-alist package/alist
 git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
 
 # passwall2
-# git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
+# git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
 
 # mihomo
 # git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
