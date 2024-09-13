@@ -10,14 +10,8 @@ echo "开始 DIY2 配置……"
 echo "========================="
 
 # Git稀疏克隆，只克隆指定目录到本地
-function git_sparse_clone() {
-  branch="$1" repourl="$2" && shift 2
-  git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
-  repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
-  cd $repodir && git sparse-checkout set $@
-  mv -f $@ ../package/custom
-  cd .. && rm -rf $repodir
-}
+chmod +x $GITHUB_WORKSPACE/diy_script/diy_script/function.sh
+source $GITHUB_WORKSPACE/diy_script/diy_script/function.sh
 rm -rf package/custom; mkdir package/custom
 
 # 修改默认IP
@@ -59,10 +53,10 @@ sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 # git_sparse_clone 复制 仓库下的文件夹 git clone 复制整个仓库
 # filebrowser luci-app-pushbot
 rm -rf feeds/luci/applications/luci-app-filebrowser
-git_sparse_clone master https://github.com/kiddin9/openwrt-packages luci-app-pushbot luci-app-filebrowser
+merge_package master https://github.com/kiddin9/openwrt-packages package/custom luci-app-pushbot luci-app-filebrowser
 
 # adguardhome
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome
+merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome
 
 # ddns-go 动态域名
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
@@ -74,8 +68,8 @@ git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luc
 git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # ddnsto
-git_sparse_clone main https://github.com/linkease/nas-packages-luci luci/luci-app-ddnsto
-git_sparse_clone master https://github.com/linkease/nas-packages network/services/ddnsto
+merge_package main https://github.com/linkease/nas-packages-luci package/custom luci/luci-app-ddnsto
+merge_package master https://github.com/linkease/nas-packages package/custom network/services/ddnsto
 
 # OpenAppFilter 应用过滤
 rm -rf feeds/packages/net/open-app-filter
@@ -89,7 +83,7 @@ git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAp
 # git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 
 # eqos 限速
-# git_sparse_clone master https://github.com/kenzok8/openwrt-packages luci-app-eqos
+# merge_package master https://github.com/kenzok8/openwrt-packages package/custom luci-app-eqos
 
 # poweroff
 # git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
@@ -117,18 +111,18 @@ git clone --depth=1 https://github.com/sbwml/luci-app-alist package/alist
 
 # passwall
 rm -rf feeds/luci/applications/luci-app-passwall
-git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
+merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
 
 # passwall2
-# git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
+# merge_package main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
 
 # mihomo
 git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
 
 # openclash
 rm -rf feeds/luci/applications/luci-app-openclash
-git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
-# svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
+merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
+# merge_package dev https://github.com/vernesong/OpenClash package/custom luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
 pushd package/custom/luci-app-openclash/tools/po2lmo
 make && sudo make install
