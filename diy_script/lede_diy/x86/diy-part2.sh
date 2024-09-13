@@ -11,12 +11,25 @@ echo "========================="
 
 # Git稀疏克隆，只克隆指定目录到本地
 function git_sparse_clone() {
-  branch="$1" repourl="$2" && shift 2
-  git clone --depth=1 -b $branch --single-branch --filter=blob:none --sparse $repourl
-  repodir=$(echo $repourl | awk -F '/' '{print $(NF)}')
-  cd $repodir && git sparse-checkout set $@
-  mv -f $@ ../package/custom
-  cd .. && rm -rf $repodir
+  if [[ $# -lt 3 ]]; then
+		echo "Syntax error: [$#] [$*]" >&2
+		return 1
+	fi
+	trap 'rm -rf "$tmpdir"' EXIT
+	branch="$1" curl="$2" target_dir="$3" && shift 3
+	rootdir="$PWD"
+	localdir="$target_dir"
+	[ -d "$localdir" ] || mkdir -p "$localdir"
+	tmpdir="$(mktemp -d)" || exit 1
+	git clone -b "$branch" --depth 1 --filter=blob:none --sparse "$curl" "$tmpdir"
+	cd "$tmpdir"
+	git sparse-checkout init --cone
+	git sparse-checkout set "$@"
+	# 使用循环逐个移动文件夹
+	for folder in "$@"; do
+		mv -f "$folder" "$rootdir/$localdir"
+	done
+	cd "$rootdir"
 }
 rm -rf package/custom; mkdir package/custom
 
@@ -76,7 +89,7 @@ rm -rf feeds/packages/utils/v2dat
 # vssr adguardhome turboacc去dns
 rm -rf package/feeds/packages/adguardhome
 rm -rf feeds/luci/applications/luci-app-turboacc
-git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
+git_sparse_clone master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 
 # ddns-go 动态域名
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
@@ -88,8 +101,8 @@ git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luc
 git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # ddnsto
-git_sparse_clone main https://github.com/linkease/nas-packages-luci luci/luci-app-ddnsto
-git_sparse_clone master https://github.com/linkease/nas-packages network/services/ddnsto
+git_sparse_clone main https://github.com/linkease/nas-packages-luci package/custom luci/luci-app-ddnsto
+git_sparse_clone master https://github.com/linkease/nas-packages package/custom network/services/ddnsto
 
 # OpenAppFilter 应用过滤
 git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
@@ -128,10 +141,10 @@ git clone --depth=1 -b v5-lua https://github.com/sbwml/luci-app-mosdns package/l
 rm -rf feeds/packages/lang/golang
 git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 git clone --depth=1 -b lua https://github.com/sbwml/luci-app-alist package/alist
-git_sparse_clone master https://github.com/sbwml/luci-app-alist alist
+git_sparse_clone master https://github.com/sbwml/luci-app-alist package/custom alist
 
 # passwall
-git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-passwall
+git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
 
 # passwall2
 # git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall2 luci-app-passwall2
@@ -143,7 +156,7 @@ git_sparse_clone main https://github.com/xiaorouji/openwrt-passwall luci-app-pas
 # git clone --depth=1 https://github.com/muink/luci-app-homeproxy.git package/luci-app-homeproxy
 
 # openclash
-git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
+git_sparse_clone master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
 # svn co https://github.com/vernesong/OpenClash/branches/dev/luci-app-openclash package/luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
 pushd package/custom/luci-app-openclash/tools/po2lmo
