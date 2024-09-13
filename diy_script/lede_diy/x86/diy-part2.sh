@@ -11,17 +11,17 @@ echo "========================="
 
 # Git稀疏克隆，只克隆指定目录到本地
 function git_sparse_clone() {
-  if [[ $# -lt 3 ]]; then
+ if [[ $# -lt 3 ]]; then
 		echo "Syntax error: [$#] [$*]" >&2
 		return 1
 	fi
 	trap 'rm -rf "$tmpdir"' EXIT
-	branch="$1" curl="$2" target_dir="$3" && shift 3
+	branch="$1" repourl="$2" target_dir="$3" && shift 3
 	rootdir="$PWD"
 	localdir="$target_dir"
 	[ -d "$localdir" ] || mkdir -p "$localdir"
-	tmpdir="$(mktemp -d)" || exit 1
-	git clone -b "$branch" --depth 1 --filter=blob:none --sparse "$curl" "$tmpdir"
+	tmpdir="$(echo $repourl | awk -F '/' '{print $(NF)}')" || exit 1
+	git clone -b "$branch" --depth 1 --filter=blob:none --sparse "$repourl" "$tmpdir"
 	cd "$tmpdir"
 	git sparse-checkout init --cone
 	git sparse-checkout set "$@"
