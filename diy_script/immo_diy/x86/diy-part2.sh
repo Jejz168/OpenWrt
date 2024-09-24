@@ -119,6 +119,9 @@ merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom 
 # mihomo
 git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
 
+# nekoclash
+git clone --depth=1 -b neko https://github.com/Thaolga/luci-app-nekoclash package/nekoclash
+
 # openclash
 rm -rf feeds/luci/applications/luci-app-openclash
 merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
