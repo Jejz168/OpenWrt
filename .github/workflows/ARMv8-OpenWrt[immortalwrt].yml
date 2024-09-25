@@ -198,7 +198,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}_IMMO
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}-IMMO
 
     - name: Push notification
       uses: xhnmt/pushplus-action@main
@@ -216,4 +216,4 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}_IMMO
+          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}-IMMO
