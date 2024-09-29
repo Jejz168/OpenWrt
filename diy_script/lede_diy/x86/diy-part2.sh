@@ -136,9 +136,6 @@ merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom 
 # homeproxy
 # git clone --depth=1 https://github.com/muink/luci-app-homeproxy.git package/luci-app-homeproxy
 
-# nekoclash
-git clone --depth=1 -b neko https://github.com/Thaolga/luci-app-nekoclash package/nekoclash
-
 # openclash
 merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
 # merge_package dev https://github.com/vernesong/OpenClash package/custom luci-app-openclash
