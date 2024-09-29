@@ -122,9 +122,6 @@ rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
 rm -rf feeds/packages/multimedia/aliyundrive-webdav
 merge_package main https://github.com/messense/aliyundrive-webdav package/custom openwrt/luci-app-aliyundrive-webdav openwrt/aliyundrive-webdav
 
-# nekoclash
-git clone --depth=1 -b neko https://github.com/Thaolga/luci-app-nekoclash package/nekoclash
-
 # openclash
 merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
 # merge_package dev https://github.com/vernesong/OpenClash package/custom luci-app-openclash
