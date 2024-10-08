@@ -50,7 +50,7 @@ fi
 # cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
 rm -rf feeds/packages/utils/v2dat
 
-# git_sparse_clone 复制 仓库下的文件夹 git clone 复制整个仓库
+# merge_package 复制 仓库下的文件夹 git clone 复制整个仓库
 # vssr adguardhome turboacc去dns
 rm -rf feeds/luci/applications/luci-app-turboacc
 rm -rf package/feeds/packages/adguardhome
