@@ -50,7 +50,7 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package
 # 报错修复
 sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 
-# git_sparse_clone 复制 仓库下的文件夹 git clone 复制整个仓库
+# merge_package 复制 仓库下的文件夹 git clone 复制整个仓库
 # filebrowser luci-app-pushbot
 rm -rf feeds/luci/applications/luci-app-filebrowser
 merge_package master https://github.com/kiddin9/openwrt-packages package/custom luci-app-pushbot luci-app-filebrowser
