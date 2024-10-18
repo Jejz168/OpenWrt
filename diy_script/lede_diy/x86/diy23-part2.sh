@@ -95,8 +95,9 @@ git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAp
 # rm -rf feeds/luci/applications/luci-app-dockerman
 # git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
 
-# eqos 限速
-# merge_package master https://github.com/kenzok8/openwrt-packages package/custom luci-app-eqos
+# frpc frps
+rm -rf feeds/luci/applications/{luci-app-frpc,luci-app-frps,luci-app-hd-idle,luci-app-adblock}
+merge_package master https://github.com/immortalwrt/luci package/custom applications/luci-app-frpc applications/luci-app-frps applications/luci-app-hd-idle applications/luci-app-adblock
 
 # poweroff
 git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
@@ -104,8 +105,9 @@ git clone https://github.com/esirplayground/luci-app-poweroff package/luci-app-p
 # unblockneteasemusic
 # git clone --depth=1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
 
-# filebrowser 文件浏览器
-merge_package main https://github.com/Lienol/openwrt-package package/custom luci-app-filebrowser
+# filebrowser luci-app-pushbot
+rm -rf feeds/luci/applications/luci-app-filebrowser
+merge_package master https://github.com/kiddin9/openwrt-packages package/custom luci-app-pushbot luci-app-filebrowser
 
 # smartdns
 rm -rf feeds/packages/net/smartdns
@@ -175,6 +177,10 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/lang\/golang\/golang\-package\.mk/include \$(TOPDIR)\/feeds\/packages\/lang\/golang\/golang\-package\.mk/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHREPO/PKG_SOURCE_URL:=https:\/\/github\.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload\.github\.com/g' {}
+
+# nlbwmon移动网络
+sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
+sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
 
 # 重命名
 sed -i 's,frp 服务器,Frp 服务器,g' feeds/luci/applications/luci-app-frps/po/zh_Hans/frps.po
