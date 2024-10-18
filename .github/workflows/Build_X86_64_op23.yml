@@ -10,19 +10,19 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
-      checkupdates54-op23:
+      checkupdates54:
         description: 'Checkupdates54 connection to Actions'
         required: false
         default: 'false'
-      checkupdates515-op23:
+      checkupdates515:
         description: 'Checkupdates515 connection to Actions'
         required: false
         default: 'false'
-      checkupdates61-op23:
+      checkupdates61:
         description: 'Checkupdates61 connection to Actions'
         required: false
         default: 'false'
-      checkupdates66-op23:
+      checkupdates66:
         description: 'Checkupdates66 connection to Actions'
         required: false
         default: 'false'
