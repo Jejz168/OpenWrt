@@ -1721,7 +1721,7 @@ jobs:
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_66-op23:
     needs: [Checka,job_init]
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates66 == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates66-op23 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
@@ -2027,7 +2027,7 @@ jobs:
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
-    needs: [Checka,Build_x86_64_54,Build_x86_64_510,Build_x86_64_515,Build_x86_64_61,Build_x86_64_66]
+    needs: [Checka,Build_x86_64_54,Build_x86_64_510,Build_x86_64_515,Build_x86_64_61,Build_x86_64_66,Build_x86_64_66-op23]
     runs-on: ubuntu-latest
     steps:
     - name: Delete workflow runs
