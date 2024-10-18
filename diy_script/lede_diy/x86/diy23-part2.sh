@@ -64,7 +64,7 @@ fi
 # sed -i 's/PKG_HASH:=.*/PKG_HASH:=e35824e19e8acc06296ce6bfa78a14a6f3ee8f42a965f7762b7056b506457a29/g' feeds/Jejz/xray-core/Makefile
 # cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
 # cp -f $GITHUB_WORKSPACE/personal/chinadns-ng/* feeds/Jejz/chinadns-ng
-# rm -rf feeds/packages/utils/v2dat
+rm -rf feeds/packages/utils/v2dat
 
 # merge_package 复制 仓库下的文件夹 git clone 复制整个仓库
 # vssr adguardhome turboacc去dns
@@ -126,6 +126,7 @@ git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages
 git clone --depth=1 https://github.com/sbwml/luci-app-alist package/alist
 
 # passwall
+rm -rf feeds/luci/applications/luci-app-passwall
 merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
 
 # passwall2
@@ -138,6 +139,7 @@ git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app
 git clone --depth=1 https://github.com/muink/luci-app-homeproxy.git package/luci-app-homeproxy
 
 # openclash
+rm -rf feeds/luci/applications/luci-app-openclash
 merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
 # merge_package dev https://github.com/vernesong/OpenClash package/custom luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
