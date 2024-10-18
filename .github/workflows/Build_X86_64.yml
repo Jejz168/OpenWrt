@@ -31,7 +31,7 @@ on:
         required: false
         default: 'false'
       checkupdates66-op23:
-        description: 'Checkupdates66 connection to Actions'
+        description: 'Checkupdates66-op23 connection to Actions'
         required: false
         default: 'false'
       ssh54:
