@@ -49,7 +49,7 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds_config/lede23.feeds.conf.default
-  CONFIG_FILE: config/lede_config/x86.config
+  CONFIG_FILE: config/lede_config/x86-op23.config
   CONFIGS: config/lede_config
   DIY_P1_SH: diy_script/lede_diy/x86/diy-part1.sh
   DIY_P2_SH: diy_script/lede_diy/x86/diy23-part2.sh
