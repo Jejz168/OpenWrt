@@ -5,8 +5,8 @@
 
 -  [**群组**](https://t.me/Jejz_168)
 -  🛑******最好全新刷机******
--  ♨️【x86】Docker版（Kernel=32M，rootfs=5120M）和普通（Kernel=32M，rootfs=968M）不通刷
--  本库x86为squashfs格式(Kernel=32M，rootfs=968M)
+-  ♨️【x86】Docker版（Kernel=32M，rootfs=5120M）和普通（Kernel=32M，rootfs=3072M）不通刷
+-  本库x86为squashfs格式(Kernel=32M，rootfs=3072M)
 -  ext4 与squashfs 格式的区别： ext4 格式的rootfs 可以扩展磁盘空间大小，而squashfs 不能。 squashfs 格式的rootfs 可以使用重置功能（恢复出厂设置），而ext4 不能。
 -  *必须要是本库最新才能使用。不然就会死翘翘。
 -  升级方法：下载好对应的版本（.img.gz），然后（openwrt-系统-备份/升级） *直接选择，不用解压
