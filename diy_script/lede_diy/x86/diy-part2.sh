@@ -79,7 +79,8 @@ merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/cust
 git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
 
 # lucky 大吉
-git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
+rm -rf feeds/packages/net/lucky
+git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/luci-app-lucky
 
 # ddnsto
 merge_package main https://github.com/linkease/nas-packages-luci package/custom luci/luci-app-ddnsto
@@ -119,6 +120,7 @@ rm -rf feeds/luci/applications/luci-app-mosdns
 git clone --depth=1 -b v5-lua https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
 
 # alist
+rm -rf feeds/packages/net/alist
 rm -rf feeds/packages/lang/golang
 git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
 git clone --depth=1 -b lua https://github.com/sbwml/luci-app-alist package/alist
@@ -137,7 +139,8 @@ merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom 
 # git clone --depth=1 https://github.com/muink/luci-app-homeproxy.git package/luci-app-homeproxy
 
 # nekobox
-git clone --depth=1 -b nekobox https://github.com/Thaolga/openwrt-nekobox package/luci-app-nekobox
+# rm -rf feeds/packages/net/sing-box
+# git clone --depth=1 -b nekobox https://github.com/Thaolga/openwrt-nekobox package/luci-app-nekobox
 
 # openclash
 merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
