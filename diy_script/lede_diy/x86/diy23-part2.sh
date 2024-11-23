@@ -77,7 +77,7 @@ merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/cust
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
 
 # chatgpt
-git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
+# git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
 
 # lucky 大吉
 git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
