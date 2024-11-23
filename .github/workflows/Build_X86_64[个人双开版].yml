@@ -22,16 +22,8 @@ on:
         description: 'Checkupdates66 connection to Actions'
         required: false
         default: 'false'
-      ssh54:
-        description: 'SSH54 connection to Actions'
-        required: false
-        default: 'false'
-      ssh515:
-        description: 'SSH515 connection to Actions'
-        required: false
-        default: 'false'
-      ssh66:
-        description: 'SSH66 connection to Actions'
+      ssh:
+        description: 'SSH connection to Actions'
         required: false
         default: 'false'
   schedule:
@@ -227,7 +219,7 @@ jobs:
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh54  != 'false') || contains(github.event.action, 'ssh54')
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -348,7 +340,7 @@ jobs:
         tag: ${{ env.TAG }}_Personal_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔴【个人双开版方便不用改ip】
           - 💻 平台架构: ${{ env.FILE_NAME }}
@@ -537,7 +529,7 @@ jobs:
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh515  != 'false') || contains(github.event.action, 'ssh515')
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -658,7 +650,7 @@ jobs:
         tag: ${{ env.TAG }}_Personal_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔴【个人双开版方便不用改ip】
           - 💻 平台架构: ${{ env.FILE_NAME }}
@@ -847,7 +839,7 @@ jobs:
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh66 == 'true' && github.event.inputs.ssh66  != 'false') || contains(github.event.action, 'ssh66')
+      if: (github.event.inputs.ssh66 == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -968,7 +960,7 @@ jobs:
         tag: ${{ env.TAG }}_Personal_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔴【个人双开版方便不用改ip】
           - 💻 平台架构: ${{ env.FILE_NAME }}
