@@ -1822,16 +1822,6 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
-
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-core=y/d' .config
-
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-sdio=y/d' .config
-
-        sed -i '/CONFIG_PACKAGE_kmod-mt76-usb=y/d' .config
-
-        rm -rf package/kernel/mt76
-
         sed -i 's/CONFIG_PACKAGE_kmod-ice=y/# CONFIG_PACKAGE_kmod-ice is not set/g' .config
 
         sed -i 's/CONFIG_PACKAGE_kmod-usb-net-asix=y/# CONFIG_PACKAGE_kmod-usb-net-asix is not set/g' .config
