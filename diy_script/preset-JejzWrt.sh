@@ -167,8 +167,8 @@ change_ip() {
 
 # 更改管理员密码
 change_password() {
-    # 提示用户是否确认更改管理员密码
-    echo -n "是否确定要更改管理员密码？(y/n): "
+    # 提示用户是否确认修改管理员密码
+    echo -n "是否确定要修改管理员密码？(y/n): "
     read confirm_password
 
     if [[ "$confirm_password" == "y" || "$confirm_password" == "Y" ]]; then
