@@ -91,7 +91,7 @@ show_menu() {
     echo -e "\e[33m7. 恢复出厂设置（Restore factory settings）\e[0m"
     echo "0/q. 退出本快捷菜单（Exit shortcut menu）"
     echo "=============================================="
-    printf "请输入您的选择 [0-7]: "
+    printf "请输入功能编号(Enter the function number): "
     read choice
     case "$choice" in
         1) change_ip ;;
