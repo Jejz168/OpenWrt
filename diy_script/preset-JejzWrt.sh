@@ -65,10 +65,6 @@ print_header() {
     color_output "\e[33m\           |__/                             / \e[0m"
     color_output "\e[35m\          J e j z W r t   By   J e j z      / \e[0m"
     color_output "\e[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\e[0m"
-}
-
-# 显示菜单
-show_menu() {
     echo -e "\e[34mCPU Model:       $cpu_model \e[0m"
     echo -e "Run Time:        $days 天 $hours 小时 $minutes 分钟 $seconds 秒 "
     echo -e "Memory Usage:    $mem_usage"
@@ -78,6 +74,10 @@ show_menu() {
     echo -e "Target Info:     $platform - $boot_mode "
     echo -e "\e[31mIpv4 Address:    $ip_addresses \e[0m"
     echo " "
+}
+
+# 显示菜单
+show_menu() {
     echo "=============================================="
     echo -e "\e[31m JejzWrt\e[0m \e[35m快捷命令菜单（Shortcut Command Menu）\e[0m         "
     echo "=============================================="
