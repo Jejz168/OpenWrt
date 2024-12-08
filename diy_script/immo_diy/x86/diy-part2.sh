@@ -53,7 +53,7 @@ sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 # merge_package 复制 仓库下的文件夹 git clone 复制整个仓库
 # filebrowser luci-app-pushbot
 rm -rf feeds/luci/applications/luci-app-filebrowser
-merge_package master https://github.com/kiddin9/openwrt-packages package/custom luci-app-pushbot luci-app-filebrowser
+merge_package master https://github.com/xiangfeidexiaohuo/2305-ipk package/custom luci-app-pushbot op-fileBrowser
 
 # adguardhome
 merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome
@@ -62,7 +62,7 @@ merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/cust
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
 
 # chatgpt
-git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
+# git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
 
 # lucky 大吉
 git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
