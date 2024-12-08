@@ -87,7 +87,8 @@ show_menu() {
     echo -e "\e[33m3. 切换默认主题（Switch default theme）\e[0m"
     echo -e "\e[33m4. 重启系统（Reboot）\e[0m"
     echo -e "\e[33m5. 关闭系统（Shutdown）\e[0m"
-    echo -e "\e[33m6. 恢复出厂设置（Restore factory settings）\e[0m"
+    echo -e "\e[33m6. 释放内存（Release memory）\e[0m"
+    echo -e "\e[33m7. 恢复出厂设置（Restore factory settings）\e[0m"
     echo "0/q. 退出本快捷菜单（Exit shortcut menu）"
     echo "=============================================="
     printf "请输入您的选择 [0-6]: "
@@ -98,7 +99,8 @@ show_menu() {
         3) change_theme ;;
         4) echo "正在重启系统..."; reboot ;;
         5) echo "正在关闭系统..."; poweroff ;;
-        6) reset_config ;;
+        6) echo "正在清理内存缓存..."; sync && echo 3 > /proc/sys/vm/drop_caches; echo "内存缓存已清理"; show_menu ;;
+        7) reset_config ;;
         0|q|Q) exit 0 ;;
         *) echo "无效选项，请重新输入"; show_menu ;;
     esac
