@@ -103,12 +103,36 @@ show_menu() {
     esac
 }
 
+# 判断IP地址是否合法
+is_valid_ip() {
+    local ip="$1"
+    # 使用正则表达式检查 IP 地址格式
+    if [[ "$ip" =~ ^([1-9]{1}[0-9]{0,2}|0){1}\.([1-9]{1}[0-9]{0,2}|0){1}\.([1-9]{1}[0-9]{0,2}|0){1}\.([1-9]{1}[0-9]{0,2}|0){1}$ ]]; then
+        # 检查每个段的数字是否在 0 到 255 之间
+        IFS='.' read -r -a octets <<< "$ip"
+        for octet in "${octets[@]}"; do
+            if [[ "$octet" -lt 1 || "$octet" -gt 255 ]]; then
+                return 1  # 不合法
+            fi
+        done
+        return 0  # 合法
+    else
+        return 1  # 格式不正确
+    fi
+}
+
 # 1. 更换 LAN 口 IP 地址
 change_ip() {
     printf "请输入新的 LAN 口 IP 地址（如 192.168.1.2），按 Enter 返回菜单："
     read new_ip
     if [[ -z "$new_ip" ]]; then
         echo "操作已取消，返回菜单。"
+        show_menu
+        return
+    fi
+    # 如果输入的 IP 地址格式无效
+    if ! is_valid_ip "$new_ip"; then
+        echo "无效的 IP 地址格式，操作取消。"
         show_menu
         return
     fi
