@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # 创建文件夹结构
-mkdir -p files/usr/bin/jejz_menu
+mkdir -p files/bin/JejzWrt
 
 # 创建脚本文件
-cat << 'EOF' > files/usr/bin/jejz_menu/menu
+cat << 'EOF' > files/bin/JejzWrt
+
 # 获取内核版本
 kernel_version=$(uname -r)
 
@@ -171,4 +172,4 @@ show_menu
 EOF
 
 # 设置脚本权限
-chmod +x files/usr/bin/jejz_menu/menu
+chmod +x files/bin/JejzWrt
