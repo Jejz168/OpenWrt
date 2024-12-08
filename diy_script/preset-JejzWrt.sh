@@ -87,7 +87,7 @@ show_menu() {
     echo -e "\e[33m4. 重启系统（Reboot）\e[0m"
     echo -e "\e[33m5. 关闭系统（Shutdown）\e[0m"
     echo -e "\e[33m6. 恢复出厂设置（Restore factory settings）\e[0m"
-    echo "0. 退出本快捷菜单（Exit shortcut menu）"
+    echo "0/q. 退出本快捷菜单（Exit shortcut menu）"
     echo "=============================================="
     printf "请输入您的选择 [0-6]: "
     read choice
