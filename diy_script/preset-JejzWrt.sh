@@ -16,9 +16,6 @@ platform=$(uname -m)
 # 获取 CPU 型号
 cpu_model=$(awk -F ': ' '/model name/ {print $2}' /proc/cpuinfo | uniq)
 
-# 获取系统负载
-load=$(awk '{print int($1)}' /proc/loadavg)
-
 # 获取系统的运行时间（包括秒），并去掉小数
 uptime_seconds=$(cat /proc/uptime | awk '{print int($1)}')
 
@@ -69,9 +66,8 @@ print_header() {
     echo -e "\e[34mCPU Model:       $cpu_model \e[0m"
     echo -e "Run Time:        $days 天 $hours 小时 $minutes 分钟 $seconds 秒 "
     echo -e "Memory Usage:    $mem_usage "
-    echo -e "System Load:     $load% "
-    echo -e "Overlay /TMP:    $disk_usage "
     echo -e "Kernel Ver:      $kernel_version $cpu_temp "
+    echo -e "Overlay /TMP:    $disk_usage "
     echo -e "Target Info:     $platform - $boot_mode "
     echo -e "\e[31mIpv4 Address:    $ip_addresses \e[0m"
     echo " "
