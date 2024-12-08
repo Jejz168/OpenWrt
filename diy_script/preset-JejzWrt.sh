@@ -5,7 +5,7 @@ mkdir -p files/bin
 
 # 创建脚本文件
 cat << 'EOF' > files/bin/JejzWrt
-#!/usr/bin/bash
+#!/bin/bash
 
 # 显示菜单
 show_menu() {
