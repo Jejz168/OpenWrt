@@ -160,6 +160,8 @@ change_ip() {
     fi
 
     # 返回菜单
+    printf "按 Enter 键返回菜单..."
+    read
     show_menu
 }
 
@@ -190,6 +192,8 @@ change_password() {
     fi
 
     # 返回菜单
+    printf "按 Enter 键返回菜单..."
+    read
     show_menu
 }
 
@@ -220,6 +224,8 @@ change_theme() {
     fi
 
     # 返回菜单
+    printf "按 Enter 键返回菜单..."
+    read
     show_menu
 }
 
@@ -232,10 +238,12 @@ reboot_system() {
         echo "正在重启系统..."
         reboot
     else
-        echo "系统重启操作已取消，返回菜单。"
+        echo "系统重启操作已取消。"
     fi
 
     # 返回菜单
+    printf "按 Enter 键返回菜单..."
+    read
     show_menu
 }
 
@@ -248,10 +256,12 @@ shutdown_system() {
         echo "正在关闭系统..."
         poweroff
     else
-        echo "系统关闭操作已取消，返回菜单。"
+        echo "系统关闭操作已取消。"
     fi
 
     # 返回菜单
+    printf "按 Enter 键返回菜单..."
+    read
     show_menu
 }
 
@@ -275,6 +285,8 @@ reset_config() {
     fi
 
     # 返回菜单
+    printf "按 Enter 键返回菜单..."
+    read
     show_menu
 }
 
