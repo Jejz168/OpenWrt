@@ -68,10 +68,10 @@ print_header() {
     color_output "\e[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\e[0m"
     echo -e "\e[34mCPU Model:       $cpu_model \e[0m"
     echo -e "Run Time:        $days 天 $hours 小时 $minutes 分钟 $seconds 秒 "
-    echo -e "Memory Usage:    $mem_usage"
-    echo -e "System Load:     $load%"
-    echo -e "Overlay /TMP:    $disk_usage"
-    echo -e "Kernel Ver:      $kernel_version $cpu_temp"
+    echo -e "Memory Usage:    $mem_usage "
+    echo -e "System Load:     $load% "
+    echo -e "Overlay /TMP:    $disk_usage "
+    echo -e "Kernel Ver:      $kernel_version $cpu_temp "
     echo -e "Target Info:     $platform - $boot_mode "
     echo -e "\e[31mIpv4 Address:    $ip_addresses \e[0m"
     echo " "
@@ -106,7 +106,7 @@ show_menu() {
     esac
 }
 
-#  更改 LAN 口 IP 地址
+# 更改 LAN 口 IP 地址
 # 判断IP地址是否合法
 is_valid_ip() {
     local ip="$1"
@@ -197,7 +197,7 @@ change_password() {
     show_menu
 }
 
-#  重置网络和切换默认主题
+# 重置网络和切换默认主题
 change_theme() {
     # 提示用户是否更改 luci 配置
     echo -n "是否要更改主题配置为设计主题？(y/n): "
@@ -231,7 +231,7 @@ change_theme() {
 
 # 一键重启
 reboot_system() {
-    printf "确定要重启系统吗？(y/n)："
+    printf "确定要重启系统吗？(y/n): "
     read confirm_reboot
 
     if [[ "$confirm_reboot" == "y" || "$confirm_reboot" == "Y" ]]; then
@@ -249,7 +249,7 @@ reboot_system() {
 
 # 一键关闭系统
 shutdown_system() {
-    printf "确定要关闭系统吗？(y/n)："
+    printf "确定要关闭系统吗？(y/n): "
     read confirm_shutdown
 
     if [[ "$confirm_shutdown" == "y" || "$confirm_shutdown" == "Y" ]]; then
