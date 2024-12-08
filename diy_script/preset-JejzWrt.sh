@@ -82,8 +82,8 @@ show_menu() {
     echo "=============================================="
     echo -e "\e[31m JejzWrt\e[0m \e[35m快捷命令菜单（Shortcut Command Menu）\e[0m         "
     echo "=============================================="
-    echo -e "\e[33m1. 修改 LAN 口 IP 地址（Modify LAN port IP address）\e[0m"
-    echo -e "\e[33m2. 修改管理员密码（Modify administrator password）\e[0m"
+    echo -e "\e[33m1. 更改 LAN 口 IP 地址（Change LAN port IP address）\e[0m"
+    echo -e "\e[33m2. 更改管理员密码（Change administrator password）\e[0m"
     echo -e "\e[33m3. 重置网络和切换默认主题（Reset network and Switch default theme）\e[0m"
     echo -e "\e[33m4. 重启系统（Reboot）\e[0m"
     echo -e "\e[33m5. 关闭系统（Shutdown）\e[0m"
@@ -106,7 +106,7 @@ show_menu() {
     esac
 }
 
-#  更换 LAN 口 IP 地址
+#  更改 LAN 口 IP 地址
 # 判断IP地址是否合法
 is_valid_ip() {
     local ip="$1"
@@ -126,8 +126,8 @@ is_valid_ip() {
 }
 
 change_ip() {
-    # 提示用户是否确认修改 IP 地址
-    echo -n "是否确定要修改 LAN 口 IP 地址？(y/n): "
+    # 提示用户是否确认更改 IP 地址
+    echo -n "是否确定要更改 LAN 口 IP 地址？(y/n): "
     read confirm_ip
 
     if [[ "$confirm_ip" == "y" || "$confirm_ip" == "Y" ]]; then
@@ -149,14 +149,14 @@ change_ip() {
             return
         fi
 
-        # 使用 UCI 修改 IP 地址
+        # 使用 UCI 更改 IP 地址
         uci set network.lan.ipaddr="$new_ip"
         uci commit network
         /etc/init.d/network restart
-        echo "LAN 口 IP 已成功修改为 $new_ip"
+        echo "LAN 口 IP 已成功更改为 $new_ip"
     else
         # 如果用户取消操作
-        echo "IP 地址修改已取消。"
+        echo "IP 地址更改已取消。"
     fi
 
     # 返回菜单
@@ -167,8 +167,8 @@ change_ip() {
 
 # 更改管理员密码
 change_password() {
-    # 提示用户是否确认修改管理员密码
-    echo -n "是否确定要修改管理员密码？(y/n): "
+    # 提示用户是否确认更改管理员密码
+    echo -n "是否确定要更改管理员密码？(y/n): "
     read confirm_password
 
     if [[ "$confirm_password" == "y" || "$confirm_password" == "Y" ]]; then
@@ -199,17 +199,17 @@ change_password() {
 
 #  重置网络和切换默认主题
 change_theme() {
-    # 提示用户是否修改 luci 配置
-    echo -n "是否要修改主题配置为设计主题？(y/n): "
+    # 提示用户是否更改 luci 配置
+    echo -n "是否要更改主题配置为设计主题？(y/n): "
     read confirm_theme
 
     if [[ "$confirm_theme" == "y" || "$confirm_theme" == "Y" ]]; then
-        # 使用 UCI 修改 luci 配置
+        # 使用 UCI 更改 luci 配置
         uci set luci.main.mediaurlbase='/luci-static/design'
         uci commit luci
         echo "主题已成功切换为设计主题。"
     else
-        echo "主题修改已取消。"
+        echo "主题更改已取消。"
     fi
  
     # 提示是否重启网络
