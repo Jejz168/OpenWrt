@@ -4,7 +4,7 @@
 </div>
 
 -  [**群组**](https://t.me/Jejz_168)
--  🛑******最好全新刷机******
+-  🛑******最好全新刷机（加入快捷改IP的ssh命令：JejzWrt）******
 -  ♨️【x86】Docker版（Kernel=32M，rootfs=5120M）和 无Docker版（Kernel=32M，rootfs=1668M）不通刷
 -  本库x86为squashfs格式。
 -  ext4 与squashfs 格式的区别： ext4 格式的rootfs 可以扩展磁盘空间大小，而squashfs 不能。 squashfs 格式的rootfs 可以使用重置功能（恢复出厂设置），而ext4 不能。
