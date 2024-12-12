@@ -73,7 +73,7 @@ merge_package master https://github.com/linkease/nas-packages package/custom net
 
 # OpenAppFilter 应用过滤
 rm -rf feeds/packages/net/open-app-filter
-git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+git clone --depth=1 https://github.com/sbwml/OpenAppFilter.git package/OpenAppFilter
 
 # autotimeset 定时
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
