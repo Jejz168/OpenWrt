@@ -91,7 +91,7 @@ merge_package main https://github.com/linkease/nas-packages-luci package/custom 
 merge_package master https://github.com/linkease/nas-packages package/custom network/services/ddnsto
 
 # OpenAppFilter 应用过滤
-git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+git clone --depth=1 https://github.com/sbwml/OpenAppFilter.git package/OpenAppFilter
 
 # autotimeset 定时
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
