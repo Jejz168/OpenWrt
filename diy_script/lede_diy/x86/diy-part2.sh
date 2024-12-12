@@ -74,7 +74,7 @@ rm -rf feeds/luci/applications/luci-app-turboacc
 merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/luci-app-turboacc patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
 
 # 修复adguardhome重定向端口识别
-cp -f $GITHUB_WORKSPACE/personal/AdGuardHome/base.lua package/custom/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua
+# cp -f $GITHUB_WORKSPACE/personal/AdGuardHome/base.lua package/custom/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua
 
 # ddns-go 动态域名
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
