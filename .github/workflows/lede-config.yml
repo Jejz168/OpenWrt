@@ -11,7 +11,7 @@ on:
         required: false
         default: 'false'
       x86_23:
-        description: 'Build_x86_23_config connection to Actions'
+        description: 'Build_x86_op23_config connection to Actions'
         required: false
         default: 'false'
       armv8:
