@@ -155,7 +155,7 @@ jobs:
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Build_x86_23_config:
+  Build_x86_op23_config:
     if: ${{ github.event.inputs.x86_23 == 'true'}}
     runs-on: ubuntu-22.04
 
