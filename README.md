@@ -142,7 +142,7 @@
 
 ## 固件下载
 **点击跳转到该设备固件下载页面**
-- ♨️【x86】Docker版（Kernel=32M，rootfs=5120M）和普通（Kernel=32M，rootfs=968M）不通刷
+- ♨️【x86】Docker版（Kernel=32M，rootfs=5120M）和普通（Kernel=32M，rootfs=1668M）不通刷
 - [**X86下载地址**](https://github.com/Jejz168/OpenWrt/releases)
 - [**Arm下载地址**](https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8)
 
