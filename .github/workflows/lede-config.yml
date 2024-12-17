@@ -28,7 +28,7 @@ env:
   REPO_BRANCH: master
   FEEDS_CONF: feeds_config/lede.feeds.conf.default
   FEEDS_CONF23: feeds_config/lede23.feeds.conf.default
-  CONFIG_FILE: config/lede_config/config.x86
+  CONFIG_FILE: config/lede_config/x86.config
   CONFIG_FILE23: config/lede_config/x86-op23.config
   CONFIG_FILE_ARM: config/lede_config/armv8.config
   DIY_P1_SH: diy_script/lede_diy/x86/diy-part1.sh
