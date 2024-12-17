@@ -26,20 +26,8 @@ on:
         description: 'Checkupdates66 connection to Actions'
         required: false
         default: 'false'
-      ssh54:
-        description: 'SSH54 connection to Actions'
-        required: false
-        default: 'false'
-      ssh515:
-        description: 'SSH515 connection to Actions'
-        required: false
-        default: 'false'
-      ssh61:
-        description: 'SSH61 connection to Actions'
-        required: false
-        default: 'false'
-      ssh66:
-        description: 'SSH66 connection to Actions'
+      ssh:
+        description: 'SSH connection to Actions'
         required: false
         default: 'false'
   #schedule:
@@ -293,6 +281,8 @@ jobs:
         rm -rf package/kernel/mt76
         
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_4=y/g' .config
+
+        sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=1668/g' .config
         
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.4/g' target/linux/x86/Makefile
         
@@ -300,7 +290,7 @@ jobs:
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh54 == 'true' && github.event.inputs.ssh54  != 'false') || contains(github.event.action, 'ssh54')
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -598,6 +588,8 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
         
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_5_15=y/g' .config
+
+        sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=1668/g' .config
         
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
@@ -605,7 +597,7 @@ jobs:
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh515 == 'true' && github.event.inputs.ssh515  != 'false') || contains(github.event.action, 'ssh515')
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -903,6 +895,8 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
         
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_0=y/g' .config
+
+        sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=1668/g' .config
         
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.1/g' target/linux/x86/Makefile
         
@@ -912,7 +906,7 @@ jobs:
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh61 == 'true' && github.event.inputs.ssh61  != 'false') || contains(github.event.action, 'ssh61')
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
@@ -1211,6 +1205,8 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
         
         sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_6=y/g' .config
+
+        sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=1668/g' .config
         
         sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.6/g' target/linux/x86/Makefile
         
@@ -1218,7 +1214,7 @@ jobs:
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh66 == 'true' && github.event.inputs.ssh66  != 'false') || contains(github.event.action, 'ssh66')
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       env:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
