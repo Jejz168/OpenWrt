@@ -52,6 +52,7 @@ sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 
 # merge_package 复制 仓库下的文件夹 git clone 复制整个仓库
 # filebrowser luci-app-pushbot
+rm -rf feeds/packages/utils/filebrowser
 rm -rf feeds/luci/applications/luci-app-filebrowser
 merge_package main https://github.com/xiangfeidexiaohuo/2305-ipk package/custom luci-app-pushbot op-fileBrowser
 
