@@ -134,7 +134,7 @@ rm -rf feeds/luci/applications/luci-app-argon-config
 git clone --depth=1 https://github.com/sbwml/luci-theme-argon package/theme-argon
 
 # 更改argon主题背景
-cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/theme-argon/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # 修改主题多余版本信息
 sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
