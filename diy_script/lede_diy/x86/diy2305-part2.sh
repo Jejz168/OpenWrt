@@ -163,7 +163,20 @@ sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank
 sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 
 # 显示增加编译时间
-sed -i "s/DISTRIB_REVISION=.*/DISTRIB_REVISION='%R (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))'/g" package/base-files/files/etc/openwrt_release
+# 定义目标文件
+FILE="package/lean/default-settings/files/zzz-default-settings"
+# 提取 DISTRIB_REVISION 的值
+DISTRIB_REVISION=$(grep "^DISTRIB_REVISION=" "$FILE" | cut -d"'" -f2)
+# 检查是否成功提取
+if [ -n "$DISTRIB_REVISION" ]; then
+  # 生成新字符串
+  NEW_REVISION="${DISTRIB_REVISION} (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))"
+  # 替换旧的 DISTRIB_REVISION
+  sed -i "s|^DISTRIB_REVISION=.*|DISTRIB_REVISION='$NEW_REVISION'|" "$FILE"
+  echo "更新成功：DISTRIB_REVISION='$NEW_REVISION'"
+else
+  echo "未找到 DISTRIB_REVISION 参数，无法更新。"
+fi
 
 # 修改欢迎banner
 cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
