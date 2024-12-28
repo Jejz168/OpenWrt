@@ -410,7 +410,7 @@ jobs:
         tag: ${{ env.TAG }}-op23_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWet-op23 Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-op23 Firmware for ${{ env.FILE_NAME }}**
           **homeproxy/mihomo**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
@@ -717,7 +717,7 @@ jobs:
         tag: ${{ env.TAG }}-op23_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWet-op23 Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-op23 Firmware for ${{ env.FILE_NAME }}**
           **homeproxy/mihomo**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
@@ -1027,7 +1027,7 @@ jobs:
         tag: ${{ env.TAG }}-op23_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWet-op23 Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-op23 Firmware for ${{ env.FILE_NAME }}**
           **homeproxy/mihomo**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
@@ -1335,7 +1335,7 @@ jobs:
         tag: ${{ env.TAG }}-op23_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWet-op23 Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-op23 Firmware for ${{ env.FILE_NAME }}**
           **homeproxy/mihomo**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
