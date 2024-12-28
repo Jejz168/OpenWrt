@@ -196,14 +196,14 @@ change_password() {
 # 重置网络和切换默认主题
 change_theme() {
     # 提示用户是否更改 luci 配置
-    echo -n "是否要更改主题配置为设计主题？(y/n): "
+    echo -n "是否要更改主题配置为默认主题？(y/n): "
     read confirm_theme
 
     if [[ "$confirm_theme" == "y" || "$confirm_theme" == "Y" ]]; then
         # 使用 UCI 更改 luci 配置
-        uci set luci.main.mediaurlbase='/luci-static/design'
+        uci set luci.main.mediaurlbase='/luci-static/bootstrap'
         uci commit luci
-        echo "主题已成功切换为设计主题。"
+        echo "主题已成功切换为默认主题。"
     else
         echo "主题更改已取消。"
     fi
