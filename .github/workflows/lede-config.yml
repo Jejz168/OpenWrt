@@ -219,7 +219,7 @@ jobs:
     - name: 加载自定义设置和调整配置
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e $CONFIG_FILE23 ] && mv $CONFIG_FILE23 openwrt/.config
         chmod +x $DIY_P2_SH23
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH23
