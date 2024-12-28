@@ -156,7 +156,7 @@ jobs:
         files: ${{ env.FIRMWARE }}/*
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_2305_config:
-    if: ${{ github.event.inputs.x86_23 == 'true'}}
+    if: ${{ github.event.inputs.x86_2305 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
