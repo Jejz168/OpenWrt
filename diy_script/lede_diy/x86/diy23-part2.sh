@@ -71,12 +71,12 @@ rm -rf feeds/packages/utils/v2dat
 # filebrowser luci-app-pushbot
 rm -rf package/feeds/packages/adguardhome
 rm -rf feeds/packages/utils/filebrowser
-rm -rf feeds/luci/applications/luci-app-filebrowser
+rm -rf feeds/luci/applications/{luci-app-filebrowser,luci-app-adguardhome}
 merge_package main https://github.com/xiangfeidexiaohuo/2305-ipk package/custom luci-app-adguardhome luci-app-pushbot op-fileBrowser
 
 # frpc frps
-rm -rf feeds/luci/applications/{luci-app-frpc,luci-app-frps,luci-app-hd-idle,luci-app-adblock}
-merge_package master https://github.com/immortalwrt/luci package/custom applications/luci-app-filebrowser applications/luci-app-syncdial applications/luci-app-eqos applications/luci-app-nps applications/luci-app-nfs applications/luci-app-frpc applications/luci-app-frps applications/luci-app-hd-idle applications/luci-app-adblock applications/luci-app-socat
+rm -rf feeds/luci/applications/{luci-app-eqos,luci-app-nps,luci-app-frpc,luci-app-frps,luci-app-hd-idle,luci-app-adblock,luci-app-socat,luci-app-syncdial}
+merge_package master https://github.com/immortalwrt/luci package/custom applications/luci-app-eqos applications/luci-app-nps applications/luci-app-frpc applications/luci-app-frps applications/luci-app-hd-idle applications/luci-app-adblock applications/luci-app-socat
 
 # ddns-go 动态域名
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
@@ -85,6 +85,8 @@ merge_package master https://github.com/immortalwrt/luci package/custom applicat
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
 
 # lucky 大吉
+rm -rf feeds/packages/net/lucky
+rm -rf feeds/luci/applications/luci-app-lucky
 git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
 
 # ddnsto
