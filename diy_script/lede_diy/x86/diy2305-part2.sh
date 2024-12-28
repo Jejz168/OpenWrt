@@ -72,11 +72,11 @@ rm -rf feeds/packages/utils/v2dat
 rm -rf package/feeds/packages/adguardhome
 rm -rf feeds/packages/utils/filebrowser
 rm -rf feeds/luci/applications/{luci-app-filebrowser,luci-app-adguardhome}
-merge_package main https://github.com/xiangfeidexiaohuo/2305-ipk package/custom luci-app-adguardhome luci-app-pushbot op-fileBrowser
+merge_package main https://github.com/xiangfeidexiaohuo/2305-ipk package/custom luci-app-adguardhome luci-app-pushbot op-fileBrowser luci-app-poweroff
 
 # frpc frps
-rm -rf feeds/luci/applications/{luci-app-syncdial,luci-app-eqos,luci-app-nps,luci-app-frpc,luci-app-frps,luci-app-hd-idle,luci-app-adblock,luci-app-socat}
-merge_package master https://github.com/immortalwrt/luci package/custom applications/luci-app-syncdial applications/luci-app-eqos applications/luci-app-nps applications/luci-app-frpc applications/luci-app-frps applications/luci-app-hd-idle applications/luci-app-adblock applications/luci-app-socat
+rm -rf feeds/luci/applications/{luci-app-syncdial,luci-app-eqos,luci-app-nps,luci-app-frpc,luci-app-frps,luci-app-hd-idle,luci-app-adblock,luci-app-socat,luci-app-n2n}
+merge_package master https://github.com/immortalwrt/luci package/custom applications/luci-app-syncdial applications/luci-app-eqos applications/luci-app-nps applications/luci-app-frpc applications/luci-app-frps applications/luci-app-hd-idle applications/luci-app-adblock applications/luci-app-socat applications/luci-app-n2n applications/luci-app-softethervpn
 
 # ddns-go 动态域名
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
@@ -188,13 +188,19 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHREPO/PKG_SOURCE_URL:=https:\/\/github\.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload\.github\.com/g' {}
 
-# nlbwmon移动网络
+# 调整位置
 sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
 sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
+sed -i 's/services/nas/g' feeds/luci/applications/luci-app-p910nd/root/usr/share/luci/menu.d/luci-app-p910nd.json
+sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aria2/root/usr/share/luci/menu.d/luci-app-aria2.json
+sed -i 's/services/nas/g' package/custom/op-fileBrowser/luci-app-filebrowser/root/usr/share/luci/menu.d/luci-app-filebrowser.json
+sed -i 's/services/nas/g' feeds/luci/applications/luci-app-ksmbd/root/usr/share/luci/menu.d/luci-app-ksmbd.json
+sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
+
 
 # 重命名
-sed -i 's,frp 服务器,Frp 服务器,g' feeds/luci/applications/luci-app-frps/po/zh_Hans/frps.po
-sed -i 's,frp 客户端,Frp 客户端,g' feeds/luci/applications/luci-app-frpc/po/zh_Hans/frpc.po
+sed -i 's,frp 服务器,Frp 服务器,g' package/custom/luci-app-frps/po/zh_Hans/frps.po
+sed -i 's,frp 客户端,Frp 客户端,g' package/custom/luci-app-frpc/po/zh_Hans/frpc.po
 
 # 修改插件名字
 # sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
