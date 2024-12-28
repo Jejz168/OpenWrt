@@ -54,10 +54,7 @@ sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 # filebrowser luci-app-pushbot
 rm -rf feeds/packages/utils/filebrowser
 rm -rf feeds/luci/applications/luci-app-filebrowser
-merge_package main https://github.com/xiangfeidexiaohuo/2305-ipk package/custom luci-app-pushbot op-fileBrowser
-
-# adguardhome
-merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome
+merge_package main https://github.com/xiangfeidexiaohuo/2305-ipk package/custom luci-app-adguardhome luci-app-pushbot op-fileBrowser
 
 # ddns-go 动态域名
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
