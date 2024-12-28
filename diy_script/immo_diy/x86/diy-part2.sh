@@ -137,10 +137,10 @@ git clone --depth=1 https://github.com/sbwml/luci-theme-argon package/theme-argo
 cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/theme-argon/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # 修改主题多余版本信息
-sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
-sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
+sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' package/theme-argon/luci-theme-argon/luasrc/view/themes/argon/footer.htm
+sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' package/theme-argon/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
+# sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
+# sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 
 # 修改欢迎banner
 cp -f $GITHUB_WORKSPACE/diy_script/immo_diy/x86/99-default-settings package/emortal/default-settings/files/99-default-settings
