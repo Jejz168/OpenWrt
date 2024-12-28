@@ -10,8 +10,8 @@ on:
         description: 'Build_x86_config connection to Actions'
         required: false
         default: 'false'
-      x86_23:
-        description: 'Build_x86_op23_config connection to Actions'
+      x86_2305:
+        description: 'Build_x86_2305_config connection to Actions'
         required: false
         default: 'false'
       armv8:
@@ -27,14 +27,14 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds_config/lede.feeds.conf.default
-  FEEDS_CONF23: feeds_config/lede23.feeds.conf.default
+  FEEDS_CONF2305: feeds_config/lede2305.feeds.conf.default
   CONFIG_FILE: config/lede_config/x86.config
-  CONFIG_FILE23: config/lede_config/x86-op23.config
+  CONFIG_FILE2305: config/lede_config/x86-2305.config
   CONFIG_FILE_ARM: config/lede_config/armv8.config
   DIY_P1_SH: diy_script/lede_diy/x86/diy-part1.sh
   DIY_P1_SH_ARM: diy_script/lede_diy/armv8/diy-part1.sh
   DIY_P2_SH: diy_script/lede_diy/x86/diy-part2.sh
-  DIY_P2_SH23: diy_script/lede_diy/x86/diy23-part2.sh
+  DIY_P2_SH2305: diy_script/lede_diy/x86/diy2305-part2.sh
   DIY_P2_SH_ARM: diy_script/lede_diy/armv8/diy-part2.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: false
@@ -155,7 +155,7 @@ jobs:
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Build_x86_op23_config:
+  Build_x86_2305_config:
     if: ${{ github.event.inputs.x86_23 == 'true'}}
     runs-on: ubuntu-22.04
 
@@ -205,7 +205,7 @@ jobs:
         
     - name: 加载自定义设置和调整配置
       run: |
-        [ -e $FEEDS_CONF23 ] && mv $FEEDS_CONF23 openwrt/feeds.conf.default
+        [ -e $FEEDS_CONF2305 ] && mv $FEEDS_CONF2305 openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
@@ -219,10 +219,10 @@ jobs:
     - name: 加载自定义设置和调整配置
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE23 ] && mv $CONFIG_FILE23 openwrt/.config
-        chmod +x $DIY_P2_SH23
+        [ -e $CONFIG_FILE2305 ] && mv $CONFIG_FILE2305 openwrt/.config
+        chmod +x $DIY_P2_SH2305
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH23
+        $GITHUB_WORKSPACE/$DIY_P2_SH2305
         
     - name: SSH链接管理
       uses: P3TERX/ssh2actions@v1.0.0
@@ -246,7 +246,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: ${{ env.CONFIG }}_op23_config${{ env.FILE_DATE }}
+        name: ${{ env.CONFIG }}_2305_config${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
     - name: 生成发布标签
