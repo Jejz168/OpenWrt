@@ -193,6 +193,7 @@ sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/shar
 sed -i 's,frp 服务器,Frp 服务器,g' package/custom/luci-app-frps/po/zh_Hans/frps.po
 sed -i 's,frp 客户端,Frp 客户端,g' package/custom/luci-app-frpc/po/zh_Hans/frpc.po
 sed -i 's,终端,TTYD 终端,g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po
+sed -i 's,fileBrowser,文件浏览器,g' package/custom/op-fileBrowser/luci-app-filebrowser/po/zh_Hans/filebrowser.po
 
 # 修改插件名字
 # sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
