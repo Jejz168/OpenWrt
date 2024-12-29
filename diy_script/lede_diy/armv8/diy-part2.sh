@@ -13,7 +13,6 @@ echo "========================="
 # Git稀疏克隆，只克隆指定目录到本地
 chmod +x $GITHUB_WORKSPACE/diy_script/function.sh
 source $GITHUB_WORKSPACE/diy_script/function.sh
-rm -rf package/custom; mkdir package/custom
 
 # 修改默认IP
 sed -i 's/192.168.1.1/192.168.8.8/g' package/base-files/files/bin/config_generate
@@ -49,99 +48,87 @@ fi
 # sed -i 's/PKG_VERSION:=.*/PKG_VERSION:=1.7.2/g' feeds/Jejz/xray-core/Makefile
 # sed -i 's/PKG_HASH:=.*/PKG_HASH:=e35824e19e8acc06296ce6bfa78a14a6f3ee8f42a965f7762b7056b506457a29/g' feeds/Jejz/xray-core/Makefile
 # cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
-rm -rf feeds/packages/utils/v2dat
+# rm -rf feeds/packages/utils/v2dat
 
 # merge_package 复制 仓库下的文件夹 git clone 复制整个仓库
 # vssr adguardhome turboacc去dns
-# rm -rf feeds/luci/applications/luci-app-turboacc
 rm -rf package/feeds/packages/adguardhome
-merge_package master https://github.com/xiangfeidexiaohuo/extra-ipk package/custom luci-app-adguardhome patch/wall-luci/lua-maxminddb patch/wall-luci/luci-app-vssr
+clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome luci-app-poweroff luci-app-filebrowser filebrowser lua-maxminddb luci-app-vssr
 
 # ddns-go 动态域名
-# git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
+# clone_all https://github.com/sirpdboy/luci-app-ddns-go
 
 # chatgpt
-# git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
+# git_clone https://github.com/sirpdboy/luci-app-chatgpt-web luci-app-chatgpt
 
 # lucky 大吉
-git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
+clone_all https://github.com/gdy666/luci-app-lucky
 
 # ddnsto
-merge_package main https://github.com/linkease/nas-packages-luci package/custom luci/luci-app-ddnsto
-merge_package master https://github.com/linkease/nas-packages package/custom network/services/ddnsto
+clone_dir main https://github.com/linkease/nas-packages-luci luci-app-ddnsto
+clone_dir master https://github.com/linkease/nas-packages ddnsto
 
 # OpenAppFilter 应用过滤
-git clone --depth=1 https://github.com/sbwml/OpenAppFilter.git package/OpenAppFilter
+clone_all https://github.com/sbwml/OpenAppFilter
 
 # autotimeset 定时
-# git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
+# git_clone https://github.com/sirpdboy/luci-app-autotimeset
 
 # dockerman
-# rm -rf feeds/luci/applications/luci-app-dockerman
-# git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
+# clone_dir https://github.com/lisaac/luci-app-dockerman luci-app-dockerman
 
 # eqos 限速
-# merge_package master https://github.com/kenzok8/openwrt-packages package/custom luci-app-eqos
-
-# poweroff
-git clone --depth=1 https://github.com/esirplayground/luci-app-poweroff package/luci-app-poweroff
+# clone_dir master https://github.com/kenzok8/openwrt-packages luci-app-eqos
 
 # unblockneteasemusic
-# git clone --depth=1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
-
-# filebrowser 文件浏览器
-merge_package main https://github.com/Lienol/openwrt-package package/custom luci-app-filebrowser
+# git_clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic
 
 # smartdns
-rm -rf feeds/packages/net/smartdns
-rm -rf feeds/luci/applications/luci-app-smartdns
-git clone --depth=1 -b lede https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
-git clone --depth=1 https://github.com/pymumu/openwrt-smartdns package/smartdns
+git_clone lede https://github.com/pymumu/luci-app-smartdns luci-app-smartdns
+git_clone https://github.com/pymumu/openwrt-smartdns smartdns
 
 # mosdns
-rm -rf feeds/packages/net/mosdns
-rm -rf feeds/luci/applications/luci-app-mosdns
-git clone --depth=1 -b v5-lua https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
+clone_all v5-lua https://github.com/sbwml/luci-app-mosdns
 
 # alist
-rm -rf feeds/packages/lang/golang
-git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
-git clone --depth=1 -b lua https://github.com/sbwml/luci-app-alist package/alist
-# merge_package master https://github.com/sbwml/luci-app-alist package/custom alist
+git_clone https://github.com/sbwml/packages_lang_golang golang
+clone_all lua https://github.com/sbwml/luci-app-alist
 
 # passwall
-merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
+clone_all https://github.com/xiaorouji/openwrt-passwall
 
 # passwall2
-merge_package main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
+clone_all https://github.com/xiaorouji/openwrt-passwall2
 
 # mihomo
-# git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
+# clone_all https://github.com/morytyann/OpenWrt-mihomo
+
+# homeproxy
+# git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
+
+# nekobox
+# rm -rf feeds/packages/net/sing-box
+# clone_all nekobox https://github.com/Thaolga/openwrt-nekobox
 
 # 阿里云盘webdav
-rm -rf feeds/luci/applications/luci-app-aliyundrive-webdav
-rm -rf feeds/packages/multimedia/aliyundrive-webdav
-merge_package main https://github.com/messense/aliyundrive-webdav package/custom openwrt/luci-app-aliyundrive-webdav openwrt/aliyundrive-webdav
+clone_dir main https://github.com/messense/aliyundrive-webdav luci-app-aliyundrive-webdav aliyundrive-webdav
 
 # openclash
-merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
-# merge_package dev https://github.com/vernesong/OpenClash package/custom luci-app-openclash
+clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
+# clone_dir dev https://github.com/vernesong/OpenClash luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
-pushd package/custom/luci-app-openclash/tools/po2lmo
+pushd $destination_dir/custom/luci-app-openclash/tools/po2lmo
 make && sudo make install
 popd
 
 # Themes 主题
-rm -rf feeds/luci/themes/luci-theme-argon
-rm -rf feeds/luci/themes/luci-theme-netgear
-rm -rf feeds/luci/applications/luci-app-argon-config
-merge_package openwrt-18.06 https://github.com/rosywrt/luci-theme-rosy package/custom luci-theme-rosy
-merge_package master https://github.com/haiibo/openwrt-packages package/custom luci-theme-atmaterial_new luci-theme-opentomcat luci-theme-netgear
-git clone --depth=1 -b classic https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom package/luci-theme-infinityfreedom
-git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
-git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-app-argon-config.git package/luci-app-argon-config
-git clone --depth=1 https://github.com/sirpdboy/luci-theme-opentopd package/luci-theme-opentopd
-git clone --depth=1 https://github.com/thinktip/luci-theme-neobird package/luci-theme-neobird
+clone_dir openwrt-18.06 https://github.com/rosywrt/luci-theme-rosy package/custom luci-theme-rosy
+clone_dir master https://github.com/haiibo/openwrt-packages luci-theme-atmaterial_new luci-theme-opentomcat luci-theme-netgear
+clone_dir classic https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom luci-theme-infinityfreedom
+git_clone 18.06 https://github.com/jerrykuku/luci-theme-argon
+git_clone 18.06 https://github.com/jerrykuku/luci-app-argon-config
+git_clone https://github.com/sirpdboy/luci-theme-opentopd
+git_clone https://github.com/thinktip/luci-theme-neobird
 
 # 更改argon主题背景
 cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
@@ -150,8 +137,8 @@ cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-st
 # sed -i 's/❤/❤/g' package/lean/luci-theme-argon_armygreen/luasrc/view/themes/argon_armygreen/header.htm
 
 # 修改主题多余版本信息
-sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
+sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer.htm
+sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer.htm
 sed -i 's/<a href=\"https:\/\/github.com\/coolsnowwolf\/luci\">/<a>/g' feeds/luci/themes/luci-theme-bootstrap/luasrc/view/themes/bootstrap/footer.htm
 
 # 显示增加编译时间(F大打包工具会替换)
@@ -172,10 +159,10 @@ sed -i 's/<a href=\"https:\/\/github.com\/coolsnowwolf\/luci\">/<a>/g' feeds/luc
 # EOF
 
 # 晶晨宝盒
-git clone --depth=1 -b main https://github.com/ophub/luci-app-amlogic amlogic && mv -n amlogic/luci-app-amlogic package/custom/luci-app-amlogic ; rm -rf amlogic
-sed -i "s|https.*/OpenWrt|https://github.com/Jejz168/OpenWrt|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
-# sed -i "s|http.*/library|https://github.com/Jejz168/OpenWrt/backup/kernel|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
-sed -i "s|ARMv8|ARMv8|g" package/custom/luci-app-amlogic/root/etc/config/amlogic
+clone_dir main https://github.com/ophub/luci-app-amlogic luci-app-amlogic
+sed -i "s|https.*/OpenWrt|https://github.com/Jejz168/OpenWrt|g" $destination_dir/luci-app-amlogic/root/etc/config/amlogic
+# sed -i "s|http.*/library|https://github.com/Jejz168/OpenWrt/backup/kernel|g" $destination_dir/luci-app-amlogic/root/etc/config/amlogic
+sed -i "s|ARMv8|ARMv8|g" $destination_dir/luci-app-amlogic/root/etc/config/amlogic
 
 # 修改makefile
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
@@ -189,9 +176,9 @@ sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/m
 sed -i 's/services/vpn/g' feeds/luci/applications/luci-app-v2ray-server/luasrc/view/v2ray_server/*.htm
 
 # 调整阿里云盘webdav到存储菜单
-sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/controller/*.lua
-sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/model/cbi/aliyundrive-webdav/*.lua
-sed -i 's/services/nas/g' package/custom/luci-app-aliyundrive-webdav/luasrc/view/aliyundrive-webdav/*.htm
+sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-webdav/luasrc/controller/*.lua
+sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-webdav/luasrc/model/cbi/aliyundrive-webdav/*.lua
+sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aliyundrive-webdav/luasrc/view/aliyundrive-webdav/*.htm
 
 # 修改插件名字
 # sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
