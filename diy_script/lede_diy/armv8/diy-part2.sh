@@ -52,8 +52,8 @@ fi
 
 # merge_package 复制 仓库下的文件夹 git clone 复制整个仓库
 # vssr adguardhome turboacc去dns
-rm -rf package/feeds/packages/adguardhome
-clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome luci-app-poweroff luci-app-filebrowser filebrowser lua-maxminddb luci-app-vssr
+rm -rf feeds/packages/net/adguardhome
+clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome luci-app-poweroff lua-maxminddb luci-app-vssr
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
@@ -82,6 +82,9 @@ clone_all https://github.com/sbwml/OpenAppFilter
 
 # unblockneteasemusic
 # git_clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic
+
+# filebrowser 文件浏览器
+clone_dir main https://github.com/Lienol/openwrt-package luci-app-filebrowser
 
 # smartdns
 git_clone lede https://github.com/pymumu/luci-app-smartdns luci-app-smartdns
