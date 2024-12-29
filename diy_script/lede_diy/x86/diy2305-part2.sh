@@ -12,7 +12,6 @@ echo "========================="
 # Git稀疏克隆，只克隆指定目录到本地
 chmod +x $GITHUB_WORKSPACE/diy_script/function.sh
 source $GITHUB_WORKSPACE/diy_script/function.sh
-rm -rf package/custom; mkdir package/custom
 
 # 修改主机名字，修改你喜欢的就行（不能纯数字或者使用中文）
 # sed -i "/uci commit system/i\uci set system.@system[0].hostname='Jejz'" package/lean/default-settings/files/zzz-default-settings
@@ -65,102 +64,85 @@ fi
 # sed -i 's/PKG_HASH:=.*/PKG_HASH:=e35824e19e8acc06296ce6bfa78a14a6f3ee8f42a965f7762b7056b506457a29/g' feeds/Jejz/xray-core/Makefile
 # cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
 # cp -f $GITHUB_WORKSPACE/personal/chinadns-ng/* feeds/Jejz/chinadns-ng
-rm -rf feeds/packages/utils/v2dat
+# rm -rf feeds/packages/utils/v2dat
 
-# merge_package 复制 仓库下的文件夹 git clone 复制整个仓库
+# 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # filebrowser luci-app-pushbot
-rm -rf package/feeds/packages/adguardhome
-rm -rf feeds/packages/utils/filebrowser
-rm -rf feeds/luci/applications/{luci-app-filebrowser,luci-app-adguardhome}
-merge_package main https://github.com/xiangfeidexiaohuo/2305-ipk package/custom luci-app-adguardhome luci-app-pushbot op-fileBrowser luci-app-poweroff
+rm -rf feeds/packages/net/adguardhome
+clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-filebrowser filebrowser luci-app-poweroff
 
-# frpc frps
-rm -rf feeds/luci/applications/{luci-app-syncdial,luci-app-eqos,luci-app-nps,luci-app-frpc,luci-app-frps,luci-app-hd-idle,luci-app-socat,luci-app-n2n}
-merge_package master https://github.com/immortalwrt/luci package/custom applications/luci-app-syncdial applications/luci-app-eqos applications/luci-app-nps applications/luci-app-frpc applications/luci-app-frps applications/luci-app-hd-idle applications/luci-app-socat applications/luci-app-n2n applications/luci-app-softethervpn
+# 替换immortalwrt插件
+clone_dir master https://github.com/immortalwrt/luci luci-app-syncdial luci-app-eqos luci-app-nps luci-app-frpc luci-app-frps luci-app-hd-idle luci-app-socat luci-app-n2n luci-app-softethervpn
 
 # ddns-go 动态域名
-# git clone --depth=1 https://github.com/sirpdboy/luci-app-ddns-go.git package/ddns-go
+# clone_all https://github.com/sirpdboy/luci-app-ddns-go
 
 # chatgpt
-# git clone --depth=1 https://github.com/sirpdboy/luci-app-chatgpt-web package/luci-app-chatgpt
+# git_clone https://github.com/sirpdboy/luci-app-chatgpt-web luci-app-chatgpt
 
 # lucky 大吉
-rm -rf feeds/packages/net/lucky
-rm -rf feeds/luci/applications/luci-app-lucky
-git clone --depth=1 https://github.com/gdy666/luci-app-lucky.git package/lucky
+clone_all https://github.com/gdy666/luci-app-lucky
 
 # ddnsto
-merge_package main https://github.com/linkease/nas-packages-luci package/custom luci/luci-app-ddnsto
-merge_package master https://github.com/linkease/nas-packages package/custom network/services/ddnsto
+clone_dir main https://github.com/linkease/nas-packages-luci luci-app-ddnsto
+clone_dir master https://github.com/linkease/nas-packages ddnsto
 
 # OpenAppFilter 应用过滤
-git clone --depth=1 https://github.com/sbwml/OpenAppFilter.git package/OpenAppFilter
+clone_all https://github.com/sbwml/OpenAppFilter
 
 # autotimeset 定时
-# git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
+# git_clone https://github.com/sirpdboy/luci-app-autotimeset
 
 # dockerman
-# rm -rf feeds/luci/applications/luci-app-dockerman
-# git clone --depth=1 https://github.com/lisaac/luci-app-dockerman.git package/luci-app-dockerman
+# clone_dir https://github.com/lisaac/luci-app-dockerman luci-app-dockerman
 
 # unblockneteasemusic
-# git clone --depth=1 https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic.git package/luci-app-unblockneteasemusic
+# git_clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic
 
 # smartdns
-rm -rf feeds/packages/net/smartdns
-rm -rf feeds/luci/applications/luci-app-smartdns
-git clone --depth=1 -b master https://github.com/pymumu/luci-app-smartdns.git package/luci-app-smartdns
-git clone --depth=1 https://github.com/pymumu/openwrt-smartdns package/smartdns
+git_clone https://github.com/pymumu/luci-app-smartdns luci-app-smartdns
+git_clone https://github.com/pymumu/openwrt-smartdns smartdns
 
 # mosdns
-rm -rf feeds/packages/net/mosdns
-rm -rf feeds/luci/applications/luci-app-mosdns
-git clone --depth=1 -b v5 https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
+clone_all v5 https://github.com/sbwml/luci-app-mosdns
 
 # alist
-rm -rf feeds/packages/lang/golang
-rm -rf feeds/packages/net/alist
-rm -rf feeds/luci/applications/luci-app-alist
-git clone --depth=1 https://github.com/sbwml/packages_lang_golang feeds/packages/lang/golang
-git clone --depth=1 https://github.com/sbwml/luci-app-alist package/alist
+git_clone https://github.com/sbwml/packages_lang_golang golang
+clone_all https://github.com/sbwml/luci-app-alist
 
 # passwall
-rm -rf feeds/luci/applications/luci-app-passwall
-merge_package main https://github.com/xiaorouji/openwrt-passwall package/custom luci-app-passwall
+clone_all https://github.com/xiaorouji/openwrt-passwall
 
 # passwall2
-# merge_package main https://github.com/xiaorouji/openwrt-passwall2 package/custom luci-app-passwall2
+# clone_all https://github.com/xiaorouji/openwrt-passwall2
 
 # mihomo
-git clone --depth=1 https://github.com/morytyann/OpenWrt-mihomo package/luci-app-mihomo
+clone_all https://github.com/morytyann/OpenWrt-mihomo
 
 # homeproxy
-git clone --depth=1 https://github.com/muink/luci-app-homeproxy.git package/luci-app-homeproxy
+git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
 
 # openclash
-rm -rf feeds/luci/applications/luci-app-openclash
-merge_package master https://github.com/vernesong/OpenClash package/custom luci-app-openclash
-# merge_package dev https://github.com/vernesong/OpenClash package/custom luci-app-openclash
+clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
+# clone_dir dev https://github.com/vernesong/OpenClash luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
-pushd package/custom/luci-app-openclash/tools/po2lmo
+pushd feeds/luci/applications/luci-app-openclash/tools/po2lmo
 make && sudo make install
 popd
 
 # argon 主题
-rm -rf feeds/luci/themes/luci-theme-argon
-rm -rf feeds/luci/applications/luci-app-argon-config
-git clone --depth=1 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
-git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/luci-app-argon-config
-# git clone --depth=1 https://github.com/sbwml/luci-theme-argon package/theme-argon
+git_clone https://github.com/jerrykuku/luci-theme-argon
+git_clone https://github.com/jerrykuku/luci-app-argon-config
+# clone_all https://github.com/sbwml/luci-theme-argon
 
 # 更改argon主题背景
 cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # 修改主题多余版本信息
-sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
-sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' package/luci-theme-argon/luasrc/view/themes/argon/footer.htm
-sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' package/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
+sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer.htm
+sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
+sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer.htm
+sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 
 # 显示增加编译时间
 pushd package/lean/default-settings/files
@@ -186,7 +168,7 @@ sed -i 's/services\///g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-st
 # 调整位置
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-p910nd/root/usr/share/luci/menu.d/luci-app-p910nd.json
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aria2/root/usr/share/luci/menu.d/luci-app-aria2.json
-sed -i 's/services/nas/g' package/custom/op-fileBrowser/luci-app-filebrowser/root/usr/share/luci/menu.d/luci-app-filebrowser.json
+sed -i 's/services/nas/g' feeds/luci/applications/luci-app-filebrowser/root/usr/share/luci/menu.d/luci-app-filebrowser.json
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-ksmbd/root/usr/share/luci/menu.d/luci-app-ksmbd.json
 sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 
@@ -194,10 +176,10 @@ sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/shar
 sed -i '3a \		"order": 10,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 
 # 重命名
-sed -i 's,frp 服务器,Frp 服务器,g' package/custom/luci-app-frps/po/zh_Hans/frps.po
-sed -i 's,frp 客户端,Frp 客户端,g' package/custom/luci-app-frpc/po/zh_Hans/frpc.po
+sed -i 's,frp 服务器,Frp 服务器,g' feeds/luci/applications/luci-app-frps/po/zh_Hans/frps.po
+sed -i 's,frp 客户端,Frp 客户端,g' feeds/luci/applications/luci-app-frpc/po/zh_Hans/frpc.po
 sed -i 's,终端,TTYD 终端,g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po
-sed -i 's,FileBrowser,文件浏览器,g' package/custom/op-fileBrowser/luci-app-filebrowser/po/zh_Hans/filebrowser.po
+sed -i 's,FileBrowser,文件浏览器,g'feeds/luci/applications/luci-app-filebrowser/po/zh_Hans/filebrowser.po
 
 # 修改插件名字
 # sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
