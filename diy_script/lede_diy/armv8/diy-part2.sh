@@ -50,7 +50,7 @@ fi
 # cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
 # rm -rf feeds/packages/utils/v2dat
 
-# merge_package 复制 仓库下的文件夹 git clone 复制整个仓库
+# 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # vssr adguardhome turboacc去dns
 rm -rf feeds/packages/net/adguardhome
 clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome luci-app-poweroff lua-maxminddb luci-app-vssr
