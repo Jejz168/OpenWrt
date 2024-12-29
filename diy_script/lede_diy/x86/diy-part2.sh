@@ -72,7 +72,7 @@ rm -rf package/feeds/packages/adguardhome
 clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome luci-app-poweroff lua-maxminddb luci-app-vssr
 
 # 修复adguardhome重定向端口识别
-# cp -f $GITHUB_WORKSPACE/personal/AdGuardHome/base.lua package/custom/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua
+# cp -f $GITHUB_WORKSPACE/personal/AdGuardHome/base.lua $destination_dir/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
