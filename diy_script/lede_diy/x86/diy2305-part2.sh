@@ -94,7 +94,7 @@ merge_package main https://github.com/linkease/nas-packages-luci package/custom 
 merge_package master https://github.com/linkease/nas-packages package/custom network/services/ddnsto
 
 # OpenAppFilter 应用过滤
-git clone --depth=1 https://github.com/destan19/OpenAppFilter.git package/OpenAppFilter
+git clone --depth=1 https://github.com/sbwml/OpenAppFilter.git package/OpenAppFilter
 
 # autotimeset 定时
 # git clone --depth=1 https://github.com/sirpdboy/luci-app-autotimeset package/luci-app-autotimeset
@@ -179,21 +179,25 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHREPO/PKG_SOURCE_URL:=https:\/\/github\.com/g' {}
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=\@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload\.github\.com/g' {}
 
+# 设置 nlbwmon 独立菜单
+sed -i 's/services\/nlbw/nlbw/g; /path/s/admin\///g' feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
+sed -i 's/services\///g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
+
 # 调整位置
-sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/root/usr/share/luci/menu.d/luci-app-nlbwmon.json
-sed -i 's/services/network/g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-p910nd/root/usr/share/luci/menu.d/luci-app-p910nd.json
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aria2/root/usr/share/luci/menu.d/luci-app-aria2.json
 sed -i 's/services/nas/g' package/custom/op-fileBrowser/luci-app-filebrowser/root/usr/share/luci/menu.d/luci-app-filebrowser.json
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-ksmbd/root/usr/share/luci/menu.d/luci-app-ksmbd.json
 sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 
+# 更改 ttyd 顺序
+sed -i '3a \		"order": 10,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 
 # 重命名
 sed -i 's,frp 服务器,Frp 服务器,g' package/custom/luci-app-frps/po/zh_Hans/frps.po
 sed -i 's,frp 客户端,Frp 客户端,g' package/custom/luci-app-frpc/po/zh_Hans/frpc.po
 sed -i 's,终端,TTYD 终端,g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po
-sed -i 's,fileBrowser,文件浏览器,g' package/custom/op-fileBrowser/luci-app-filebrowser/po/zh_Hans/filebrowser.po
+sed -i 's,FileBrowser,文件浏览器,g' package/custom/op-fileBrowser/luci-app-filebrowser/po/zh_Hans/filebrowser.po
 
 # 修改插件名字
 # sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
