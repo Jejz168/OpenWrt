@@ -12,7 +12,6 @@ echo "========================="
 # Git稀疏克隆，只克隆指定目录到本地
 chmod +x $GITHUB_WORKSPACE/diy_script/function.sh
 source $GITHUB_WORKSPACE/diy_script/function.sh
-rm -rf package/custom; mkdir package/custom
 
 # 修改主机名字，修改你喜欢的就行（不能纯数字或者使用中文）
 # sed -i "/uci commit system/i\uci set system.@system[0].hostname='Jejz'" package/lean/default-settings/files/zzz-default-settings
@@ -65,12 +64,11 @@ fi
 # sed -i 's/PKG_HASH:=.*/PKG_HASH:=e35824e19e8acc06296ce6bfa78a14a6f3ee8f42a965f7762b7056b506457a29/g' feeds/Jejz/xray-core/Makefile
 # cp -f $GITHUB_WORKSPACE/personal/hysteria/* feeds/Jejz/hysteria
 # cp -f $GITHUB_WORKSPACE/personal/chinadns-ng/* feeds/Jejz/chinadns-ng
-rm -rf feeds/packages/utils/v2dat
+# rm -rf feeds/packages/utils/v2dat
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # vssr adguardhome turboacc去dns
 rm -rf package/feeds/packages/adguardhome
-# rm -rf feeds/luci/applications/luci-app-turboacc
 clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome lua-maxminddb luci-app-vssr
 
 # 修复adguardhome重定向端口识别
@@ -87,7 +85,7 @@ clone_all https://github.com/gdy666/luci-app-lucky
 
 # ddnsto
 clone_dir main https://github.com/linkease/nas-packages-luci luci-app-ddnsto
-git_clone master https://github.com/linkease/nas-packages ddnsto
+clone_dir master https://github.com/linkease/nas-packages ddnsto
 
 # OpenAppFilter 应用过滤
 clone_all https://github.com/sbwml/OpenAppFilter
@@ -120,8 +118,6 @@ git_clone https://github.com/pymumu/openwrt-smartdns smartdns
 clone_all v5-lua https://github.com/sbwml/luci-app-mosdns
 
 # alist
-rm -rf feeds/packages/net/alist
-rm -rf feeds/packages/lang/golang
 git_clone https://github.com/sbwml/packages_lang_golang golang
 clone_all lua https://github.com/sbwml/luci-app-alist
 
