@@ -69,7 +69,7 @@ fi
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # filebrowser luci-app-pushbot
 rm -rf feeds/packages/net/adguardhome
-clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-filebrowser filebrowser luci-app-poweroff
+clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
 
 # 替换immortalwrt插件
 clone_dir master https://github.com/immortalwrt/luci luci-app-syncdial luci-app-eqos luci-app-nps luci-app-frpc luci-app-frps luci-app-hd-idle luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-mwan3
