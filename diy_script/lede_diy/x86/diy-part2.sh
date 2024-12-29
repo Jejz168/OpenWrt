@@ -69,7 +69,7 @@ fi
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # vssr adguardhome turboacc去dns
 rm -rf package/feeds/packages/adguardhome
-clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome lua-maxminddb luci-app-vssr
+clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome luci-app-poweroff lua-maxminddb luci-app-vssr
 
 # 修复adguardhome重定向端口识别
 # cp -f $GITHUB_WORKSPACE/personal/AdGuardHome/base.lua package/custom/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua
@@ -99,9 +99,6 @@ clone_all https://github.com/sbwml/OpenAppFilter
 # eqos 限速
 # clone_dir master https://github.com/kenzok8/openwrt-packages luci-app-eqos
 
-# poweroff
-git_clone https://github.com/esirplayground/luci-app-poweroff
-
 # unblockneteasemusic
 # git_clone https://github.com/UnblockNeteaseMusic/luci-app-unblockneteasemusic
 
@@ -109,8 +106,6 @@ git_clone https://github.com/esirplayground/luci-app-poweroff
 clone_dir main https://github.com/Lienol/openwrt-package luci-app-filebrowser
 
 # smartdns
-rm -rf feeds/packages/net/smartdns
-rm -rf feeds/luci/applications/luci-app-smartdns
 git_clone lede https://github.com/pymumu/luci-app-smartdns luci-app-smartdns
 git_clone https://github.com/pymumu/openwrt-smartdns smartdns
 
