@@ -136,7 +136,7 @@ clone_all https://github.com/xiaorouji/openwrt-passwall
 clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
 # clone_dir dev https://github.com/vernesong/OpenClash luci-app-openclash
 # 编译 po2lmo (如果有po2lmo可跳过)
-pushd $destination_dir/custom/luci-app-openclash/tools/po2lmo
+pushd $destination_dir/luci-app-openclash/tools/po2lmo
 make && sudo make install
 popd
 
