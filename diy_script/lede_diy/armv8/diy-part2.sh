@@ -122,7 +122,7 @@ make && sudo make install
 popd
 
 # Themes 主题
-clone_dir openwrt-18.06 https://github.com/rosywrt/luci-theme-rosy package/custom luci-theme-rosy
+clone_dir openwrt-18.06 https://github.com/rosywrt/luci-theme-rosy luci-theme-rosy
 clone_dir master https://github.com/haiibo/openwrt-packages luci-theme-atmaterial_new luci-theme-opentomcat luci-theme-netgear
 clone_dir classic https://github.com/xiaoqingfengATGH/luci-theme-infinityfreedom luci-theme-infinityfreedom
 git_clone 18.06 https://github.com/jerrykuku/luci-theme-argon
