@@ -72,7 +72,7 @@ rm -rf feeds/packages/net/adguardhome
 clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
 
 # 替换immortalwrt插件
-clone_dir master https://github.com/immortalwrt/luci luci-app-syncdial luci-app-eqos luci-app-nps luci-app-frpc luci-app-frps luci-app-hd-idle luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-mwan3
+clone_dir master https://github.com/immortalwrt/luci luci-app-syncdial luci-app-eqos luci-app-nps luci-app-frpc luci-app-frps luci-app-hd-idle luci-app-socat luci-app-n2n luci-app-softethervpn
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
