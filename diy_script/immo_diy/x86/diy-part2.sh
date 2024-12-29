@@ -51,7 +51,7 @@ sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # filebrowser luci-app-pushbot
-clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-filebrowser filebrowser luci-app-poweroff
+clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
