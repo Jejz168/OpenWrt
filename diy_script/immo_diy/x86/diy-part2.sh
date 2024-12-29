@@ -51,7 +51,7 @@ sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # filebrowser luci-app-pushbot
-clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk package/custom luci-app-adguardhome luci-app-pushbot luci-app-filebrowser filebrowser luci-app-poweroff
+clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-filebrowser filebrowser luci-app-poweroff
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
@@ -113,7 +113,7 @@ git_clone https://github.com/jerrykuku/luci-app-argon-config
 # clone_all https://github.com/sbwml/luci-theme-argon
 
 # 更改argon主题背景
-cp -f $GITHUB_WORKSPACE/personal/bg1.jpg package/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+cp -f $GITHUB_WORKSPACE/personal/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 
 # 修改主题多余版本信息
 sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer.htm
