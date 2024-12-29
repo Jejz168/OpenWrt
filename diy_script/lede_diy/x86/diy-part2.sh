@@ -68,7 +68,7 @@ fi
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # vssr adguardhome turboacc去dns
-rm -rf package/feeds/packages/adguardhome
+rm -rf feeds/packages/net/adguardhome
 clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome luci-app-poweroff lua-maxminddb luci-app-vssr
 
 # 修复adguardhome重定向端口识别
