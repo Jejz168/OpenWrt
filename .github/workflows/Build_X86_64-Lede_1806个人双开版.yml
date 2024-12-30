@@ -26,7 +26,7 @@ on:
         description: 'SSH connection to Actions'
         required: true
         default: false
-        type: boolean'
+        type: boolean
       toolchain:
         description: '使用toolchain缓存'
         required: false
