@@ -1,10 +1,10 @@
 #===============================================
-# Description: ARMv8-ROOTFS
+# Description: ARMv8-ROOTFS[Lede]
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: ARMv8-ROOTFS
+name: ARMv8-ROOTFS[Lede]
 
 on:
   repository_dispatch:
