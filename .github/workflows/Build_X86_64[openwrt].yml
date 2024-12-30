@@ -12,12 +12,14 @@ on:
     inputs:
       checkupdates:
         description: 'Checkupdates connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       checkupdatesD:
         description: 'CheckupdatesD connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       toolchain:
         description: '使用toolchain缓存'
         required: false
