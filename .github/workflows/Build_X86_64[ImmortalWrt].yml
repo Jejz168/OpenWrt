@@ -1,10 +1,10 @@
 #===============================================
-# Description: X86_64
+# Description: X86_64[ImmortalWrt]
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: Build_x86_64[immortalwrt]
+name: Build_x86_64[ImmortalWrt]
 
 on:
   repository_dispatch:
