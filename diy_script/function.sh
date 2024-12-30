@@ -95,7 +95,7 @@ clone_dir() {
     for target_dir in "$@"; do
         source_dir=$(find_dir "$temp_dir" "$target_dir")
         [[ -d $source_dir ]] || \
-        source_dir=$(find $temp_dir -maxdepth 4 -type d -name $target_dir -print -quit) && \
+        source_dir=$(find "$temp_dir" -maxdepth 4 -type d -name "$target_dir" -print -quit) && \
         [[ -d $source_dir ]] || {
             print_info $(color cr 查找) $target_dir [ $(color cr ✕) ]
             continue
