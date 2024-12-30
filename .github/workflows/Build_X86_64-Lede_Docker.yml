@@ -11,17 +11,32 @@ on:
   workflow_dispatch:
     inputs:
       checkupdates54:
-        description: 'Checkupdates54 connection to Actions'
+        description: 'Checkupdates54-1806 connection to Actions'
         required: true
         default: false
         type: boolean
       checkupdates515:
-        description: 'Checkupdates515 connection to Actions'
+        description: 'Checkupdates515-1806 connection to Actions'
         required: true
         default: false
         type: boolean
       checkupdates66:
-        description: 'Checkupdates66 connection to Actions'
+        description: 'Checkupdates66-1806 connection to Actions'
+        required: true
+        default: false
+        type: boolean
+      checkupdates542305:
+        description: 'Checkupdates54-2305 connection to Actions'
+        required: true
+        default: false
+        type: boolean
+      checkupdates5152305:
+        description: 'Checkupdates515-2305 connection to Actions'
+        required: true
+        default: false
+        type: boolean
+      checkupdates662305:
+        description: 'Checkupdates66-2305 connection to Actions'
         required: true
         default: false
         type: boolean
@@ -1050,7 +1065,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_2305_54:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates54 == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates542305 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
@@ -1375,7 +1390,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_2305_515:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates515 == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates5152305 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
@@ -1690,7 +1705,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_2305_66:
     needs: [Checka]   
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates66 == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates662305 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
