@@ -20,11 +20,6 @@ on:
         required: true
         default: false
         type: boolean
-      toolchain:
-        description: '使用toolchain缓存'
-        required: false
-        default: true
-        type: boolean
   schedule:
     - cron: 5 19 * * *
 
@@ -46,7 +41,7 @@ env:
   TZ: Asia/Shanghai
   FILE_NAME: x86_64
   PRODUCT_NAME: x86_64
-  TOOLCHAIN: ${{ github.event.inputs.toolchain }}
+  TOOLCHAIN: true
 
 jobs:
   Checka:
