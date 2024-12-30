@@ -1774,7 +1774,7 @@ jobs:
       uses: Jejz168/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' 
       with:
-        keep_latest: 86
+        keep_latest: 168
         delete_tags: true
         delete_tag_pattern: _
       env:
