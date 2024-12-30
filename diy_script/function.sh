@@ -213,7 +213,7 @@ fi
 destination_dir="package/A"
 [ -d $destination_dir ] || mkdir -p $destination_dir
 
-if [[ -z "$DEVICE_TARGET" ]]; then
+if [ -z "$DEVICE_TARGET" ] || [ "$DEVICE_TARGET" == "-" ]; then
   echo -e "$(color cy 当前编译机型) $(color cb $SOURCE_REPO-${REPO_BRANCH#*-})"
 else
   echo -e "$(color cy 当前编译机型) $(color cb $SOURCE_REPO-${REPO_BRANCH#*-}-$DEVICE_TARGET)"
