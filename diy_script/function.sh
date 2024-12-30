@@ -210,3 +210,5 @@ fi
 # 创建插件保存目录
 destination_dir="package/A"
 [ -d $destination_dir ] || mkdir -p $destination_dir
+
+echo -e "$(color cy 当前编译机型) $(color cb $SOURCE_REPO-${REPO_BRANCH#*-}-$DEVICE_TARGET)"
