@@ -86,7 +86,11 @@ clone_all v5 https://github.com/sbwml/luci-app-mosdns
 git_clone https://github.com/sbwml/packages_lang_golang golang
 clone_all https://github.com/sbwml/luci-app-alist
 
+# ssr-plus
+clone_all https://github.com/fw876/helloworld
+
 # passwall
+clone_all https://github.com/xiaorouji/openwrt-passwall-packages
 clone_all https://github.com/xiaorouji/openwrt-passwall
 
 # passwall2
