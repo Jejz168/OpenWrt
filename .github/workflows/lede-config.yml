@@ -22,7 +22,7 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: true
-        type: boolean'
+        type: boolean
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
