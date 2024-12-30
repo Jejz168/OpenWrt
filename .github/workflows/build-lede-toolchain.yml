@@ -5,18 +5,23 @@ on:
     types: update immortalwrt toolchain
 
   workflow_dispatch:
+    inputs:
+      checkupdates:
+        description: 'Checkupdates connection to Actions'
+        required: false
+        default: 'false'
   schedule:
     - cron: 30 14 * * *
 
 jobs:
-  check:
+  Checka:
     runs-on: ubuntu-22.04
     name: check ${{ matrix.repo }} ${{ matrix.branch }}
     strategy:
       fail-fast: false
       matrix:
         repo: [immortalwrt]
-        branch: [master, openwrt-23.05, openwrt-21.02, openwrt-18.06, openwrt-18.06-k5.4]
+        branch: [master, openwrt-23.05]
 
     env:
       REPO_URL: https://github.com/${{ matrix.repo }}/${{ matrix.repo }}
@@ -48,15 +53,17 @@ jobs:
       run: |
         echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  build:
+  Build:
     runs-on: ubuntu-22.04
+    needs: [Check]
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
     name: build ${{ matrix.branch }} ${{ matrix.target }}
     strategy:
       fail-fast: false
       matrix:
         repo: [immortalwrt]
-        branch: [master, openwrt-23.05, openwrt-21.02, openwrt-18.06, openwrt-18.06-k5.4]
-        target: [x86_64, rockchip_armv8, armsr_armv8, ramips_mt7621, bcm47xx_mips74k]
+        branch: [master, openwrt-23.05]
+        target: [x86_64, rockchip_armv8, armsr_armv8]
 
     env:
       REPO_URL: https://github.com/${{ matrix.repo }}/${{ matrix.repo }}
@@ -152,3 +159,15 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         files: output/*
         body: OpenWrt 工具链缓存
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Cleaning:
+    if: ${{ always() }}
+    needs: [Checka,Build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Delete workflow runs
+      uses: Jejz168/delete-workflow-runs@main
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        retain_days: 5
+        keep_minimum_runs: 0
