@@ -268,13 +268,6 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
         sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=1668/g' .config
-              
-    - name: SSH connection to Actions
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: Output compilation information
       run: |
@@ -392,7 +385,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[OpenWrt] 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[OpenWrt]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_immo_${{ env.KERNEL }}
@@ -577,13 +570,6 @@ jobs:
         
         sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=5120/g' .config
         
-    - name: SSH connection to Actions
-      uses: P3TERX/ssh2actions@v1.0.0
-      if: (github.event.inputs.sshD == 'true' && github.event.inputs.sshD  != 'false') || contains(github.event.action, 'sshD')
-      env:
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-
     - name: Output compilation information
       run: |
         cd openwrt
@@ -700,13 +686,13 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[OpenWrt-Docker] 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[OpenWrt-Docker]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_opD_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is openwrt Firmware for ${{ env.FILE_NAME }}**
+          **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔴 Docker版固件(Kernel=32M，rootfs=5120M)
           - 💻 平台架构: ${{ env.FILE_NAME }}
