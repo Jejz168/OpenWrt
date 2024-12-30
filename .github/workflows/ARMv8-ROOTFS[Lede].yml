@@ -344,7 +344,7 @@ jobs:
         tag: ${{ env.FILE_NAME }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔴 此为 ARMv8 底包，非完整固件，不可直刷
           - 💻 平台架构: ${{ env.FILE_NAME }}
