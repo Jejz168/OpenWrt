@@ -1,10 +1,10 @@
 #===============================================
-# Description: ARMv8[Lede]
+# Description: ARMv8[Lede_1806]
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: Build_ARMv8[Lede]
+name: Build_ARMv8[Lede_1806]
 
 on:
   repository_dispatch:
