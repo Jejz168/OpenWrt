@@ -215,9 +215,49 @@ jobs:
                 ● 源码更新了
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍：https://github.com/immortalwrt/immortalwrt
+# //////////////////////////////////////////////////////////////////////////////////////////////
+  Checkf:
+    runs-on: ubuntu-latest
+    env:
+      REPO_URL_op: https://github.com/openwrt/openwrt
+      REPO_BRANCH_op: main
+      REPO_PATH_op: "op"
+    steps:
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone --depth 1 $REPO_URL_op -b $REPO_BRANCH_op $REPO_PATH_op
+        cd $REPO_PATH_op
+        echo "commitHash_op=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        cd      
+    - name: Show Commit Head and Combination Heads
+      id: combHeader
+      run: |
+        echo "commitHash_op: ${{ steps.getHash.outputs.commitHash_op }}"    
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@main
+      with:
+        path: .commitHash_op
+        key: HEAD-${{ steps.getHash.outputs.commitHash_op }}
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHash_op }} | tee .commitHash_op  
+    - name: Telegram notification upload success
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      uses: appleboy/telegram-action@master
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          ✨༺OpenWrt༻✨
+                ● 源码更新了
+          ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
+          📍：https://github.com/openwrt/openwrt
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
-    needs: [Checka,Checkb,Checkc,Checkd,Checke]    
+    needs: [Checka,Checkb,Checkc,Checkd,Checke,Checkf]    
     runs-on: ubuntu-latest
     steps: 
     - name: Delete workflow runs
