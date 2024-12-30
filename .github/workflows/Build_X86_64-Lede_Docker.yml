@@ -1,10 +1,10 @@
 #===============================================
-# Description: X86_64[Lede_1806_Docker]
+# Description: X86_64[Lede_Docker]
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: Build_x86_64[Lede_1806_Docker]
+name: Build_x86_64[Lede_Docker]
 
 on:
   repository_dispatch:
@@ -352,7 +352,7 @@ jobs:
         tag: ${{ env.TAG }}_Docker_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔴 Docker版固件(Kernel=32M，rootfs=5120M)
           - 💻 平台架构: ${{ env.FILE_NAME }}
@@ -667,7 +667,7 @@ jobs:
         tag: ${{ env.TAG }}_Docker_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔴 Docker版固件(Kernel=32M，rootfs=5120M)
           - 💻 平台架构: ${{ env.FILE_NAME }}
@@ -982,7 +982,7 @@ jobs:
         tag: ${{ env.TAG }}_Docker_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔴 Docker版固件(Kernel=32M，rootfs=5120M)
           - 💻 平台架构: ${{ env.FILE_NAME }}
