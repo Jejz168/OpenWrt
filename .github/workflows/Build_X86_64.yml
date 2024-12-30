@@ -427,12 +427,12 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[LEDE-1806]固件
         allowUpdates: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -467,7 +467,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -483,9 +483,9 @@ jobs:
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[LEDE-1806]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -740,12 +740,12 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[LEDE-1806]固件
         allowUpdates: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -780,7 +780,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -796,9 +796,9 @@ jobs:
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[LEDE-1806]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -1053,12 +1053,12 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[LEDE-1806]固件
         allowUpdates: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -1093,7 +1093,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -1109,9 +1109,9 @@ jobs:
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[LEDE-1806]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -1368,13 +1368,13 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}」[LEDE-1806]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -1425,9 +1425,9 @@ jobs:
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[LEDE-1806]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -1682,13 +1682,13 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}」[LEDE-1806]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -1723,7 +1723,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -1739,9 +1739,9 @@ jobs:
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[LEDE-1806]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -2000,13 +2000,13 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}」[LEDE-1806]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -2041,7 +2041,7 @@ jobs:
         to: ${{ secrets.TELEGRAM_TO }}
         token: ${{ secrets.TELEGRAM_TOKEN }}
         message: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
@@ -2057,9 +2057,9 @@ jobs:
       uses: xhnmt/pushplus-action@main
       with:
         token: ${{ secrets.PUSH_PLUS_TOKEN }}
-        title: "${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
+        title: "[LEDE-1806]${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成"
         content: |
-          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}编译完成
+          ♨️ ${{ env.FILE_NAME }}_${{ env.KERNEL }}[LEDE-1806]编译完成
           开始时间：${{ env.DATE }}
           完成时间：${{ env.END }}
           编译耗时：${{ env.time }}
