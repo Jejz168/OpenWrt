@@ -1,4 +1,4 @@
-name: Build immo toolchain
+name: Build openwrt toolchain
 
 on:
   repository_dispatch:
