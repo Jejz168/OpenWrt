@@ -1,10 +1,10 @@
 #===============================================
-# Description: ARMv8 OpenWrt
+# Description: ARMv8-Immortalwrt
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: ARMv8 OpenWrt[immortalwrt]快速打包
+name: ARMv8-Immortalwrt快速打包
 
 on:
   repository_dispatch:
@@ -36,10 +36,10 @@ on:
       kernel_download:
         description: "Select kernel download"
         required: false
-        default: "breakings/OpenWrt"
+        default: "breakingbadboy/OpenWrt"
         type: choice
         options:
-          - breakings/OpenWrt
+          - breakingbadboy/OpenWrt
           - ophub/kernel
           - Jejz168/compile-kernel
       kernel_version:
