@@ -63,20 +63,20 @@ print_header() {
     color_output "\e[33m\           |__/                             / \e[0m"
     color_output "\e[35m\          J e j z W r t   By   J e j z      / \e[0m"
     color_output "\e[31m~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\e[0m"
-    echo -e "\e[34mCPU Model:       $cpu_model \e[0m"
+    echo -e "\e[96mCPU Model:       $cpu_model \e[0m"
     echo -e "Run Time:        $days 天 $hours 小时 $minutes 分钟 $seconds 秒 "
     echo -e "Memory Usage:    $mem_usage "
     echo -e "Kernel Ver:      $kernel_version $cpu_temp "
     echo -e "Overlay /TMP:    $disk_usage "
     echo -e "Target Info:     $platform - $boot_mode "
-    echo -e "\e[31mIpv4 Address:    $ip_addresses \e[0m"
+    echo -e "\e[31mIpv4 Address\e[0m:    \e[41m$ip_addresses\e[0m"
     echo " "
 }
 
 # 显示菜单
 show_menu() {
     echo "=============================================="
-    echo -e "\e[31m JejzWrt\e[0m \e[35m快捷命令菜单（Shortcut Command Menu）\e[0m         "
+    echo -e "\e[41mJejzWrt\e[0m \e[35m快捷命令菜单（Shortcut Command Menu）\e[0m         "
     echo "=============================================="
     echo -e "\e[33m1. 更改 LAN 口 IP 地址（Change LAN port IP address）\e[0m"
     echo -e "\e[33m2. 更改管理员密码（Change administrator password）\e[0m"
