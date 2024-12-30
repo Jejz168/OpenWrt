@@ -12,28 +12,34 @@ on:
     inputs:
       checkupdates54:
         description: 'Checkupdates54 connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       checkupdates510:
         description: 'Checkupdates510 connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       checkupdates515:
         description: 'Checkupdates515 connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       checkupdates61:
         description: 'Checkupdates61 connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       checkupdates66:
         description: 'Checkupdates66 connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       checkupdates612:
         description: 'Checkupdates612 connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       ssh:
         description: 'SSH connection to Actions'
         required: true
