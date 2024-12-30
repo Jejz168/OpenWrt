@@ -180,11 +180,6 @@ SUBTARGET_NAME=$(awk -F '"' '/CONFIG_TARGET_SUBTARGET/{print $2}' .config)
 DEVICE_TARGET=$TARGET_NAME-$SUBTARGET_NAME
 echo "DEVICE_TARGET=$DEVICE_TARGET" >>$GITHUB_ENV
 
-# 内核版本
-KERNEL=$(grep -oP 'KERNEL_PATCHVER:=\K[^ ]+' target/linux/$TARGET_NAME/Makefile)
-KERNEL_VERSION=$(awk -F '-' '/KERNEL/{print $2}' include/kernel-$KERNEL | awk '{print $1}')
-echo "KERNEL_VERSION=$KERNEL_VERSION" >>$GITHUB_ENV
-
 # Toolchain缓存文件名
 TOOLS_HASH=$(git log --pretty=tformat:"%h" -n1 tools toolchain)
 CACHE_NAME="$SOURCE_REPO-${REPO_BRANCH#*-}-$DEVICE_TARGET-cache-$TOOLS_HASH"
@@ -218,4 +213,8 @@ fi
 destination_dir="package/A"
 [ -d $destination_dir ] || mkdir -p $destination_dir
 
-echo -e "$(color cy 当前编译机型) $(color cb $SOURCE_REPO-${REPO_BRANCH#*-}${DEVICE_TARGET:+-$DEVICE_TARGET}${KERNEL_VERSION:+-$KERNEL_VERSION})"
+if [[ -z "$DEVICE_TARGET" ]]; then
+  echo -e "$(color cy 当前编译机型) $(color cb $SOURCE_REPO-${REPO_BRANCH#*-})"
+else
+  echo -e "$(color cy 当前编译机型) $(color cb $SOURCE_REPO-${REPO_BRANCH#*-}-$DEVICE_TARGET)"
+fi
