@@ -1,10 +1,10 @@
 #===============================================
-# Description: X86_64
+# Description: X86_64[Lede_1806个人双开版]
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: Build_x86_64[个人双开版]
+name: Build_x86_64[Lede_1806个人双开版]
 
 on:
   repository_dispatch:
