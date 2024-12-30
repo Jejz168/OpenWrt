@@ -1,4 +1,4 @@
-name: build immo toolchain
+name: Build immo toolchain
 
 on:
   repository_dispatch:
@@ -55,7 +55,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build:
     runs-on: ubuntu-22.04
-    needs: [Check]
+    needs: [Checka]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
     name: build ${{ matrix.branch }} ${{ matrix.target }}
     strategy:
