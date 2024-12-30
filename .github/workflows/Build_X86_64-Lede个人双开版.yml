@@ -15,6 +15,11 @@ on:
         required: true
         default: false
         type: boolean
+      checkupdates5152305:
+        description: 'Checkupdates515-2305 connection to Actions'
+        required: true
+        default: false
+        type: boolean
       ssh:
         description: 'SSH connection to Actions'
         required: true
@@ -403,7 +408,7 @@ jobs:
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_2305_515:
     needs: [Checka]
-    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates515 == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates5152305 == 'true'}}
     runs-on: ubuntu-22.04
 
     steps:
