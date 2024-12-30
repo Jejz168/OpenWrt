@@ -39,8 +39,9 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds_config/lede.feeds.conf.default
+  FEEDS_CONF2305D: feeds_config/lede2305.feeds.conf.default
   CONFIG_FILE: config/lede_config/x86-docker.config
-  CONFIG_FILED: config/lede_config/x86-2305-docker.config
+  CONFIG_FILE2305D: config/lede_config/x86-2305-docker.config
   DIY_P1_SH: diy_script/lede_diy/x86/diy-part1.sh
   DIY_P2_SH: diy_script/lede_diy/x86/diy-part2.sh
   CLASH_KERNEL: amd64
@@ -1138,7 +1139,7 @@ jobs:
 
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        [ -e $FEEDS_CONF2305D ] && mv $FEEDS_CONF2305D openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
@@ -1152,7 +1153,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILED ] && mv $CONFIG_FILED openwrt/.config
+        [ -e $CONFIG_FILE2305D ] && mv $CONFIG_FILE2305D openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
@@ -1463,7 +1464,7 @@ jobs:
 
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        [ -e $FEEDS_CONF2305D ] && mv $FEEDS_CONF2305D openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
@@ -1477,7 +1478,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILED ] && mv $CONFIG_FILED openwrt/.config
+        [ -e $CONFIG_FILE2305D ] && mv $CONFIG_FILE2305D openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
@@ -1778,7 +1779,7 @@ jobs:
 
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        [ -e $FEEDS_CONF2305D ] && mv $FEEDS_CONF2305D openwrt/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P1_SH
@@ -1792,7 +1793,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILED ] && mv $CONFIG_FILED openwrt/.config
+        [ -e $CONFIG_FILE2305D ] && mv $CONFIG_FILE2305D openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
