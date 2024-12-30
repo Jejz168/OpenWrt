@@ -169,6 +169,17 @@ clone_all() {
     done
     rm -rf $temp_dir
 }
+
+# 源仓库与分支
+SOURCE_REPO=$(basename $REPO_URL)
+echo "SOURCE_REPO=$SOURCE_REPO" >>$GITHUB_ENV
+
+# 平台架构
+TARGET_NAME=$(awk -F '"' '/CONFIG_TARGET_BOARD/{print $2}' .config)
+SUBTARGET_NAME=$(awk -F '"' '/CONFIG_TARGET_SUBTARGET/{print $2}' .config)
+DEVICE_TARGET=$TARGET_NAME-$SUBTARGET_NAME
+echo "DEVICE_TARGET=$DEVICE_TARGET" >>$GITHUB_ENV
+
 # Toolchain缓存文件名
 TOOLS_HASH=$(git log --pretty=tformat:"%h" -n1 tools toolchain)
 CACHE_NAME="$SOURCE_REPO-${REPO_BRANCH#*-}-$DEVICE_TARGET-cache-$TOOLS_HASH"
