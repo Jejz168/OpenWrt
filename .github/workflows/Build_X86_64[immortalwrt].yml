@@ -48,6 +48,7 @@ env:
   TZ: Asia/Shanghai
   FILE_NAME: x86_64
   PRODUCT_NAME: x86_64
+  TOOLCHAIN: ${{ github.event.inputs.toolchain }}
 
 jobs:
   Checka:
