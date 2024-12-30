@@ -1,0 +1,161 @@
+name: Build immo toolchain
+
+on:
+  repository_dispatch:
+    types: update openwrt toolchain
+
+  workflow_dispatch:
+    inputs:
+      checkupdates:
+        description: 'Checkupdates connection to Actions'
+        required: false
+        default: 'false'
+  schedule:
+    - cron: 30 14 * * *
+
+jobs:
+  Checka:
+    runs-on: ubuntu-22.04
+    name: check ${{ matrix.repo }} ${{ matrix.branch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: [openwrt]
+        branch: [main]
+
+    env:
+      REPO_URL: https://github.com/${{ matrix.repo }}/${{ matrix.repo }}
+      REPO_BRANCH: ${{ matrix.branch }}
+
+    steps:
+    - name: Get Commit Hash
+      id: getHash
+      run: |
+        git clone $REPO_URL -b $REPO_BRANCH .
+        echo "commitHash=$(git log --pretty=tformat:"%h" -n1 tools toolchain)" >>$GITHUB_OUTPUT
+        echo "LITE_BRANCH=${REPO_BRANCH#*-}" >>$GITHUB_ENV
+
+    - name: Compare Commit Hash
+      id: cacheHash
+      uses: actions/cache@v4
+      with:
+        path: .commitHash
+        key: ${{ matrix.repo }}-${{ env.LITE_BRANCH }}-commitHash-${{ steps.getHash.outputs.commitHash }}
+
+    - name: Set output for next job
+      id: outputunifreq
+      if: steps.cacheHash.outputs.cache-hit == 'true'
+      run: |
+        echo "unifreq=hello" >> $GITHUB_OUTPUT
+
+    - name: Save New Commit Hash
+      if: steps.cacheHash.outputs.cache-hit != 'true'
+      run: |
+        echo ${{ steps.getHash.outputs.commitHash }} | tee .commitHash
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Build:
+    runs-on: ubuntu-22.04
+    needs: [Checka]
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates == 'true'}}
+    name: build ${{ matrix.branch }} ${{ matrix.target }}
+    strategy:
+      fail-fast: false
+      matrix:
+        repo: [openwrt]
+        branch: [main]
+        target: [x86_64, rockchip_armv8, armsr_armv8]
+
+    env:
+      REPO_URL: https://github.com/${{ matrix.repo }}/${{ matrix.repo }}
+      REPO_BRANCH: ${{ matrix.branch }}
+      TARGET_DEVICE: ${{ matrix.target }}
+      TOOLCHAIN_TAG: toolchain-cache
+      TZ: Asia/Shanghai
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Initialization Environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        (sudo -E apt-get -y update
+        sudo -E apt-get -y install clang rename $(curl -sL is.gd/depends_ubuntu_2204)
+        sudo -E apt-get -y autoremove --purge
+        sudo -E apt-get -y clean) &
+        sudo timedatectl set-timezone "$TZ"
+
+    - name: Clone Source Code
+      run: |
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        cd openwrt
+        echo "OPENWRT_PATH=$PWD" >>$GITHUB_ENV
+        if [[ $TARGET_DEVICE = armsr_armv8 && $REPO_BRANCH =~ 21.02|18.06 ]]; then
+          echo -e "CONFIG_TARGET_armvirt=y\nCONFIG_TARGET_armvirt_64=y" >.config
+        elif [[ $TARGET_DEVICE = bcm47xx_mips74k && ${REPO_BRANCH#*-} = 18.06 ]]; then
+          echo -e "CONFIG_TARGET_brcm47xx=y\nCONFIG_TARGET_brcm47xx_mips74k=y" >.config
+        else
+          echo -e "CONFIG_TARGET_${TARGET_DEVICE%_*}=y\nCONFIG_TARGET_$TARGET_DEVICE=y" >.config
+        fi
+
+    - name: Generate Variables
+      run: |
+        cd $OPENWRT_PATH
+        make defconfig >/dev/null 2>&1
+        echo "SOURCE_REPO=$(basename $REPO_URL)" >>$GITHUB_ENV
+        echo "LITE_BRANCH=${REPO_BRANCH#*-}" >>$GITHUB_ENV
+        TARGET_NAME=$(awk -F '"' '/CONFIG_TARGET_BOARD/{print $2}' .config)
+        SUBTARGET_NAME=$(awk -F '"' '/CONFIG_TARGET_SUBTARGET/{print $2}' .config)
+        echo "DEVICE_TARGET=$TARGET_NAME-$SUBTARGET_NAME" >>$GITHUB_ENV
+
+    - name: Compare Toolchain Hash
+      id: hash
+      run: |
+        cd $OPENWRT_PATH
+        TOOLS_HASH=$(git log --pretty=tformat:"%h" -n1 tools toolchain)
+        CACHE_NAME="$SOURCE_REPO-$LITE_BRANCH-$DEVICE_TARGET-cache-$TOOLS_HASH"
+        echo "CACHE_NAME=$CACHE_NAME" >>$GITHUB_ENV
+        CACHE_URL=$(curl -sL api.github.com/repos/$GITHUB_REPOSITORY/releases | awk -F '"' '/download_url/{print $4}' | grep $CACHE_NAME) || true
+        [ $CACHE_URL ] || echo "REBUILD_TOOLCHAIN=true" >>$GITHUB_OUTPUT
+
+    - name: Install Feeds
+      if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
+      run: |
+        cd $OPENWRT_PATH
+        ./scripts/feeds update -a
+        ./scripts/feeds install -a
+        make defconfig
+
+    - name: Compile Toolchain
+      if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
+      id: toolchain
+      run: |
+        mkdir -p $GITHUB_WORKSPACE/output
+        cd $OPENWRT_PATH
+        make toolchain/compile -j$(nproc) || make toolchain/compile -j1 V=s
+        echo -e "\e[1;33m开始打包toolchain目录\e[0m"
+        [ -d ".ccache" ] && (ccache=".ccache"; ls -alh .ccache)
+        tar -I zstdmt -cf $GITHUB_WORKSPACE/output/$CACHE_NAME.tzst staging_dir/host* staging_dir/tool* $ccache
+        ls -lh $GITHUB_WORKSPACE/output
+        [ -e $GITHUB_WORKSPACE/output/$CACHE_NAME.tzst ]
+
+    - name: Delete Old Toolchain
+      if: steps.toolchain.conclusion == 'success'
+      uses: mknejp/delete-release-assets@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        tag: ${{ env.TOOLCHAIN_TAG }}
+        assets: '${{ env.SOURCE_REPO }}-${{ env.LITE_BRANCH }}-${{ env.DEVICE_TARGET }}*'
+        fail-if-no-assets: false
+        fail-if-no-release: false
+
+    - name: Upload Toolchain To Release
+      if: steps.toolchain.conclusion == 'success'
+      uses: softprops/action-gh-release@v2
+      with:
+        name: toolchain-cache
+        tag_name: ${{ env.TOOLCHAIN_TAG }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        files: output/*
+        body: OpenWrt 工具链缓存
