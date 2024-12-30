@@ -33,12 +33,7 @@ on:
         description: 'SSH connection to Actions'
         required: true
         default: false
-        type: boolean
-      toolchain:
-        description: '使用toolchain缓存'
-        required: false
-        default: true
-        type: boolean       
+        type: boolean   
   #schedule:
    # - cron: 16 7,20 * * *
 
@@ -57,7 +52,7 @@ env:
   TZ: Asia/Shanghai
   FILE_NAME: ARMv8-ROOTFS
   PRODUCT_NAME: ARMv8
-  TOOLCHAIN: ${{ github.event.inputs.toolchain }}
+  TOOLCHAIN: true
   
 jobs:
   Checka:
