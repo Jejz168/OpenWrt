@@ -1,10 +1,10 @@
 #===============================================
-# Description: ARMv8-Lede
+# Description: ARMv8[Lede]
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: ARMv8-Lede快速打包
+name: ARMv8[Lede]快速打包
 
 on:
   repository_dispatch:
