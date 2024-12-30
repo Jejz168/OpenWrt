@@ -14,10 +14,6 @@ on:
         description: 'Checkupdates connection to Actions'
         required: false
         default: 'false'
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
       kernel_version:
         description: "Select kernel version"
         required: false
@@ -33,6 +29,16 @@ on:
           - 5.10.161
           - 5.15.100
           - 6.1.8
+      ssh:
+        description: 'SSH connection to Actions'
+        required: true
+        default: false
+        type: boolean'
+      toolchain:
+        description: '使用toolchain缓存'
+        required: false
+        default: true
+        type: boolean       
   #schedule:
    # - cron: 16 7,20 * * *
 
@@ -51,6 +57,7 @@ env:
   TZ: Asia/Shanghai
   FILE_NAME: ARMv8-ROOTFS
   PRODUCT_NAME: ARMv8
+  TOOLCHAIN: ${{ github.event.inputs.toolchain }}
   
 jobs:
   Checka:
@@ -245,7 +252,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "\e[1;31m当前正常编译...\e[0m"
+           make download -j$(nproc)
+        else
+           echo -e "\e[1;31m当前使用toolchain缓存文件...\e[0m"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -323,7 +336,7 @@ jobs:
         tag: ${{ env.FILE_NAME }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔴 此为 ARMv8 底包，非完整固件，不可直刷
           - 💻 平台架构: ${{ env.FILE_NAME }}
@@ -460,7 +473,7 @@ jobs:
         tag: ${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔥 此为 ARMv8-Docker 固件，集成一些日常常用插件
           - 💻 平台架构: ${{ env.FILE_NAME }}
