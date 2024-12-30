@@ -14,6 +14,11 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+      toolchain:
+        description: '使用toolchain缓存'
+        required: false
+        default: true
+        type: boolean
   #schedule:
     #- cron: 0 18 * * *
 
@@ -33,6 +38,7 @@ env:
   TZ: Asia/Shanghai
   FILE_NAME: ARMv8-ROOTFS
   PRODUCT_NAME: ARMv8-ROOTFS
+  TOOLCHAIN: ${{ github.event.inputs.toolchain }}
   
 jobs: 
   job_init: 
