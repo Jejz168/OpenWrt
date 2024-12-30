@@ -1,10 +1,10 @@
 #===============================================
-# Description: X86_64-Lede_2305
+# Description: X86_64[Lede_2305]
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: Build_x86_64-Lede_2305
+name: Build_x86_64[Lede_2305]
 
 on:
   repository_dispatch:
