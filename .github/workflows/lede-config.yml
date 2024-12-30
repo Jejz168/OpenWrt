@@ -8,16 +8,19 @@ on:
     inputs:
       x86:
         description: 'Build_x86_config connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       x86_2305:
         description: 'Build_x86_2305_config connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       armv8:
         description: 'Build_armv8_config connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       ssh:
         description: 'SSH connection to Actions'
         required: false
