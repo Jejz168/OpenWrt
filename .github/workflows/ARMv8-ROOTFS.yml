@@ -258,7 +258,7 @@ jobs:
       id: package
       run: |
         cd openwrt
-        # make defconfig
+        make defconfig
         # make download -j$(nproc)
         make package/download -j$(nproc)
         find dl -size -1024c -exec ls -l {} \;
