@@ -259,8 +259,11 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        # make download -j$(nproc)
-        make package/download -j$(nproc)
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           make download -j$(nproc)
+        else
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
