@@ -63,7 +63,7 @@ jobs:
       matrix:
         repo: [lede]
         branch: [master]
-        target: [x86_64, rockchip_armv8, armsr_armv8]
+        target: [x86_64, rockchip_armv8, armvirt_64]
 
     env:
       REPO_URL: https://github.com/coolsnowwolf/${{ matrix.repo }}
