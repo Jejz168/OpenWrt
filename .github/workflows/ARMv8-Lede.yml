@@ -1,10 +1,10 @@
 #===============================================
-# Description: ARMv8-Lede_1806
+# Description: ARMv8-Lede
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: ARMv8-Lede_1806快速打包
+name: ARMv8-Lede快速打包
 
 on:
   repository_dispatch:
@@ -150,7 +150,7 @@ jobs:
         tag: ${{ env.PRODUCT_NAME }}
         token: ${{ secrets.GH_TOKEN }}
         body: |
-          **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
+          **This is LEDE Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
           - 🔥 此为 ARMv8-Docker 固件，集成一些日常常用插件
           - 💻 平台架构: ${{ env.FILE_NAME }}
