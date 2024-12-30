@@ -38,6 +38,11 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+      toolchain:
+        description: '使用toolchain缓存'
+        required: false
+        default: true
+        type: boolean
   schedule:
     - cron: 30 18 * * *
 
@@ -338,7 +343,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "当前正常编译"
+           make download -j$(nproc)
+        else
+           echo -e "当前调用toolchain缓存文件"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -645,7 +656,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "当前正常编译"
+           make download -j$(nproc)
+        else
+           echo -e "当前调用toolchain缓存文件"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -952,7 +969,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "当前正常编译"
+           make download -j$(nproc)
+        else
+           echo -e "当前调用toolchain缓存文件"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -1261,7 +1284,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "当前正常编译"
+           make download -j$(nproc)
+        else
+           echo -e "当前调用toolchain缓存文件"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -1569,7 +1598,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "当前正常编译"
+           make download -j$(nproc)
+        else
+           echo -e "当前调用toolchain缓存文件"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -1881,7 +1916,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "当前正常编译"
+           make download -j$(nproc)
+        else
+           echo -e "当前调用toolchain缓存文件"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
