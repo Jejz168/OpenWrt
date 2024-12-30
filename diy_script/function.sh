@@ -47,6 +47,7 @@ color() {
         cb) echo -e "\e[1;34m$2\e[0m" ;;
         cp) echo -e "\e[1;35m$2\e[0m" ;;
         cc) echo -e "\e[1;36m$2\e[0m" ;;
+        ch) echo -e "\e[1;41m$2\e[0m" ;;
     esac
 }
 
@@ -201,11 +202,11 @@ if [[ $TOOLCHAIN = 'true' ]]; then
             [ -d staging_dir ]; status "部署toolchain编译缓存"
         }
     else
-        echo -e "$(color cr 无toolchain缓存文件...)"
+        echo -e "$(color ch 下载toolchain缓存文件)                         [ $(color cr ✕) ]"
         echo "CANCEL_TOOLCHAIN=true" >>$GITHUB_ENV
     fi
 else
-    echo -e "$(color cr 没有开启toolchain缓存文件...)"
+    echo -e "$(color ch 使用toolchain缓存文件)                         [ $(color cr ✕) ]"
     echo "CANCEL_TOOLCHAIN=true" >>$GITHUB_ENV
 fi
 
