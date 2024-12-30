@@ -1,10 +1,10 @@
 #===============================================
-# Description: ARMv8-ImmortalWrt
+# Description: ARMv8[ImmortalWrt]
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: ARMv8-ImmortalWrt快速打包
+name: ARMv8[ImmortalWrt]快速打包
 
 on:
   repository_dispatch:
