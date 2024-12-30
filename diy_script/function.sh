@@ -50,6 +50,19 @@ color() {
     esac
 }
 
+status() {
+    local check=$? end_time=$(date '+%H:%M:%S') total_time
+    total_time="==> 用时 $[$(date +%s -d $end_time) - $(date +%s -d $begin_time)] 秒"
+    [[ $total_time =~ [0-9]+ ]] || total_time=""
+    if [[ $check = 0 ]]; then
+        printf "%-62s %s %s %s %s %s %s %s\n" \
+        $(color cy $1) [ $(color cg ✔) ] $(echo -e "\e[1m$total_time")
+    else
+        printf "%-62s %s %s %s %s %s %s %s\n" \
+        $(color cy $1) [ $(color cr ✕) ] $(echo -e "\e[1m$total_time")
+    fi
+}
+
 find_dir() {
     find $1 -maxdepth 3 -type d -name $2 -print -quit 2>/dev/null
 }
@@ -156,6 +169,28 @@ clone_all() {
     done
     rm -rf $temp_dir
 }
+
+# 下载并部署Toolchain
+if [[ $TOOLCHAIN = 'true' ]]; then
+    cache_xa=$(curl -sL api.github.com/repos/$GITHUB_REPOSITORY/releases | awk -F '"' '/download_url/{print $4}' | grep $CACHE_NAME)
+    cache_xc=$(curl -sL api.github.com/repos/haiibo/toolchain-cache/releases | awk -F '"' '/download_url/{print $4}' | grep $CACHE_NAME)
+    if [[ $cache_xa || $cache_xc ]]; then
+        begin_time=$(date '+%H:%M:%S')
+        [ $cache_xa ] && wget -qc -t=3 $cache_xa || wget -qc -t=3 $cache_xc
+        [ -e *.tzst ]; status "下载toolchain缓存文件"
+        [ -e *.tzst ] && {
+            begin_time=$(date '+%H:%M:%S')
+            tar -I unzstd -xf *.tzst || tar -xf *.tzst
+            [ $cache_xa ] || (cp *.tzst $GITHUB_WORKSPACE/output && echo "OUTPUT_RELEASE=true" >>$GITHUB_ENV)
+            sed -i 's/ $(tool.*\/stamp-compile)//' Makefile
+            [ -d staging_dir ]; status "部署toolchain编译缓存"
+        }
+    else
+        echo "REBUILD_TOOLCHAIN=true" >>$GITHUB_ENV
+    fi
+else
+    echo "REBUILD_TOOLCHAIN=true" >>$GITHUB_ENV
+fi
 
 # 创建插件保存目录
 destination_dir="package/A"
