@@ -12,12 +12,14 @@ on:
     inputs:
       checkupdates:
         description: 'Checkupdates connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       checkupdatesD:
         description: 'Checkupdates Docker connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       ssh:
         description: 'SSH connection to Actions'
         required: true
