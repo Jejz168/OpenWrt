@@ -26,6 +26,11 @@ on:
         description: 'SSH connection to Actions'
         required: false
         default: 'false'
+      toolchain:
+        description: '使用toolchain缓存'
+        required: false
+        default: true
+        type: boolean
   schedule:
     - cron: 11 19 * * *
 
@@ -257,7 +262,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "\e[1;41m当前正常编译\e[0m"
+           make download -j$(nproc)
+        else
+           echo -e "\e[1;41m当前使用toolchain缓存文件\e[0m"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -566,7 +577,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "\e[1;41m当前正常编译\e[0m"
+           make download -j$(nproc)
+        else
+           echo -e "\e[1;41m当前使用toolchain缓存文件\e[0m"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -875,7 +892,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "\e[1;41m当前正常编译\e[0m"
+           make download -j$(nproc)
+        else
+           echo -e "\e[1;41m当前使用toolchain缓存文件\e[0m"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
