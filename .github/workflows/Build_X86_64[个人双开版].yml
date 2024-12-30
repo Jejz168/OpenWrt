@@ -24,8 +24,9 @@ on:
         default: 'false'
       ssh:
         description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean'
       toolchain:
         description: '使用toolchain缓存'
         required: false
@@ -49,6 +50,7 @@ env:
   TZ: Asia/Shanghai
   FILE_NAME: x86_64
   PRODUCT_NAME: x86_64
+  TOOLCHAIN: ${{ github.event.inputs.toolchain }}
 
 jobs:
   Checka:
@@ -265,10 +267,10 @@ jobs:
         cd openwrt
         make defconfig
         if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
-           echo -e "当前正常编译"
+           echo -e "\e[1;31m当前正常编译...\e[0m"
            make download -j$(nproc)
         else
-           echo -e "当前调用toolchain缓存文件"
+           echo -e "\e[1;31m当前使用toolchain缓存文件...\e[0m"
            make package/download -j$(nproc)
         fi
         find dl -size -1024c -exec ls -l {} \;
@@ -346,7 +348,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版] 」固件
+        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[个人双开版]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_Personal_${{ env.KERNEL }}
@@ -582,10 +584,10 @@ jobs:
         cd openwrt
         make defconfig
         if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
-           echo -e "当前正常编译"
+           echo -e "\e[1;31m当前正常编译...\e[0m"
            make download -j$(nproc)
         else
-           echo -e "当前调用toolchain缓存文件"
+           echo -e "\e[1;31m当前使用toolchain缓存文件...\e[0m"
            make package/download -j$(nproc)
         fi
         find dl -size -1024c -exec ls -l {} \;
@@ -663,7 +665,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版] 」固件
+        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[个人双开版]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_Personal_${{ env.KERNEL }}
@@ -899,10 +901,10 @@ jobs:
         cd openwrt
         make defconfig
         if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
-           echo -e "当前正常编译"
+           echo -e "\e[1;31m当前正常编译...\e[0m"
            make download -j$(nproc)
         else
-           echo -e "当前调用toolchain缓存文件"
+           echo -e "\e[1;31m当前使用toolchain缓存文件...\e[0m"
            make package/download -j$(nproc)
         fi
         find dl -size -1024c -exec ls -l {} \;
@@ -980,7 +982,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }}[个人双开版] 」固件
+        name: ${{ env.DATE }} 🔴「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[个人双开版]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_Personal_${{ env.KERNEL }}
