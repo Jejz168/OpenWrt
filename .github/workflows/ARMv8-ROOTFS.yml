@@ -260,8 +260,10 @@ jobs:
         cd openwrt
         make defconfig
         if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "当前正常编译"
            make download -j$(nproc)
         else
+           echo -e "当前调用toolchain缓存文件"
            make package/download -j$(nproc)
         fi
         find dl -size -1024c -exec ls -l {} \;
