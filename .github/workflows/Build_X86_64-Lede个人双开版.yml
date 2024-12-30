@@ -12,8 +12,9 @@ on:
     inputs:
       checkupdates515:
         description: 'Checkupdates515 connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       ssh:
         description: 'SSH connection to Actions'
         required: true
