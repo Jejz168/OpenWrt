@@ -169,11 +169,15 @@ clone_all() {
     done
     rm -rf $temp_dir
 }
+# Toolchain缓存文件名
+TOOLS_HASH=$(git log --pretty=tformat:"%h" -n1 tools toolchain)
+CACHE_NAME="$SOURCE_REPO-${REPO_BRANCH#*-}-$DEVICE_TARGET-cache-$TOOLS_HASH"
+echo "CACHE_NAME=$CACHE_NAME" >>$GITHUB_ENV
 
 # 下载并部署Toolchain
 if [[ $TOOLCHAIN = 'true' ]]; then
     cache_xa=$(curl -sL api.github.com/repos/$GITHUB_REPOSITORY/releases | awk -F '"' '/download_url/{print $4}' | grep $CACHE_NAME)
-    cache_xc=$(curl -sL api.github.com/repos/haiibo/toolchain-cache/releases | awk -F '"' '/download_url/{print $4}' | grep $CACHE_NAME)
+    cache_xc=$(curl -sL api.github.com/repos/Jejz168/toolchain-cache/releases | awk -F '"' '/download_url/{print $4}' | grep $CACHE_NAME)
     if [[ $cache_xa || $cache_xc ]]; then
         begin_time=$(date '+%H:%M:%S')
         [ $cache_xa ] && wget -qc -t=3 $cache_xa || wget -qc -t=3 $cache_xc
@@ -181,7 +185,7 @@ if [[ $TOOLCHAIN = 'true' ]]; then
         [ -e *.tzst ] && {
             begin_time=$(date '+%H:%M:%S')
             tar -I unzstd -xf *.tzst || tar -xf *.tzst
-            [ $cache_xa ] || (cp *.tzst $GITHUB_WORKSPACE/output && echo "OUTPUT_RELEASE=true" >>$GITHUB_ENV)
+           # [ $cache_xa ] || (cp *.tzst $GITHUB_WORKSPACE/output && echo "OUTPUT_RELEASE=true" >>$GITHUB_ENV)
             sed -i 's/ $(tool.*\/stamp-compile)//' Makefile
             [ -d staging_dir ]; status "部署toolchain编译缓存"
         }
