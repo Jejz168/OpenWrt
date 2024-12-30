@@ -1,10 +1,10 @@
 #===============================================
-# Description: ARMv8-Immortalwrt
+# Description: ARMv8-ImmortalWrt
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: ARMv8-Immortalwrt快速打包
+name: ARMv8-ImmortalWrt快速打包
 
 on:
   repository_dispatch:
@@ -143,7 +143,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.PACKAGED_STATUS == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}[immortalwrt] 」固件
+        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }} 」[ImmortalWrt]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.PRODUCT_NAME }}-IMMO
@@ -151,7 +151,7 @@ jobs:
         body: |
           **This is ImmortalWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
-          - 🔥 此为 ARMv8-Docker[immortalwrt] 固件，集成一些日常常用插件
+          - 🔥 此为 ARMv8-Docker[ImmortalWrt] 固件，集成一些日常常用插件
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
