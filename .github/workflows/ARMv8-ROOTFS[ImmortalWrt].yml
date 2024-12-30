@@ -1,10 +1,10 @@
 #===============================================
-# Description: ARMv8-ROOTFS
+# Description: ARMv8-ROOTFS[ImmortalWrt]
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: ARMv8-ROOTFS[immortalwrt]
+name: ARMv8-ROOTFS[ImmortalWrt]
 
 on:
   repository_dispatch:
@@ -12,8 +12,14 @@ on:
     inputs:
       ssh:
         description: 'SSH connection to Actions'
+        required: true
+        default: false
+        type: boolean'
+      toolchain:
+        description: '使用toolchain缓存'
         required: false
-        default: 'false'
+        default: true
+        type: boolean
   #schedule:
     #- cron: 0 18 * * *
 
@@ -33,6 +39,7 @@ env:
   TZ: Asia/Shanghai
   FILE_NAME: ARMv8-ROOTFS
   PRODUCT_NAME: ARMv8-ROOTFS
+  TOOLCHAIN: ${{ github.event.inputs.toolchain }}
   
 jobs: 
   job_init: 
@@ -253,7 +260,13 @@ jobs:
       run: |
         cd openwrt
         make defconfig
-        make download -j8
+        if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
+           echo -e "\e[1;31m当前正常编译...\e[0m"
+           make download -j$(nproc)
+        else
+           echo -e "\e[1;31m当前使用toolchain缓存文件...\e[0m"
+           make package/download -j$(nproc)
+        fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
@@ -325,7 +338,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🚫「 ${{ env.FILE_NAME }} 」[immortalwrt]
+        name: ${{ env.DATE }} 🚫「 ${{ env.FILE_NAME }} 」[ImmortalWrt]
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.FILE_NAME }}-IMMO
@@ -333,7 +346,7 @@ jobs:
         body: |
           **This is ImmortalWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
-          - 🔴 此为 ARMv8[immortalwrt] 底包，非完整固件，不可直刷
+          - 🔴 此为 ARMv8[ImmortalWrt] 底包，非完整固件，不可直刷
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
           - 💝 源码分支: ${{ env.REPO_BRANCH }}
