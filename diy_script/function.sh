@@ -201,11 +201,11 @@ if [[ $TOOLCHAIN = 'true' ]]; then
             [ -d staging_dir ]; status "部署toolchain编译缓存"
         }
     else
-        echo -e "$(color cr ✕ 无toolchain缓存文件...)"
+        echo -e "$(color cr 无toolchain缓存文件...)"
         echo "CANCEL_TOOLCHAIN=true" >>$GITHUB_ENV
     fi
 else
-    echo -e "$(color cr ✕ 没有开启toolchain缓存文件...)"
+    echo -e "$(color cr 没有开启toolchain缓存文件...)"
     echo "CANCEL_TOOLCHAIN=true" >>$GITHUB_ENV
 fi
 
