@@ -16,7 +16,7 @@ on:
         default: false
         type: boolean
       checkupdatesD:
-        description: 'CheckupdatesD connection to Actions'
+        description: 'Checkupdates Docker connection to Actions'
         required: true
         default: false
         type: boolean
