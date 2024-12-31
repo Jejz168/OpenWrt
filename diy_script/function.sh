@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# 打包Toolchain
+if [[ $REBUILD_TOOLCHAIN = 'true' ]]; then
+    echo -e "\e[1;33m开始打包toolchain目录\e[0m"
+    cd $OPENWRT_PATH
+    sed -i 's/ $(tool.*\/stamp-compile)//' Makefile
+    [ -d ".ccache" ] && (ccache=".ccache"; ls -alh .ccache)
+    du -h --max-depth=1 ./staging_dir
+    du -h --max-depth=1 ./ --exclude=staging_dir
+    tar -I zstdmt -cf $GITHUB_WORKSPACE/output/$CACHE_NAME.tzst staging_dir/host* staging_dir/tool* $ccache
+    ls -lh $GITHUB_WORKSPACE/output
+    [ -e $GITHUB_WORKSPACE/output/$CACHE_NAME.tzst ] || exit 1
+    exit 0
+fi
+
+[ -d $GITHUB_WORKSPACE/output ] || mkdir $GITHUB_WORKSPACE/output
+
 # 拉取仓库文件夹
 drop_package(){
 	find package/ -follow -name $1 -not -path "package/custom/*" | xargs -rt rm -rf
