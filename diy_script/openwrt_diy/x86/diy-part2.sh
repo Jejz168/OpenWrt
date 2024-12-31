@@ -162,6 +162,15 @@ sed -i 's/services/network/g' feeds/luci/applications/luci-app-eqos/root/usr/sha
 sed -i '3a \		"order": 10,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
 sed -i 's,终端,TTYD 终端,g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans/ttyd.po
 
+# 转换插件语言翻译
+for e in $(ls -d $destination_dir/luci-*/po feeds/luci/applications/luci-*/po); do
+    if [[ -d $e/zh-cn && ! -d $e/zh_Hans ]]; then
+        ln -s zh-cn $e/zh_Hans 2>/dev/null
+    elif [[ -d $e/zh_Hans && ! -d $e/zh-cn ]]; then
+        ln -s zh_Hans $e/zh-cn 2>/dev/null
+    fi
+done
+
 # 重命名
 sed -i 's,frp 服务器,Frp 服务器,g' feeds/luci/applications/luci-app-frps/po/zh_Hans/frps.po
 sed -i 's,frp 客户端,Frp 客户端,g' feeds/luci/applications/luci-app-frpc/po/zh_Hans/frpc.po
