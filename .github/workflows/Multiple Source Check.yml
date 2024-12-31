@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REPO_URL_HelloWorld: https://github.com/fw876/helloworld
-      REPO_BRANCH_HelloWorld: main
+      REPO_BRANCH_HelloWorld: masrer
       REPO_PATH_HelloWorld: "helloworld"
     steps:
     - name: Get Commit Hash
