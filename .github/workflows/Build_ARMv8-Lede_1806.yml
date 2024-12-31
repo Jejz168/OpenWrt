@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       checkupdates:
-        description: 'Checkupdates connection to Actions'
+        description: 'Lede_1806 connection to Actions'
         required: false
         default: 'false'
       kernel_version:
