@@ -57,6 +57,7 @@ env:
   CONFIG_FILE2305D: config/lede_config/x86-2305-docker.config
   DIY_P1_SH: diy_script/lede_diy/x86/diy-part1.sh
   DIY_P2_SH: diy_script/lede_diy/x86/diy-part2.sh
+  DIY_P2_SH2305D: diy_script/lede_diy/x86/diy2305-part2.sh
   CLASH_KERNEL: amd64
   UPLOAD_BIN_DIR: false
   UPLOAD_CONFIG: true
@@ -1168,9 +1169,9 @@ jobs:
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE2305D ] && mv $CONFIG_FILE2305D openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
-        chmod +x $DIY_P2_SH
+        chmod +x $DIY_P2_SH2305D
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/$DIY_P2_SH2305D
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
@@ -1493,9 +1494,9 @@ jobs:
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE2305D ] && mv $CONFIG_FILE2305D openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
-        chmod +x $DIY_P2_SH
+        chmod +x $DIY_P2_SH2305D
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/$DIY_P2_SH2305D
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
@@ -1808,9 +1809,9 @@ jobs:
         [ -e files ] && mv files openwrt/files
         [ -e $CONFIG_FILE2305D ] && mv $CONFIG_FILE2305D openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
-        chmod +x $DIY_P2_SH
+        chmod +x $DIY_P2_SH2305D
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH
+        $GITHUB_WORKSPACE/$DIY_P2_SH2305D
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
