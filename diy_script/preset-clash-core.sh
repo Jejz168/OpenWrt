@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p files/etc/openclash/core
+[ -d files/etc/openclash/core ] || mkdir -p files/etc/openclash/core
 
 CLASH_META_URL="https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-${1}.tar.gz"
 GEOIP_URL="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
