@@ -91,13 +91,7 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         cd openwrt
         echo "OPENWRT_PATH=$PWD" >>$GITHUB_ENV
-        if [[ $TARGET_DEVICE = armsr_armv8 && $REPO_BRANCH =~ 21.02|18.06 ]]; then
-          echo -e "CONFIG_TARGET_armvirt=y\nCONFIG_TARGET_armvirt_64=y" >.config
-        elif [[ $TARGET_DEVICE = bcm47xx_mips74k && ${REPO_BRANCH#*-} = 18.06 ]]; then
-          echo -e "CONFIG_TARGET_brcm47xx=y\nCONFIG_TARGET_brcm47xx_mips74k=y" >.config
-        else
-          echo -e "CONFIG_TARGET_${TARGET_DEVICE%_*}=y\nCONFIG_TARGET_$TARGET_DEVICE=y" >.config
-        fi
+        echo -e "CONFIG_TARGET_${TARGET_DEVICE%_*}=y\nCONFIG_TARGET_$TARGET_DEVICE=y" >.config
 
     - name: Generate Variables
       run: |
