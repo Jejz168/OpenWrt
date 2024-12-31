@@ -152,7 +152,6 @@ sed -i 's/services\///g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-st
 # 调整位置
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-p910nd/root/usr/share/luci/menu.d/luci-app-p910nd.json
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-aria2/root/usr/share/luci/menu.d/luci-app-aria2.json
-sed -i 's/system/nas/g' feeds/luci/applications/luci-app-filebrowser/root/usr/share/luci/menu.d/luci-app-filebrowser.json
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-samba4/root/usr/share/luci/menu.d/luci-app-samba4.json
 sed -i 's/services/nas/g' feeds/luci/applications/luci-app-hd-idle/root/usr/share/luci/menu.d/luci-app-hd-idle.json
 sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
