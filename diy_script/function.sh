@@ -201,15 +201,6 @@ fi
 destination_dir="package/A"
 [ -d $destination_dir ] || mkdir -p $destination_dir
 
-# 转换插件语言翻译
-for e in $(ls -d $destination_dir/luci-*/po feeds/luci/applications/luci-*/po); do
-    if [[ -d $e/zh-cn && ! -d $e/zh_Hans ]]; then
-        ln -s zh-cn $e/zh_Hans 2>/dev/null
-    elif [[ -d $e/zh_Hans && ! -d $e/zh-cn ]]; then
-        ln -s zh_Hans $e/zh-cn 2>/dev/null
-    fi
-done
-
 if [ -z "$DEVICE_TARGET" ] || [ "$DEVICE_TARGET" == "-" ]; then
   echo -e "$(color cy 当前编译机型) $(color cb $SOURCE_REPO-${REPO_BRANCH#*-})"
 else
