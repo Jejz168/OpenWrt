@@ -181,6 +181,15 @@ sed -i 's,frp 服务器,Frp 服务器,g' feeds/luci/applications/luci-app-frps/p
 sed -i 's,frp 客户端,Frp 客户端,g' feeds/luci/applications/luci-app-frpc/po/zh_Hans/frpc.po
 sed -i 's,UPnP IGD 和 PCP,UPnP,g' feeds/luci/applications/luci-app-upnp/po/zh_Hans/upnp.po
 
+# 转换插件语言翻译
+for e in $(ls -d $destination_dir/luci-*/po feeds/luci/applications/luci-*/po); do
+    if [[ -d $e/zh-cn && ! -d $e/zh_Hans ]]; then
+        ln -s zh-cn $e/zh_Hans 2>/dev/null
+    elif [[ -d $e/zh_Hans && ! -d $e/zh-cn ]]; then
+        ln -s zh_Hans $e/zh-cn 2>/dev/null
+    fi
+done
+
 ./scripts/feeds update -a
 ./scripts/feeds install -a
 
