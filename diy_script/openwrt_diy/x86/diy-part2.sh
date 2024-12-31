@@ -133,7 +133,7 @@ sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank
 sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' $destination_dir/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 
 # 显示增加编译时间
-sed -i "s/DISTRIB_DESCRIPTION=.*/DISTRIB_DESCRIPTION='ImmortalWrt R$(TZ=UTC-8 date +'%-m.%-d') (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))'/g" package/base-files/files/etc/openwrt_release
+sed -i "s/DISTRIB_DESCRIPTION=.*/DISTRIB_DESCRIPTION='OpenWrt R$(TZ=UTC-8 date +'%-m.%-d') (By @Jejz build $(TZ=UTC-8 date "+%Y-%m-%d %H:%M"))'/g" package/base-files/files/etc/openwrt_release
 
 # 修改欢迎banner
 cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
