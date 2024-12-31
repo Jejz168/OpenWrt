@@ -11,12 +11,12 @@ on:
   workflow_dispatch:
     inputs:
       checkupdates515:
-        description: 'Checkupdates515 connection to Actions'
+        description: 'LEDE_1806_515 connection to Actions'
         required: true
         default: false
         type: boolean
       checkupdates5152305:
-        description: 'Checkupdates515-2305 connection to Actions'
+        description: 'LEDE_2305_515 connection to Actions'
         required: true
         default: false
         type: boolean
