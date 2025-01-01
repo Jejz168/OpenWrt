@@ -700,7 +700,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[ImmortalWrt-Docker]固件
+        name: ${{ env.DATE }} 🐳「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[ImmortalWrt-Docker]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_immoD_${{ env.KERNEL }}
