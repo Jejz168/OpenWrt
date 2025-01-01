@@ -168,9 +168,31 @@ sed -i 's/services\/nlbw/nlbw/g; /path/s/admin\///g' feeds/luci/applications/luc
 sed -i 's/services\///g' feeds/luci/applications/luci-app-nlbwmon/htdocs/luci-static/resources/view/nlbw/config.js
 
 # 调整位置
-sed -i 's/services/nas/g' feeds/luci/applications/luci-app-filebrowser/root/usr/share/luci/menu.d/luci-app-filebrowser.json
-sed -i 's/services/system/g' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
-sed -i 's/services/network/g' feeds/luci/applications/luci-app-eqos/root/usr/share/luci/menu.d/luci-app-eqos.json
+primary_dir="feeds/luci/applications"
+fallback_dir="$destination_dir"
+apps=(
+    "luci-app-filebrowser:services/nas"
+    "luci-app-ttyd:services/system"
+    "luci-app-eqos:services/network"
+)
+# 遍历模块和替换规则
+for app_rule in "${apps[@]}"; do
+    app=${app_rule%%:*}      # 提取模块名
+    rule=${app_rule#*:}      # 提取替换规则
+    src=${rule%/*}           # 提取替换前的内容
+    dst=${rule#*/}           # 提取替换后的内容
+
+    # 查找路径并执行替换
+    if [ -d "$primary_dir/$app" ]; then
+        sed -i "s/$src/$dst/g" "$primary_dir/$app/root/usr/share/luci/menu.d/$app.json"
+        echo "Processed $app in $primary_dir."
+    elif [ -d "$fallback_dir/$app" ]; then
+        sed -i "s/$src/$dst/g" "$fallback_dir/$app/root/usr/share/luci/menu.d/$app.json"
+        echo "Processed $app in $fallback_dir."
+    else
+        echo "Error: $app not found in either $primary_dir or $fallback_dir."
+    fi
+done
 
 # 更改 ttyd 顺序和名称
 sed -i '3a \		"order": 10,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
