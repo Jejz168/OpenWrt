@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 创建文件夹结构
-mkdir -p files/bin
+[ -d files/binfiles/bin ] || mkdir -p files/bin
 
 # 创建脚本文件
 cat << 'EOF' > files/bin/JejzWrt
