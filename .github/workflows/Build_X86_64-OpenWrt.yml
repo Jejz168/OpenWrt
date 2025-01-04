@@ -554,7 +554,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILED ] && mv $CONFIG_FILE openwrt/.config
+        [ -e $CONFIG_FILED ] && mv $CONFIG_FILED openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
