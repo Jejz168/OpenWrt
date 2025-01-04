@@ -60,17 +60,17 @@ jobs:
   Checka:
     runs-on: ubuntu-latest
     env:
-      REPO_URL: https://github.com/openwrt/openwrt
-      REPO_BRANCH: openwrt-23.05
-      REPO_PATH : "op515_x86_64"
+      REPO_URL_op515: https://github.com/openwrt/openwrt
+      REPO_BRANCH_op515: openwrt-23.05
+      REPO_PATH_op515 : "op515_x86_64"
     outputs:
       output: ${{ steps.outputunifreq.outputs.unifreq }}   
     steps:
     - name: Get Commit Hash
       id: getHash
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH $REPO_PATH
-        cd $REPO_PATH
+        git clone --depth 1 $REPO_URL_op515 -b $REPO_BRANCH_op515 $REPO_PATH_op515
+        cd $REPO_PATH_op515
         echo "commitHash_x86_64_op515=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd
 
@@ -100,31 +100,31 @@ jobs:
   Checkb:
     runs-on: ubuntu-latest
     env:
-      REPO_URL: https://github.com/immortalwrt/immortalwrt
-      REPO_BRANCH: openwrt-23.05
-      REPO_PATH : "op515_x86_64"
+      REPO_URL_immo515: https://github.com/immortalwrt/immortalwrt
+      REPO_BRANCH_immo515: openwrt-23.05
+      REPO_PATH_immo515 : "op515_x86_64"
     outputs:
       output: ${{ steps.outputunifreq.outputs.unifreqimmo }}
     steps:
     - name: Get Commit Hash
       id: getHash
       run: |
-        git clone --depth 1 $REPO_URL -b $REPO_BRANCH $REPO_PATH
-        cd $REPO_PATH
-        echo "commitHash_x86_64_op515immo=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+        git clone --depth 1 $REPO_URL_immo515 -b $REPO_BRANCH_immo515 $REPO_PATH_immo515
+        cd $REPO_PATH_immo515
+        echo "commitHash_x86_64_immo515=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
         cd
 
     - name: Show Commit Head and Combination Heads
       id: combHeader
       run: |
-        echo "commitHash_x86_64_op515immo: ${{ steps.getHash.outputs.commitHash_x86_64_op515immo }}"
+        echo "commitHash_x86_64_immo515: ${{ steps.getHash.outputs.commitHash_x86_64_immo515 }}"
 
     - name: Compare Commit Hash
       id: cacheHash
       uses: actions/cache@main
       with:
-        path: .commitHash_x86_64_op515immo
-        key: HEAD-${{ steps.getHash.outputs.commitHash_x86_64_op515immo }}
+        path: .commitHash_x86_64_immo515
+        key: HEAD-${{ steps.getHash.outputs.commitHash_x86_64_immo515 }}
 
     - name: Set output for next job
       id: outputunifreq
@@ -135,7 +135,7 @@ jobs:
     - name: Save New Commit Hash
       if: steps.cacheHash.outputs.cache-hit != 'true'
       run: |
-        echo ${{ steps.getHash.outputs.commitHash_x86_64_op515immo }} | tee .commitHash_x86_64_op515immo
+        echo ${{ steps.getHash.outputs.commitHash_x86_64_immo515 }} | tee .commitHash_x86_64_immo515
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64:
     needs: [Checka]
@@ -744,6 +744,13 @@ jobs:
     needs: [Checkb]
     if: ${{ needs.Checka.outputs.outputimmo != 'hello' || github.event.inputs.checkupdatesimmo == 'true'}}
     runs-on: ubuntu-22.04
+    env:
+      REPO_URL: https://github.com/immortalwrt/immortalwrt
+      REPO_BRANCH: openwrt-23.05
+      CONFIG_FILE: config/immo_config/x86.config
+      CONFIG_FILED: config/immo_config/x86-docker.config
+      DIY_P1_SH: diy_script/immo_diy/x86/diy-part1.sh
+      DIY_P2_SH: diy_script/immo_diy/x86/diy-part2.sh
 
     steps:
     - name: Checkout
@@ -812,7 +819,6 @@ jobs:
       working-directory: /builder
       run: |
         df -hT $PWD
-        echo "REPO_URL=$REPO_URL_immo" >> $GITHUB_ENV
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
@@ -830,10 +836,10 @@ jobs:
         
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF_immo ] && mv $FEEDS_CONF_immo openwrt/feeds.conf.default
-        chmod +x $DIY_P1_SH_immo
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        chmod +x $DIY_P1_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P1_SH_immo
+        $GITHUB_WORKSPACE/$DIY_P1_SH
         
     - name: Update feeds
       run: cd openwrt && ./scripts/feeds update -a
@@ -844,11 +850,11 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE_immo ] && mv $CONFIG_FILE_immo openwrt/.config
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
-        chmod +x $DIY_P2_SH_immo
+        chmod +x $DIY_P2_SH
         cd openwrt
-        $GITHUB_WORKSPACE/$DIY_P2_SH_immo
+        $GITHUB_WORKSPACE/$DIY_P2_SH
         $GITHUB_WORKSPACE/diy_script/preset-JejzWrt.sh
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
