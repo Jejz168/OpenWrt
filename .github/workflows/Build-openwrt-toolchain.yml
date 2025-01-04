@@ -62,8 +62,8 @@ jobs:
       fail-fast: false
       matrix:
         repo: [openwrt]
-        branch: [main]
-        target: [x86_64, rockchip_armv8, armsr_armv8]
+        branch: [main, openwrt-23.05]
+        target: [x86_64, armsr_armv8]
 
     env:
       REPO_URL: https://github.com/${{ matrix.repo }}/${{ matrix.repo }}
