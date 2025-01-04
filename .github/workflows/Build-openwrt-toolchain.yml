@@ -116,8 +116,9 @@ jobs:
         TOOLS_HASH=$(git log --pretty=tformat:"%h" -n1 tools toolchain)
         CACHE_NAME="$SOURCE_REPO-$LITE_BRANCH-$DEVICE_TARGET-cache-$TOOLS_HASH"
         echo "CACHE_NAME=$CACHE_NAME" >>$GITHUB_ENV
-        CACHE_URL=$(curl -sL api.github.com/repos/$GITHUB_REPOSITORY/releases | awk -F '"' '/download_url/{print $4}' | grep $CACHE_NAME) || true
-        [ $CACHE_URL ] || echo "REBUILD_TOOLCHAIN=true" >>$GITHUB_OUTPUT
+        #CACHE_URL=$(curl -sL api.github.com/repos/$GITHUB_REPOSITORY/releases | awk -F '"' '/download_url/{print $4}' | grep $CACHE_NAME) || true
+        CACHE_URL="https://github.com/$GITHUB_REPOSITORY/releases/download/toolchain-cache/$CACHE_NAME.tzst"
+        curl -Isf $CACHE_URL >/dev/null 2>&1 || echo "REBUILD_TOOLCHAIN=true" >>$GITHUB_OUTPUT
 
     - name: Install Feeds
       if: steps.hash.outputs.REBUILD_TOOLCHAIN == 'true'
