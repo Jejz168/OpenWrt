@@ -21,7 +21,7 @@ jobs:
       fail-fast: false
       matrix:
         repo: [openwrt]
-        branch: [main]
+        branch: [main, openwrt-23.05]
 
     env:
       REPO_URL: https://github.com/${{ matrix.repo }}/${{ matrix.repo }}
