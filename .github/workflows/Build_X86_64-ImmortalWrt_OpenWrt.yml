@@ -812,7 +812,8 @@ jobs:
       working-directory: /builder
       run: |
         df -hT $PWD
-        git clone $REPO_URL_immo -b $REPO_BRANCH openwrt
+        echo "REPO_URL=$REPO_URL_immo" >> $GITHUB_ENV
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="%an")
@@ -1113,7 +1114,8 @@ jobs:
       working-directory: /builder
       run: |
         df -hT $PWD
-        git clone $REPO_URL_immo -b $REPO_BRANCH openwrt
+        echo "REPO_URL=$REPO_URL_immo" >> $GITHUB_ENV
+        git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="%an")
