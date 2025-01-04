@@ -181,7 +181,7 @@ if [[ $TOOLCHAIN = 'true' ]]; then
     #if [[ $cache_xa || $cache_xc ]]; then
     if curl -Isf $cache_xa >/dev/null 2>&1 || [ $cache_xc ]; then
         begin_time=$(date '+%H:%M:%S')
-        [ $cache_xa ] && wget -qc -t=3 $cache_xa || wget -qc -t=3 $cache_xc
+        curl -Isf $cache_xa >/dev/null 2>&1 && wget -qc -t=3 $cache_xa || wget -qc -t=3 $cache_xc
         [ -e *.tzst ]; status "下载toolchain缓存文件"
         [ -e *.tzst ] && {
             begin_time=$(date '+%H:%M:%S')
