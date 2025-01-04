@@ -1632,7 +1632,7 @@ jobs:
       uses: ncipollo/release-action@v1
       if: env.UPLOAD_RELEASE == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: ${{ env.DATE }} 🐳「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[LEDE-2305-LEDE-2305-Docker]固件
+        name: ${{ env.DATE }} 🐳「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[LEDE-2305-Docker]固件
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_L2305D_${{ env.KERNEL }}
