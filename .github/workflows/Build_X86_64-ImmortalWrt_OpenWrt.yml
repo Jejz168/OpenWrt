@@ -439,7 +439,7 @@ jobs:
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_op_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_docker:
-    needs: [Checka,job_init]
+    needs: [Checka]
     if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdatesD == 'true'}}
     runs-on: ubuntu-22.04
 
@@ -740,7 +740,7 @@ jobs:
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_opD_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Build_x86_64_immo515:
+  Build_x86_64_immo:
     needs: [Checkb]
     if: ${{ needs.Checka.outputs.outputimmo != 'hello' || github.event.inputs.checkupdatesimmo == 'true'}}
     runs-on: ubuntu-22.04
@@ -843,7 +843,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e $CONFIG_FILE_immo ] && mv $CONFIG_FILE_immo openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH_immo
         cd openwrt
@@ -939,7 +939,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.UPLOAD_CONFIG == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: x86-config
+        name: x86-immo-config
         path: ./artifact/buildinfo/
 
     - name: Delete files
@@ -1041,8 +1041,8 @@ jobs:
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Build_x86_64_docker_immo515:
-    needs: [Checka,job_init]
+  Build_x86_64_docker_immo:
+    needs: [Checkb]
     if: ${{ needs.Checka.outputs.outputimmo != 'hello' || github.event.inputs.checkupdatesimmoD == 'true'}}
     runs-on: ubuntu-22.04
 
@@ -1144,7 +1144,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILED ] && mv $CONFIG_FILE openwrt/.config
+        [ -e $CONFIG_FILED_immo ] && mv $CONFIG_FILE_immo openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH_immo
         cd openwrt
@@ -1240,7 +1240,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: env.UPLOAD_CONFIG == 'true' && steps.compile.outputs.status == 'success'
       with:
-        name: x86-docker.config
+        name: x86-immo-docker.config
         path: ./artifact/buildinfo/
 
     - name: Delete files
