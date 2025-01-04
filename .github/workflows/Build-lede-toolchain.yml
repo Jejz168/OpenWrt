@@ -11,7 +11,7 @@ on:
         required: false
         default: 'false'
   schedule:
-    - cron: 30 16 * * *
+    - cron: 30 17 * * *
 
 jobs:
   Checka:
