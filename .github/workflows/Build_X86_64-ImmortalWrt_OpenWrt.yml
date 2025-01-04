@@ -541,7 +541,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILED ] && mv $CONFIG_FILE openwrt/.config
+        [ -e $CONFIG_FILED ] && mv $CONFIG_FILED openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH
         cd openwrt
@@ -812,7 +812,7 @@ jobs:
       working-directory: /builder
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        git clone $REPO_URL_immo -b $REPO_BRANCH openwrt
         ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="%an")
@@ -1113,7 +1113,7 @@ jobs:
       working-directory: /builder
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
+        git clone $REPO_URL_immo -b $REPO_BRANCH openwrt
         ln -sf /builder/openwrt $GITHUB_WORKSPACE/openwrt
         cd openwrt
         Author=$(git show -s --date=short --format="%an")
@@ -1144,7 +1144,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILED_immo ] && mv $CONFIG_FILE_immo openwrt/.config
+        [ -e $CONFIG_FILED_immo ] && mv $CONFIG_FILED_immo openwrt/.config
         chmod +x $GITHUB_WORKSPACE/diy_script/*.sh
         chmod +x $DIY_P2_SH_immo
         cd openwrt
