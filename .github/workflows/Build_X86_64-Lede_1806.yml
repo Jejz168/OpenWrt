@@ -1236,7 +1236,7 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
         
-        sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_0=y/g' .config
+        sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_1=y/g' .config
 
         sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=1668/g' .config
         
