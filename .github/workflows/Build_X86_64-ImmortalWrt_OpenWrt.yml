@@ -1,10 +1,10 @@
 #===============================================
-# Description: X86_64[ImmortalWrt/OpenWrt]515
+# Description: X86_64[(ImmortalWrt/OpenWrt)5.15]
 # Lisence: MIT
 # By：Jejz
 #===============================================
 
-name: Build_x86_64[ImmortalWrt/OpenWrt]515
+name: Build_x86_64[(ImmortalWrt/OpenWrt)5.15]
 
 on:
   repository_dispatch:
