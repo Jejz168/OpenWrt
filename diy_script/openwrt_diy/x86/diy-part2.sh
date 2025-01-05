@@ -133,7 +133,7 @@ sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank
 sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' $destination_dir/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 
 # 显示增加编译时间
-sed -i "s/DISTRIB_DESCRIPTION=.*/DISTRIB_DESCRIPTION='OpenWrt By @Jejz'/g"  package/base-files/files/etc/openwrt_release
+sed -i "s/DISTRIB_DESCRIPTION=.*/DISTRIB_DESCRIPTION=\"OpenWrt By @Jejz\"/g"  package/base-files/files/etc/openwrt_release
 sed -i "s/OPENWRT_RELEASE=.*/OPENWRT_RELEASE=\"OpenWrt R$(TZ=UTC-8 date +'%y.%-m.%-d') (By @Jejz build $(TZ=UTC-8 date '+%Y-%m-%d %H:%M'))\"/g"  package/base-files/files/usr/lib/os-release
 echo -e "\e[41m当前写入的编译时间:\e[0m \e[33m$(grep 'OPENWRT_RELEASE' package/base-files/files/usr/lib/os-release)\e[0m"
         
