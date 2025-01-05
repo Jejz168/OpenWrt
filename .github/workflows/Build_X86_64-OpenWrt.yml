@@ -497,7 +497,7 @@ jobs:
           📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_op_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
-    needs: [Checkb,job_init]
+    needs: [Checka,job_init]
     if: ${{ needs.Checkb.outputs.output != 'hello' || github.event.inputs.checkupdates515 == 'true'}}
     runs-on: ubuntu-22.04
     env:
