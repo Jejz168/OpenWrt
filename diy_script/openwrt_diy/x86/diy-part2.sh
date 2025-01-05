@@ -52,10 +52,10 @@ rm -rf feeds/packages/net/adguardhome
 clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
 
 # 替换immortalwrt插件
-clone_dir master https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-vlmcsd
+clone_dir master https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-vlmcsd luci-app-netdata
 
 # 补全依赖
-clone_dir master https://github.com/immortalwrt/packages nps n2n socat strongswan vlmcsd
+clone_dir master https://github.com/immortalwrt/packages nps n2n socat strongswan vlmcsd netdata
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
@@ -179,6 +179,9 @@ for app_rule in "${apps[@]}"; do
         echo "Error: $app not found in either $primary_dir or $fallback_dir."
     fi
 done
+
+# 调整 netdata 到 状态 菜单
+sed -i 's/system/status/g' $destination_dir/luci-app-netdata/luasrc/controller/netdata.lua
 
 # 更改 ttyd 顺序和名称
 sed -i '3a \		"order": 10,' feeds/luci/applications/luci-app-ttyd/root/usr/share/luci/menu.d/luci-app-ttyd.json
