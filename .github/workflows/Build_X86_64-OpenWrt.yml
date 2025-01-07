@@ -129,7 +129,6 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   job_init:
     needs: [Checka]
-    if: ${{ needs.Checka.outputs.output != 'hello' }}
     runs-on: ubuntu-latest
     name: Build-Init
     outputs:
@@ -152,6 +151,7 @@ jobs:
           ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
       - name: Load Custom Feeds
+        if: ${{ needs.Checka.outputs.output != 'hello' }}
         run: |
           [ -e $FEEDS_CONF ] && cp -r $FEEDS_CONF openwrt/feeds.conf.default
           chmod +x $DIY_P1_SH
@@ -159,12 +159,15 @@ jobs:
           $GITHUB_WORKSPACE/$DIY_P1_SH
 
       - name: Update Feeds
+        if: ${{ needs.Checka.outputs.output != 'hello' }}
         run: cd openwrt && ./scripts/feeds update -a
 
       - name: Install Feeds
+        if: ${{ needs.Checka.outputs.output != 'hello' }}
         run: cd openwrt && ./scripts/feeds install -a
 
       - name: Make Defconfig Custom Configuration
+        if: ${{ needs.Checka.outputs.output != 'hello' }}
         run: |
           chmod +x $DIY_P2_SH
           cd openwrt
@@ -187,6 +190,7 @@ jobs:
           echo "COMMIT_TIME=auto update config: $(date +'%Y-%m-%d %H:%M')" >> $GITHUB_ENV
 
       - name: Git Auto Update Config
+        if: ${{ needs.Checka.outputs.output != 'hello' }}
         uses: stefanzweifel/git-auto-commit-action@master
         id: commit
         env:
