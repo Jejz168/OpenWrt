@@ -128,6 +128,8 @@ jobs:
         echo ${{ steps.getHash.outputs.commitHash_x86_64_op515 }} | tee .commitHash_x86_64_op515
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   job_init:
+    needs: [Checka]
+    if: ${{ needs.Checka.outputs.output != 'hello' }}
     runs-on: ubuntu-latest
     name: Build-Init
     outputs:
