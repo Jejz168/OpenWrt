@@ -142,10 +142,10 @@ jobs:
           sudo chown $USER:$GROUPS /workdir
 
       - name: Checkout
-        if: ${{ needs.Checka.outputs.output != 'hello' }}
         uses: actions/checkout@main
 
       - name: Clone Source Code
+        if: ${{ needs.Checka.outputs.output != 'hello' }}
         working-directory: /workdir
         run: |
           git clone $REPO_URL -b $REPO_BRANCH openwrt
