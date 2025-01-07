@@ -142,6 +142,7 @@ jobs:
           sudo chown $USER:$GROUPS /workdir
 
       - name: Checkout
+        if: ${{ needs.Checka.outputs.output != 'hello' }}
         uses: actions/checkout@main
 
       - name: Clone Source Code
@@ -504,7 +505,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
     needs: [Checka,job_init]
-    if: ${{ needs.Checkb.outputs.output != 'hello' || github.event.inputs.checkupdates515 == 'true'}}
+    if: ${{ needs.Checka.outputs.output != 'hello' || github.event.inputs.checkupdates515 == 'true'}}
     runs-on: ubuntu-22.04
     env:
       REPO_BRANCH: openwrt-23.05
