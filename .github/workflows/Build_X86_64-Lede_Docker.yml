@@ -46,7 +46,7 @@ on:
         default: false
         type: boolean
   schedule:
-    - cron: 11 19 * * *
+    - cron: 41 18 * * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
