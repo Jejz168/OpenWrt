@@ -26,12 +26,12 @@ env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: main
   FEEDS_CONF: feeds_config/openwrt.feeds.conf.default
-  CONFIG_FILE: config/immo_config/x86.config
-  CONFIG_FILE_ARM: config/immo_config/armv8.config
-  DIY_P1_SH: diy_script/immo_diy/x86/diy-part1.sh
-  DIY_P1_SH_ARM: diy_script/immo_diy/armv8/diy-part1.sh
+  CONFIG_FILE: config/openwrt_config/x86.config
+  CONFIG_FILE_ARM: config/openwrt_config/armv8.config
+  DIY_P1_SH: diy_script/openwrt_diy/x86/diy-part1.sh
+  DIY_P1_SH_ARM: diy_script/openwrt_diy/armv8/diy-part1.sh
   DIY_P2_SH: diy_script/openwrt_diy/x86/diy-part2.sh
-  DIY_P2_SH_ARM: diy_script/immo_diy/armv8/diy-part2.sh
+  DIY_P2_SH_ARM: diy_script/openwrt_diy/armv8/diy-part2.sh
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: false
   CONFIG: x86
