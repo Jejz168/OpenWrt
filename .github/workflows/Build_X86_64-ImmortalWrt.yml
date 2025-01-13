@@ -31,7 +31,7 @@ on:
         default: false
         type: boolean
   schedule:
-    - cron: 46 18 * * *
+    - cron: 30 18 * * *
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
