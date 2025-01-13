@@ -126,6 +126,9 @@ clone_all https://github.com/morytyann/OpenWrt-mihomo
 # homeproxy
 git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
 
+# luci-app-filemanager
+git_clone https://github.com/sbwml/luci-app-filemanager luci-app-filemanager
+
 # openclash
 clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
 # clone_dir dev https://github.com/vernesong/OpenClash luci-app-openclash
