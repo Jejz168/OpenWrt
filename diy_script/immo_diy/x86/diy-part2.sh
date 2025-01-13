@@ -53,15 +53,6 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package
 # filebrowser luci-app-pushbot
 clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
 
-# 判断 REPO_BRANCH 再设置
-if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
-    echo "Detected REPO_BRANCH as openwrt-23.05, updating feeds.conf.default..."
-    sed -i 's|src-git packages .*|src-git packages https://github.com/immortalwrt/packages.git;openwrt-23.05|' feeds.conf.default
-    sed -i 's|src-git luci .*|src-git luci https://github.com/immortalwrt/luci.git;openwrt-23.05|' feeds.conf.default
-    sed -i 's|src-git routing .*|src-git routing https://github.com/openwrt/routing.git;openwrt-23.05|' feeds.conf.default
-    sed -i 's|src-git telephony .*|src-git telephony https://github.com/openwrt/telephony.git;openwrt-23.05|' feeds.conf.default
-fi
-
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
 
