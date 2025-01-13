@@ -154,6 +154,7 @@ export orig_version=$(cat "zzz-default-settings" | grep DISTRIB_REVISION= | awk 
 export date_version="By @Jejz build $(TZ=UTC-8 date '+%Y-%m-%d %H:%M')"
 sed -i "s/${orig_version}/${orig_version} (${date_version})/g" zzz-default-settings
 popd
+echo -e "\e[41m当前写入的编译时间:\e[0m \e[33m$(grep 'DISTRIB_REVISION' package/lean/default-settings/files/zzz-default-settings)\e[0m"
 
 # 修改欢迎banner
 cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
