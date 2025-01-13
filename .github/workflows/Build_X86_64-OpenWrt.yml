@@ -92,46 +92,6 @@ jobs:
       run: |
         echo ${{ steps.getHash.outputs.commitHash_x86_64_op }} | tee .commitHash_x86_64_op
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Checkb:
-    runs-on: ubuntu-latest
-    env:
-      REPO_URL_op515: https://github.com/immortalwrt/immortalwrt
-      REPO_BRANCH_op515: openwrt-23.05
-      REPO_PATH_op515 : "op515_x86_64"
-    outputs:
-      output: ${{ steps.outputunifreq.outputs.unifreq }}
-    steps:
-    - name: Get Commit Hash
-      id: getHash
-      run: |
-        git clone --depth 1 $REPO_URL_op515 -b $REPO_BRANCH_op515 $REPO_PATH_op515
-        cd $REPO_PATH_op515
-        echo "commitHash_x86_64_op515=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-        cd
-
-    - name: Show Commit Head and Combination Heads
-      id: combHeader
-      run: |
-        echo "commitHash_x86_64_op515: ${{ steps.getHash.outputs.commitHash_x86_64_op515 }}"
-
-    - name: Compare Commit Hash
-      id: cacheHash
-      uses: actions/cache@main
-      with:
-        path: .commitHash_x86_64_op515
-        key: HEAD-${{ steps.getHash.outputs.commitHash_x86_64_op515 }}
-
-    - name: Set output for next job
-      id: outputunifreq
-      if: steps.cacheHash.outputs.cache-hit == 'true'
-      run: |
-        echo "unifreq=hello" >> $GITHUB_OUTPUT
-
-    - name: Save New Commit Hash
-      if: steps.cacheHash.outputs.cache-hit != 'true'
-      run: |
-        echo ${{ steps.getHash.outputs.commitHash_x86_64_op515 }} | tee .commitHash_x86_64_op515
-# /////////////////////////////////////////////////////////////////////////////////////////////////////////
   job_init:
     needs: [Checka]
     runs-on: ubuntu-latest
