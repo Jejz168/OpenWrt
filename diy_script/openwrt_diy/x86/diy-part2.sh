@@ -65,11 +65,23 @@ sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=65535' package
 rm -rf feeds/packages/net/adguardhome
 clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
 
-# 替换immortalwrt插件
-clone_dir master https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-vlmcsd
-
-# 补全依赖
-clone_dir master https://github.com/immortalwrt/packages zerotier nps n2n socat strongswan vlmcsd
+# 判断 REPO_BRANCH 再设置
+if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
+    echo "Detected REPO_BRANCH as openwrt-23.05, updating feeds.conf.default..."
+    sed -i 's|src-git packages .*|src-git packages https://github.com/openwrt/packages.git;openwrt-23.05|' feeds.conf.default
+    sed -i 's|src-git luci .*|src-git luci https://github.com/openwrt/luci.git;openwrt-23.05|' feeds.conf.default
+    sed -i 's|src-git routing .*|src-git routing https://github.com/openwrt/routing.git;openwrt-23.05|' feeds.conf.default
+    sed -i 's|src-git telephony .*|src-git telephony https://github.com/openwrt/telephony.git;openwrt-23.05|' feeds.conf.default
+    # 替换immortalwrt插件
+    clone_dir openwrt-23.05 https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-vlmcsd
+    # 补全依赖
+    clone_dir openwrt-23.05 https://github.com/immortalwrt/packages zerotier nps n2n socat strongswan vlmcsd
+else
+    # 替换immortalwrt插件
+    clone_dir master https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-vlmcsd
+    # 补全依赖
+    clone_dir master https://github.com/immortalwrt/packages zerotier nps n2n socat strongswan vlmcsd
+fi
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
