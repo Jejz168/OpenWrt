@@ -771,7 +771,7 @@ jobs:
           - 🌐 默认地址：192.168.8.3
           - 🔑 默认密码：无密码
           ### 🧊 固件版本
-          - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/openwrt/openwrt)更新记录】
+          - 当前使用版本:【编译前的最后一次[➦主源码](https://github.com/openwrt/openwrt/tree/openwrt-23.05)更新记录】
           - ★ 感谢源码作者无私分享！
           - 🎈🎈🎈 更新信息 🎈🎈🎈
           - 作者: ${{ env.author }}
