@@ -67,11 +67,7 @@ clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhom
 
 # 判断 REPO_BRANCH 再设置
 if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
-    echo "Detected REPO_BRANCH as openwrt-23.05, updating feeds.conf.default..."
-    sed -i 's|src-git packages .*|src-git packages https://github.com/openwrt/packages.git;openwrt-23.05|' feeds.conf.default
-    sed -i 's|src-git luci .*|src-git luci https://github.com/openwrt/luci.git;openwrt-23.05|' feeds.conf.default
-    sed -i 's|src-git routing .*|src-git routing https://github.com/openwrt/routing.git;openwrt-23.05|' feeds.conf.default
-    sed -i 's|src-git telephony .*|src-git telephony https://github.com/openwrt/telephony.git;openwrt-23.05|' feeds.conf.default
+    echo "Detected REPO_BRANCH as openwrt-23.05..."
     # 替换immortalwrt插件
     clone_dir openwrt-23.05 https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-vlmcsd
     # 补全依赖
