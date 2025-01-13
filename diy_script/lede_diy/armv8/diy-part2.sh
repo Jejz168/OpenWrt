@@ -35,7 +35,7 @@ sed -i '/\* \* \* \/etc\/coremark.sh/d' feeds/packages/utils/coremark/*
 
 # 替换curl修改版（无nghttp3、ngtcp2）
 curl_ver=$(grep -i "PKG_VERSION:=" feeds/packages/net/curl/Makefile | awk -F'=' '{print $2}')
-if [ "$curl_ver" != "8.9.1" ]; then
+if [ "$curl_ver" != "8.11.1" ]; then
     echo "当前 curl 版本是: $curl_ver,开始替换......"
     rm -rf feeds/packages/net/curl
     cp -rf $GITHUB_WORKSPACE/personal/curl feeds/packages/net/curl
