@@ -159,23 +159,12 @@ git_clone https://github.com/jerrykuku/luci-app-argon-config
 # argon主题设置
 # cp -f $GITHUB_WORKSPACE/personal/bg1.jpg $destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 # 获取当天的星期几 (0=星期日, 1=星期一,...,6=星期六)
-day_of_week=$(date +%w)
-# 根据星期几选择图片
-case $day_of_week in
-    0) bg_file="bg1.jpg" ;;  # 星期日
-    1) bg_file="bg2.jpg" ;;  # 星期一
-    2) bg_file="bg3.jpg" ;;  # 星期二
-    3) bg_file="bg4.jpg" ;;  # 星期三
-    4) bg_file="bg5.jpg" ;;  # 星期四
-    5) bg_file="bg6.jpg" ;;  # 星期五
-    6) bg_file="bg7.jpg" ;;  # 星期六
-esac
+bg_file="bg$(date +%w).jpg"
 # argon登录页面美化
 ARGON_IMG_FILE="$destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg"
-source_dir="$GITHUB_WORKSPACE/personal"
 if [ -f "$ARGON_IMG_FILE" ]; then
     # 替换Argon主题内建壁纸
-    cp -f "$source_dir/$bg_file" "$ARGON_IMG_FILE"
+    cp -f "$GITHUB_WORKSPACE/persona/$bg_file" "$ARGON_IMG_FILE"
 
     echo "$bg_file argon wallpaper has been replaced!"
 fi
