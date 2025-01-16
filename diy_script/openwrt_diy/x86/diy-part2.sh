@@ -42,6 +42,10 @@ sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/lu
 # samba解除root限制
 sed -i 's/invalid users = root/#&/g' feeds/packages/net/samba4/files/smb.conf.template
 
+# samba工作组冲突
+WORKGROUP_NAME="WORKGROUP_$(date +%s | tail -c 4)"
+sed -i "s/workgroup = .*/workgroup = |${WORKGROUP_NAME}|/g" feeds/packages/net/samba4/files/smb.conf.template
+
 # 取消bootstrap为默认主题
 sed -i '/set_opt main.mediaurlbase \/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
 sed -i 's/Bootstrap theme/Argon theme/g' feeds/luci/collections/*/Makefile
