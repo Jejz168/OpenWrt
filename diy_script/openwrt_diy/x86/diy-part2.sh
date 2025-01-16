@@ -156,8 +156,42 @@ git_clone https://github.com/jerrykuku/luci-theme-argon
 git_clone https://github.com/jerrykuku/luci-app-argon-config
 # clone_all https://github.com/sbwml/luci-theme-argon
 
-# 更改argon主题背景
-cp -f $GITHUB_WORKSPACE/personal/bg1.jpg $destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+# argon主题设置
+# cp -f $GITHUB_WORKSPACE/personal/bg1.jpg $destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+# 获取当天的星期几 (0=星期日, 1=星期一,...,6=星期六)
+day_of_week=$(date +%w)
+# 根据星期几选择图片
+case $day_of_week in
+    0) bg_file="bg1.jpg" ;;  # 星期日
+    1) bg_file="bg2.jpg" ;;  # 星期一
+    2) bg_file="bg3.jpg" ;;  # 星期二
+    3) bg_file="bg4.jpg" ;;  # 星期三
+    4) bg_file="bg5.jpg" ;;  # 星期四
+    5) bg_file="bg6.jpg" ;;  # 星期五
+    6) bg_file="bg7.jpg" ;;  # 星期六
+esac
+# argon登录页面美化
+ARGON_IMG_FILE="$destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg"
+source_dir="$GITHUB_WORKSPACE/personal"
+if [ -f "$ARGON_IMG_FILE" ]; then
+    # 替换Argon主题内建壁纸
+    cp -f "$source_dir/$bg_file" "$ARGON_IMG_FILE"
+
+    echo "$bg_file argon wallpaper has been replaced!"
+fi
+ARGON_CONFIG_FILE="$destination_dir/luci-app-argon-config/root/etc/config/argon"
+if [ -f "$ARGON_CONFIG_FILE" ]; then
+    # 设置Argon主题的登录页面壁纸为内建
+    sed -i "s/option online_wallpaper 'bing'/option online_wallpaper 'none'/" $ARGON_CONFIG_FILE
+    # 设置Argon主题的登录表单模糊度
+    sed -i "s/option blur '[0-9]*'/option blur '0'/" $ARGON_CONFIG_FILE
+    sed -i "s/option blur_dark '[0-9]*'/option blur_dark '0'/" $ARGON_CONFIG_FILE
+    # 设置Argon主题颜色
+    sed -i "s/option primary '#[0-9a-fA-F]\{6\}'/option primary '#ADD8E6'/" $ARGON_CONFIG_FILE
+    sed -i "s/option dark_primary '#[0-9a-fA-F]\{6\}'/option dark_primary '#c0c0c0'/" $ARGON_CONFIG_FILE
+
+    echo "argon theme has been customized!"
+fi
 
 # 修改主题多余版本信息
 sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' $destination_dir/luci-theme-argon/luasrc/view/themes/argon/footer.htm
