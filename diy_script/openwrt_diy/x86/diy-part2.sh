@@ -164,7 +164,7 @@ bg_file="bg$(date +%w).jpg"
 ARGON_IMG_FILE="$destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg"
 if [ -f "$ARGON_IMG_FILE" ]; then
     # 替换Argon主题内建壁纸
-    cp -f "$GITHUB_WORKSPACE/persona/$bg_file" "$ARGON_IMG_FILE"
+    cp -f "$GITHUB_WORKSPACE/personal/$bg_file" "$ARGON_IMG_FILE"
 
     echo "$bg_file argon wallpaper has been replaced!"
 fi
