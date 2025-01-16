@@ -176,7 +176,7 @@ else
 fi
 
 # 修改欢迎banner
-cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
+cp -f $GITHUB_WORKSPACE/personal/banner-op package/base-files/files/etc/banner
 # wget -O ./package/base-files/files/etc/banner https://raw.githubusercontent.com/Jejz168/OpenWrt/main/personal/banner
 
 # 修改makefile
