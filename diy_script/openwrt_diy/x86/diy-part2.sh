@@ -44,7 +44,7 @@ sed -i 's/invalid users = root/#&/g' feeds/packages/net/samba4/files/smb.conf.te
 
 # samba工作组冲突
 WORKGROUP_NAME="WORKGROUP_$(date +%s | tail -c 4)"
-sed -i "s/workgroup = .*/workgroup = |${WORKGROUP_NAME}|/g" feeds/packages/net/samba4/files/smb.conf.template
+sed -i "s/workgroup = .*/workgroup = ${WORKGROUP_NAME}/g" feeds/packages/net/samba4/files/smb.conf.template
 
 # 取消bootstrap为默认主题
 sed -i '/set_opt main.mediaurlbase \/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
@@ -60,6 +60,10 @@ sed -i 's#top -n1#\/bin\/busybox top -n1#g' feeds/luci/modules/luci-base/root/us
 
 # 最大连接数修改为65535
 sed -i '$a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
+
+#nlbwmon 修复log警报
+sed -i '$a net.core.wmem_max=16777216' package/base-files/files/etc/sysctl.conf
+sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 
 # 报错修复
 # rm -rf feeds/packages/utils/v2dat
