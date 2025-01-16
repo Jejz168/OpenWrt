@@ -50,6 +50,10 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/*/Make
 # 最大连接数修改为65535
 sed -i '$a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
 
+#nlbwmon 修复log警报
+sed -i '$a net.core.wmem_max=16777216' package/base-files/files/etc/sysctl.conf
+sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
+
 # 替换curl修改版（无nghttp3、ngtcp2）
 curl_ver=$(grep -i "PKG_VERSION:=" feeds/packages/net/curl/Makefile | awk -F'=' '{print $2}')
 if [ "$curl_ver" != "8.11.1" ]; then
