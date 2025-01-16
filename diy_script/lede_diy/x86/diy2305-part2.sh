@@ -79,7 +79,7 @@ clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhom
 clone_dir master https://github.com/immortalwrt/luci luci-app-syncdial luci-app-eqos luci-app-nps luci-app-frpc luci-app-frps luci-app-hd-idle luci-app-socat luci-app-n2n luci-app-softethervpn
 
 # 补全依赖
-clone_dir master https://github.com/immortalwrt/packages nps n2n socat strongswan
+clone_dir master https://github.com/immortalwrt/packages nps n2n socat
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
