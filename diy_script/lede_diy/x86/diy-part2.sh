@@ -149,7 +149,30 @@ git_clone 18.06 https://github.com/jerrykuku/luci-theme-argon
 git_clone 18.06 https://github.com/jerrykuku/luci-app-argon-config
 
 # 更改argon主题背景
-cp -f $GITHUB_WORKSPACE/personal/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+# cp -f $GITHUB_WORKSPACE/personal/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
+# 获取当天的星期几 (0=星期日, 1=星期一,...,6=星期六)
+bg_file="bg$((($(date +%w) + 6) % 7 + 1)).jpg"
+# argon登录页面美化
+ARGON_IMG_FILE="feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg"
+if [ -f "$ARGON_IMG_FILE" ]; then
+    # 替换Argon主题内建壁纸
+    cp -f "$GITHUB_WORKSPACE/personal/$bg_file" "$ARGON_IMG_FILE"
+
+    echo "$bg_file argon wallpaper has been replaced!"
+fi
+ARGON_CONFIG_FILE="feeds/luci/applications/luci-app-argon-config/root/etc/config/argon"
+if [ -f "$ARGON_CONFIG_FILE" ]; then
+    # 设置Argon主题的登录页面壁纸为内建
+    sed -i "s/option online_wallpaper 'bing'/option online_wallpaper 'none'/" $ARGON_CONFIG_FILE
+    # 设置Argon主题的登录表单模糊度
+    sed -i "s/option blur '[0-9]*'/option blur '0'/" $ARGON_CONFIG_FILE
+    sed -i "s/option blur_dark '[0-9]*'/option blur_dark '0'/" $ARGON_CONFIG_FILE
+    # 设置Argon主题颜色
+    sed -i "s/option primary '#[0-9a-fA-F]\{6\}'/option primary '#FF8C00'/" $ARGON_CONFIG_FILE
+    sed -i "s/option dark_primary '#[0-9a-fA-F]\{6\}'/option dark_primary '#9370DB'/" $ARGON_CONFIG_FILE
+
+    echo "argon theme has been customized!"
+fi
 
 # 主机名右上角符号❤
 # sed -i 's/❤/❤/g' package/lean/luci-theme-argon_armygreen/luasrc/view/themes/argon_armygreen/header.htm
