@@ -176,8 +176,8 @@ if [ -f "$ARGON_CONFIG_FILE" ]; then
     sed -i "s/option blur '[0-9]*'/option blur '0'/" $ARGON_CONFIG_FILE
     sed -i "s/option blur_dark '[0-9]*'/option blur_dark '0'/" $ARGON_CONFIG_FILE
     # 设置Argon主题颜色
-    sed -i "s/option primary '#[0-9a-fA-F]\{6\}'/option primary '#ADD8E6'/" $ARGON_CONFIG_FILE
-    sed -i "s/option dark_primary '#[0-9a-fA-F]\{6\}'/option dark_primary '#c0c0c0'/" $ARGON_CONFIG_FILE
+    sed -i "s/option primary '#[0-9a-fA-F]\{6\}'/option primary '#FF8C00'/" $ARGON_CONFIG_FILE
+    sed -i "s/option dark_primary '#[0-9a-fA-F]\{6\}'/option dark_primary '#9370DB'/" $ARGON_CONFIG_FILE
 
     echo "argon theme has been customized!"
 fi
