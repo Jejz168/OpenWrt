@@ -158,8 +158,8 @@ git_clone https://github.com/jerrykuku/luci-app-argon-config
 
 # argon主题设置
 # cp -f $GITHUB_WORKSPACE/personal/bg1.jpg $destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
-# 获取当天的星期几 (0=星期日, 1=星期一,...,6=星期六)
-bg_file="bg$(date +%w).jpg"
+# 获取当天的星期几 (1=星期一, ..., 7=星期日)
+bg_file="bg$((($(date +%w) + 6) % 7 + 1)).jpg"
 # argon登录页面美化
 ARGON_IMG_FILE="$destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg"
 if [ -f "$ARGON_IMG_FILE" ]; then
