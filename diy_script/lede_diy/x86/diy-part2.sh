@@ -191,7 +191,8 @@ sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")
 # 修改欢迎banner
 # cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
 # wget -O ./package/base-files/files/etc/banner https://raw.githubusercontent.com/Jejz168/OpenWrt/main/personal/banner
-sed -i 's/%D %V, %C/%D %V, %C (By @Jejz build $(TZ=UTC-8 date '+%Y.%m.%d'))/g' package/base-files/files/etc/banner
+sed -i "/%D/a \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [31m By @Jejz build $(TZ=UTC-8 date '+%Y.%m.%d') [0m" package/base-files/files/etc/banner
+cat package/base-files/files/etc/banner
 
 # 固件更新地址
 sed -i '/CPU usage/a\                <tr><td width="33%"><%:Compile update%></td><td><a target="_blank" href="https://github.com/Jejz168/OpenWrt/releases">👆查看</a></td></tr>'  package/lean/autocore/files/x86/index.htm
