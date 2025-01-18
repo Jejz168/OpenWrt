@@ -71,6 +71,9 @@ fi
 rm -rf feeds/packages/net/adguardhome
 clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome luci-app-poweroff lua-maxminddb luci-app-vssr
 
+# 修复frps
+clone_dir https://github.com/superzjg/luci-app-frpc_frps luci-app-frpc luci-app-frps
+
 # 修复adguardhome重定向端口识别
 # cp -f $GITHUB_WORKSPACE/personal/AdGuardHome/base.lua $destination_dir/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua
 
