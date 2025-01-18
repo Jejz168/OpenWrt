@@ -199,8 +199,9 @@ else
 fi
 
 # 修改欢迎banner
-cp -f $GITHUB_WORKSPACE/personal/banner-op package/base-files/files/etc/banner
+# cp -f $GITHUB_WORKSPACE/personal/banner-op package/base-files/files/etc/banner
 # wget -O ./package/base-files/files/etc/banner https://raw.githubusercontent.com/Jejz168/OpenWrt/main/personal/banner
+sed -i 's/%D %V, %C/%D %V, %C (By @Jejz build $(TZ=UTC-8 date '+%Y.%m.%d'))/g' package/base-files/files/etc/banner
 
 # 修改makefile
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
