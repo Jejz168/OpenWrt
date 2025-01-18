@@ -293,3 +293,6 @@ EOF
 
 # 设置脚本权限
 chmod +x files/bin/JejzWrt
+
+# 重定向 menu -> JejzWrt
+ln -s /bin/JejzWrt files/bin/menu
