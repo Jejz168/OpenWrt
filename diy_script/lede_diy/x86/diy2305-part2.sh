@@ -190,8 +190,9 @@ popd
 echo -e "\e[41m当前写入的编译时间:\e[0m \e[33m$(grep 'DISTRIB_REVISION=' package/lean/default-settings/files/zzz-default-settings)\e[0m"
 
 # 修改欢迎banner
-cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
+# cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
 # wget -O ./package/base-files/files/etc/banner https://raw.githubusercontent.com/Jejz168/OpenWrt/main/personal/banner
+sed -i 's/%D %V, %C/%D %V, %C (By @Jejz build $(TZ=UTC-8 date '+%Y.%m.%d'))/g' package/base-files/files/etc/banner
 
 # 修改makefile
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/include\ \.\.\/\.\.\/luci\.mk/include \$(TOPDIR)\/feeds\/luci\/luci\.mk/g' {}
