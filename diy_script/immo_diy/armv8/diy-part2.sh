@@ -168,7 +168,8 @@ echo -e "\e[41m当前写入的编译时间:\e[0m \e[33m$(grep 'OPENWRT_RELEASE' 
 cp -f $GITHUB_WORKSPACE/diy_script/immo_diy/x86/99-default-settings package/emortal/default-settings/files/99-default-settings
 # cp -f $GITHUB_WORKSPACE/personal/banner-immo package/base-files/files/etc/banner
 # wget -O ./package/base-files/files/etc/banner https://raw.githubusercontent.com/Jejz168/OpenWrt/main/personal/banner
-sed -i 's/%D %V, %C/%D %V, %C (By @Jejz build $(TZ=UTC-8 date '+%Y.%m.%d'))/g' package/base-files/files/etc/banner
+sed -i "/%D/a \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [31m By @Jejz build $(TZ=UTC-8 date '+%Y.%m.%d') [0m" package/base-files/files/etc/banner
+cat package/base-files/files/etc/banner
 
 # 补充 firewall4 luci 中文翻译
 cat >> "feeds/luci/applications/luci-app-firewall/po/zh_Hans/firewall.po" <<-EOF
