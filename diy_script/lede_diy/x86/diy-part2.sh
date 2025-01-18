@@ -194,7 +194,7 @@ sed -i 's/os.date()/os.date("%Y年%m月%d日") .. " " .. translate(os.date("%A")
 # 修改欢迎banner
 # cp -f $GITHUB_WORKSPACE/personal/banner package/base-files/files/etc/banner
 # wget -O ./package/base-files/files/etc/banner https://raw.githubusercontent.com/Jejz168/OpenWrt/main/personal/banner
-sed -i "s/%D %V, %C/%D %V, %C [31m(By @Jejz build $(TZ=UTC-8 date '+%Y.%m.%d')) [0m/g" package/base-files/files/etc/banner
+sed -i "/\   DE \//a \\   By @Jejz build $(TZ=UTC-8 date '+%Y.%m.%d')" package/base-files/files/etc/banner
 cat package/base-files/files/etc/banner
 
 # 固件更新地址
