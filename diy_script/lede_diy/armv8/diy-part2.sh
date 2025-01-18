@@ -55,6 +55,9 @@ fi
 rm -rf feeds/packages/net/adguardhome
 clone_dir master https://github.com/xiangfeidexiaohuo/extra-ipk luci-app-adguardhome luci-app-poweroff lua-maxminddb luci-app-vssr
 
+# 修复frps
+clone_dir https://github.com/superzjg/luci-app-frpc_frps luci-app-frpc luci-app-frps
+
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
 
