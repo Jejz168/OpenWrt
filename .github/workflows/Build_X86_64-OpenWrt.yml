@@ -31,7 +31,7 @@ on:
         default: false
         type: boolean
   schedule:
-    - cron: 12 18 * * *
+    - cron: 2 18 * * *
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
