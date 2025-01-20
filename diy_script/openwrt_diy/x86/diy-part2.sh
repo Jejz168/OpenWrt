@@ -56,7 +56,8 @@ sed -i 's/0666/0644/g;s/0777/0755/g' feeds/packages/net/samba4/files/smb.conf.te
 
 # samba工作组冲突
 WORKGROUP_NAME="WORKGROUP$(date +%s | tail -c 4)"
-sed -i "s/workgroup = .*/workgroup = ${WORKGROUP_NAME}/g" feeds/packages/net/samba4/files/smb.conf.template
+sed -i "s/WORKGROUP/${WORKGROUP_NAME}/g" feeds/packages/net/samba4/files/samba.config
+sed -i "s/workgroup \"WORKGROUP\"/workgroup \"${WORKGROUP_NAME}\"/g" feeds/packages/net/samba4/files/samba.init
 
 # 取消bootstrap为默认主题
 sed -i '/set_opt main.mediaurlbase \/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
