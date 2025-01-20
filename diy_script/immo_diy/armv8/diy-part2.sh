@@ -32,7 +32,7 @@ sed -i 's/仅IPv6/仅 IPv6/g' package/feeds/luci/luci-app-socat/po/zh_Hans/socat
 sed -i 's/invalid users = root/#&/g' feeds/packages/net/samba4/files/smb.conf.template
 
 # samba工作组冲突
-WORKGROUP_NAME="WORKGROUP_$(date +%s | tail -c 4)"
+WORKGROUP_NAME="WORKGROUP$(date +%s | tail -c 4)"
 sed -i "s/workgroup = .*/workgroup = |${WORKGROUP_NAME}|/g" feeds/packages/net/samba4/files/smb.conf.template
 
 # 取消bootstrap为默认主题
