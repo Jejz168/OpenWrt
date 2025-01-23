@@ -13,7 +13,7 @@ PKG_NAME:=ddnsto
 PKG_VERSION:=3.0.4
 PKG_RELEASE:=$(PKG_ARCH_DDNSTO)-7
 PKG_SOURCE:=$(PKG_NAME)-binary-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://github.com/Jejz168/OpenWrt/raw/refs/heads/main/personal/
+PKG_SOURCE_URL:=https://github.com/Jejz168/OpenWrt/raw/refs/heads/main/personal/ddnsto/
 PKG_HASH:=486aa15a5e026b5a3aca72f1850746e127a7e86ef11db8a7c498dad29545eaf6
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-binary-$(PKG_VERSION)
