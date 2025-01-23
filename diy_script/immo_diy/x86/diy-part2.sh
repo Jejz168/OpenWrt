@@ -86,7 +86,14 @@ clone_all https://github.com/gdy666/luci-app-lucky
 # ddnsto
 clone_dir main https://github.com/linkease/nas-packages-luci luci-app-ddnsto
 clone_dir master https://github.com/linkease/nas-packages ddnsto
-cp -f $GITHUB_WORKSPACE/personal/ddnsto/Makefile $destination_dir/ddnsto/Makefile
+ddnsto_ver=$(grep -i "PKG_VERSION:=" $destination_dir/ddnsto/Makefile | awk -F'=' '{print $2}' | tr -d ' ')
+if [ "$ddnsto_ver" == "3.0.4" ]; then
+    echo "当前 ddnsto 版本是: $ddnsto_ver, 开始替换......"
+
+    sed -i 's|PKG_SOURCE_URL:=.*|PKG_SOURCE_URL:=https://github.com/Jejz168/OpenWrt/raw/refs/heads/main/personal/ddnsto/|' $destination_dir/ddnsto/Makefile
+
+    echo "替换完成！"
+fi
 
 # OpenAppFilter 应用过滤
 clone_all https://github.com/sbwml/OpenAppFilter
