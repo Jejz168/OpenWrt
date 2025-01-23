@@ -86,6 +86,7 @@ clone_all https://github.com/gdy666/luci-app-lucky
 # ddnsto
 clone_dir main https://github.com/linkease/nas-packages-luci luci-app-ddnsto
 clone_dir master https://github.com/linkease/nas-packages ddnsto
+cp -f $GITHUB_WORKSPACE/personal/ddnsto/Makefile $destination_dir/ddnsto/Makefile
 
 # OpenAppFilter 应用过滤
 clone_all https://github.com/sbwml/OpenAppFilter
