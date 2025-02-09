@@ -220,8 +220,7 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
-        sudo -E apt-get -y install libfuse-dev clang
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
@@ -543,8 +542,7 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
-        sudo -E apt-get -y install libfuse-dev clang
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
@@ -856,8 +854,7 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
-        sudo -E apt-get -y install libfuse-dev clang
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
@@ -1169,8 +1166,7 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
-        sudo -E apt-get -y install libfuse-dev clang
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
@@ -1485,8 +1481,7 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
-        sudo -E apt-get -y install libfuse-dev clang
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
@@ -1799,8 +1794,7 @@ jobs:
         sudo -E apt-get -y purge azure-cli ghc* zulu* llvm* firefox google* dotnet* powershell openjdk* mongodb* moby* || true
         [ -n "$AGENT_TOOLSDIRECTORY" ] && sudo rm -rf "$AGENT_TOOLSDIRECTORY"
         sudo -E apt-get update
-        sudo -E apt-get -y install $(curl -fsSL https://is.gd/depends_ubuntu_2204)
-        sudo -E apt-get -y install libfuse-dev clang
+        sudo -E apt-get -y install $(cat $GITHUB_WORKSPACE/depends-ubuntu-2204)
         sudo -E apt-get -y autoremove --purge
         sudo -E apt-get clean
         sudo sed -i '/NVM_DIR/d;/skel/d' /root/{.bashrc,.profile}
