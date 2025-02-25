@@ -93,11 +93,17 @@ if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
     clone_dir openwrt-23.05 https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-vlmcsd luci-app-hd-idle
     # 补全依赖
     clone_dir openwrt-23.05 https://github.com/immortalwrt/packages zerotier nps n2n socat strongswan vlmcsd vsftpd hd-idle
+    # AutoCore
+    [ -d package/emortal/autocore ] || mkdir -p package/emortal/autocore
+    clone_dir openwrt-23.05 https://github.com/immortalwrt/immortalwrt autocore
 else
     # 替换immortalwrt插件
     clone_dir master https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-vlmcsd luci-app-hd-idle
     # 补全依赖
     clone_dir master https://github.com/immortalwrt/packages zerotier nps n2n socat strongswan vlmcsd vsftpd hd-idle
+    # AutoCore
+    [ -d package/emortal/autocore ] || mkdir -p package/emortal/autocore
+    clone_dir master https://github.com/immortalwrt/immortalwrt autocore
 fi
 
 # ddns-go 动态域名
