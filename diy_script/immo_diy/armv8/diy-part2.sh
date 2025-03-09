@@ -128,8 +128,8 @@ clone_all https://github.com/xiaorouji/openwrt-passwall
 # passwall2
 # clone_all https://github.com/xiaorouji/openwrt-passwall2
 
-# mihomo
-clone_all https://github.com/morytyann/OpenWrt-mihomo
+# mihomo(Nikki)
+clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
 
 # luci-app-filemanager
 git_clone https://github.com/sbwml/luci-app-filemanager luci-app-filemanager
