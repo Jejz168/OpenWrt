@@ -135,7 +135,7 @@ clone_all https://github.com/xiaorouji/openwrt-passwall
 # passwall2
 # clone_all https://github.com/xiaorouji/openwrt-passwall2
 
-# mihomo(Nikki)
+# Nikki
 clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
 
 # homeproxy
