@@ -435,7 +435,7 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
         body: |
           **This is LEDE-2305 Firmware for ${{ env.FILE_NAME }}**
-          **homeproxy/mihomo**
+          **homeproxy/Nikki**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -748,7 +748,7 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
         body: |
           **This is LEDE-2305 Firmware for ${{ env.FILE_NAME }}**
-          **homeproxy/mihomo**
+          **homeproxy/Nikki**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -1064,7 +1064,7 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
         body: |
           **This is LEDE-2305 Firmware for ${{ env.FILE_NAME }}**
-          **homeproxy/mihomo**
+          **homeproxy/Nikki**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -1378,7 +1378,7 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
         body: |
           **This is LEDE-2305 Firmware for ${{ env.FILE_NAME }}**
-          **homeproxy/mihomo**
+          **homeproxy/Nikki**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
@@ -1696,7 +1696,7 @@ jobs:
         token: ${{ secrets.GH_TOKEN }}
         body: |
           **This is LEDE-2305 Firmware for ${{ env.FILE_NAME }}**
-          **homeproxy/mihomo**
+          **homeproxy/Nikki**
           ### 📒 固件信息
           - 💻 平台架构: ${{ env.FILE_NAME }}
           - ⚽ 固件源码: ${{ env.REPO_URL }}
