@@ -74,6 +74,9 @@ sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 # filebrowser luci-app-pushbot
 clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff luci-app-socat socat
 
+# 同时兼容firewall3/4 的luci-app-socat
+clone_dir main https://github.com/chenmozhijin/luci-app-socat luci-app-socat
+
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
 
