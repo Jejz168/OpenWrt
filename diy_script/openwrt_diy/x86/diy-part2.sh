@@ -84,20 +84,20 @@ sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # filebrowser luci-app-pushbot
 rm -rf feeds/packages/net/adguardhome
-clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
+clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff luci-app-socat socat
 
 # 判断 REPO_BRANCH 再设置
 if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
     echo "Detected REPO_BRANCH as openwrt-23.05..."
     # 替换immortalwrt插件
-    clone_dir openwrt-23.05 https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-vlmcsd luci-app-hd-idle
+    clone_dir openwrt-23.05 https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-n2n luci-app-softethervpn luci-app-vlmcsd luci-app-hd-idle
     # 补全依赖
-    clone_dir openwrt-23.05 https://github.com/immortalwrt/packages zerotier nps n2n socat strongswan vlmcsd vsftpd hd-idle
+    clone_dir openwrt-23.05 https://github.com/immortalwrt/packages zerotier nps n2n strongswan vlmcsd vsftpd hd-idle
 else
     # 替换immortalwrt插件
-    clone_dir master https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-socat luci-app-n2n luci-app-softethervpn luci-app-vlmcsd luci-app-hd-idle
+    clone_dir master https://github.com/immortalwrt/luci luci-app-zerotier luci-app-openvpn-server luci-app-ipsec-vpnd luci-app-ramfree luci-app-vsftpd luci-app-usb-printer luci-app-autoreboot luci-app-syncdial luci-app-eqos luci-app-nps luci-app-n2n luci-app-softethervpn luci-app-vlmcsd luci-app-hd-idle
     # 补全依赖
-    clone_dir master https://github.com/immortalwrt/packages zerotier nps n2n socat strongswan vlmcsd vsftpd hd-idle
+    clone_dir master https://github.com/immortalwrt/packages zerotier nps n2n strongswan vlmcsd vsftpd hd-idle
 fi
 
 # ddns-go 动态域名
