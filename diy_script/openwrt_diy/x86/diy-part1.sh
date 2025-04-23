@@ -14,9 +14,6 @@ sed -i "/helloworld/d" feeds.conf.default
 
 
 
-
-mkdir wget
-
 cat>rename.sh<<-\EOF
 #!/bin/bash
 rm -rf  bin/targets/x86/64/config.buildinfo
@@ -30,47 +27,18 @@ rm -rf  bin/targets/x86/64/sha256sums
 rm -rf  bin/targets/x86/64/version.buildinfo
 rm -rf  bin/targets/x86/64/profiles.json
 sleep 2
-str1=`grep "KERNEL_PATCHVER:="  target/linux/x86/Makefile | cut -d = -f 2` #判断当前默认内核版本号如5.10
-ver54=$( (grep "LINUX_VERSION-5.4 =" include/kernel-5.4 2>/dev/null || grep "LINUX_VERSION-5.4 =" target/linux/generic/kernel-5.4 2>/dev/null) | cut -d . -f 3 )
-ver510=$( (grep "LINUX_VERSION-5.10 =" include/kernel-5.10 2>/dev/null || grep "LINUX_VERSION-5.10 =" target/linux/generic/kernel-5.10 2>/dev/null) | cut -d . -f 3 )
-ver515=$( (grep "LINUX_VERSION-5.15 =" include/kernel-5.15 2>/dev/null || grep "LINUX_VERSION-5.15 =" target/linux/generic/kernel-5.15 2>/dev/null) | cut -d . -f 3 )
-ver61=$( (grep "LINUX_VERSION-6.1 =" include/kernel-6.1 2>/dev/null || grep "LINUX_VERSION-6.1 =" target/linux/generic/kernel-6.1 2>/dev/null) | cut -d . -f 3 )
-ver66=$( (grep "LINUX_VERSION-6.6 =" include/kernel-6.6 2>/dev/null || grep "LINUX_VERSION-6.6 =" target/linux/generic/kernel-6.6 2>/dev/null) | cut -d . -f 3 )
-ver612=$( (grep "LINUX_VERSION-6.12 =" include/kernel-6.12 2>/dev/null || grep "LINUX_VERSION-6.12 =" target/linux/generic/kernel-6.12 2>/dev/null) | cut -d . -f 3 )
-if [ "$str1" = "5.4" ];then
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver54}_bios.img.gz
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver54}_uefi.img.gz
-elif [ "$str1" = "5.10" ];then
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver510}_bios.img.gz
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver510}_uefi.img.gz
-elif [ "$str1" = "5.15" ];then
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver515}_bios.img.gz
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver515}_uefi.img.gz
-elif [ "$str1" = "6.1" ];then
-   if [ ! $ver61 ]; then
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver61}0_bios.img.gz
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver61}0_uefi.img.gz
-  else
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver61}_bios.img.gz
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver61}_uefi.img.gz
-   fi
-elif [ "$str1" = "6.6" ];then
-   if [ ! $ver66 ]; then
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver66}0_bios.img.gz
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver66}0_uefi.img.gz
-  else
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver66}_bios.img.gz
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver66}_uefi.img.gz
-   fi
-elif [ "$str1" = "6.12" ];then
-   if [ ! $ver612 ]; then
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver612}0_bios.img.gz
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver612}0_uefi.img.gz
-  else
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver612}_bios.img.gz
-   mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver612}_uefi.img.gz
-   fi
-fi
+# 获取默认内核版本号，如 5.10
+kernel_version=$(grep "KERNEL_PATCHVER:=" target/linux/x86/Makefile | cut -d "=" -f 2 | xargs)
+patch_version=$(grep "LINUX_VERSION-${kernel_version} =" include/kernel-${kernel_version} 2>/dev/null || \
+                grep "LINUX_VERSION-${kernel_version} =" target/linux/generic/kernel-${kernel_version} 2>/dev/null | \
+                cut -d "." -f 3)
+# 如果补丁版本不存在，则默认为 0
+patch_version=${patch_version:-0}
+# 文件重命名
+mv bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz \
+   bin/targets/x86/64/openwrt_x86-64_${kernel_version}.${patch_version}_bios.img.gz
+mv bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz \
+   bin/targets/x86/64/openwrt_x86-64_${kernel_version}.${patch_version}_uefi.img.gz
 #md5
 ls -l  "bin/targets/x86/64" | awk -F " " '{print $9}' > wget/open_dev_md5
 dev_version=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
@@ -79,5 +47,67 @@ openwrt_dev_uefi=openwrt_x86-64_${dev_version}_uefi.img.gz
 cd bin/targets/x86/64
 md5sum $openwrt_dev > openwrt_bios.md5
 md5sum $openwrt_dev_uefi > openwrt_uefi.md5
+exit 0
+# 删除无关的文件
+rm -rf  bin/targets/x86/64/config.buildinfo
+rm -rf  bin/targets/x86/64/feeds.buildinfo
+rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-kernel.bin
+rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.vmdk
+rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.vmdk
+rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-rootfs.img.gz
+rm -rf  bin/targets/x86/64/openwrt-x86-64-generic.manifest
+rm -rf  bin/targets/x86/64/sha256sums
+rm -rf  bin/targets/x86/64/version.buildinfo
+rm -rf  bin/targets/x86/64/profiles.json
+
+# 暂停 2 秒
+sleep 2
+
+# 获取默认内核版本号（例如：5.10）
+kernel_version=$(grep "KERNEL_PATCHVER:=" target/linux/x86/Makefile | cut -d "=" -f 2 | xargs)
+
+# 获取补丁版本号，若不存在则默认为0
+patch_version=$(grep "LINUX_VERSION-${kernel_version} =" include/kernel-${kernel_version} 2>/dev/null || \
+                grep "LINUX_VERSION-${kernel_version} =" target/linux/generic/kernel-${kernel_version} 2>/dev/null | \
+                cut -d "." -f 3)
+patch_version=${patch_version:-0}
+echo "Kernel Version: $kernel_version.$patch_version"
+# 文件重命名
+if [ -f "bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz" ]; then
+    mv bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz \
+       bin/targets/x86/64/openwrt_x86-64_${kernel_version}.${patch_version}_bios.img.gz
+else
+    echo "Error: File openwrt-x86-64-generic-squashfs-combined.img.gz not found!"
+    exit 1
+fi
+
+if [ -f "bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz" ]; then
+    mv bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz \
+       bin/targets/x86/64/openwrt_x86-64_${kernel_version}.${patch_version}_uefi.img.gz
+else
+    echo "Error: File openwrt-x86-64-generic-squashfs-combined-efi.img.gz not found!"
+    exit 1
+fi
+
+# 直接指定文件名
+openwrt_dev="openwrt_x86-64_${kernel_version}.${patch_version}_bios.img.gz"
+openwrt_dev_uefi="openwrt_x86-64_${kernel_version}.${patch_version}_uefi.img.gz"
+
+# 生成 MD5 校验和
+cd bin/targets/x86/64  || exit 1
+
+if [ -f "$openwrt_dev" ]; then
+    md5sum "$openwrt_dev" > openwrt_bios.md5
+else
+    echo "Error: File $openwrt_dev not found!"
+    exit 1
+fi
+
+if [ -f "$openwrt_dev_uefi" ]; then
+    md5sum "$openwrt_dev_uefi" > openwrt_uefi.md5
+else
+    echo "Error: File $openwrt_dev_uefi not found!"
+    exit 1
+fi
 exit 0
 EOF
