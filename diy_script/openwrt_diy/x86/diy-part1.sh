@@ -31,12 +31,12 @@ rm -rf  bin/targets/x86/64/version.buildinfo
 rm -rf  bin/targets/x86/64/profiles.json
 sleep 2
 str1=`grep "KERNEL_PATCHVER:="  target/linux/x86/Makefile | cut -d = -f 2` #判断当前默认内核版本号如5.10
-ver54=`grep "LINUX_VERSION-5.4 ="  include/kernel-5.4 | cut -d . -f 3`
-ver510=`grep "LINUX_VERSION-5.10 ="  include/kernel-5.10 | cut -d . -f 3`
-ver515=`grep "LINUX_VERSION-5.15 ="  include/kernel-5.15 | cut -d . -f 3`
-ver61=`grep "LINUX_VERSION-6.1 ="  include/kernel-6.1 | cut -d . -f 3`
-ver66=`grep "LINUX_VERSION-6.6 ="  include/kernel-6.6 | cut -d . -f 3`
-ver612=`grep "LINUX_VERSION-6.12 ="  include/kernel-6.12 | cut -d . -f 3`
+ver54=$( (grep "LINUX_VERSION-5.4 =" include/kernel-5.4 2>/dev/null || grep "LINUX_VERSION-5.4 =" target/linux/generic/kernel-5.4 2>/dev/null) | cut -d . -f 3 )
+ver510=$( (grep "LINUX_VERSION-5.10 =" include/kernel-5.10 2>/dev/null || grep "LINUX_VERSION-5.10 =" target/linux/generic/kernel-5.10 2>/dev/null) | cut -d . -f 3 )
+ver515=$( (grep "LINUX_VERSION-5.15 =" include/kernel-5.15 2>/dev/null || grep "LINUX_VERSION-5.15 =" target/linux/generic/kernel-5.15 2>/dev/null) | cut -d . -f 3 )
+ver61=$( (grep "LINUX_VERSION-6.1 =" include/kernel-6.1 2>/dev/null || grep "LINUX_VERSION-6.1 =" target/linux/generic/kernel-6.1 2>/dev/null) | cut -d . -f 3 )
+ver66=$( (grep "LINUX_VERSION-6.6 =" include/kernel-6.6 2>/dev/null || grep "LINUX_VERSION-6.6 =" target/linux/generic/kernel-6.6 2>/dev/null) | cut -d . -f 3 )
+ver612=$( (grep "LINUX_VERSION-6.12 =" include/kernel-6.12 2>/dev/null || grep "LINUX_VERSION-6.12 =" target/linux/generic/kernel-6.12 2>/dev/null) | cut -d . -f 3 )
 if [ "$str1" = "5.4" ];then
    mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz       bin/targets/x86/64/openwrt_x86-64_${str1}.${ver54}_bios.img.gz
    mv  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz   bin/targets/x86/64/openwrt_x86-64_${str1}.${ver54}_uefi.img.gz
