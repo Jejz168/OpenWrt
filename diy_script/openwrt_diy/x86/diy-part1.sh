@@ -16,38 +16,6 @@ sed -i "/helloworld/d" feeds.conf.default
 
 cat>rename.sh<<-\EOF
 #!/bin/bash
-rm -rf  bin/targets/x86/64/config.buildinfo
-rm -rf  bin/targets/x86/64/feeds.buildinfo
-rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-kernel.bin
-rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.vmdk
-rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.vmdk
-rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-rootfs.img.gz
-rm -rf  bin/targets/x86/64/openwrt-x86-64-generic.manifest
-rm -rf  bin/targets/x86/64/sha256sums
-rm -rf  bin/targets/x86/64/version.buildinfo
-rm -rf  bin/targets/x86/64/profiles.json
-sleep 2
-# 获取默认内核版本号，如 5.10
-kernel_version=$(grep "KERNEL_PATCHVER:=" target/linux/x86/Makefile | cut -d "=" -f 2 | xargs)
-patch_version=$(grep "LINUX_VERSION-${kernel_version} =" include/kernel-${kernel_version} 2>/dev/null || \
-                grep "LINUX_VERSION-${kernel_version} =" target/linux/generic/kernel-${kernel_version} 2>/dev/null | \
-                cut -d "." -f 3)
-# 如果补丁版本不存在，则默认为 0
-patch_version=${patch_version:-0}
-# 文件重命名
-mv bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz \
-   bin/targets/x86/64/openwrt_x86-64_${kernel_version}.${patch_version}_bios.img.gz
-mv bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.img.gz \
-   bin/targets/x86/64/openwrt_x86-64_${kernel_version}.${patch_version}_uefi.img.gz
-#md5
-ls -l  "bin/targets/x86/64" | awk -F " " '{print $9}' > wget/open_dev_md5
-dev_version=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
-openwrt_dev=openwrt_x86-64_${dev_version}_bios.img.gz
-openwrt_dev_uefi=openwrt_x86-64_${dev_version}_uefi.img.gz
-cd bin/targets/x86/64
-md5sum $openwrt_dev > openwrt_bios.md5
-md5sum $openwrt_dev_uefi > openwrt_uefi.md5
-exit 0
 # 删除无关的文件
 rm -rf  bin/targets/x86/64/config.buildinfo
 rm -rf  bin/targets/x86/64/feeds.buildinfo
@@ -71,7 +39,9 @@ patch_version=$(grep "LINUX_VERSION-${kernel_version} =" include/kernel-${kernel
                 grep "LINUX_VERSION-${kernel_version} =" target/linux/generic/kernel-${kernel_version} 2>/dev/null | \
                 cut -d "." -f 3)
 patch_version=${patch_version:-0}
+
 echo "Kernel Version: $kernel_version.$patch_version"
+
 # 文件重命名
 if [ -f "bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz" ]; then
     mv bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz \
