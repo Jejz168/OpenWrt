@@ -17,6 +17,7 @@ sed -i "/helloworld/d" feeds.conf.default
 cat>rename.sh<<-\EOF
 #!/bin/bash
 # 删除无关的文件
+ls -l bin/targets/x86/64/
 rm -rf  bin/targets/x86/64/config.buildinfo
 rm -rf  bin/targets/x86/64/feeds.buildinfo
 rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-kernel.bin
@@ -40,7 +41,8 @@ patch_version=$(grep "LINUX_VERSION-${kernel_version} =" include/kernel-${kernel
                 cut -d "." -f 3)
 patch_version=${patch_version:-0}
 
-echo "Kernel Version: $kernel_version.$patch_version"
+Kernel="${kernel_version}.${patch_version}"
+echo "Kernel Version: $Kernel"
 
 # 文件重命名
 if [ -f "bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.img.gz" ]; then
