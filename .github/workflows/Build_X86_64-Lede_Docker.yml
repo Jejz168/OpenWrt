@@ -337,7 +337,6 @@ jobs:
       run: |
         cd openwrt
         bash  rename.sh
-        Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
 
     - name: Organize files
@@ -651,7 +650,6 @@ jobs:
       run: |
         cd openwrt
         bash  rename.sh
-        Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
 
     - name: Organize files
@@ -965,7 +963,6 @@ jobs:
       run: |
         cd openwrt
         bash  rename.sh
-        Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
 
     - name: Organize files
@@ -1289,7 +1286,6 @@ jobs:
       run: |
         cd openwrt
         bash  rename.sh
-        Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
 
     - name: Organize files
@@ -1603,7 +1599,6 @@ jobs:
       run: |
         cd openwrt
         bash  rename.sh
-        Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
 
     - name: Organize files
@@ -1917,7 +1912,6 @@ jobs:
       run: |
         cd openwrt
         bash  rename.sh
-        Kernel=`grep "_uefi.img.gz" wget/open_dev_md5 | cut -d - -f 2 | cut -d _ -f 2 `
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
 
     - name: Organize files
