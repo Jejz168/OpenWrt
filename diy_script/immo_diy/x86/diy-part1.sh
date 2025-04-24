@@ -36,8 +36,8 @@ sleep 2
 kernel_version=$(grep "KERNEL_PATCHVER:=" target/linux/x86/Makefile | cut -d "=" -f 2 | xargs)
 
 # 获取补丁版本号，若不存在则默认为0
-patch_version=$(grep "LINUX_VERSION-${kernel_version} =" include/kernel-${kernel_version} 2>/dev/null || \
-                grep "LINUX_VERSION-${kernel_version} =" target/linux/generic/kernel-${kernel_version} 2>/dev/null | \
+patch_version=$( (grep "LINUX_VERSION-${kernel_version} =" include/kernel-${kernel_version} 2>/dev/null || \
+                  grep "LINUX_VERSION-${kernel_version} =" target/linux/generic/kernel-${kernel_version} 2>/dev/null) | \
                 cut -d "." -f 3)
 patch_version=${patch_version:-0}
 
