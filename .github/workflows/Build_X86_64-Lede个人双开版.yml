@@ -309,6 +309,7 @@ jobs:
       run: |
         cd openwrt
         bash  rename.sh
+        Kernel=$(ls bin/targets/x86/64 | grep "_uefi.img.gz" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
 
     - name: Organize files
@@ -624,6 +625,7 @@ jobs:
       run: |
         cd openwrt 
         bash  rename.sh
+        Kernel=$(ls bin/targets/x86/64 | grep "_uefi.img.gz" | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
 
     - name: Organize files
