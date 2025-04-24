@@ -384,7 +384,7 @@ jobs:
       run: |
         cd openwrt 
         bash  rename.sh
-        Kernel=$(ls bin/targets/x86/64 | grep "_uefi.img.gz" | sed -n 's/.*-\([0-9]\+\.[0-9]\+\.[0-9]\+\)_uefi\.img\.gz.*/\1/p')
+        Kernel=$(ls bin/targets/x86/64 | grep "_uefi.img.gz" | sed -n 's/.*_\([0-9]\+\.[0-9]\+\.[0-9]\+\)_uefi\.img\.gz.*/\1/p')
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
         
     - name: Organize files
@@ -695,7 +695,7 @@ jobs:
       run: |
         cd openwrt 
         bash  rename.sh
-        Kernel=$(ls bin/targets/x86/64 | grep "_uefi.img.gz" | sed -n 's/.*-\([0-9]\+\.[0-9]\+\.[0-9]\+\)_uefi\.img\.gz.*/\1/p')
+        Kernel=$(ls bin/targets/x86/64 | grep "_uefi.img.gz" | sed -n 's/.*_\([0-9]\+\.[0-9]\+\.[0-9]\+\)_uefi\.img\.gz.*/\1/p')
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
         
     - name: Organize files
@@ -1006,7 +1006,7 @@ jobs:
       run: |
         cd openwrt 
         bash  rename.sh
-        Kernel=$(ls bin/targets/x86/64 | grep "_uefi.img.gz" | sed -n 's/.*-\([0-9]\+\.[0-9]\+\.[0-9]\+\)_uefi\.img\.gz.*/\1/p')
+        Kernel=$(ls bin/targets/x86/64 | grep "_uefi.img.gz" | sed -n 's/.*_\([0-9]\+\.[0-9]\+\.[0-9]\+\)_uefi\.img\.gz.*/\1/p')
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
         
     - name: Organize files
@@ -1313,7 +1313,7 @@ jobs:
       run: |
         cd openwrt 
         bash  rename.sh
-        Kernel=$(ls bin/targets/x86/64 | grep "_uefi.img.gz" | sed -n 's/.*-\([0-9]\+\.[0-9]\+\.[0-9]\+\)_uefi\.img\.gz.*/\1/p')
+        Kernel=$(ls bin/targets/x86/64 | grep "_uefi.img.gz" | sed -n 's/.*_\([0-9]\+\.[0-9]\+\.[0-9]\+\)_uefi\.img\.gz.*/\1/p')
         echo "KERNEL=$Kernel" >> $GITHUB_ENV
         
     - name: Organize files
