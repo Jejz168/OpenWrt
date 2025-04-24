@@ -20,11 +20,11 @@ cat>rename.sh<<-\EOF
 ls -l bin/targets/x86/64/
 rm -rf  bin/targets/x86/64/config.buildinfo
 rm -rf  bin/targets/x86/64/feeds.buildinfo
-rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-kernel.bin
-rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined-efi.vmdk
-rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-combined.vmdk
-rm -rf  bin/targets/x86/64/openwrt-x86-64-generic-squashfs-rootfs.img.gz
-rm -rf  bin/targets/x86/64/openwrt-x86-64-generic.manifest
+rm -rf  bin/targets/x86/64/immortalwrt-x86-64-generic-kernel.bin
+rm -rf  bin/targets/x86/64/immortalwrt-x86-64-generic-squashfs-combined-efi.vmdk
+rm -rf  bin/targets/x86/64/immortalwrt-x86-64-generic-squashfs-combined.vmdk
+rm -rf  bin/targets/x86/64/immortalwrt-x86-64-generic-squashfs-rootfs.img.gz
+rm -rf  bin/targets/x86/64/immortalwrt-x86-64-generic.manifest
 rm -rf  bin/targets/x86/64/sha256sums
 rm -rf  bin/targets/x86/64/version.buildinfo
 rm -rf  bin/targets/x86/64/profiles.json
