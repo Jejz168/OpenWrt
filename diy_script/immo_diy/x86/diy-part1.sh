@@ -41,8 +41,7 @@ patch_version=$( (grep "LINUX_VERSION-${kernel_version} =" include/kernel-${kern
                 cut -d "." -f 3)
 patch_version=${patch_version:-0}
 
-Kernel="${kernel_version}.${patch_version}"
-echo "Kernel Version: $Kernel"
+echo "Kernel Version: ${kernel_version}.${patch_version}"
 
 # 文件重命名
 if [ -f "bin/targets/x86/64/immortalwrt-x86-64-generic-squashfs-combined.img.gz" ]; then
