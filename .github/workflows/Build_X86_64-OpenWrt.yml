@@ -283,7 +283,11 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
+        sed -i 's/CONFIG_LINUX.*/CONFIG_LINUX_6_12=y/g' .config
+
         sed -i 's/CONFIG_TARGET_ROOTFS_PARTSIZE.*/CONFIG_TARGET_ROOTFS_PARTSIZE=1668/g' .config
+
+        sed -i 's/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=6.12/g' target/linux/x86/Makefile
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
