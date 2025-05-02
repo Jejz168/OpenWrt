@@ -100,6 +100,10 @@ else
     clone_dir master https://github.com/immortalwrt/packages zerotier nps n2n socat strongswan vlmcsd vsftpd hd-idle
 fi
 
+# aria2 & ariaNG
+clone_all https://github.com/sbwml/ariang-nginx
+git_clone 22.03 https://github.com/sbwml/feeds_packages_net_aria2 aria2
+
 # 同时兼容firewall3/4 的luci-app-socat
 clone_dir main https://github.com/chenmozhijin/luci-app-socat luci-app-socat
 
