@@ -74,6 +74,10 @@ sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 # filebrowser luci-app-pushbot
 clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
 
+# aria2 & ariaNG
+clone_all https://github.com/sbwml/ariang-nginx
+git_clone 22.03 https://github.com/sbwml/feeds_packages_net_aria2 aria2
+
 # 同时兼容firewall3/4 的luci-app-socat
 clone_dir main https://github.com/chenmozhijin/luci-app-socat luci-app-socat
 
