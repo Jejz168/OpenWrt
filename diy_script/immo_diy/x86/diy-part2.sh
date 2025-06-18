@@ -124,9 +124,9 @@ git_clone https://github.com/pymumu/openwrt-smartdns smartdns
 # mosdns
 clone_all v5 https://github.com/sbwml/luci-app-mosdns
 
-# alist
+# openlist
 git_clone https://github.com/sbwml/packages_lang_golang golang
-clone_all https://github.com/sbwml/luci-app-alist
+clone_all https://github.com/sbwml/luci-app-openlist
 
 # ssr-plus
 clone_all https://github.com/fw876/helloworld
