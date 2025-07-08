@@ -293,7 +293,7 @@ jobs:
         $GITHUB_WORKSPACE/diy_script/preset-clash-core.sh $CLASH_KERNEL
         $GITHUB_WORKSPACE/diy_script/preset-adguard-core.sh $CLASH_KERNEL
 
-        sed -i 's/CONFIG_PACKAGE_kmod-mac80211=y/CONFIG_PACKAGE_kmod-mac80211 is not set/g' .config
+        sed -i 's/CONFIG_PACKAGE_kmod-mac80211=y/# CONFIG_PACKAGE_kmod-mac80211 is not set/g' .config
 
         sed -i '/CONFIG_PACKAGE_kmod-mt76-connac=y/d' .config
 
