@@ -1748,7 +1748,7 @@ jobs:
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
-    needs: [Checka,Build_x86_64_54,Build_x86_64_510,Build_x86_64_515,Build_x86_64_61,Build_x86_64_66,Build_x86_64_612]
+    needs: [Checka,Build_x86_64_510,Build_x86_64_515,Build_x86_64_61,Build_x86_64_66,Build_x86_64_612]
     runs-on: ubuntu-latest
     steps:
     - name: Delete workflow runs
