@@ -6,6 +6,6 @@ AGH_CORE=$(curl -sL https://api.github.com/repos/AdguardTeam/AdGuardHome/release
 
 wget -qO /tmp/AdGuardHome.tar.gz "$AGH_CORE"
 
-tar -xzvf /tmp/AdGuardHome.tar.gz -C files/usr/bin/AdGuardHome --strip-components=1
+tar -xzvf /tmp/AdGuardHome.tar.gz -C files/usr/bin/AdGuardHome --strip-components=1 AdGuardHome/AdGuardHome
 
 chmod +x files/usr/bin/AdGuardHome/AdGuardHome
