@@ -83,7 +83,7 @@ sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 
 # 报错修复
 # rm -rf feeds/packages/utils/v2dat
-if [ "$REPO_BRANCH" = "main" ]; then
+if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
     sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
 fi
 
