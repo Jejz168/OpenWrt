@@ -156,7 +156,7 @@
 
 # 访问量
 
-![](https://komarev.com/ghpvc/?username=Jejz168&color=FFD700&style=for-the-badge)
+![](https://komarev.com/ghpvc/?username=Jejz168&color=orange&style=for-the-badge)
 # ==============================
 # 🏖Special thanks（特别感谢）
 - [GitHub Actions](https://github.com/features/actions)🎉🎉Thank you very much.🎉🎉
