@@ -86,6 +86,9 @@ sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
     sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
 fi
+if [ "$REPO_BRANCH" = "main" ]; then
+    sed -i 's/34308ed827a5dd4f4e35619914102d55b00604faa44fda051d1d25fb4a319325/ffdd71e26d8c6f82083b5868025a7882eaad3846569d21610547720b999b6aaa/g' package/A/shadowsocksr-libev/Makefile
+fi
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # filebrowser luci-app-pushbot
