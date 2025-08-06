@@ -332,10 +332,10 @@ jobs:
         make defconfig
         if [[ "${CANCEL_TOOLCHAIN}" == "true" ]]; then
            echo -e "\e[1;31m当前正常编译...\e[0m"
-           make download -j$(nproc)
+           make download -j$(nproc) V=s
         else
            echo -e "\e[1;31m当前使用toolchain缓存文件...\e[0m"
-           make package/download -j$(nproc)
+           make package/download -j$(nproc) V=s
         fi
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
