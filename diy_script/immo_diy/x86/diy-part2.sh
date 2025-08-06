@@ -75,10 +75,6 @@ sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 if [ "$REPO_BRANCH" = "openwrt-23.05" ]; then
     sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
 fi
-if [ "$REPO_BRANCH" = "master" ]; then
-    sed -i 's/34308ed827a5dd4f4e35619914102d55b00604faa44fda051d1d25fb4a319325/ffdd71e26d8c6f82083b5868025a7882eaad3846569d21610547720b999b6aaa/g' package/A/shadowsocksr-libev/Makefile
-    sed -i 's/575b21803b28db8ab59ecbdb2cf21c4282881507b3a4267cc24f55bad12819cb/9d2293f16629d1e30ede304ccddbaaa4e922c1c5e7ea04cef0e9d274aafa6109/g' package/A/shadowsocks-libev/Makefile
-fi
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # filebrowser luci-app-pushbot
@@ -141,6 +137,10 @@ clone_all https://github.com/fw876/helloworld
 # passwall
 clone_all https://github.com/xiaorouji/openwrt-passwall-packages
 clone_all https://github.com/xiaorouji/openwrt-passwall
+if [ "$REPO_BRANCH" = "master" ]; then
+    sed -i 's/34308ed827a5dd4f4e35619914102d55b00604faa44fda051d1d25fb4a319325/ffdd71e26d8c6f82083b5868025a7882eaad3846569d21610547720b999b6aaa/g' package/A/shadowsocksr-libev/Makefile
+    sed -i 's/575b21803b28db8ab59ecbdb2cf21c4282881507b3a4267cc24f55bad12819cb/9d2293f16629d1e30ede304ccddbaaa4e922c1c5e7ea04cef0e9d274aafa6109/g' package/A/shadowsocks-libev/Makefile
+fi
 
 # passwall2
 # clone_all https://github.com/xiaorouji/openwrt-passwall2
