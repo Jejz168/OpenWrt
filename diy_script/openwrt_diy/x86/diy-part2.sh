@@ -191,6 +191,8 @@ popd
 # git_clone https://github.com/jerrykuku/luci-theme-argon
 # git_clone https://github.com/jerrykuku/luci-app-argon-config
 clone_all https://github.com/sbwml/luci-theme-argon
+git_clone https://github.com/sirpdboy/luci-theme-kucat
+git_clone https://github.com/sirpdboy/luci-app-kucat-config
 
 ## argon主题设置
 # cp -f $GITHUB_WORKSPACE/personal/bg1.jpg $destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
