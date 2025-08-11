@@ -68,14 +68,14 @@ openwrt_dev_uefi="lede_x86-64_${kernel_version}.${patch_version}_uefi.img.gz"
 cd bin/targets/x86/64  || exit 1
 
 if [ -f "$openwrt_dev" ]; then
-    md5sum "$openwrt_dev" > openwrt_bios.md5
+    md5sum "$openwrt_dev" > lede_bios.md5
 else
     echo "Error: File $openwrt_dev not found!"
     exit 1
 fi
 
 if [ -f "$openwrt_dev_uefi" ]; then
-    md5sum "$openwrt_dev_uefi" > openwrt_uefi.md5
+    md5sum "$openwrt_dev_uefi" > lede_uefi.md5
 else
     echo "Error: File $openwrt_dev_uefi not found!"
     exit 1
