@@ -166,7 +166,10 @@ git_clone https://github.com/sirpdboy/luci-theme-kucat
 git_clone https://github.com/sirpdboy/luci-app-kucat-config
 
 # sbwml主题背景
-find "feeds/luci/themes/luci-theme-argon" -type f -exec sed -i 's/bg.webp/bg1.jpg/g' {} +
+# 替换所有文件内容中的 bg.webp 为 bg1.jpg
+find "feeds/luci/themes/luci-theme-argon" -type f -exec sed -i 's/bg\.webp/bg1.jpg/g' {} +
+# 替换所有文件名
+find "feeds/luci/themes/luci-theme-argon" -type f -name "bg.webp" -exec bash -c 'mv "$1" "${1/bg.webp/bg1.jpg}"' _ {} \;
 
 # 更改argon主题背景
 # cp -f $GITHUB_WORKSPACE/personal/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
