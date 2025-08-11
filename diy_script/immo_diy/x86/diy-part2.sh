@@ -166,7 +166,7 @@ git_clone https://github.com/sirpdboy/luci-theme-kucat
 git_clone https://github.com/sirpdboy/luci-app-kucat-config
 
 # sbwml主题背景
-sed -i 's/bg.webp/bg1.jpg/' $destination_dir/luci-theme-argon/luasrc/view/themes/argon/sysauth.htm
+find "$destination_dir/luci-theme-argon" -type f -exec sed -i 's/bg.webp/bg1.jpg/g' {} +
 
 # 更改argon主题背景
 # cp -f $GITHUB_WORKSPACE/personal/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
