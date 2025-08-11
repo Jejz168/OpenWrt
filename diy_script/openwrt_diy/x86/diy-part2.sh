@@ -199,7 +199,8 @@ git_clone https://github.com/sirpdboy/luci-app-kucat-config
 # 获取当天的星期几 (1=星期一, ..., 7=星期日)
 bg_file="bg$((($(date +%w) + 6) % 7 + 1)).jpg"
 # argon登录页面美化
-ARGON_IMG_FILE="$destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg"
+#ARGON_IMG_FILE="$destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg"
+ARGON_IMG_FILE="$destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg.webp"
 if [ -f "$ARGON_IMG_FILE" ]; then
     # 替换Argon主题内建壁纸
     cp -f "$GITHUB_WORKSPACE/personal/$bg_file" "$ARGON_IMG_FILE"
