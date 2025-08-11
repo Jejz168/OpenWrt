@@ -159,16 +159,19 @@ popd
 
 # 添加主题
 # git_clone https://github.com/kiddin9/luci-theme-edge
-git_clone https://github.com/jerrykuku/luci-theme-argon
-git_clone https://github.com/jerrykuku/luci-app-argon-config
-# clone_all https://github.com/sbwml/luci-theme-argon
+# git_clone https://github.com/jerrykuku/luci-theme-argon
+# git_clone https://github.com/jerrykuku/luci-app-argon-config
+clone_all https://github.com/sbwml/luci-theme-argon
+git_clone https://github.com/sirpdboy/luci-theme-kucat
+git_clone https://github.com/sirpdboy/luci-app-kucat-config
 
 # 更改argon主题背景
 # cp -f $GITHUB_WORKSPACE/personal/bg1.jpg feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg
 # 获取当天的星期几 (0=星期日, 1=星期一,...,6=星期六)
 bg_file="bg$((($(date +%w) + 6) % 7 + 1)).jpg"
 # argon登录页面美化
-ARGON_IMG_FILE="feeds/luci/themes/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg"
+#ARGON_IMG_FILE="$destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg1.jpg"
+ARGON_IMG_FILE="$destination_dir/luci-theme-argon/htdocs/luci-static/argon/img/bg.webp"
 if [ -f "$ARGON_IMG_FILE" ]; then
     # 替换Argon主题内建壁纸
     cp -f "$GITHUB_WORKSPACE/personal/$bg_file" "$ARGON_IMG_FILE"
