@@ -158,12 +158,13 @@ make && sudo make install
 popd
 
 # 添加主题
+# git_clone https://github.com/sirpdboy/luci-theme-kucat
+# git_clone https://github.com/sirpdboy/luci-app-kucat-config
 # git_clone https://github.com/kiddin9/luci-theme-edge
 # git_clone https://github.com/jerrykuku/luci-theme-argon
 # git_clone https://github.com/jerrykuku/luci-app-argon-config
 clone_all https://github.com/sbwml/luci-theme-argon
-git_clone https://github.com/sirpdboy/luci-theme-kucat
-git_clone https://github.com/sirpdboy/luci-app-kucat-config
+
 
 # sbwml主题背景
 # 替换所有文件内容中的 bg.webp 为 bg1.jpg
