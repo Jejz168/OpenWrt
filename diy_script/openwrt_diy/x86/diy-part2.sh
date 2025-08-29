@@ -172,6 +172,9 @@ clone_all https://github.com/xiaorouji/openwrt-passwall
 # Nikki
 clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
 
+# Momo
+clone_all https://github.com/nikkinikki-org/OpenWrt-momo
+
 # homeproxy
 # git_clone https://github.com/immortalwrt/homeproxy luci-app-homeproxy
 
