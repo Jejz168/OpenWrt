@@ -146,6 +146,9 @@ clone_all https://github.com/xiaorouji/openwrt-passwall
 # Nikki
 clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
 
+# Momo
+clone_all https://github.com/nikkinikki-org/OpenWrt-momo
+
 # luci-app-filemanager
 git_clone https://github.com/sbwml/luci-app-filemanager luci-app-filemanager
 
