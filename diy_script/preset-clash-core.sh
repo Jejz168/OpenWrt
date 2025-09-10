@@ -2,7 +2,11 @@
 
 [ -d files/etc/openclash/core ] || mkdir -p files/etc/openclash/core
 
-CLASH_META_URL="https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-${1}.tar.gz"
+if [ "$1" = "amd64" ]; then
+  CLASH_META_URL="https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-$1-v1.tar.gz"
+else
+  CLASH_META_URL="https://raw.githubusercontent.com/vernesong/OpenClash/core/master/meta/clash-linux-$1.tar.gz"
+fi
 GEOIP_URL="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
 GEOSITE_URL="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
 ASN_MMDB_URL="https://github.com/Jejz168/GeoLite.mmdb/raw/download/GeoLite2-ASN.mmdb"
