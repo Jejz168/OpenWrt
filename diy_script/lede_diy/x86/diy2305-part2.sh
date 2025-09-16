@@ -197,6 +197,22 @@ if [ -f "$ARGON_CONFIG_FILE" ]; then
 
     echo "argon theme has been customized!"
 fi
+ARGON_CONFIG_FILES="$destination_dir/luci-app-argon-config/root/etc/config/argon"
+if [ -f "$ARGON_CONFIG_FILES" ]; then
+    # 设置Argon主题的登录页面壁纸为内建
+    sed -i "s/option online_wallpaper 'bing'/option online_wallpaper 'none'/" $ARGON_CONFIG_FILES
+    # 设置Argon主题的登录表单模糊度
+    sed -i "s/option blur '[0-9]*'/option blur '0'/" $ARGON_CONFIG_FILES
+    sed -i "s/option blur_dark '[0-9]*'/option blur_dark '0'/" $ARGON_CONFIG_FILES
+    # 设置Argon主题颜色
+    PRIMARY_COLORS=("#FF8C00" "#1E90FF" "#FF69B4" "#FF1493" "#FFD700" "#00CED1" "#DC143C")
+    DARK_PRIMARY_COLORS=("#9370DB" "#8A2BE2" "#D87093" "#C71585" "#B8860B" "#4682B4" "#8B0000")
+    WEEKDAY=$(date +%w)
+    sed -i "s/option primary '#[0-9a-fA-F]\{6\}'/option primary '${PRIMARY_COLORS[$WEEKDAY]}'/" $ARGON_CONFIG_FILES
+    sed -i "s/option dark_primary '#[0-9a-fA-F]\{6\}'/option dark_primary '${DARK_PRIMARY_COLORS[$WEEKDAY]}'/" $ARGON_CONFIG_FILES
+
+    echo "argon theme has been customized!"
+fi
 
 # 修改主题多余版本信息
 sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' feeds/luci/themes/luci-theme-argon/luasrc/view/themes/argon/footer.htm
