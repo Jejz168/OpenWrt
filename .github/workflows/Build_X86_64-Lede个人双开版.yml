@@ -210,6 +210,8 @@ jobs:
 
         sed -i 's/192.168.8.3/192.168.8.5/g' package/base-files/files/bin/config_generate
 
+        sed -i 's/192.168.8.3/192.168.8.5/g' package/base-files/luci2/bin/config_generate
+
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
@@ -525,6 +527,8 @@ jobs:
         #sed -i 's/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g' target/linux/x86/Makefile
 
         sed -i 's/192.168.8.3/192.168.8.5/g' package/base-files/files/bin/config_generate
+
+        sed -i 's/192.168.8.3/192.168.8.5/g' package/base-files/luci2/bin/config_generate
 
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
