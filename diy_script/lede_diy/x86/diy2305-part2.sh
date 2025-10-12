@@ -50,6 +50,10 @@ sed -i 's/luci-theme-bootstrap/luci-theme-argon/g' feeds/luci/collections/*/Make
 # 最大连接数修改为65535
 sed -i '$a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sysctl.conf
 
+# 修改uhttpd配置文件,禁用https
+sed -i 's/^\s*list listen_https/# &/' package/network/services/uhttpd/files/uhttpd.config
+sed -i 's/^\s*option cert/# &/; s/^\s*option key/# &/' package/network/services/uhttpd/files/uhttpd.config
+
 #nlbwmon 修复log警报
 sed -i '$a net.core.wmem_max=16777216' package/base-files/files/etc/sysctl.conf
 sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
