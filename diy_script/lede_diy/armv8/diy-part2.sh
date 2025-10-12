@@ -33,6 +33,10 @@ sed -i 's/\/bin\/ash/\/bin\/bash/g' package/base-files/files/etc/passwd
 # coremark跑分定时清除
 sed -i '/\* \* \* \/etc\/coremark.sh/d' feeds/packages/utils/coremark/*
 
+# 修改uhttpd配置文件,禁用https
+sed -i 's/^\s*list listen_https/# &/' package/network/services/uhttpd/files/uhttpd.config
+sed -i 's/^\s*option cert/# &/; s/^\s*option key/# &/' package/network/services/uhttpd/files/uhttpd.config
+
 # 替换curl修改版（无nghttp3、ngtcp2）
 curl_ver=$(grep -i "PKG_VERSION:=" feeds/packages/net/curl/Makefile | awk -F'=' '{print $2}')
 if [ "$curl_ver" != "8.11.1" ]; then
