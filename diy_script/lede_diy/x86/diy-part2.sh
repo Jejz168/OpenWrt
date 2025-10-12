@@ -42,6 +42,10 @@ sed -i 's/\/bin\/ash/\/bin\/bash/g' package/base-files/files/etc/passwd
 # coremark跑分定时清除
 sed -i '/\* \* \* \/etc\/coremark.sh/d' feeds/packages/utils/coremark/*
 
+# 修改uhttpd配置文件,禁用https
+sed -i 's/^\s*list listen_https/# &/' package/network/services/uhttpd/files/uhttpd.config
+sed -i 's/^\s*option cert/# &/; s/^\s*option key/# &/' package/network/services/uhttpd/files/uhttpd.config
+
 # 修改 argon 为默认主题
 sed -i '/set luci.main.mediaurlbase=\/luci-static\/bootstrap/d' feeds/luci/themes/luci-theme-bootstrap/root/etc/uci-defaults/30_luci-theme-bootstrap
 sed -i 's/Bootstrap theme/Argon theme/g' feeds/luci/collections/*/Makefile
