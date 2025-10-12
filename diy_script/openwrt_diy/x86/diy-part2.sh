@@ -42,7 +42,6 @@ sed -i 's#\"title\": \"UPnP IGD \& PCP/NAT-PMP\"#\"title\": \"UPnP\"#g' feeds/lu
 # 修改uhttpd配置文件,禁用https
 sed -i 's/^\s*list listen_https/# &/' package/network/services/uhttpd/files/uhttpd.config
 sed -i 's/^\s*option cert/# &/; s/^\s*option key/# &/' package/network/services/uhttpd/files/uhttpd.config
-cat package/network/services/uhttpd/files/uhttpd.config
 
 ## samba设置
 # enable multi-channel
