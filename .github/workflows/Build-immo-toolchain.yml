@@ -10,8 +10,8 @@ on:
         description: 'Checkupdates connection to Actions'
         required: false
         default: 'false'
-  schedule:
-    - cron: 16 17 * * *
+  #schedule:
+  #  - cron: 16 17 * * *
 
 jobs:
   Checka:
