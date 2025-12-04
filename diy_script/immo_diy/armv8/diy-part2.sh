@@ -74,6 +74,13 @@ sed -i '$a net.netfilter.nf_conntrack_max=65535' package/base-files/files/etc/sy
 sed -i '$a net.core.wmem_max=16777216' package/base-files/files/etc/sysctl.conf
 sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 
+# 删除所有包含 luci-app-attendedsysupgrade 的 Makefile 行
+for f in $(grep -rl 'luci-app-attendedsysupgrade' package feeds | grep 'Makefile$'); do
+    echo -n "删除 $f ..."
+    sed -i '/luci-app-attendedsysupgrade/d' "$f"
+    echo "✅"
+done
+
 # 报错修复
 # sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
 
@@ -105,11 +112,11 @@ clone_dir main https://github.com/linkease/nas-packages-luci luci-app-ddnsto
 clone_dir master https://github.com/linkease/nas-packages ddnsto
 ddnsto_ver=$(grep -i "PKG_VERSION:=" $destination_dir/ddnsto/Makefile | awk -F'=' '{print $2}' | tr -d ' ')
 if [ "$ddnsto_ver" == "3.0.4" ]; then
-    echo "当前 ddnsto 版本是: $ddnsto_ver, 开始替换......"
+    echo -n "当前 ddnsto 版本是: $ddnsto_ver, 开始替换......"
 
     sed -i 's|PKG_SOURCE_URL:=.*|PKG_SOURCE_URL:=https://github.com/Jejz168/OpenWrt/raw/refs/heads/main/personal/ddnsto/|' $destination_dir/ddnsto/Makefile
 
-    echo "替换完成！"
+    echo "✅ 替换完成！"
 fi
 
 # OpenAppFilter 应用过滤
