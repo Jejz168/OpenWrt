@@ -76,16 +76,17 @@ sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 
 # 报错修复
 # sed -i 's/+libpcre/+libpcre2/g' package/feeds/telephony/freeswitch/Makefile
-if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
-    echo "开始修复报错……"
-	# cp -f $GITHUB_WORKSPACE/personal/rust/* feeds/packages/lang/rust/Makefile
-    sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
-    echo "修复完成……"
-fi
+
+# rust(ci false)
+# sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
+sed -i 's/--build-dir\ $(HOST_BUILD_DIR)\/build/--build-dir\ $(HOST_BUILD_DIR)\/build\ \\\n\		--ci\ false/' feeds/packages/lang/rust/Makefile
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # filebrowser luci-app-pushbot
 clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhome luci-app-pushbot luci-app-poweroff
+
+# 修复ramfree位置问题
+sed -i '/"order":/{s/\([0-9]\+\)/"\1"/}' feeds/luci/luci-app-ramfree/root/usr/share/luci/menu.d/luci-app-ramfree.json
 
 # aria2 & ariaNG
 clone_all https://github.com/sbwml/ariang-nginx
