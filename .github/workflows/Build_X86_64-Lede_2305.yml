@@ -40,8 +40,8 @@ on:
         required: true
         default: false
         type: boolean
-  schedule:
-    - cron: 50 18 * * *
+  #schedule:
+  #  - cron: 50 18 * * *
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
