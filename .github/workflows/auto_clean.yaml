@@ -1,0 +1,40 @@
+name: 'workflows日志自动清理'
+
+on:
+  #schedule:
+  #  - cron: '0 0 */3 * *'
+  workflow_dispatch:
+
+jobs:
+  del_workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs
+        uses: GitRML/delete-workflow-runs@main
+        with:
+          retain_days: '3'
+
+      - name: Remove old Releases
+        uses: dev-drprasad/delete-older-releases@master
+        with:
+          keep_latest: 16
+          delete_tags: true
+          delete_tag_pattern: "_"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Delete old tags (keep latest N)
+        env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+         KEEP_LATEST: 3   # 保留最新 3 个 tag
+        run: |
+         tags=($(gh api repos/${GITHUB_REPOSITORY}/tags --paginate --jq '.[].name'))
+
+         total=${#tags[@]}
+         echo "Total tags: $total, keeping latest $KEEP_LATEST"
+
+         for (( i=KEEP_LATEST; i<total; i++ )); do
+           tag=${tags[$i]}
+           echo "Deleting tag: $tag"
+           gh api -X DELETE repos/${GITHUB_REPOSITORY}/git/refs/tags/$tag
+         done
