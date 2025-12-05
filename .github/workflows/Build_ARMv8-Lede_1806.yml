@@ -373,7 +373,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTFS
+          📍: https://github.com/${{ github.repository }}/releases/tag/ARMv8-ROOTFS
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -391,7 +391,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTFS
+          📍: https://github.com/${{ github.repository }}/releases/tag/ARMv8-ROOTFS
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_ARMv8_OpenWrt:
     needs: [Build_ARMv8-ROOTFS]
@@ -516,7 +516,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.PRODUCT_NAME }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -534,7 +534,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.PRODUCT_NAME }}
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
@@ -544,14 +544,14 @@ jobs:
     - name: Delete workflow runs
       uses: Jejz168/delete-workflow-runs@main
       with:
-        retain_days: 30
+        retain_days: 7
         keep_minimum_runs: 8
 
     - name: Remove old Releases
       uses: Jejz168/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' 
       with:
-        keep_latest: 168
+        keep_latest: 68
         delete_tags: true
         delete_tag_pattern: _
       env:
