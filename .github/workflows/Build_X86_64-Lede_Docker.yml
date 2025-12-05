@@ -393,7 +393,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_L1806D_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_L1806D_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -411,7 +411,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_L1806D_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_L1806D_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_66:
     needs: [Checka]   
@@ -707,7 +707,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_L1806D_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_L1806D_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -725,7 +725,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_L1806D_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_L1806D_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_2305_515:
     needs: [Checka]   
@@ -1021,7 +1021,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_L2305D_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_L2305D_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -1039,7 +1039,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_L2305D_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_L2305D_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_2305_66:
     needs: [Checka]   
@@ -1335,7 +1335,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_L2305D_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_L2305D_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -1353,4 +1353,4 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_L2305D_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_L2305D_${{ env.KERNEL }}
