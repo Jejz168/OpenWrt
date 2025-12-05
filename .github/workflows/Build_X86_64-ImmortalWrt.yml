@@ -169,7 +169,7 @@ jobs:
         with:
           commit_message: ${{ env.COMMIT_TIME }}
           branch: main
-          commit_author: Jejz168 <Jejz168@foxmail.com>
+          commit_author: Jejz <Jejz@foxmail.com>
           add_options: '-u'
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64:
