@@ -122,7 +122,7 @@ jobs:
       if: (!cancelled())
       uses: ophub/flippy-openwrt-actions@main
       env:
-        OPENWRT_ARMVIRT: https://github.com/Jejz168/OpenWrt/releases/download/ARMv8-ROOTFS/openwrt-armvirt-64-generic-rootfs.tar.gz
+        OPENWRT_ARMVIRT: https://github.com/${{ github.repository }}/releases/download/ARMv8-ROOTFS/openwrt-armvirt-64-generic-rootfs.tar.gz
         PACKAGE_SOC: ${{ github.event.inputs.openwrt_soc }}
         WHOAMI: Jejz
         OPENWRT_VER: ${{ env.revision }}
@@ -199,7 +199,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.PRODUCT_NAME }}
 
     - name: Push notification
       uses: xhnmt/pushplus-action@main
@@ -217,4 +217,4 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.PRODUCT_NAME }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.PRODUCT_NAME }}
