@@ -381,7 +381,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTFS-IMMO
+          📍: https://github.com/${{ github.repository }}/releases/tag/ARMv8-ROOTFS-IMMO
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -399,4 +399,4 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/ARMv8-ROOTFS-IMMO
+          📍: https://github.com/${{ github.repository }}/releases/tag/ARMv8-ROOTFS-IMMO
