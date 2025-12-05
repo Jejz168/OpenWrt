@@ -463,7 +463,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
           
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -481,7 +481,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_2410:
     needs: [Checka,job_init]
@@ -774,7 +774,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo2410_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_immo2410_${{ env.KERNEL }}
           
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -792,7 +792,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo2410_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_immo2410_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
     needs: [Checka,job_init]
@@ -1085,7 +1085,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
           
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -1103,7 +1103,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_immo_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_docker:
     needs: [Checka,job_init]
@@ -1397,7 +1397,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immoD_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_immoD_${{ env.KERNEL }}
           
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -1415,4 +1415,4 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}_immoD_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}_immoD_${{ env.KERNEL }}
