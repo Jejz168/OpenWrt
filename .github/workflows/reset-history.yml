@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0   # 必须完整历史
+          fetch-depth: 1   # 0/完整历史 1/最新快照
 
       - name: Configure git identity
         run: |
