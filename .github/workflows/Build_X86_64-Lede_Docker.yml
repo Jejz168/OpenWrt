@@ -659,7 +659,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_L1806D_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -973,7 +973,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_L2305D_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is LEDE-2305 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -1287,7 +1287,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_L2305D_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is LEDE-2305 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
