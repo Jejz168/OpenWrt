@@ -12,8 +12,9 @@ on:
     inputs:
       checkupdates:
         description: 'Lede_1806 connection to Actions'
-        required: false
-        default: 'false'
+        required: true
+        default: false
+        type: boolean
       kernel_version:
         description: "Select kernel version"
         required: false
