@@ -1,0 +1,40 @@
+name: Reset Commit History
+
+on:
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  reset:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # 必须完整历史
+
+      - name: Configure git identity
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "github-actions"
+
+      - name: Reset history
+        run: |
+          # 创建无父提交的 orphan 分支
+          git checkout --orphan temp_branch
+
+          # 保留所有文件
+          git add -A
+
+          # 重新做一个干净的初始提交
+          git commit -m "Initial commit (history reset)"
+
+          # 删除旧分支
+          git branch -D main || true
+          git branch -D master || true
+
+          # 重命名分支为 main（如果你是 master 就换成 master）
+          git branch -m main
+
+          # 强制推送
+          git push origin main --force
