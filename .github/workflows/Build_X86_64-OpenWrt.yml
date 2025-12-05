@@ -416,7 +416,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_op_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -728,7 +728,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_op2410_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -1039,8 +1039,8 @@ jobs:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[OpenWrt]固件
         allowUpdates: true
         removeArtifacts: true
-        tag: ${{ env.TAG }}_op_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        tag: ${{ env.TAG }}_op515_${{ env.KERNEL }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -1351,7 +1351,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_opD_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is OpenWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
