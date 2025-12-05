@@ -416,7 +416,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_immo_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is ImmortalWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -727,7 +727,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_immo2410_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is ImmortalWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -1038,7 +1038,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_immo_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is ImmortalWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -1349,7 +1349,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_immoD_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is ImmortalWrt Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
