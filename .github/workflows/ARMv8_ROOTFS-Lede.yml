@@ -336,7 +336,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.FILE_NAME }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is LEDE Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
