@@ -160,3 +160,15 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         files: output/*
         body: OpenWrt 工具链缓存
+# /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Cleaning:
+    if: ${{ always() }}
+    needs: [Checka,Build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Delete workflow runs
+      uses: GitRML/delete-workflow-runs@main
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        retain_days: 30
+        keep_minimum_runs: 8
