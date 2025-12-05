@@ -422,7 +422,7 @@ jobs:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[LEDE-1806]固件
         allowUpdates: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -734,7 +734,7 @@ jobs:
         name: ${{ env.DATE }} 「 ${{ env.FILE_NAME }}_${{ env.KERNEL }} 」[LEDE-1806]固件
         allowUpdates: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -1049,7 +1049,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -1362,7 +1362,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
@@ -1679,7 +1679,7 @@ jobs:
         allowUpdates: true
         removeArtifacts: true
         tag: ${{ env.TAG }}_${{ env.KERNEL }}
-        token: ${{ secrets.GH_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         body: |
           **This is LEDE-1806 Firmware for ${{ env.FILE_NAME }}**
           ### 📒 固件信息
