@@ -174,7 +174,7 @@ jobs:
         with:
           commit_message: ${{ env.COMMIT_TIME }}
           branch: main
-          commit_author: Jejz168 <Jejz168@foxmail.com>
+          commit_author: Jejz <Jejz@foxmail.com>
           add_options: '-u'
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_515:
@@ -470,7 +470,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -488,7 +488,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
 # /////////////////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_61:
     needs: [Checka,job_init]
@@ -786,7 +786,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -804,7 +804,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_66:
     needs: [Checka,job_init]
@@ -1100,7 +1100,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -1118,7 +1118,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Build_x86_64_612:
     needs: [Checka,job_init]
@@ -1418,7 +1418,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
 
     - name: Push notification upload success
       uses: xhnmt/pushplus-action@main
@@ -1436,7 +1436,7 @@ jobs:
           内容: ${{ env.commit }}
           hash: ${{ env.hash }}
           ✪ ✣ ✤ ✥ ✦ ❉ ❦ ❧ ❃ ❂ ❁ ❀
-          📍: https://github.com/Jejz168/OpenWrt/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
+          📍: https://github.com/${{ github.repository }}/releases/tag/${{ env.TAG }}-2305_${{ env.KERNEL }}
 # //////////////////////////////////////////////////////////////////////////////////////////////
   Cleaning:
     if: ${{ always() }}
@@ -1444,17 +1444,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Delete workflow runs
-      uses: Jejz168/delete-workflow-runs@main
+      uses: GitRML/delete-workflow-runs@main
       with:
         retain_days: 30
         keep_minimum_runs: 8
 
     - name: Remove old Releases
-      uses: Jejz168/delete-older-releases@master
+      uses: dev-drprasad/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' 
       with:
-        keep_latest: 168
+        keep_latest: 68
         delete_tags: true
         delete_tag_pattern: _
       env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
