@@ -87,17 +87,20 @@ sed -i '$a net.core.rmem_max=16777216' package/base-files/files/etc/sysctl.conf
 
 # 删除所有包含 luci-app-attendedsysupgrade 的 Makefile 行
 for f in $(grep -rl 'luci-app-attendedsysupgrade' package feeds | grep 'Makefile$'); do
-    echo -n "删除 $f ..."
+    echo -n "Cleaning $f ..."
     sed -i '/luci-app-attendedsysupgrade/d' "$f"
     echo "✅"
 done
+
+# 加入autocore
+git clone --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
 
 # 报错修复
 # rm -rf feeds/packages/utils/v2dat
 
 # rust(ci false)
 if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
-  echo -n "修复rust ..."
+  echo -n "Repair rust ..."
   # sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
   sed -i 's/--build-dir\ $(HOST_BUILD_DIR)\/build/--build-dir\ $(HOST_BUILD_DIR)\/build\ \\\n\		--ci\ false/' feeds/packages/lang/rust/Makefile
   echo "✅"
@@ -207,8 +210,8 @@ make && sudo make install
 popd
 
 # argon 主题
-# git_clone https://github.com/sirpdboy/luci-theme-kucat
-# git_clone https://github.com/sirpdboy/luci-app-kucat-config
+git_clone https://github.com/sirpdboy/luci-theme-kucat
+git_clone https://github.com/sirpdboy/luci-app-kucat-config
 # git_clone https://github.com/kiddin9/luci-theme-edge
 # git_clone https://github.com/jerrykuku/luci-theme-argon
 # git_clone https://github.com/jerrykuku/luci-app-argon-config
@@ -256,13 +259,13 @@ sed -i 's|<a class="luci-link" href="https://github.com/openwrt/luci"|<a|g' $des
 sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' $destination_dir/luci-theme-argon/luasrc/view/themes/argon/footer.htm
 sed -i 's|<a href="https://github.com/jerrykuku/luci-theme-argon" target="_blank">|<a>|g' $destination_dir/luci-theme-argon/luasrc/view/themes/argon/footer_login.htm
 
-# 显示增加编译时间
+# 显示增加编译时间(时间为4改5)
 if [ "${REPO_BRANCH#*-}" = "23.05" ]; then
-   sed -i "s/DISTRIB_DESCRIPTION=.*/DISTRIB_DESCRIPTION=\"OpenWrt R$(TZ=UTC-8 date +'%y.%-m.%-d') (By @Jejz build $(TZ=UTC-8 date '+%Y-%m-%d %H:%M'))\"/g"  package/base-files/files/etc/openwrt_release
+   sed -i "s/DISTRIB_DESCRIPTION=.*/DISTRIB_DESCRIPTION=\"OpenWrt R$(TZ=UTC-8 date +'%y.%-m.%-d') (By @Jejz build $(TZ=UTC-8 date '+%Y-%m-%d') $(TZ=UTC-8 date +'%H' | sed -e 's/4/5/g'):$(TZ=UTC-8 date +%M | sed -e 's/4/5/g'))\"/g" package/base-files/files/etc/openwrt_release
    echo -e "\e[41m当前写入的编译时间:\e[0m \e[33m$(grep 'DISTRIB_DESCRIPTION' package/base-files/files/etc/openwrt_release)\e[0m"
 else
    sed -i "s/DISTRIB_DESCRIPTION=.*/DISTRIB_DESCRIPTION=\"OpenWrt By @Jejz\"/g"  package/base-files/files/etc/openwrt_release
-   sed -i "s/OPENWRT_RELEASE=.*/OPENWRT_RELEASE=\"OpenWrt R$(TZ=UTC-8 date +'%y.%-m.%-d') (By @Jejz build $(TZ=UTC-8 date '+%Y-%m-%d %H:%M'))\"/g"  package/base-files/files/usr/lib/os-release
+   sed -i "s/OPENWRT_RELEASE=.*/OPENWRT_RELEASE=\"OpenWrt R$(TZ=UTC-8 date +'%y.%-m.%-d') (By @Jejz build $(TZ=UTC-8 date '+%Y-%m-%d') $(TZ=UTC-8 date +'%H' | sed -e 's/4/5/g'):$(TZ=UTC-8 date +%M | sed -e 's/4/5/g'))\"/g" package/base-files/files/usr/lib/os-release
    echo -e "\e[41m当前写入的编译时间:\e[0m \e[33m$(grep 'OPENWRT_RELEASE' package/base-files/files/usr/lib/os-release)\e[0m"
 fi
 
@@ -322,6 +325,8 @@ sed -i 's,终端,TTYD 终端,g' feeds/luci/applications/luci-app-ttyd/po/zh_Hans
 sed -i 's,frp 服务器,Frp 服务器,g' feeds/luci/applications/luci-app-frps/po/zh_Hans/frps.po
 sed -i 's,frp 客户端,Frp 客户端,g' feeds/luci/applications/luci-app-frpc/po/zh_Hans/frpc.po
 sed -i 's,UPnP IGD 和 PCP,UPnP,g' feeds/luci/applications/luci-app-upnp/po/zh_Hans/upnp.po
+sed -i 's/msgstr "主题设置"/msgstr "Argon 设置"/g' $(grep 'msgstr "主题设置"' -rl ./)
+sed -i '/msgstr "/s/KuCat\(主题设置\|设置\)/KuCat \1/g' $(grep -rl 'msgstr "KuCat' ./)
 
 # 修改插件名字
 # sed -i 's/"挂载 SMB 网络共享"/"挂载共享"/g' `grep "挂载 SMB 网络共享" -rl ./`
