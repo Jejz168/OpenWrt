@@ -93,7 +93,7 @@ if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
 fi
 
 # 修复ramfree位置问题
-sed -i '/"order":/{s/\([0-9]\+\)/"\1"/}' feeds/luci/luci-app-ramfree/root/usr/share/luci/menu.d/luci-app-ramfree.json
+sed -i '/"order":/{s/\([0-9]\+\)/"\1"/}' package/feeds/luci/luci-app-ramfree/root/usr/share/luci/menu.d/luci-app-ramfree.json
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
 # filebrowser luci-app-pushbot
@@ -101,6 +101,15 @@ clone_dir main https://github.com/xiangfeidexiaohuo/2305-ipk luci-app-adguardhom
 
 # 同时兼容firewall3/4 的luci-app-socat
 clone_dir main https://github.com/chenmozhijin/luci-app-socat luci-app-socat
+
+# luci-app-tailscale
+sed -i '/\/etc\/init\.d\/tailscale/d;/\/etc\/config\/tailscale/d;' feeds/packages/net/tailscale/Makefile
+git_clone https://github.com/asvow/luci-app-tailscale luci-app-tailscale
+
+# 看门狗(菜单项放到服务里面)
+clone_dir main https://github.com/sirpdboy/luci-app-watchdog.git luci-app-watchdog watchdog
+sed -i '/"admin\/control"[[:space:]]*:/,/^[[:space:]]*},/d' $destination_dir/luci-app-watchdog/root/usr/share/luci/menu.d/luci-app-watchdog.json
+sed -i 's#"admin/control/#"admin/services/#g' $destination_dir/luci-app-watchdog/root/usr/share/luci/menu.d/luci-app-watchdog.json
 
 # ddns-go 动态域名
 # clone_all https://github.com/sirpdboy/luci-app-ddns-go
@@ -159,8 +168,11 @@ clone_all https://github.com/xiaorouji/openwrt-passwall
 # Nikki
 clone_all https://github.com/nikkinikki-org/OpenWrt-nikki
 
-# luci-app-filemanager
+# filemanager文件管理
 git_clone https://github.com/sbwml/luci-app-filemanager luci-app-filemanager
+
+# netspeedtest网络测试
+clone_dir main https://github.com/sbwml/openwrt_pkgs luci-app-netspeedtest speedtest-cli
 
 # openclash
 clone_dir master https://github.com/vernesong/OpenClash luci-app-openclash
