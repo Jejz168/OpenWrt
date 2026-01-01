@@ -100,10 +100,12 @@ git clone --depth=1 https://github.com/sbwml/autocore-arm.git package/system/aut
 
 # rust(ci false)
 if [ "$REPO_BRANCH" != "openwrt-23.05" ]; then
-  echo -n "Repair rust ..."
-  # sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
-  sed -i 's/--build-dir\ $(HOST_BUILD_DIR)\/build/--build-dir\ $(HOST_BUILD_DIR)\/build\ \\\n\		--ci\ false/' feeds/packages/lang/rust/Makefile
-  echo "✅"
+  if ! grep -q -- '--ci[[:space:]]\+false' feeds/packages/lang/rust/Makefile; then
+    echo -n "Repair rust ..."
+    # sed -i 's/--set=llvm\.download-ci-llvm=true/--set=llvm.download-ci-llvm=false/' feeds/packages/lang/rust/Makefile
+    sed -i 's/--build-dir\ $(HOST_BUILD_DIR)\/build/--build-dir\ $(HOST_BUILD_DIR)\/build\ \\\n\		--ci\ false/' feeds/packages/lang/rust/Makefile
+    echo "✅"
+  fi
 fi
 
 # 添加整个源仓库(git_clone)/添加源仓库内的指定目录(clone_dir)/添加源仓库内的所有目录(clone_all)
