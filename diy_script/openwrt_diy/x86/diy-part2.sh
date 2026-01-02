@@ -93,7 +93,11 @@ for f in $(grep -rl 'luci-app-attendedsysupgrade' package feeds | grep 'Makefile
 done
 
 # 加入autocore
-git clone --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
+if [ "$REPO_BRANCH" = "openwrt-23.05" ] || [ "$REPO_BRANCH" = "openwrt-24.10" ]; then
+    git clone -b "$REPO_BRANCH" --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
+else
+    git clone --depth=1 https://github.com/sbwml/autocore-arm.git package/system/autocore
+fi
 
 # 报错修复
 # rm -rf feeds/packages/utils/v2dat
